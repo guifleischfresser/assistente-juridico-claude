@@ -29,7 +29,7 @@
   - **versão fixada**: `release/estavel.json` (tag + SHA256, fora do zip); o INSTALAR baixa pela tag exata e confere o hash fixado e o publicado; o CI falha se o zip reconstruído não bater;
   - `ferramentas/definir-repo.js`;
   - workflow do GitHub Actions (testes em 3 sistemas + release com atestado de procedência).
-- Testes: suíte e2e com 97 verificações e `testes/simular-bootstrap.js`, que executa literalmente os blocos do INSTALAR.md (bash e PowerShell) contra uma release local.
+- Testes: suíte e2e com 98 verificações e `testes/simular-bootstrap.js`, que executa literalmente os blocos do INSTALAR.md (bash e PowerShell) contra uma release local.
 - Correção: o validador de skills reprova YAML que o Claude Code descartaria.
 
 ## 0.1.0 — 2026-10-16
