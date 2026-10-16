@@ -1,0 +1,9 @@
+{
+  "name": "advogado-claude",
+  "displayName": "Advogado Claude (Brasil)",
+  "version": "0.2.0",
+  "description": "Assistente jurídico brasileiro para advogados não técnicos: casos com dossiê, peças no seu estilo, verificação de citações, preparação de autos, prazos em dias úteis (CPC), sigilo/LGPD e auto-melhoria com salvaguardas.",
+  "author": { "name": "Guilherme Fleischfresser" },
+  "license": "MIT",
+  "keywords": ["direito", "advocacia", "brasil", "cpc", "lgpd", "peticao", "prazos", "pt-BR"]
+}

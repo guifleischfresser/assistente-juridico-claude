@@ -1,0 +1,84 @@
+# Testa em Linux/Windows/macOS a cada push e PR; em tags v* gera o zip + SHA256 e publica a Release.
+# Os nomes fixos (advogado-claude-mod.zip / .sha256) permitem o link estável
+#   https://github.com/<dono>/<repo>/releases/latest/download/advogado-claude-mod.zip
+# usado pelo INSTALAR.md.
+name: testes-e-release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    # Windows/macOS ainda não foram validados em máquina real: falha neles não bloqueia a release (revisar depois).
+    continue-on-error: ${{ matrix.os != 'ubuntu-latest' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Ferramentas opcionais (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          python3 -m pip install --quiet python-docx || true
+      - name: Bootstrap sincronizado com INSTALAR.md
+        run: node ferramentas/sincronizar-bootstrap.js --verificar
+      - name: Suíte de testes ponta a ponta
+        run: node testes/rodar-testes.js
+      - name: Simulação do bootstrap (blocos do INSTALAR.md, bash) contra release local
+        if: runner.os != 'Windows'
+        run: node testes/simular-bootstrap.js --shell bash
+      - name: Instalador real no Windows PowerShell 5.1 (silencioso) + doutor
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $PSVersionTable.PSVersion
+          $env:CLAUDE_CONFIG_DIR = Join-Path $env:RUNNER_TEMP "claude-teste"
+          $esc = Join-Path $env:RUNNER_TEMP "ESCRITORIO TESTE"
+          & powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\instalar.ps1 -Silencioso -Escritorio $esc -Nome "Dra. CI"
+          if ($LASTEXITCODE -ne 0) { throw "instalar.ps1 falhou: $LASTEXITCODE" }
+          node (Join-Path $env:CLAUDE_CONFIG_DIR "advogado\scripts\doutor.js")
+          if ($LASTEXITCODE -ne 0) { throw "doutor falhou: $LASTEXITCODE" }
+      - name: Simulação do bootstrap (blocos do INSTALAR.md, Windows PowerShell 5.1) contra release local
+        if: runner.os == 'Windows'
+        run: node testes/simular-bootstrap.js --shell powershell
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: testes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Gerar pacote (falha se tag != versão, se restarem marcadores, ou se o SHA256 != release/estavel.json)
+        run: node ferramentas/empacotar.js --tag "${GITHUB_REF_NAME}"
+      - name: Conferir SHA256
+        run: cd dist && sha256sum -c SHA256SUMS.txt
+      - name: Atestado de procedência (SLSA) dos zips
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'dist/*.zip'
+      - name: Publicar Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/*.zip dist/*.sha256 dist/SHA256SUMS.txt \
+            --title "Advogado Claude ${GITHUB_REF_NAME}" --notes-file dist/NOTAS.md --verify-tag

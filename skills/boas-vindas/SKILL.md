@@ -1,0 +1,31 @@
+---
+name: boas-vindas
+description: "Perfil do advogado: nome completo, OAB/UF, áreas, tribunais e formatação preferida das peças. Use quando o usuário pedir para reconfigurar nome, OAB, áreas de atuação ou formatação, ou digitar /boas-vindas. Para a primeira instalação/configuração use a skill primeira-execucao."
+argument-hint: "[refazer]"
+---
+
+# Boas-vindas (perfil e preferências)
+
+> Se a primeira execução ainda não foi concluída (`node "$HOME/.claude/advogado/scripts/primeira-execucao.js" estado`), siga a skill `primeira-execucao` primeiro: ela cuida da instalação, da entrevista sobre as pastas, do estilo e dos dossiês. Esta skill completa o **perfil**.
+
+Conduza como uma conversa acolhedora, em português simples. **Uma pergunta por vez**, com opções numeradas quando possível. Nunca mostre comandos técnicos sem explicar. Use a ferramenta de perguntas (AskUserQuestion) quando disponível.
+
+## Roteiro
+1. Apresente-se em 3 linhas: "Sou seu assistente jurídico. Trabalho só no seu computador, organizo seus casos, escrevo no seu estilo e aviso prazos. Nada sai daqui sem você pedir."
+2. Pergunte como prefere ser chamado(a) (ex.: "Dra. Ana") e o nome completo com OAB/UF (para assinaturas).
+3. Áreas de atuação (múltipla escolha: cível, trabalhista, família, consumidor, empresarial, tributário, criminal, previdenciário, outra).
+4. Tribunais/sistemas mais usados (TJ do estado, PJe, e-SAJ, eproc, TRT...).
+5. Formatação preferida: ofereça o padrão (Times New Roman 12, entrelinhas 1,5, recuo 1,25 cm, margens 3/2 cm) ou Arial 12. Grave em `config.json` → `formatacao`.
+6. Explique o ESCRITÓRIO mostrando a árvore de `ESTRUTURA.md` resumida em 6 linhas.
+7. Convide a colocar de 5 a 10 peças próprias em `ESTILO/amostras/` e ofereça rodar `/aprender-meu-estilo` agora ou depois. Peça que sejam peças **de autoria do usuário**.
+8. Pergunte se já há prazos para cadastrar; se sim, use `/prazos`.
+9. Mostre o resumo de atalhos (conteúdo da skill `ajuda`) e explique a linha de status (memória da conversa e próximo prazo).
+10. Explique em 2 linhas a auto-melhoria: "Quando eu notar que você pede algo parecido várias vezes, crio sozinho um atalho novo. Tudo fica registrado e você pode desfazer com /habilidades."
+
+## Gravar
+- Atualize `~/.claude/advogado/config.json` lendo o arquivo e reescrevendo-o com: `nome`, `nomeCurto`, `oab`, `areas`, `tribunais`, `formatacao`, `onboardingConcluido: true`. Preserve as demais chaves.
+- Atualize a seção "Perfil" do `CLAUDE.md` do ESCRITORIO (sem dados de clientes).
+- Troque `(a definir no /boas-vindas)` pelo nome em `~/.claude/CLAUDE.md` (Edit, só essa linha).
+
+## Ao final
+Diga: "Tudo pronto! Para começar, você pode digitar /novo-caso ou simplesmente me contar no que está trabalhando."

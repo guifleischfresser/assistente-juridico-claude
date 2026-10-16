@@ -1,0 +1,14 @@
+{
+  "name": "advogado-claude-mod",
+  "owner": {
+    "name": "Guilherme Fleischfresser"
+  },
+  "description": "Mod brasileiro para Claude Code voltado a advogados não técnicos (pt-BR).",
+  "plugins": [
+    {
+      "name": "advogado-claude",
+      "source": "./",
+      "description": "Assistente jurídico brasileiro (pt-BR) para advogados não técnicos."
+    }
+  ]
+}
