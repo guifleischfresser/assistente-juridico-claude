@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: "Salva o estado do trabalho (o que foi feito, decisões, próximos passos) no HANDOFF.md do caso e no espelho HANDOFFS/, para continuar depois sem perder nada. Use quando o contexto passar de 75% (aviso \"⚠️ HANDOFF AUTOMÁTICO\"), quando o usuário for encerrar, pedir para salvar onde parou, ou digitar /handoff."
+description: "Salva o estado do trabalho no HANDOFF.md do caso para continuar depois. Use quando aparecer \"⚠️ HANDOFF AUTOMÁTICO\", o usuário for encerrar ou pedir para salvar onde parou, ou digitar /handoff."
 ---
 
 # Handoff (passagem de bastão)

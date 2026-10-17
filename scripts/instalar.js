@@ -121,7 +121,7 @@ function mesclarSettings(esc, forcar) {
 /** Regras de permissao ESTREITAS: so os scripts do proprio assistente, pelo caminho exato
  *  (sem curinga no nome do arquivo => nao cobre ../ nem outros .js). Valem no modo manual;
  *  no modo auto as regras estreitas continuam valendo e o resto passa pelo classificador. */
-const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos'];
+const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos'];
 function regrasScripts() {
   const r = [];
   for (const s of SCRIPTS_CLI) for (const base of ['$HOME/.claude/advogado/scripts/', '~/.claude/advogado/scripts/']) for (const tool of ['Bash', 'PowerShell']) r.push(tool + '(node "' + base + s + '.js" *)');
@@ -180,7 +180,10 @@ function instalar() {
   const dirSk = path.join(RAIZ, 'skills');
   for (const n of fs.readdirSync(dirSk)) {
     const destino = path.join(c.P.skillsVivas, n);
-    if (fs.existsSync(destino) && !SIMULAR) copiarDir(destino, path.join(c.P.hab, 'versoes', 'nucleo', n, c.carimbo()));
+    if (fs.existsSync(destino) && !SIMULAR) {
+      copiarDir(destino, path.join(c.P.hab, 'versoes', 'nucleo', n, c.carimbo()));
+      fs.rmSync(destino, { recursive: true, force: true }); // copia limpa: sem references/ antigas (a versao anterior ficou no backup acima)
+    }
     copiarDir(path.join(dirSk, n), destino);
   }
   escrever(path.join(c.P.claude, 'output-styles', 'advogado.md'), fs.readFileSync(path.join(RAIZ, 'output-styles', 'advogado.md'), 'utf8'));

@@ -1,6 +1,6 @@
 ---
 name: boas-vindas
-description: "Perfil do advogado: nome completo, OAB/UF, áreas, tribunais e formatação preferida das peças. Use quando o usuário pedir para reconfigurar nome, OAB, áreas de atuação ou formatação, ou digitar /boas-vindas. Para a primeira instalação/configuração use a skill primeira-execucao."
+description: "Perfil do advogado: nome, OAB/UF, áreas, tribunais e formatação das peças. Use quando o usuário pedir para reconfigurar o perfil ou digitar /boas-vindas. Primeira instalação: skill primeira-execucao."
 argument-hint: "[refazer]"
 ---
 

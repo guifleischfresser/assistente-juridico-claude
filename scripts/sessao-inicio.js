@@ -71,5 +71,12 @@ c.rodarHook('sessao-inicio', (ent) => {
     const rf = c.lerJSON(path.join(c.P.estado, 'reflexao.json'), {});
     if (rf.reflexaoPendente) partes.push('🧠 REFLEXÃO PENDENTE da sessão anterior (' + (rf.reflexaoPendente.ferramentas || 0) + ' ações, ' + (rf.reflexaoPendente.pecas || 0) + ' peça(s)). Depois de atender o primeiro pedido do usuário (ou já, se ele só cumprimentou): ' + require('./gatilho-handoff-passos').PASSOS_REFLEXAO);
   } catch (e) { /* */ }
+  // Manutencao de habilidades a cada 15 dias (autonoma; backup + changelog + desfazer). So depois do onboarding.
+  if (cfg.onboardingConcluido && ent.source !== 'compact') {
+    try {
+      const mt = require('./manutencao').aoIniciarSessao();
+      if (mt.resumo) partes.splice(1, 0, '🧹 MANUTENÇÃO DE HABILIDADES ' + (mt.executada ? 'feita agora' : 'feita') + ' (automática, a cada 15 dias). Na primeira resposta, mostre ao usuário em UMA linha: "' + mt.resumo + '" e diga que dá para desfazer com /manutencao desfazer. Relatório: ' + (mt.relatorio || ''));
+    } catch (e) { c.log('erros', 'manutencao: ' + e.message); }
+  }
   return { hookSpecificOutput: { hookEventName: 'SessionStart', additionalContext: partes.join('\n\n').slice(0, 9500) } };
 });

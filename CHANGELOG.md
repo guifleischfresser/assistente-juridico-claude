@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.4.0 — 2026-10-17
+**Recurso principal: manutenção das habilidades a cada 15 dias, sozinha, para gastar menos contexto.**
+- Novo `scripts/manutencao.js` e skill de núcleo `/manutencao` (20 no núcleo; `disable-model-invocation`, sem custo fixo): `medir`, `revisar`, `simular`, `desfazer`, `estado`.
+- Agendamento sem agendador do sistema: o `SessionStart` confere a data e, com ≥ 15 dias, roda a revisão sem pedir aprovação. Na 1ª vez só marca a referência; uma trava evita execução dupla. O resumo aparece em uma linha ("Manutenção feita: …"). O agendador do Windows/launchd ficou no Roadmap.
+- A revisão faz backup, ensaio (dry-run) de cada mudança, changelog e permite desfazer tudo. Ela:
+  - mede o custo de contexto por skill;
+  - encurta descrições para ≤ 200 caracteres, mantendo "Use quando", `/comandos` e gatilhos;
+  - move detalhes para `references/*.md` (divulgação progressiva);
+  - mescla `auto-*` duplicadas e aposenta `auto-*` sem uso há 45+ dias;
+  - confere os orçamentos de CLAUDE.md, preferências e `MEMORY.md` (200 linhas/25 KB);
+  - grava o relatório em `ESCRITORIO/MEMORIA/revisoes/AAAA-MM-DD.md`.
+- Regras de carregamento conferidas na documentação atual do Claude Code (listagem de descrições em toda conversa, com corte em 1.536 caracteres e orçamento de ~1% da janela; corpo só ao invocar, e fica na conversa; `references/` só quando lidos). Detalhes em ARQUITETURA §14.
+- **Pacote enxugado na origem:** contexto fixo das skills 5.853 → 3.517 caracteres (**-40%**, ~1.672 → ~1.005 tokens). Corpos das skills da v0.3 50.472 → 37.304 caracteres (-26%). `primeira-execucao` passou de 20.546 para 7.182 caracteres, com as etapas em `references/` (gerado por `sincronizar-bootstrap.js`, que verifica todos os arquivos).
+- O uso de `/nome` digitado agora conta no registro das habilidades (aposentadoria confiável). Validador: links para `references/` precisam existir; `references/` de `auto-*` também não podem ter comandos de rede.
+- Instalador: cópia limpa das skills do núcleo (backup → remove → copia); regra de permissão estreita para `manutencao.js`. Doutor: mostra última/próxima manutenção.
+- `criar-skill-automatica` orienta descrição ≤ 200 caracteres e detalhes em `references/`.
+- Testes: +23 na suíte (152), com viagem no tempo (14 dias não roda, 15 dias roda), redução de contexto, mesclagem, aposentadoria, reversão no ensaio, orçamento do `MEMORY.md` e desfazer completo.
+
 ## 0.3.0 — 2026-10-17
 **Recurso principal: harness engineering autônomo (skills E memórias, sem pedir aprovação).**
 - Nova skill de núcleo `reflexao` (19 no núcleo) e script `memoria.js`:

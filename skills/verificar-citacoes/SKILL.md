@@ -1,6 +1,6 @@
 ---
 name: verificar-citacoes
-description: "Verificador anti-alucinação de jurisprudência e legislação citadas em peças (julgados, súmulas, temas, leis, artigos). Marca [NÃO VERIFICADO] em toda citação sem fonte conferida. Use quando o usuário pedir para conferir citações/jurisprudência, antes de exportar ou protocolar, ou digitar /verificar-citacoes."
+description: "Verificador anti-alucinação de jurisprudência e legislação citadas em peças. Use quando o usuário pedir para conferir citações/jurisprudência ou digitar /verificar-citacoes."
 argument-hint: "[arquivo]"
 ---
 

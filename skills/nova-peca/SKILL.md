@@ -1,6 +1,6 @@
 ---
 name: nova-peca
-description: "Redige minuta de peça jurídica brasileira no estilo do advogado (petição inicial, contestação, réplica, apelação, agravo, embargos, contrarrazões, manifestação, contrato, parecer, notificação). Use quando o usuário pedir para escrever, redigir ou minutar qualquer peça ou documento jurídico, ou digitar /nova-peca."
+description: "Redige minuta de peça jurídica brasileira no estilo do advogado. Use quando o usuário pedir para escrever, redigir ou minutar qualquer peça ou documento jurídico, ou digitar /nova-peca."
 argument-hint: "[tipo da peça] [caso]"
 ---
 

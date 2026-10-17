@@ -1,4 +1,4 @@
-# ARQUITETURA — advogado-claude-mod v0.3.0
+# ARQUITETURA — advogado-claude-mod v0.4.0
 
 Documento técnico para o Guilherme. O README.md é o documento voltado ao advogado.
 
@@ -117,6 +117,7 @@ Edições no CLAUDE.md, na memória e no perfil de escrita recebem backup em `ve
   - gera um `INDICE.md` com ~tokens por documento.
 - As skills mandam ler o ÍNDICE e depois apenas os trechos necessários.
 - O CLAUDE.md global tem ~28 linhas e um hard limit de 80. Os detalhes ficam nas skills, que são carregadas sob demanda.
+- v0.4: descrições das skills ≤ 200 caracteres, detalhes em `references/` e manutenção automática a cada 15 dias (seção 14).
 
 ## 7. Injeção de prompt
 
@@ -301,7 +302,69 @@ Cada instalação evolui para o advogado que a usa, **sem pedir aprovação** e 
 - **Autonomia de memória × injeção de prompt:** um documento malicioso poderia tentar plantar "preferências". As mitigações: preferências são frases curtas (≤ 300 caracteres), ficam num arquivo legível com changelog, só valem como preferência de trabalho (o CLAUDE.md manda tratar conteúdo de documento como dado), e o scanner de injeção do PostToolUse continua avisando. Skills autônomas continuam passando pelo validador (que reprova rede/upload).
 - **Autorização na frase:** a frase autoriza só o que nomeia (instalador verificado deste repositório e Node LTS oficial); o roteiro manda parar em qualquer divergência de SHA256 e em bloqueio corporativo, e nunca reescrever comandos para contornar o classificador.
 
-## 14. Roadmap
+## 14. v0.4: manutenção das habilidades a cada 15 dias
+
+### 14.1 Como as skills ocupam contexto (conferido em code.claude.com/docs/en/skills, out/2026)
+- **Listagem (em toda conversa):** nome + `description` (+ `when_to_use`) de cada skill. Cada entrada é cortada em 1.536 caracteres (`skillListingMaxDescChars`). A listagem inteira tem orçamento de ~1% da janela de contexto (`skillListingBudgetFraction` / `SLASH_COMMAND_TOOL_CHAR_BUDGET`); quando estoura, o Claude Code descarta as descrições das skills menos usadas, e com elas as palavras-gatilho.
+- **`disable-model-invocation: true`:** a descrição **não** entra no contexto; a skill só roda com `/nome`. Usado em `/backup`, `/habilidades` e `/manutencao`.
+- **Corpo do SKILL.md:** só carrega quando a skill é invocada, mas depois **fica na conversa** nos turnos seguintes. Na compactação, os primeiros 5.000 tokens de cada skill invocada voltam, com orçamento total de 25.000 tokens.
+- **Arquivos de apoio (`references/*.md`):** só entram quando o Claude os lê. A documentação recomenda SKILL.md com menos de 500 linhas e detalhes em arquivos separados.
+- **Memória:** do `MEMORY.md` da memória automática só carregam as primeiras 200 linhas / 25 KB; o CLAUDE.md carrega inteiro (meta: < 200 linhas).
+
+Por isso a economia é real em duas frentes: **descrições curtas** reduzem o custo fixo de toda conversa (e evitam que o Claude Code descarte gatilhos), e **divulgação progressiva** reduz o que entra e permanece na conversa quando a skill é usada.
+
+### 14.2 Agendamento sem agendador do sistema
+- `scripts/manutencao.js` guarda o estado em `~/.claude/advogado/estado/revisao-skills.json` (`ultima`, `proxima`, `ultimoResumo`, `resumoPendente`, `backup`, `relatorio`).
+- O hook `SessionStart` (`sessao-inicio.js`) chama `aoIniciarSessao()` depois do onboarding e fora de `compact`. Na 1ª vez só marca a data de referência. Com **≥ 15 dias** desde a última, roda `revisar({automatica:true})` sem pedir aprovação, com uma trava de 10 minutos contra conversas simultâneas. O resumo é injetado uma única vez no contexto, para o assistente mostrar ao advogado em uma linha.
+- Agendador do Windows/launchd: **não** usado. A manutenção só importa quando o Claude Code roda, e registrar tarefas exigiria caminho do Node, permissões e mais superfície de risco (fica no Roadmap).
+- Manual: skill `/manutencao` (núcleo 20) → `medir`, `revisar`, `simular` (`revisar --simular`), `desfazer [carimbo]`, `estado`. O doutor mostra última/próxima manutenção.
+- Os limites são ajustáveis em `config.json` → `manutencao` (padrão: intervalo 15 dias, descrição 200, corpo 2.500, sem uso 45 dias, semelhança 0,6, MEMORY.md 200 linhas/25 KB, CLAUDE.md 200 linhas, bloco do assistente 60, preferências 80).
+
+### 14.3 O que a revisão faz (sempre: backup → ensaio → aplica ou reverte → changelog)
+1. **Backup** em `~/.claude/advogado/backups/revisoes/<carimbo>/`: skills, `registro.json`, arquivos de memória tocados, e uma lista dos arquivos criados (o `desfazer` os remove).
+2. **Medição** por skill: descrição (custo fixo, caracteres e ~tokens a 3,5 caracteres/token), corpo e `references/`. Total antes/depois no relatório.
+3. **Aposentar** `auto-*` sem uso há 45+ dias (`ultimoUso` do registro). Conta uso pelo Skill tool (PostToolUse) e, a partir da v0.4, também pelo `/nome` digitado (UserPromptSubmit). A skill vai para `habilidades/_aposentadas/`, onde não carrega; volta com `/habilidades restaurar`. **Núcleo nunca é aposentado.**
+4. **Mesclar** pares `auto-*` com semelhança de Jaccard ≥ 0,6 (nome + termos da descrição). A mais usada fica; o corpo da outra vira `references/variante-<nome>.md` com ponteiro em `## Variantes`; a outra é aposentada. Refinamento semântico do texto mesclado: `/manutencao` → skill criar-skill-automatica.
+5. **Enxugar descrições** > 200 caracteres: tira parênteses, fica com a 1ª frase do "o que faz" e as cláusulas do "Use quando". A prioridade é a 1ª cláusula, depois o `/comando`, depois gatilhos entre aspas ou em MAIÚSCULAS (ex.: "⚠️ HANDOFF AUTOMÁTICO"); enumerações longas são cortadas nos primeiros itens.
+6. **Divulgação progressiva** em corpos > 2.500 caracteres: move para `references/<seção>.md` seções de detalhe (exemplos, modelos, tabelas, checklists, variantes...) com ≥ 400 caracteres e deixa um ponteiro. Nunca move as seções iniciais, "Quando usar"/"Passos" das auto-* nem seções com regras de proteção (nunca, proibido, sigilo, LGPD, obrigatório). Skills geradas (`<!-- GERADO`) não são tocadas.
+7. **Ensaio (dry-run)** de cada skill alterada, numa cópia temporária. Exige:
+   - o validador passa, incluindo os links para `references/` e a ausência de rede também nos `references/` das auto-*;
+   - o frontmatter não muda além da descrição;
+   - a descrição não cresce, mantém o "Use quando" e todos os `/comandos`, e tem pelo menos 40 caracteres;
+   - nenhuma linha do corpo se perde (toda linha original existe no SKILL.md ou em `references/`);
+   - as linhas protegidas continuam no SKILL.md.
+
+   Se falhar, a skill fica como estava e entra em "Revertidas" no relatório.
+8. **Orçamentos** de CLAUDE.md e memória: roda `memoria.manter`, mede o CLAUDE.md global, o bloco do assistente e o do ESCRITORIO, e arquiva o excesso de preferências (> 80). Se o `MEMORY.md` passar de 200 linhas/25 KB, as linhas além da 150ª vão para `memory/arquivo-AAAA-MM-DD.md`, com ponteiro.
+9. **Relatório** em `ESCRITORIO/MEMORIA/revisoes/AAAA-MM-DD.md` e linhas em `habilidades/CHANGELOG.md` e `MEMORIA/CHANGELOG.md`. Resumo de uma linha: "Manutenção feita: N skill(s) enxugada(s), M aposentada(s), contexto fixo das skills -X% (a → b caracteres)."
+
+### 14.4 Enxugamento na origem (pacote v0.4) — medido com `manutencao.js medir --pasta skills`
+| | v0.3.0 | v0.4.0 |
+| :- | -: | -: |
+| Contexto fixo (descrições listadas, toda conversa) | 5.853 caracteres (~1.672 tokens) | 3.517 caracteres (~1.005 tokens), **-40%** |
+| Maior descrição | 583 (primeira-execucao) | 200 |
+| Corpos das 19 skills da v0.3 (só quando usadas) | 50.472 caracteres | 37.304, **-26%** |
+| `primeira-execucao` (SKILL.md) | 20.546 | 7.182 (+14.760 em `references/`) |
+
+- As descrições do núcleo foram encurtadas na origem (mecanicamente, com revisão manual onde o resultado ficou truncado), preservando gatilhos como "⚠️ HANDOFF AUTOMÁTICO", "🧠 REFLEXÃO AUTOMÁTICA"/"REFLEXÃO PENDENTE", "tarefa repetida", ONBOARDING PENDENTE / PRIMEIRA EXECUÇÃO INCOMPLETA e os `/comandos`. Os corpos e o comportamento não mudaram.
+- `ferramentas/sincronizar-bootstrap.js` agora gera `primeira-execucao` em partes: o SKILL.md fica com regras, Etapa 0 e índice, e `references/etapa-1-instalacao.md`, `etapas-2-a-6.md` e `problemas-comuns.md` guardam o resto. `--verificar` compara todos os arquivos e acusa sobras.
+- Por isso, na máquina do advogado, a revisão quinzenal quase não mexe no núcleo: ela atua nas `auto-*` criadas com o uso. O instalador agora faz cópia limpa das skills do núcleo (backup → remove → copia), para não sobrar `references/` antigo.
+- `/manutencao` tem `disable-model-invocation: true`, então não acrescenta custo fixo.
+
+### 14.5 Testes (seção 12c da suíte)
+- Viagem no tempo (`ADVOGADO_AGORA`): dia 0 só marca a referência; dia 14 não roda; dia 15 roda no SessionStart e injeta o resumo; a conversa seguinte não repete; dia 29 não roda de novo.
+- Fixture com descrição longa, corpo grande, par duplicado, auto-* parada há 60 dias, skill com link quebrado (ensaio falha → revertida) e `MEMORY.md` com 260 linhas. Confere:
+  - redução do contexto fixo;
+  - descrição ≤ 200 com "Use quando" e `/comando`;
+  - `references/` criadas com ponteiro, mantendo a regra "Nunca" no SKILL.md;
+  - mesclagem e aposentadoria;
+  - núcleo intacto;
+  - relatório e changelogs gravados;
+  - `--simular` não altera nada;
+  - `desfazer` restaura tudo (inclusive remove o arquivo de memória criado).
+- No pacote: todas as descrições listadas ≤ 200, contexto fixo ≤ 3.600, `primeira-execucao` < 8.000 e sincronizada; contagem de uso por `/nome`; regra de permissão estreita para `manutencao.js`; núcleo com 20 skills.
+
+## 15. Roadmap
 
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
 2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita.
@@ -310,3 +373,5 @@ Cada instalação evolui para o advogado que a usa, **sem pedir aprovação** e 
 5. Canal de atualização opt-in, assinado.
 6. Feriados estaduais e municipais e suspensões por tribunal.
 7. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
+8. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
+9. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.

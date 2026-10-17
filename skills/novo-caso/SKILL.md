@@ -1,6 +1,6 @@
 ---
 name: novo-caso
-description: "Abre um caso novo no ESCRITORIO com pasta padronizada, DOSSIE.md (memória do caso), HANDOFF.md e prazos. Use quando o usuário disser que tem um cliente/caso/processo novo, uma consulta nova, ou digitar /novo-caso."
+description: "Abre um caso novo no ESCRITORIO com pasta padronizada, DOSSIE.md, HANDOFF.md e prazos. Use quando o usuário disser que tem um cliente/caso/processo novo, uma consulta nova, ou digitar /novo-caso."
 argument-hint: "[nome do cliente ou assunto]"
 ---
 

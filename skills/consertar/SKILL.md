@@ -1,6 +1,6 @@
 ---
 name: consertar
-description: "Doutor do assistente jurídico: verifica a instalação (Node, hooks, skills, settings, pastas do ESCRITORIO, barra de status, exportação .docx, guarda de sigilo) e conserta o que estiver quebrado, sem apagar nada. Use quando algo parar de funcionar, a barra de status sumir, um atalho não aparecer, depois de atualizar o computador, ou quando o usuário digitar /consertar."
+description: "Doutor do assistente jurídico: verifica a instalação e conserta o que estiver quebrado. Use quando algo parar de funcionar, a barra de status sumir ou quando o usuário digitar /consertar."
 argument-hint: "[verificar | consertar]"
 ---
 

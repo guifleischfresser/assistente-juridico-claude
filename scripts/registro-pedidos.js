@@ -46,9 +46,19 @@ function descricoesSkills() {
   return lista;
 }
 
+/** "/nome-da-skill ..." digitado pelo usuario conta como uso (a manutencao aposenta auto-* sem uso ha 45+ dias). */
+function contarUsoComando(prompt) {
+  const m = prompt.match(/^\/([a-z0-9][a-z0-9-]{0,63})(?:\s|$)/i); if (!m) return;
+  const nome = m[1].toLowerCase(); const arq = path.join(c.P.hab, 'registro.json');
+  const reg = c.lerJSON(arq, null); if (!reg || !reg.skills) return;
+  const k = reg.skills[nome] ? nome : reg.skills['auto-' + nome] ? 'auto-' + nome : null; if (!k) return;
+  reg.skills[k].usos = (reg.skills[k].usos || 0) + 1; reg.skills[k].ultimoUso = new Date().toISOString(); c.gravarJSON(arq, reg);
+}
+
 function principal() { c.rodarHook('registro-pedidos', (ent) => {
   const prompt = String(ent.prompt || '').trim();
-  if (!prompt || prompt.startsWith('/') || prompt.length < 15) return {};
+  if (prompt.startsWith('/')) { contarUsoComando(prompt); return {}; }
+  if (!prompt || prompt.length < 15) return {};
   const k = assinatura(prompt);
   if (k.length < 3) return {};
   const cfg = c.config();
@@ -77,4 +87,4 @@ function principal() { c.rodarHook('registro-pedidos', (ent) => {
     'Detector de tarefas repetidas: pedidos com estes termos já apareceram ' + (parecidos.length + 1) + ' vezes em 30 dias (' + k.join(', ') + '), e nenhuma skill existente cobre o assunto. Candidata registrada com id ' + id + '. Depois de atender este pedido, aplique a skill criar-skill-automatica para transformar o procedimento em habilidade (sem pedir aprovação; siga as salvaguardas e informe o usuário em uma linha ao final).' } };
 }); }
 if (require.main === module) principal();
-module.exports = { assinatura, jaccard };
+module.exports = { assinatura, jaccard, contarUsoComando };

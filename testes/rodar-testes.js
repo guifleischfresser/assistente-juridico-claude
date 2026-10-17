@@ -34,7 +34,7 @@ t('regras de permissão estreitas (script exato, sem curinga no caminho) para Ba
 t('valores anteriores guardados para a desinstalação restaurar', JSON.parse(fs.readFileSync(path.join(BASE, 'config.json'), 'utf8')).configAnterior.model === null);
 t('statusLine aponta para statusline.js', /statusline\.js/.test(st.statusLine.command));
 t('outputStyle Advogado e idioma pt-BR', st.outputStyle === 'Advogado' && /portugu/.test(st.language));
-t('19 skills do núcleo instaladas', fs.readdirSync(path.join(CL, 'skills')).length === 19);
+t('20 skills do núcleo instaladas (inclui manutencao)', fs.readdirSync(path.join(CL, 'skills')).length === 20);
 t('retenção de conversas = 14 dias (cleanupPeriodDays) quando ausente', st.cleanupPeriodDays === 14);
 t('cópia local do pacote para reparo', fs.existsSync(path.join(BASE, 'pacote', 'scripts', 'instalar.js')) && fs.existsSync(path.join(BASE, 'pacote', 'skills', 'consertar', 'SKILL.md')));
 t('pasta "Em análise" criada com acento', fs.existsSync(path.join(ESC, 'CASOS', 'Em análise')));
@@ -412,6 +412,98 @@ console.log('\n12b. v0.3: piloto automático, memória autônoma e reflexão');
   r = node(MEM, ['reflexao']);
   t('reflexão feita pelo assistente limpa a pendência', r.code === 0 && /REFLEXÃO/.test(r.out) && !JSON.parse(fs.readFileSync(path.join(BASE, 'estado', 'reflexao.json'), 'utf8')).reflexaoPendente, r.out);
   t('skill reflexao instalada e no núcleo', fs.existsSync(path.join(CL, 'skills', 'reflexao', 'SKILL.md')) && require(path.join(RAIZ, 'scripts', 'lib', 'validar.js')).NUCLEO.includes('reflexao'));
+}
+
+console.log('\n12c. Manutenção das habilidades a cada 15 dias (v0.4)');
+{
+  const MAN = path.join(BASE, 'scripts', 'manutencao.js');
+  const SK = path.join(CL, 'skills');
+  const REG = path.join(BASE, 'habilidades', 'registro.json');
+  const ESTM = path.join(BASE, 'estado', 'revisao-skills.json');
+  const cfgArq = path.join(BASE, 'config.json');
+  const cfg0 = JSON.parse(fs.readFileSync(cfgArq, 'utf8'));
+  fs.writeFileSync(cfgArq, JSON.stringify(Object.assign({}, cfg0, { onboardingConcluido: true }), null, 2));
+  const T0 = Date.now();
+  const em = (d) => new Date(T0 + d * 864e5).toISOString();
+  const envEm = (d) => Object.assign({}, env, { ADVOGADO_AGORA: em(d) });
+  const rodar = (script, args, entrada, e) => { const x = spawnSync(process.execPath, [script].concat(args || []), { env: e || env, input: entrada == null ? '' : JSON.stringify(entrada), encoding: 'utf8' }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  const inicio = (d) => { const x = rodar(path.join(BASE, 'scripts', 'sessao-inicio.js'), [], { session_id: 'm' + d, source: 'startup', hook_event_name: 'SessionStart' }, envEm(d)); try { return JSON.parse(x.out).hookSpecificOutput.additionalContext; } catch (er) { return 'ERRO ' + x.out + x.err; } };
+  const medirJ = (d) => JSON.parse(rodar(MAN, ['medir', '--json'], null, envEm(d)).out);
+  const autoSkill = (nome, desc, corpoExtra, meta) => {
+    const dir = path.join(SK, 'auto-' + nome); fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'SKILL.md'), ['---', 'name: auto-' + nome, 'description: "' + desc + '"', 'metadata:', '  origem: automatica', '  motivo: "' + (meta || 'tarefa repetida no teste') + '"', '---', '', '# ' + nome, '', '## Quando usar', 'Quando o usuário pedir ' + nome + '.', '', '## Passos', '1. Leia o DOSSIE.md do caso.', '2. Redija a minuta.', '3. Nunca invente jurisprudência.', '', '## Teste', 'Ensaio com caso fictício.', '', corpoExtra || ''].join('\n'));
+    return dir;
+  };
+  const longa = 'Monta petição inicial de alimentos com cálculo do binômio necessidade-possibilidade, rol de documentos, pedido de tutela de urgência, valor da causa e endereçamento à vara de família competente. Use quando o usuário pedir petição de alimentos, pensão alimentícia, revisional de alimentos, fixação de alimentos provisórios, oferta de alimentos ou digitar /peticao-alimentos.';
+  const exemplos = '## Exemplos de pedidos\n' + Array.from({ length: 40 }, (_, k) => '- Exemplo ' + (k + 1) + ': pedido de alimentos para filho menor com despesas escolares e de saúde detalhadas.').join('\n') + '\n';
+  autoSkill('peticao-alimentos', longa, exemplos);
+  autoSkill('alimentos-peticao', 'Monta petição inicial de alimentos com binômio necessidade-possibilidade, documentos, tutela de urgência e valor da causa na vara de família. Use quando o usuário pedir petição de alimentos ou pensão alimentícia.');
+  autoSkill('procuracao-velha', 'Gera procuração ad judicia simples a partir do perfil do advogado e dos dados do cliente no DOSSIE. Use quando o usuário pedir procuração ou digitar /procuracao-velha.');
+  autoSkill('quebrada', 'Faz uma planilha de honorários sucumbenciais com faixas do artigo 85 do CPC, percentuais mínimos e máximos e base de cálculo, explicando cada linha ao cliente em linguagem simples e conferindo os valores. Use quando o usuário pedir cálculo de honorários de sucumbência ou digitar /quebrada.', 'Veja [references/nao-existe.md](references/nao-existe.md).\n');
+  const reg = JSON.parse(fs.readFileSync(REG, 'utf8'));
+  const agoraISO = new Date(T0).toISOString(); const velho = new Date(T0 - 60 * 864e5).toISOString();
+  Object.assign(reg.skills, {
+    'auto-peticao-alimentos': { origem: 'automatica', status: 'estavel', versao: 1, usos: 6, ultimoUso: agoraISO, criadaEm: agoraISO },
+    'auto-alimentos-peticao': { origem: 'automatica', status: 'experimental', versao: 1, usos: 1, ultimoUso: agoraISO, criadaEm: agoraISO },
+    'auto-procuracao-velha': { origem: 'automatica', status: 'experimental', versao: 1, usos: 2, ultimoUso: velho, criadaEm: velho },
+    'auto-quebrada': { origem: 'automatica', status: 'experimental', versao: 1, usos: 3, ultimoUso: agoraISO, criadaEm: agoraISO },
+  });
+  fs.writeFileSync(REG, JSON.stringify(reg, null, 2));
+  // uso digitado (/comando) conta no registro
+  rodar(path.join(BASE, 'scripts', 'registro-pedidos.js'), [], { session_id: 'm', hook_event_name: 'UserPromptSubmit', prompt: '/peticao-alimentos para o caso novo' });
+  t('"/peticao-alimentos" digitado conta como uso da auto-peticao-alimentos', JSON.parse(fs.readFileSync(REG, 'utf8')).skills['auto-peticao-alimentos'].usos === 7);
+  // MEMORY.md acima do orcamento (so 200 linhas carregam)
+  const memDir = path.join(CL, 'projects', 'proj-teste', 'memory'); fs.mkdirSync(memDir, { recursive: true });
+  fs.writeFileSync(path.join(memDir, 'MEMORY.md'), Array.from({ length: 260 }, (_, k) => '- nota de projeto ' + k).join('\n'));
+  const quebradaAntes = fs.readFileSync(path.join(SK, 'auto-quebrada', 'SKILL.md'), 'utf8');
+  const nucleoAntes = fs.readFileSync(path.join(SK, 'nova-peca', 'SKILL.md'), 'utf8');
+  try { fs.rmSync(ESTM); } catch (er) { /* */ }
+
+  // viagem no tempo: dia 0 so marca a referencia; dia 14 nada; dia 15 roda
+  let ctxM = inicio(0);
+  t('1ª conversa só marca a data de referência (não roda a manutenção)', !/MANUTENÇÃO DE HABILIDADES/.test(ctxM) && JSON.parse(fs.readFileSync(ESTM, 'utf8')).ultima === em(0), ctxM.slice(0, 300));
+  ctxM = inicio(14);
+  t('viagem no tempo: 14 dias depois a manutenção NÃO roda', !/MANUTENÇÃO DE HABILIDADES/.test(ctxM) && fs.existsSync(path.join(SK, 'auto-procuracao-velha')) && !fs.existsSync(path.join(BASE, 'backups', 'revisoes')));
+  const antesM = medirJ(15);
+  const sim = rodar(MAN, ['revisar', '--simular'], null, envEm(15));
+  t('simulação (--simular) mostra o resultado sem alterar nada', /SIMULAÇÃO/.test(sim.out) && /aposentada/.test(sim.out) && fs.existsSync(path.join(SK, 'auto-procuracao-velha')) && medirJ(15).fixo === antesM.fixo, sim.out + sim.err);
+  ctxM = inicio(15);
+  t('viagem no tempo: com 15 dias a manutenção roda sozinha no SessionStart e pede o resumo em UMA linha', /MANUTENÇÃO DE HABILIDADES feita agora/.test(ctxM) && /Manutenção feita: \d+ skill\(s\) enxugada\(s\)/.test(ctxM) && /\/manutencao desfazer/.test(ctxM), ctxM.slice(-700));
+  const depoisM = medirJ(15);
+  t('contexto fixo das skills diminuiu (descrições carregadas em toda conversa)', depoisM.fixo < antesM.fixo, antesM.fixo + ' -> ' + depoisM.fixo);
+  t('auto-* sem uso há 45+ dias aposentada em _aposentadas (não carrega mais)', !fs.existsSync(path.join(SK, 'auto-procuracao-velha')) && fs.readdirSync(path.join(BASE, 'habilidades', '_aposentadas')).some((n) => n.startsWith('auto-procuracao-velha__')) && !depoisM.skills.some((s) => s.nome === 'auto-procuracao-velha'));
+  const pa = path.join(SK, 'auto-peticao-alimentos');
+  const paTxt = fs.readFileSync(pa + '/SKILL.md', 'utf8');
+  t('duplicada mesclada: a mais usada ficou com a outra em references/variante-*.md', !fs.existsSync(path.join(SK, 'auto-alimentos-peticao')) && fs.existsSync(path.join(pa, 'references', 'variante-alimentos-peticao.md')) && /## Variantes/.test(paTxt));
+  const descPA = require(path.join(RAIZ, 'scripts', 'lib', 'comum.js')).lerFrontmatter(paTxt).dados.description;
+  t('descrição enxugada para ≤ 200 caracteres mantendo "Use quando" e /comando', descPA.length <= 200 && /Use quando/.test(descPA) && descPA.includes('/peticao-alimentos'), descPA.length + ': ' + descPA);
+  t('detalhes pesados movidos para references/ com ponteiro (divulgação progressiva) e regra "Nunca" mantida no SKILL.md', fs.readdirSync(path.join(pa, 'references')).some((n) => /exemplos/.test(n)) && /Detalhes em \[references\/exemplos/.test(paTxt) && /Nunca invente jurisprudência/.test(paTxt) && !/Exemplo 12:/.test(paTxt));
+  const vM = require(path.join(RAIZ, 'scripts', 'lib', 'validar.js'));
+  t('skill alterada continua válida no validador (auto + links de references/)', vM.validarSkill(pa, { auto: true }).ok, JSON.stringify(vM.validarSkill(pa, { auto: true }).erros));
+  t('alteração que falha no ensaio é revertida (skill fica igual)', fs.readFileSync(path.join(SK, 'auto-quebrada', 'SKILL.md'), 'utf8') === quebradaAntes);
+  t('skills do núcleo intactas (já enxutas na origem)', fs.readFileSync(path.join(SK, 'nova-peca', 'SKILL.md'), 'utf8') === nucleoAntes);
+  const memTxt = fs.readFileSync(path.join(memDir, 'MEMORY.md'), 'utf8');
+  t('MEMORY.md acima de 200 linhas enxugado (resto arquivado e apontado)', memTxt.split('\n').length <= 160 && fs.readdirSync(memDir).some((n) => /^arquivo-/.test(n)) && /Entradas antigas/.test(memTxt));
+  const estM = JSON.parse(fs.readFileSync(ESTM, 'utf8'));
+  const relM = path.join(ESC, 'MEMORIA', 'revisoes', new Date(em(15)).toISOString().slice(0, 10));
+  t('relatório gravado em ESCRITORIO/MEMORIA/revisoes/AAAA-MM-DD.md', !!estM.relatorio && fs.existsSync(estM.relatorio) && /MEMORIA[\\/]revisoes[\\/]\d{4}-\d\d-\d\d/.test(estM.relatorio) && /Contexto fixo/.test(fs.readFileSync(estM.relatorio, 'utf8')), estM.relatorio + ' ' + relM);
+  t('próxima manutenção marcada para daqui a 15 dias; changelogs escritos', estM.proxima === em(30) && /manutenção/.test(fs.readFileSync(path.join(BASE, 'habilidades', 'CHANGELOG.md'), 'utf8')) && /manutenção de habilidades/.test(fs.readFileSync(path.join(ESC, 'MEMORIA', 'CHANGELOG.md'), 'utf8')));
+  ctxM = inicio(15.1);
+  t('resumo mostrado uma vez só (a conversa seguinte não repete)', !/MANUTENÇÃO DE HABILIDADES/.test(ctxM));
+  ctxM = inicio(29);
+  t('viagem no tempo: 14 dias após a última, não roda de novo', !/MANUTENÇÃO DE HABILIDADES/.test(ctxM) && fs.readdirSync(path.join(BASE, 'backups', 'revisoes')).length === 1);
+  const rd = rodar(MAN, ['desfazer'], null, envEm(29));
+  t('desfazer restaura tudo: skills aposentadas/mescladas, descrição, MEMORY.md (e remove o arquivo criado)', rd.code === 0 && fs.existsSync(path.join(SK, 'auto-procuracao-velha', 'SKILL.md')) && fs.existsSync(path.join(SK, 'auto-alimentos-peticao', 'SKILL.md')) && fs.readFileSync(pa + '/SKILL.md', 'utf8').includes('revisional de alimentos') && !fs.existsSync(path.join(pa, 'references')) && fs.readFileSync(path.join(memDir, 'MEMORY.md'), 'utf8').split('\n').length === 260 && !fs.readdirSync(memDir).some((n) => /^arquivo-/.test(n)) && !fs.readdirSync(path.join(BASE, 'habilidades', '_aposentadas')).some((n) => n.startsWith('auto-procuracao-velha__')), rd.out + rd.err);
+  t('regra de permissão estreita para manutencao.js; doutor conhece o script', st.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/manutencao.js" *)') && /manutencao\.js/.test(fs.readFileSync(path.join(BASE, 'scripts', 'doutor.js'), 'utf8')));
+  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 20 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
+  // pacote: descricoes do nucleo ja enxutas na origem
+  const mp = JSON.parse(rodar(MAN, ['medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out);
+  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3600 (era 5853 na v0.3)', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3600, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
+  const pe = mp.skills.find((s) => s.nome === 'primeira-execucao');
+  t('primeira-execucao com divulgação progressiva (SKILL.md < 8000; etapas em references/, sincronizadas)', pe.corpo < 8000 && pe.refs > 10000 && rodar(path.join(RAIZ, 'ferramentas', 'sincronizar-bootstrap.js'), ['--verificar']).code === 0, JSON.stringify(pe));
+  // limpa a fixture para nao afetar as secoes seguintes
+  for (const n of ['auto-peticao-alimentos', 'auto-alimentos-peticao', 'auto-procuracao-velha', 'auto-quebrada']) fs.rmSync(path.join(SK, n), { recursive: true, force: true });
+  fs.writeFileSync(cfgArq, JSON.stringify(Object.assign(JSON.parse(fs.readFileSync(cfgArq, 'utf8')), { onboardingConcluido: cfg0.onboardingConcluido }), null, 2));
 }
 
 console.log('\n13. Desinstalação');

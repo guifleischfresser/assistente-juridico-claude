@@ -5,7 +5,7 @@ const path = require('path');
 const c = require('./comum');
 
 const RESERVADOS = ['help', 'clear', 'compact', 'config', 'cost', 'doctor', 'init', 'login', 'logout', 'memory', 'model', 'review', 'code-review', 'status', 'statusline', 'hooks', 'agents', 'plugin', 'resume', 'rewind', 'permissions', 'context', 'skills', 'output-style', 'exit', 'export', 'add-dir', 'mcp', 'usage', 'effort', 'verify', 'run', 'loop', 'debug', 'batch', 'synced', 'anthropic-skills'];
-const NUCLEO = ['boas-vindas', 'ajuda', 'novo-caso', 'casos', 'nova-peca', 'formatar-peca', 'revisar', 'advogado-do-diabo', 'verificar-citacoes', 'preparar-autos', 'prazos', 'aprender-meu-estilo', 'handoff', 'criar-skill-automatica', 'habilidades', 'backup', 'primeira-execucao', 'consertar', 'reflexao'];
+const NUCLEO = ['boas-vindas', 'ajuda', 'novo-caso', 'casos', 'nova-peca', 'formatar-peca', 'revisar', 'advogado-do-diabo', 'verificar-citacoes', 'preparar-autos', 'prazos', 'aprender-meu-estilo', 'handoff', 'criar-skill-automatica', 'habilidades', 'backup', 'primeira-execucao', 'consertar', 'reflexao', 'manutencao'];
 const FERRAMENTAS_LIVRES = ['Read', 'Glob', 'Grep'];
 const REDE = /\b(curl|wget|scp|sftp|ftp|rsync|rclone|Invoke-WebRequest|Invoke-RestMethod|Send-MailMessage|git\s+push|requests\.post|smtplib|fetch\()/i;
 
@@ -54,7 +54,15 @@ function validarSkill(dir, opcoes) {
       if (!fs.existsSync(t)) erros.push('falta o ensaio (dry-run): teste/resultado.md');
       else if (!/RESULTADO:\s*APROVADO/i.test(fs.readFileSync(t, 'utf8'))) erros.push('o ensaio em teste/resultado.md não terminou com "RESULTADO: APROVADO"');
     }
+    const refsRede = arquivosRefs(dir).filter((a) => REDE.test(fs.readFileSync(a, 'utf8')));
+    if (refsRede.length) erros.push('references/ da skill automática contém comandos de rede/envio: ' + refsRede.map((a) => path.basename(a)).join(', '));
   } else if (linhas > 500) avisos.push('SKILL.md com mais de 500 linhas; mova detalhes para arquivos de apoio');
+  for (const m of fm.corpo.matchAll(/\]\((references\/[^)\s#]+)\)/g)) if (!fs.existsSync(path.join(dir, m[1]))) erros.push('link para arquivo de apoio inexistente: ' + m[1]);
   return { ok: erros.length === 0, erros, avisos, nome };
+}
+function arquivosRefs(dir) {
+  const out = []; const r = path.join(dir, 'references');
+  const andar = (d) => { if (!fs.existsSync(d)) return; for (const n of fs.readdirSync(d)) { const a = path.join(d, n); if (fs.statSync(a).isDirectory()) andar(a); else out.push(a); } };
+  andar(r); return out;
 }
 module.exports = { validarSkill, NUCLEO, RESERVADOS };

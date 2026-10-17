@@ -1,6 +1,6 @@
 ---
 name: backup
-description: "Faz cópia de segurança incremental do ESCRITORIO (e das habilidades do assistente) para um disco ou pasta escolhida pelo usuário. Use quando o usuário pedir backup, cópia de segurança, ou digitar /backup."
+description: "Faz cópia de segurança incremental do ESCRITORIO para um disco ou pasta escolhida pelo usuário. Use quando o usuário pedir backup, cópia de segurança, ou digitar /backup."
 argument-hint: "[pasta de destino]"
 disable-model-invocation: true
 ---

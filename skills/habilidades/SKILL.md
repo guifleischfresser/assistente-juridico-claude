@@ -1,6 +1,6 @@
 ---
 name: habilidades
-description: "Mostra e controla as habilidades (atalhos) do assistente, inclusive as criadas automaticamente: listar, ver histórico, desfazer última mudança, aposentar ou restaurar. Use quando o usuário perguntar o que o assistente aprendeu/criou, quiser desfazer um atalho novo, ou digitar /habilidades."
+description: "Mostra e controla as habilidades do assistente. Use quando o usuário perguntar o que o assistente aprendeu/criou, quiser desfazer um atalho novo ou digitar /habilidades."
 argument-hint: "[listar | historico | desfazer <nome> | aposentar <nome> | restaurar <nome> | candidatas]"
 disable-model-invocation: true
 ---

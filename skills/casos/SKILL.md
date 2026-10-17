@@ -1,6 +1,6 @@
 ---
 name: casos
-description: "Gerencia os casos do escritório: listar, abrir/retomar, ativar (Em análise → Ativos), arquivar (Ativos → Arquivados), reabrir e buscar. Use quando o usuário perguntar pelos seus casos, quiser continuar um caso, mudar a fase de um caso ou digitar /casos."
+description: "Gerencia os casos do escritório: listar, abrir/retomar, ativar, arquivar, reabrir. Use quando o usuário perguntar pelos seus casos, quiser continuar um caso, mudar a fase de um caso ou digitar /casos."
 argument-hint: "[listar | abrir <nome> | ativar <nome> | arquivar <nome> | reabrir <nome> | buscar <termo>]"
 ---
 

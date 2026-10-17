@@ -1,6 +1,6 @@
 ---
 name: criar-skill-automatica
-description: "Meta-habilidade de auto-melhoria. Transforma uma tarefa repetida em uma nova skill auto-* SEM pedir aprovação, com salvaguardas obrigatórias (rascunho, validação, ensaio/dry-run, backup, changelog, desfazer). Use quando o detector avisar \"tarefa repetida\", na reflexão automática (fim de etapa, handoff ou fim de sessão), quando você notar que fez o mesmo procedimento 3+ vezes, ou para melhorar uma skill auto-* que falhou."
+description: "Auto-melhoria: transforma tarefa repetida em skill auto-*, sem aprovação e com salvaguardas. Use quando o detector avisar \"tarefa repetida\", na reflexão automática ou ao repetir algo 3+ vezes."
 user-invocable: true
 argument-hint: "[descrição da tarefa repetida | id da candidata]"
 ---
@@ -36,6 +36,7 @@ metadata:
 ## Se falhar
 Registre: node "$HOME/.claude/advogado/scripts/habilidades.js" resultado <nome> falha "<motivo>"
 ```
+Contexto: a descrição fica carregada em toda conversa, então mantenha até 200 caracteres (o que faz + "Use quando"); exemplos e detalhes longos vão para `references/*.md` com um link no SKILL.md.
 Restrições (validadas): até 300 linhas; sem `allowed-tools` além de Read/Glob/Grep; sem `hooks`; sem injeção de comando `!`; sem comandos de rede/envio; **sem dados de clientes** (use [CLIENTE], [CPF]); deve respeitar as regras do CLAUDE.md global (sigilo, não inventar citações).
 
 ## 3. Validar

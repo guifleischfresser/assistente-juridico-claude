@@ -1,6 +1,6 @@
 ---
 name: reflexao
-description: "Rotina de auto-aprendizado (harness engineering) feita SEM pedir aprovação: aprende com as edições do advogado nas peças, atualiza o DOSSIE.md dos casos trabalhados, memoriza preferências e cuidados, enxuga o CLAUDE.md e cria/melhora skills a partir do que se repetiu. Use quando aparecer \"🧠 REFLEXÃO AUTOMÁTICA\" ou \"REFLEXÃO PENDENTE\", ao fazer um handoff, ao encerrar o dia, ou quando o usuário digitar /reflexao."
+description: "Auto-aprendizado sem aprovação: edições, DOSSIE, preferências e skills. Use quando aparecer \"🧠 REFLEXÃO AUTOMÁTICA\" ou \"REFLEXÃO PENDENTE\", ao fazer handoff, ao encerrar o dia ou digitar /reflexao."
 user-invocable: true
 ---
 

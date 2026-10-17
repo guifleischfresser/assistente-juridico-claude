@@ -64,6 +64,7 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 - 🗂️ **Mantém a memória de cada caso** no `DOSSIE.md` da pasta do caso.
 - 📝 **Memoriza suas preferências e os erros a não repetir** em `ESCRITORIO/MEMORIA/preferencias-e-cuidados.md`. Item que não se confirma em 120 dias vai para o arquivo morto.
 - 🧹 **Faz a própria faxina**: mantém as instruções globais curtas (aponta, não copia), funde repetições, poda o que ficou velho e registra tudo em `MEMORIA/CHANGELOG.md`, com backup.
+- 🧽 **Faz manutenção das próprias habilidades a cada 15 dias.** Sozinho, no início de uma conversa: mede quanto cada habilidade ocupa da "memória de trabalho" do Claude, encurta descrições longas, move detalhes para arquivos lidos só quando precisa, junta atalhos repetidos e aposenta os que você não usa há 45 dias. Tudo com backup, ensaio e histórico; você vê uma linha só ("Manutenção feita: 3 skills enxugadas, 1 aposentada, contexto fixo das skills -38%") e pode desfazer com `/manutencao desfazer`. Relatório em `ESCRITORIO/MEMORIA/revisoes/`.
 - ⏱️ **Sem você lembrar**: a rotina de reflexão roda sozinha a cada ~30 ações ou depois de uma peça escrita (hook `Stop`), no fim de cada conversa (hook `SessionEnd`, retomada na conversa seguinte) e em todo handoff.
 - 🔒 **Dado de cliente nunca vai para a memória global.** CPF, CNPJ, nº de processo, e-mail e telefone ficam **só** no dossiê do caso. O sistema recusa gravá-los no CLAUDE.md, na memória automática do Claude Code, em `MEMORIA/` ou no perfil de estilo, e a faxina apaga o que escapar.
 
@@ -100,6 +101,7 @@ Digite a barra `/` e o nome do comando:
 | `/aprender-meu-estilo` | Aprende (ou reaprende) o seu jeito de escrever |
 | `/handoff` | Salva um resumo do trabalho para continuar depois |
 | `/habilidades` | Mostra as habilidades que o assistente criou sozinho e permite desfazer |
+| `/manutencao` | Faz agora a manutenção das habilidades (ela já roda sozinha a cada 15 dias); `/manutencao desfazer` volta atrás |
 | `/reflexao` | Pede agora a rotina de auto-aprendizado (ela já roda sozinha) |
 | `/consertar` | Verifica se está tudo funcionando e conserta sozinho |
 | `/primeira-execucao` | Refaz ou continua a configuração inicial |
@@ -187,6 +189,9 @@ O modo auto evita que você precise clicar em "Sim" a cada passo: um classificad
 
 **O assistente grava coisas sem me perguntar?**
 Sim, de propósito: habilidades e memórias de trabalho (preferências, estilo, dossiês). Tudo fica no seu computador, com backup e histórico (`MEMORIA/CHANGELOG.md`, `/habilidades`), e pode ser apagado ou desfeito. Dados de clientes só ficam na pasta do próprio caso.
+
+**O que é a "manutenção das habilidades"?**
+Cada habilidade deixa uma descrição curta carregada em toda conversa, para o Claude saber quando usá-la. Com o tempo, atalhos criados sozinho se acumulam e ocupam espaço. A cada 15 dias, ao abrir uma conversa, o assistente arruma isso sozinho (sem agendador do sistema e sem nada sair do computador) e mostra uma linha com o resultado. Ele nunca muda o que as habilidades principais fazem. Para ver antes: `/manutencao simular`; para voltar atrás: `/manutencao desfazer`.
 
 **A memória chegou a 75%. E agora?**
 O assistente salva um resumo sozinho. Feche e abra uma conversa nova (ou digite `/clear`). Ele continua de onde parou.

@@ -1,6 +1,6 @@
 ---
 name: formatar-peca
-description: "Formata e exporta peça jurídica para Word (.docx) no padrão forense/ABNT (A4, margens 3/2 cm, fonte 12, entrelinhas 1,5, recuo 1,25 cm, citação longa com recuo de 4 cm, numeração de páginas). Use quando o usuário pedir para formatar, gerar o Word/.docx, deixar pronto para protocolar ou digitar /formatar-peca."
+description: "Formata e exporta peça jurídica para Word no padrão forense/ABNT. Use quando o usuário pedir para formatar, gerar o Word/.docx, deixar pronto para protocolar ou digitar /formatar-peca."
 argument-hint: "[arquivo .md da peça]"
 ---
 

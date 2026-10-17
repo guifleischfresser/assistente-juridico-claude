@@ -1,6 +1,6 @@
 ---
 name: aprender-meu-estilo
-description: "Aprende o estilo de escrita do advogado a partir das peças dele (ESTILO/amostras) e gera ESTILO/perfil-de-escrita.md com vocabulário, conectivos, tamanho de parágrafo, estrutura, tratamento e estilo de citação, para que as minutas não pareçam escritas por máquina. Use quando o usuário quiser que o assistente escreva como ele, adicionar novas amostras, ou digitar /aprender-meu-estilo."
+description: "Aprende o estilo do advogado a partir das peças dele para as minutas não parecerem de máquina. Use quando o usuário quiser que escreva como ele, adicionar amostras ou digitar /aprender-meu-estilo."
 ---
 
 # Aprender meu estilo
