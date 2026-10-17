@@ -134,7 +134,7 @@ $zip = Join-Path $d "advogado-claude-mod.zip"
 Invoke-WebRequest -UseBasicParsing -Uri "$rel/$($fx.tag)/$($fx.arquivo)" -OutFile $zip
 Invoke-WebRequest -UseBasicParsing -Uri "$rel/$($fx.tag)/$($fx.arquivo).sha256" -OutFile "$zip.sha256"
 $publicado = ((Get-Content "$zip.sha256" -Raw).Trim() -split "\s+")[0].ToLower()
-$obtido = (Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash.ToLower()
+$fs = [IO.File]::OpenRead($zip); try { $obtido = -join ([Security.Cryptography.SHA256]::Create().ComputeHash($fs) | ForEach-Object { $_.ToString("x2") }) } finally { $fs.Dispose() }
 if ($obtido -ne "$($fx.sha256)".ToLower() -or $obtido -ne $publicado) { Remove-Item -LiteralPath $zip -Force; throw "CHECKSUM DIFERENTE: fixado $($fx.sha256), publicado $publicado, obtido $obtido. Download descartado." }
 "CHECKSUM OK $obtido ($($fx.tag))"
 $pac = Join-Path $d "pacote"

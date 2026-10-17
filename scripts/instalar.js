@@ -56,7 +56,10 @@ function instalarArquivosBase(raiz) {
 /** Guarda uma copia do pacote em ~/.claude/advogado/pacote: o doutor (/consertar) reinstala sem internet. */
 function guardarPacote(raiz) {
   const dest = path.join(c.P.base, 'pacote');
-  if (SIMULAR || c.norm(raiz) === c.norm(dest)) return;
+  // Compara caminhos REAIS: no macOS /var -> /private/var (e HOME com symlink) faria o pacote
+  // se apagar antes de se copiar ao reparar a partir da propria copia local.
+  const real = (p) => { try { return c.norm(fs.realpathSync(p)); } catch (e) { return c.norm(path.resolve(p)); } };
+  if (SIMULAR || real(raiz) === real(dest) || real(raiz).startsWith(real(dest) + '/')) return;
   if (fs.existsSync(dest)) fs.rmSync(dest, { recursive: true, force: true });
   for (const n of PACOTE_ITENS) {
     const o = path.join(raiz, n);

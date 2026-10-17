@@ -9,7 +9,7 @@ function crc32(buf) { let c = 0xffffffff; for (let i = 0; i < buf.length; i++) c
 /** Data/hora no formato DOS (padrao valido 1980-01-01, reprodutivel). */
 function dataDos(d) {
   if (!d) return { hora: 0, data: (0 << 9) | (1 << 5) | 1 };
-  return { hora: (d.getHours() << 11) | (d.getMinutes() << 5) | Math.floor(d.getSeconds() / 2), data: ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate() };
+  return { hora: (d.getUTCHours() << 11) | (d.getUTCMinutes() << 5) | Math.floor(d.getUTCSeconds() / 2), data: ((d.getUTCFullYear() - 1980) << 9) | ((d.getUTCMonth() + 1) << 5) | d.getUTCDate() };
 }
 
 /** arquivos: [{nome, dados(Buffer|string), modo?(permissoes unix, ex. 0o755)}] -> Buffer zip.

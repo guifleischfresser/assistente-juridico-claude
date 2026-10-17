@@ -283,11 +283,23 @@ if (r.status === 0) {
   t('zip sem compressão (STORE, determinístico) e sem release/estavel.json dentro', zbuf.readUInt16LE(8) === 0 && ![...lz2(zbuf).keys()].some((n) => /\/release\//.test(n)) && [...lz2(zbuf).keys()].includes('advogado-claude-mod/LICENSE'));
   const estF = path.join(RAIZ, 'release', 'estavel.json');
   if (fs.existsSync(estF)) { const fx = JSON.parse(fs.readFileSync(estF, 'utf8')); t('release/estavel.json bem formado (tag, arquivo, sha256)', /^v\d+\.\d+\.\d+$/.test(fx.tag) && /^[0-9a-f]{64}$/.test(fx.sha256) && fx.arquivo === 'advogado-claude-mod-' + fx.tag + '.zip', JSON.stringify(fx)); }
+  const rTz = spawnSync(process.execPath, [path.join(RAIZ, 'ferramentas', 'empacotar.js'), '--saida', path.join(TMP, 'dist-tz')], { encoding: 'utf8', env: Object.assign({}, process.env, { TZ: 'Pacific/Kiritimati' }) });
+  t('mesmo SHA256 em qualquer fuso horário (data DOS em UTC)', rTz.status === 0 && fs.readFileSync(path.join(TMP, 'dist-tz', 'advogado-claude-mod.zip.sha256'), 'utf8').split(/\s+/)[0] === shaArq, rTz.stdout + rTz.stderr);
   t('empacotar --tag recusa versão diferente', spawnSync(process.execPath, [path.join(RAIZ, 'ferramentas', 'empacotar.js'), '--tag', 'v9.9.9', '--saida', path.join(TMP, 'dist3')]).status === 1);
 } else t('empacotar gera o pacote', false, r.stdout + r.stderr);
 }
 
 t('licença MIT (LICENSE + plugin.json)', (!fs.existsSync(path.join(RAIZ, 'LICENSE')) || /MIT License[\s\S]*Copyright \(c\) 2026 Guilherme Fleischfresser/.test(fs.readFileSync(path.join(RAIZ, 'LICENSE'), 'utf8'))) && JSON.parse(fs.readFileSync(path.join(RAIZ, '.claude-plugin', 'plugin.json'), 'utf8')).license === 'MIT');
+if (process.platform !== 'win32') {
+  // macOS: /var -> /private/var. Com HOME via symlink, o reparo nao pode apagar a propria copia do pacote.
+  const real = fs.mkdtempSync(path.join(os.tmpdir(), 'home-real-')); const link = real + '-link'; fs.symlinkSync(real, link);
+  const envL = Object.assign({}, process.env, { HOME: link, USERPROFILE: link }); delete envL.CLAUDE_CONFIG_DIR;
+  spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--silencioso'], { env: envL, encoding: 'utf8' });
+  fs.rmSync(path.join(link, '.claude', 'skills', 'revisar'), { recursive: true, force: true });
+  const rl = spawnSync(process.execPath, [path.join(link, '.claude', 'advogado', 'scripts', 'doutor.js'), '--consertar'], { env: envL, encoding: 'utf8' });
+  t('reparo com HOME via symlink (macOS /var) recupera skill e mantém a cópia do pacote', rl.status === 0 && fs.existsSync(path.join(link, '.claude', 'skills', 'revisar', 'SKILL.md')) && fs.existsSync(path.join(link, '.claude', 'advogado', 'pacote', 'scripts', 'instalar.js')), (rl.stdout || '').slice(-500));
+  fs.rmSync(link, { force: true }); fs.rmSync(real, { recursive: true, force: true });
+}
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));

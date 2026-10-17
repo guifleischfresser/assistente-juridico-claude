@@ -13,13 +13,13 @@ Repositório: `guifleischfresser/assistente-juridico-claude` (público). Licenç
 4. **Fixe a versão e o SHA256** (com tudo já commitado) e faça commit do arquivo gerado:
    ```bash
    node ferramentas/empacotar.js --fixar
-   git add release/estavel.json && git commit -m "release: fixar v0.2.0"
+   git add release/estavel.json && git commit -m "release: fixar v0.2.1"
    ```
    `release/estavel.json` guarda `{versao, tag, arquivo, sha256}` e fica **fora** do zip, então não há dependência circular. O INSTALAR.md lê esse arquivo da `main`, baixa `releases/download/<tag>/<arquivo>` (tag exata, não `latest`) e só aceita se o SHA256 bater com o fixado **e** com o `.sha256` da release. O zip é reprodutível (lista do git, ordem e data fixas, sem compressão), então o hash é o mesmo em qualquer máquina.
 5. Envie para a `main` e crie e envie a tag da versão. Ela precisa ser igual a `VERSAO` em `scripts/lib/comum.js` e à `version` em `.claude-plugin/plugin.json`:
    ```bash
    git push origin main
-   git tag v0.2.0 && git push origin v0.2.0
+   git tag v0.2.1 && git push origin v0.2.1
    ```
    O workflow `.github/workflows/release.yml` então:
    - roda os testes em Linux, Windows (PowerShell 5.1 real) e macOS;

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-10-16
+Correções encontradas pelo CI na publicação da 0.2.0 (a 0.2.0 não chegou a ter Release):
+- **Zip reprodutível em qualquer fuso horário:** a data DOS das entradas era calculada no fuso local, então o SHA256 gerado no Brasil diferia do gerado no CI (UTC). Agora usa UTC; teste novo compara builds em fusos diferentes.
+- **Reparo no macOS:** com o HOME atrás de um symlink (ex.: `/var` → `/private/var`), o `/consertar` apagava a cópia local do pacote antes de reinstalar a partir dela. Agora compara caminhos reais; teste novo com HOME via symlink.
+- **Windows PowerShell 5.1:** o bloco de download não depende mais de `Get-FileHash` (que some quando o PowerShell 5.1 é aberto a partir do PowerShell 7 com o `PSModulePath` herdado); o SHA256 é calculado com .NET.
+
 ## 0.2.0 — 2026-10-16
 - Licença MIT (Copyright (c) 2026 Guilherme Fleischfresser).
 - **Instalação autônoma com uma frase:**
@@ -29,7 +35,7 @@
   - **versão fixada**: `release/estavel.json` (tag + SHA256, fora do zip); o INSTALAR baixa pela tag exata e confere o hash fixado e o publicado; o CI falha se o zip reconstruído não bater;
   - `ferramentas/definir-repo.js`;
   - workflow do GitHub Actions (testes em 3 sistemas + release com atestado de procedência).
-- Testes: suíte e2e com 98 verificações e `testes/simular-bootstrap.js`, que executa literalmente os blocos do INSTALAR.md (bash e PowerShell) contra uma release local.
+- Testes: suíte e2e com 98 verificações (100 na 0.2.1) e `testes/simular-bootstrap.js`, que executa literalmente os blocos do INSTALAR.md (bash e PowerShell) contra uma release local.
 - Correção: o validador de skills reprova YAML que o Claude Code descartaria.
 
 ## 0.1.0 — 2026-10-16

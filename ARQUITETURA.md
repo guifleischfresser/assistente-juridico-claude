@@ -1,4 +1,4 @@
-# ARQUITETURA — advogado-claude-mod v0.2.0
+# ARQUITETURA — advogado-claude-mod v0.2.1
 
 Documento técnico para o Guilherme. O README.md é o documento voltado ao advogado.
 
@@ -153,7 +153,7 @@ O Claude for Legal, da Anthropic, é centrado nos EUA. Este mod parte do process
 
 ## 11. Testes realizados (Linux)
 
-- `node testes/rodar-testes.js` → **98/98** (v0.2). Cobre:
+- `node testes/rodar-testes.js` → **100/100** (v0.2). Cobre:
   - instalação, idempotência e preservação das settings do usuário;
   - todos os hooks e guards;
   - injeção, inclusive texto oculto em DOCX;
