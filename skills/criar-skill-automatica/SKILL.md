@@ -1,6 +1,6 @@
 ---
 name: criar-skill-automatica
-description: "Meta-habilidade de auto-melhoria. Transforma uma tarefa repetida em uma nova skill auto-* SEM pedir aprovação, com salvaguardas obrigatórias (rascunho, validação, ensaio/dry-run, backup, changelog, desfazer). Use quando o detector avisar \"tarefa repetida\", quando você notar que fez o mesmo procedimento 3+ vezes, ou para melhorar uma skill auto-* que falhou."
+description: "Meta-habilidade de auto-melhoria. Transforma uma tarefa repetida em uma nova skill auto-* SEM pedir aprovação, com salvaguardas obrigatórias (rascunho, validação, ensaio/dry-run, backup, changelog, desfazer). Use quando o detector avisar \"tarefa repetida\", na reflexão automática (fim de etapa, handoff ou fim de sessão), quando você notar que fez o mesmo procedimento 3+ vezes, ou para melhorar uma skill auto-* que falhou."
 user-invocable: true
 argument-hint: "[descrição da tarefa repetida | id da candidata]"
 ---

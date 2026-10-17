@@ -142,7 +142,11 @@ if (require.main === module) {
     process.exit(2);
   }
   const saida = args[1] || args[0].replace(/\.md$/i, '') + '.docx';
+  // memoria de estilo: aprende com o que o advogado mudou no .docx anterior e fotografa o novo rascunho
+  let mem = null; try { mem = require('./memoria'); if (!(mem.ehPeca(saida) || mem.ehPeca(args[0]))) mem = null; } catch (e) { mem = null; }
+  if (mem && fs.existsSync(saida)) { try { mem.aprenderEdicoes(saida); } catch (e) { /* */ } }
   fs.writeFileSync(saida, montarDocx(converter(md)));
+  if (mem) { try { mem.registrarRascunho(saida); } catch (e) { /* */ } }
   const marcadas = todas.filter((x) => x.marcada).length;
   if (leis.length) console.log('ℹ️ ' + leis.length + ' dispositivo(s) legal(is) citados sem fonte (ex.: ' + leis[0].texto + '). Confira a redação vigente no Planalto.');
   console.log('✅ Documento gerado: ' + saida + (marcadas ? '\n⚠️ Atenção: ' + marcadas + ' citação(ões) marcadas [NÃO VERIFICADO] (grifadas em amarelo). Confira antes de protocolar.' : ''));

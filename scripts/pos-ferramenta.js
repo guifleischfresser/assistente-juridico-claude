@@ -20,6 +20,20 @@ c.rodarHook('pos-ferramenta', (ent) => {
     if (!s.lidos.includes(n)) { s.lidos.push(n); if (s.lidos.length > 500) s.lidos = s.lidos.slice(-500); c.gravarSessao(ent.session_id, s); }
   }
 
+  // Contadores para a reflexao automatica + foto do rascunho de cada peca escrita pelo assistente
+  try {
+    const s = c.lerSessao(ent.session_id);
+    s.ferramentas = (s.ferramentas || 0) + 1;
+    if (['Write', 'Edit', 'MultiEdit'].includes(nome) && inp.file_path) {
+      const mem = require('./memoria');
+      if (mem.ehPeca(inp.file_path)) { mem.registrarRascunho(inp.file_path); s.pecasDesdeReflexao = (s.pecasDesdeReflexao || 0) + 1; }
+      const esc = c.config().escritorio;
+      const m = c.norm(inp.file_path).slice(c.norm(path.join(esc, 'CASOS')).length + 1).split('/');
+      if (c.dentroDe(inp.file_path, path.join(esc, 'CASOS')) && m.length > 2) { const caso = m[0] + '/' + m[1]; s.casosTocados = Array.from(new Set((s.casosTocados || []).concat([caso]))).slice(-20); }
+    }
+    c.gravarSessao(ent.session_id, s);
+  } catch (e) { c.log('erros', 'contadores pos: ' + e.message); }
+
   if (nome === 'Read' || nome === 'WebFetch') {
     const texto = JSON.stringify(ent.tool_response || '').slice(0, 300000);
     const hits = detectarInjecao(texto.replace(/\\n/g, '\n'));

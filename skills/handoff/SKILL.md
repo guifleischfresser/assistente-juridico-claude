@@ -21,5 +21,5 @@ description: "Salva o estado do trabalho (o que foi feito, decisões, próximos 
    - `CASOS/<fase>/<caso>/HANDOFF.md` (substitui o anterior; o sistema versiona automaticamente) — ou `HANDOFFS/geral.md` se não houver caso;
    - `HANDOFFS/AAAA-MM-DD_HHMM_<caso-ou-assunto>.md` (espelho central, nunca sobrescrever).
 4. Atualize o Histórico e as Pendências do `DOSSIE.md`, e `PRAZOS.md` se surgiu prazo.
-5. Aprendizados de estilo/preferência → 1 linha em "Aprendizados" do `CLAUDE.md` do ESCRITORIO (sem dados de clientes).
+5. Aplique a skill `reflexao` (memória e skills, sem pedir aprovação; dados de clientes só no DOSSIE.md).
 6. Diga ao usuário, em linguagem simples: "Salvei tudo. Para continuar com a memória leve, digite /clear. Na próxima conversa eu retomo daqui."

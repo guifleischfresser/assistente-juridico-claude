@@ -6,41 +6,68 @@ Este kit transforma o Claude Code num assistente para o seu escritório de advoc
 
 ---
 
-## 1. Instalar: cole uma frase
+## 1. Instalar: cole uma frase (piloto automático)
 
-**Você precisa de:**
-- o **Claude Code** ou o aplicativo **Claude Desktop**, na aba **Code**, com o ambiente **Local**;
-- uma assinatura do Claude (Pro ou Max).
+**Você só precisa do Claude Code instalado e com login feito** (no terminal, ou no aplicativo **Claude** na aba **Code**, com o ambiente **Local**), numa assinatura que dê acesso ao Claude Code. Nada mais: nem Node.js, nem Git, nem baixar arquivos. O resto o próprio Claude instala.
+
+**Antes de colar (recomendado, 5 segundos): ligue o modo auto.** Ele deixa o Claude aprovar sozinho as ações seguras, sem janelas a cada passo.
+- No terminal: aperte **Shift+Tab** até aparecer **⏵⏵ auto mode on** embaixo (nas versões recentes do Claude Code ele já vem ligado).
+- No aplicativo: no seletor de modo, ao lado da caixa de mensagem, escolha **Auto**.
+- Se a opção não existir (plano, modelo ou empresa não liberam), tudo bem: funciona igual, só com algumas janelas de "Sim" a mais.
 
 Abra uma conversa nova e **cole esta frase**:
 
 ```
-Leia o arquivo https://raw.githubusercontent.com/guifleischfresser/assistente-juridico-claude/main/INSTALAR.md inteiro e siga as instruções para instalar meu assistente jurídico.
+Leia o arquivo https://raw.githubusercontent.com/guifleischfresser/assistente-juridico-claude/main/INSTALAR.md inteiro e siga as instruções para instalar meu assistente jurídico no piloto automático. Autorizo baixar e executar o instalador verificado desse repositório e instalar o Node.js LTS se faltar.
 ```
 
-> ⚠️ **Para o mantenedor:** antes de divulgar, troque os marcadores de dono/repositório desta frase pelo repositório real (veja PUBLICAR.md).
+A partir daí o Claude faz **tudo sozinho**, sem perguntas opcionais:
 
-A partir daí, o Claude faz tudo sozinho e conversa com você em português simples:
+1. Confere o computador (Windows ou Mac) e, se faltar, **instala o Node.js** pelo canal oficial (winget/Homebrew).
+2. **Baixa o assistente** do GitHub pela versão fixada e **confere a assinatura digital (SHA256)**. Se não conferir, ele para e não instala.
+3. **Instala e testa** (com atalho "Escritorio Claude" na Área de Trabalho, no Windows) e deixa o Claude Code configurado para as próximas conversas: **modo auto**, modelo **Opus 5.5** com **esforço médio** e **memória automática**.
+4. **Descobre seu nome** (pela configuração do computador) ou pergunta uma única vez, se não achar.
+5. **Procura sozinho, só pelos nomes**, onde ficam suas peças, modelos, casos e controle de prazos, e **registra sem mover nem copiar** as pastas de que tem certeza. Cria um **dossiê** para cada caso encontrado e copia até 10 peças para aprender seu estilo (cópia local; os originais não são tocados).
+6. Se ficou em dúvida sobre alguma pasta, faz **uma única pergunta no final**, com tudo junto. Responder **"ok"** aceita as sugestões.
+7. Aprende seu jeito de escrever e termina com um resumo de como usar.
 
-1. **Confere o seu computador** (Windows ou Mac) e explica o que vai fazer.
-2. **Baixa o assistente** do GitHub e **confere a assinatura digital (SHA256)**. Se o arquivo não conferir, ele não instala.
-3. **Instala e testa** tudo em cerca de 2 minutos.
-4. **Pergunta, uma coisa de cada vez**, onde ficam as suas petições, os modelos, as pastas dos casos, os documentos dos clientes e o controle de prazos. Se você quiser, ele procura essas pastas no computador, olhando só os **nomes** dos arquivos.
-5. **Registra essas pastas sem mover nem copiar nada.** Seus arquivos continuam onde estão; o assistente só "aponta" para eles. A única cópia (opcional) é a das peças que mostram o seu estilo.
-6. **Aprende o seu jeito de escrever** e cria uma ficha (dossiê) para cada caso ativo, se você quiser.
-7. **Termina com um resumo de como usar.**
-
-Durante a instalação, o Claude pede autorização para rodar alguns comandos. Ele explica cada um antes; é só clicar em **Sim**.
 Se a conversa cair no meio, cole a frase de novo: ele **continua de onde parou** e não duplica nada.
+
+### O que ainda depende de você (lista completa)
+
+| # | O quê | Quando |
+|---|---|---|
+| 1 | Colar a frase | Sempre |
+| 2 | Dizer como prefere ser chamado(a) | Só se o nome não estiver na configuração do computador (Git ou nome completo da conta) |
+| 3 | Responder **"ok"** (ou corrigir) à pergunta única sobre pastas | Só se alguma pasta ficou ambígua |
+| 4 | Clicar **Sim** na janela do Windows (UAC) ao instalar o Node.js | Só no Windows sem Node.js. No Mac sem Homebrew: seguir a janela do instalador do Node; Windows sem winget ou Linux: instalar o Node LTS de nodejs.org |
+| 5 | Janelas de permissão do Claude Code | **Modo auto ligado: em geral nenhuma** (no máximo 1, se o classificador pedir confirmação de algo). **Sem modo auto:** cerca de 4 a 7 cliques em "Sim" na primeira instalação (ler o roteiro, conferir o computador, baixar, instalar, e o Node se faltar); depois disso, as regras gravadas pelo instalador cobrem os scripts do assistente |
+| 6 | Fechar e abrir o Claude Code no fim | Recomendado (ativa atalhos, barra de status e o modo/modelo configurados) |
+
+No caso típico (modo auto, Node já instalado, nome encontrado), você **cola a frase e, no máximo, responde "ok"**.
+
+> 🔐 O assistente **nunca** usa `--dangerously-skip-permissions` nem o modo "bypass permissions". As guardas de sigilo (bloqueio de envio de dados de clientes, de escrita em memória global com CPF/processo etc.) continuam valendo também no modo auto.
 
 ### Instalar sem a frase (manual)
 1. Baixe `advogado-claude-mod.zip` na página **Releases** do repositório e descompacte.
 2. No Windows, dê dois cliques em **`instalar.bat`**. No Mac, dê dois cliques em **`instalar.command`** (se o Mac bloquear: botão direito → Abrir).
-3. Abra o Claude Code na pasta `ESCRITORIO` e digite `/primeira-execucao` para a configuração conversada.
+3. Abra o Claude Code na pasta `ESCRITORIO` e digite `/primeira-execucao` para a configuração automática.
 
 ---
 
-## 2. O que o assistente faz
+## 2. Destaque: ele aprende e se aprimora sozinho
+
+Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir aprovação (tudo local, com backup, histórico e opção de desfazer), ele:
+
+- 🧩 **Cria habilidades sozinho.** Quando você pede a mesma coisa 3 vezes (ex.: "faça uma procuração ad judicia"), ele transforma o procedimento numa habilidade nova. Também revisa a conversa ao fim de cada etapa e no handoff para ver se algo merece virar habilidade. Toda habilidade passa por rascunho → validação → ensaio → publicação, e pode ser desfeita em `/habilidades`.
+- ✍️ **Aprende com as suas correções.** Ele guarda o rascunho de cada peça que escreve. Quando você edita a peça (no arquivo ou no Word), ele compara o rascunho com a sua versão final e atualiza `ESTILO/perfil-de-escrita.md` ("você troca *outrossim* por *ademais*", "você encurta as frases").
+- 🗂️ **Mantém a memória de cada caso** no `DOSSIE.md` da pasta do caso.
+- 📝 **Memoriza suas preferências e os erros a não repetir** em `ESCRITORIO/MEMORIA/preferencias-e-cuidados.md`. Item que não se confirma em 120 dias vai para o arquivo morto.
+- 🧹 **Faz a própria faxina**: mantém as instruções globais curtas (aponta, não copia), funde repetições, poda o que ficou velho e registra tudo em `MEMORIA/CHANGELOG.md`, com backup.
+- ⏱️ **Sem você lembrar**: a rotina de reflexão roda sozinha a cada ~30 ações ou depois de uma peça escrita (hook `Stop`), no fim de cada conversa (hook `SessionEnd`, retomada na conversa seguinte) e em todo handoff.
+- 🔒 **Dado de cliente nunca vai para a memória global.** CPF, CNPJ, nº de processo, e-mail e telefone ficam **só** no dossiê do caso. O sistema recusa gravá-los no CLAUDE.md, na memória automática do Claude Code, em `MEMORIA/` ou no perfil de estilo, e a faxina apaga o que escapar.
+
+## 3. O que o assistente faz
 
 - 📁 **Organiza seus casos**, cada um com um **dossiê** (resumo, partes, fatos, prazos, histórico). Casos que já existem no seu computador ganham dossiê **apontando para a pasta original**.
 - ✍️ **Aprende o seu jeito de escrever**, para que o texto não fique com "cara de robô".
@@ -53,7 +80,7 @@ Se a conversa cair no meio, cole a frase de novo: ele **continua de onde parou**
 - 🧠 **Aprende sozinho.** Quando percebe uma tarefa repetida, cria um atalho novo. Tudo fica registrado e pode ser desfeito.
 - 🩺 **Conserta a si mesmo**: digite `/consertar`.
 
-## 3. Comandos
+## 4. Comandos
 
 Digite a barra `/` e o nome do comando:
 
@@ -73,6 +100,7 @@ Digite a barra `/` e o nome do comando:
 | `/aprender-meu-estilo` | Aprende (ou reaprende) o seu jeito de escrever |
 | `/handoff` | Salva um resumo do trabalho para continuar depois |
 | `/habilidades` | Mostra as habilidades que o assistente criou sozinho e permite desfazer |
+| `/reflexao` | Pede agora a rotina de auto-aprendizado (ela já roda sozinha) |
 | `/consertar` | Verifica se está tudo funcionando e conserta sozinho |
 | `/primeira-execucao` | Refaz ou continua a configuração inicial |
 | `/backup` | Copia o escritório para um HD externo ou pendrive |
@@ -85,7 +113,7 @@ Digite a barra `/` e o nome do comando:
 
 ---
 
-## 4. Onde ficam as coisas
+## 5. Onde ficam as coisas
 
 ```
 ESCRITORIO/
@@ -97,7 +125,8 @@ ESCRITORIO/
 │   ├── Em análise/
 │   └── Arquivados/
 ├── PECAS/            ← seus modelos e peças prontas
-├── ESTILO/           ← suas amostras e o seu "perfil de escrita"
+├── ESTILO/           ← suas amostras e o seu "perfil de escrita" (atualizado com as suas edições)
+├── MEMORIA/          ← preferências e cuidados que o assistente aprendeu + histórico (nunca dados de clientes)
 ├── WIKI/             ← jurisprudência e legislação que você já conferiu
 ├── HANDOFFS/         ← resumos para continuar o trabalho
 └── EXPORTADOS/       ← os arquivos .docx gerados
@@ -107,7 +136,7 @@ Tudo são arquivos comuns no seu computador. Você pode abrir no Word, no Bloco 
 
 ---
 
-## 5. Privacidade e sigilo (LGPD)
+## 6. Privacidade e sigilo (LGPD)
 
 - **Local primeiro:** seus casos ficam **no seu computador**. O assistente não usa serviços na nuvem, não envia e-mails e não faz upload de nada sem você pedir expressamente; se tentar, ele para e pergunta.
 - **Pesquisas na internet** só acontecem com a sua autorização, e nunca com nome, CPF ou número de processo de cliente.
@@ -120,7 +149,7 @@ Tudo são arquivos comuns no seu computador. Você pode abrir no Word, no Bloco 
 
 ---
 
-## 6. Ler PDFs (recomendado)
+## 7. Ler PDFs (recomendado)
 
 O assistente lê arquivos Word sozinho. Para ler **PDFs dos autos** com qualidade, instale uma destas ferramentas gratuitas, que funcionam offline:
 
@@ -132,17 +161,17 @@ Sem essas ferramentas, o assistente avisa e você pode converter o PDF de outra 
 
 ---
 
-## 7. Backup
+## 8. Backup
 
 Use `/backup`, ou copie a pasta `ESCRITORIO` inteira para um HD externo. As configurações do assistente ficam em `C:\Users\SeuNome\.claude` (Windows) ou `~/.claude` (Mac).
 
-## 8. Desinstalar
+## 9. Desinstalar
 
 Peça ao Claude: "desinstale o assistente jurídico". Ele roda `node ~/.claude/advogado/pacote/scripts/instalar.js --desinstalar`. Também é possível dar dois cliques em `desinstalar.bat` (Windows) ou rodar `bash desinstalar.sh` (Mac) no pacote baixado. **Sua pasta ESCRITORIO não é apagada nem alterada.**
 
 ---
 
-## 9. Perguntas frequentes
+## 10. Perguntas frequentes
 
 **O assistente substitui a minha revisão?**
 Não. Ele é um assistente, e quem assina e responde pela peça é você. Toda citação marcada [NÃO VERIFICADO] precisa ser conferida na fonte oficial antes do protocolo.
@@ -152,6 +181,12 @@ Modelos de IA podem "inventar" julgados. Por isso o kit marca automaticamente qu
 
 **O que é a "habilidade criada sozinha"?**
 Se você pede três vezes algo parecido (por exemplo, "faça uma procuração ad judicia"), o assistente cria um atalho para isso. Ele avisa em uma linha, guarda tudo em `/habilidades` e você pode desfazer a qualquer momento. Se uma habilidade falhar duas vezes, ela é aposentada automaticamente.
+
+**Por que o modo auto e o Opus 5.5?**
+O modo auto evita que você precise clicar em "Sim" a cada passo: um classificador da Anthropic aprova as ações seguras e barra as arriscadas, e as guardas de sigilo do assistente continuam ativas por cima. O instalador deixa as próximas conversas começarem no modo auto, com o modelo Opus 5.5 (`claude-opus-5-5`) em esforço médio. Você pode mudar quando quiser (`/model`, `/effort`, Shift+Tab); o assistente respeita a sua escolha e, ao desinstalar, devolve o que havia antes.
+
+**O assistente grava coisas sem me perguntar?**
+Sim, de propósito: habilidades e memórias de trabalho (preferências, estilo, dossiês). Tudo fica no seu computador, com backup e histórico (`MEMORIA/CHANGELOG.md`, `/habilidades`), e pode ser apagado ou desfeito. Dados de clientes só ficam na pasta do próprio caso.
 
 **A memória chegou a 75%. E agora?**
 O assistente salva um resumo sozinho. Feche e abra uma conversa nova (ou digite `/clear`). Ele continua de onde parou.

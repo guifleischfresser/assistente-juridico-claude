@@ -17,8 +17,8 @@ const args = process.argv.slice(2);
 const CONSERTAR = args.includes('--consertar');
 const JSON_OUT = args.includes('--json');
 const RAPIDO = args.includes('--rapido');
-const ROTEIROS = ['sessao-inicio.js', 'registro-pedidos.js', 'guarda-escrita.js', 'guarda-sigilo.js', 'pos-ferramenta.js', 'gatilho-handoff.js', 'statusline.js'];
-const EVENTOS = { SessionStart: 'sessao-inicio.js', UserPromptSubmit: 'registro-pedidos.js', PreToolUse: 'guarda-escrita.js', Stop: 'gatilho-handoff.js', PostToolUse: 'pos-ferramenta.js' };
+const ROTEIROS = ['sessao-inicio.js', 'registro-pedidos.js', 'guarda-escrita.js', 'guarda-sigilo.js', 'pos-ferramenta.js', 'gatilho-handoff.js', 'gatilho-handoff-passos.js', 'memoria.js', 'statusline.js'];
+const EVENTOS = { SessionStart: 'sessao-inicio.js', UserPromptSubmit: 'registro-pedidos.js', PreToolUse: 'guarda-escrita.js', Stop: 'gatilho-handoff.js', PostToolUse: 'pos-ferramenta.js', SessionEnd: 'memoria.js' };
 
 function diagnosticar() {
   const r = []; // {id, ok, nivel: 'erro'|'aviso'|'info', msg, conserto}
@@ -84,6 +84,10 @@ function diagnosticar() {
     add('diretorios', temEsc, temEsc ? 'ESCRITORIO liberado para leitura em qualquer pasta (additionalDirectories)' : 'ESCRITORIO não está em additionalDirectories', 'aviso', 'reinstalar');
     for (const p of cfg.pastasExternas || []) if (!dirs.some((d) => c.norm(d) === c.norm(p.caminho))) add('diretorios-externos', false, 'Pasta registrada fora de additionalDirectories: ' + p.caminho, 'aviso', 'mapa');
     const dias = s.cleanupPeriodDays;
+    const modo = s.permissions && s.permissions.defaultMode;
+    add('modo-auto', modo === 'auto', modo === 'auto' ? 'Modo auto configurado (um classificador aprova ações seguras; as guardas do assistente continuam ativas). Se a sessão abrir em "Manual", o plano/modelo/empresa não libera o modo auto: as regras de permissão do assistente reduzem os pedidos.' : 'Modo de permissão inicial: ' + (modo || 'padrão (Manual)') + '. Recomendado: auto (Shift+Tab até "auto mode on" ou o seletor de modo no app).', 'info');
+    add('modelo', !!s.model, s.model ? 'Modelo padrão: ' + s.model + (s.modelSettings && s.modelSettings[s.model] && s.modelSettings[s.model].effortLevel ? ' (esforço ' + s.modelSettings[s.model].effortLevel + ')' : '') : 'Modelo padrão do Claude Code', 'info');
+    add('memoria-auto', s.autoMemoryEnabled !== false, s.autoMemoryEnabled === false ? 'Memória automática do Claude Code desligada (a memória do assistente em MEMORIA/ continua funcionando)' : 'Memória automática do Claude Code ligada (a manutenção remove dados de clientes dela)', 'info');
     add('retencao', dias != null && dias <= 30, dias != null ? 'Histórico de conversas apagado após ' + dias + ' dia(s) (cleanupPeriodDays)' : 'Retenção de conversas no padrão do Claude Code (30 dias)', 'info');
   }
 

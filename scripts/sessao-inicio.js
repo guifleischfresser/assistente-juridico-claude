@@ -29,7 +29,7 @@ c.rodarHook('sessao-inicio', (ent) => {
     let prox = '';
     try { const { ETAPAS } = require('./primeira-execucao'); const p = ETAPAS.find(([n]) => !(est && est.etapas && est.etapas[n] && est.etapas[n].feito)); prox = p ? p[0] : ''; } catch (e) { /* */ }
     partes.push((est ? 'PRIMEIRA EXECUÇÃO INCOMPLETA (próxima etapa: ' + (prox || '?') + '). ' : 'ONBOARDING PENDENTE. ') +
-      'Na primeira resposta, cumprimente em português simples e retome a skill primeira-execucao (/primeira-execucao) de onde parou, uma pergunta por vez. Estado: node "' + path.join(c.P.base, 'scripts', 'primeira-execucao.js') + '" estado');
+      'Na primeira resposta, cumprimente em português simples e retome a skill primeira-execucao (/primeira-execucao) de onde parou, no piloto automático (sem perguntas opcionais). Estado: node "' + path.join(c.P.base, 'scripts', 'primeira-execucao.js') + '" estado');
   }
 
   // Restaurar estado: handoff mais recente (7 dias)
@@ -66,5 +66,10 @@ c.rodarHook('sessao-inicio', (ent) => {
   const recentes = Object.entries(reg.skills || {}).filter(([, s]) => s.atualizadoEm && Date.now() - Date.parse(s.atualizadoEm) < 2 * 864e5);
   if (recentes.length) partes.push('Habilidades alteradas nos últimos 2 dias: ' + recentes.map(([n, s]) => n + ' (' + s.status + ', v' + s.versao + ')').join(', ') + '. Mencione brevemente ao usuário e lembre que ele pode desfazer com /habilidades.');
 
+  // Reflexao pendente (deixada pelo hook SessionEnd da sessao anterior)
+  try {
+    const rf = c.lerJSON(path.join(c.P.estado, 'reflexao.json'), {});
+    if (rf.reflexaoPendente) partes.push('🧠 REFLEXÃO PENDENTE da sessão anterior (' + (rf.reflexaoPendente.ferramentas || 0) + ' ações, ' + (rf.reflexaoPendente.pecas || 0) + ' peça(s)). Depois de atender o primeiro pedido do usuário (ou já, se ele só cumprimentou): ' + require('./gatilho-handoff-passos').PASSOS_REFLEXAO);
+  } catch (e) { /* */ }
   return { hookSpecificOutput: { hookEventName: 'SessionStart', additionalContext: partes.join('\n\n').slice(0, 9500) } };
 });

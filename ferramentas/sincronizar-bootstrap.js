@@ -8,7 +8,7 @@ const RAIZ = path.resolve(__dirname, '..');
 const FRONT = [
   '---',
   'name: primeira-execucao',
-  'description: "Instalação e configuração inicial autônoma do assistente jurídico: verifica o computador, baixa o pacote do GitHub com SHA256, instala em modo silencioso, roda o doutor e conduz a entrevista (uma pergunta por vez) para registrar onde ficam petições, modelos, casos, amostras de estilo e prazos, por apontamento. Retomável e idempotente. Use na primeira vez, quando o SessionStart indicar ONBOARDING PENDENTE ou PRIMEIRA EXECUÇÃO INCOMPLETA, quando o usuário quiser refazer a configuração ou digitar /primeira-execucao."',
+  'description: "Instalação e configuração inicial no piloto automático do assistente jurídico: verifica o computador, instala o Node se faltar, baixa o pacote do GitHub com SHA256, instala em modo silencioso (modo auto, Opus 5.5, memória automática), roda o doutor, descobre o nome e as pastas de petições, modelos, casos e prazos sozinho (por apontamento) e faz no máximo uma pergunta final. Retomável e idempotente. Use na primeira vez, quando o SessionStart indicar ONBOARDING PENDENTE ou PRIMEIRA EXECUÇÃO INCOMPLETA, quando o usuário quiser refazer a configuração ou digitar /primeira-execucao."',
   'argument-hint: "[retomar | refazer]"',
   '---',
   '',

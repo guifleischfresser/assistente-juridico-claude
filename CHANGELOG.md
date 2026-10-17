@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.0 — 2026-10-17
+**Recurso principal: harness engineering autônomo (skills E memórias, sem pedir aprovação).**
+- Nova skill de núcleo `reflexao` (19 no núcleo) e script `memoria.js`:
+  - `aprender-edicoes`: compara o rascunho do assistente com a versão final do advogado (.md ou .docx) e atualiza um bloco automático em `ESTILO/perfil-de-escrita.md` (filtro: só palavras comuns; nomes e números ficam fora);
+  - `preferir`: memória de preferências e cuidados em `ESCRITORIO/MEMORIA/preferencias-e-cuidados.md`, com dedupe, confirmações e recusa de dados de clientes;
+  - `manter`: auto-manutenção com backup e `MEMORIA/CHANGELOG.md` (CLAUDE.md curto, aponte-não-copie, poda após 120 dias, faxina de dados sensíveis na memória automática do Claude Code);
+  - `reflexao`: parte determinística da rotina.
+- Gatilhos automáticos: `Stop` (a cada ~30 ações ou após peça escrita), novo hook `SessionEnd` (pendência retomada no `SessionStart`) e handoff. Fotos de rascunho no PostToolUse e no `exportar-docx`; aprendizado antes de reeditar (PreToolUse).
+- Guarda de escrita estendida a `ESCRITORIO/MEMORIA/`; dados de clientes só no DOSSIE.md do caso.
+**Piloto automático da instalação.**
+- `INSTALAR.md` reescrito: zero perguntas opcionais (sem licença, atalho sempre no Windows, Node instalado sozinho, amostras e dossiês automáticos). Só pergunta o nome se não conseguir inferir (`PE nome-sugerido`: git/conta do sistema) e faz no máximo **uma** pergunta final sobre pastas ambíguas (`PE autopiloto` + `PE resolver ok`).
+- Classificação por pontuação das pastas encontradas (alta → registra sozinho; média → pergunta única; Downloads nunca é alta).
+- Frase de instalação com autorização explícita para o download verificado e o Node LTS; README diz exatamente o que é preciso (só Claude Code instalado e com login).
+**Modo auto, Opus 5.5, memória automática.**
+- O instalador grava `permissions.defaultMode: "auto"`, `model: "claude-opus-5-5"`, `modelSettings` com esforço `medium` e `autoMemoryEnabled: true` (guarda os valores anteriores; reinstalar respeita mudanças do usuário; desinstalar restaura).
+- Regras de permissão estreitas por script (Bash e PowerShell) no lugar da regra ampla `node *advogado/scripts/*`.
+- Doutor: itens de modo auto, modelo/esforço, memória automática e hook SessionEnd.
+- Testes: +25 na suíte (129) e simulação de piloto automático (bash e PowerShell) que termina com uma única resposta, "ok".
+
 ## 0.2.1 — 2026-10-16
 Correções encontradas pelo CI na publicação da 0.2.0 (a 0.2.0 não chegou a ter Release):
 - **Zip reprodutível em qualquer fuso horário:** a data DOS das entradas era calculada no fuso local, então o SHA256 gerado no Brasil diferia do gerado no CI (UTC). Agora usa UTC; teste novo compara builds em fusos diferentes.

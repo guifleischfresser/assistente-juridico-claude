@@ -22,6 +22,7 @@ const PASTAS = [
   'WIKI/paginas/doutrina',
   'WIKI/schema',
   'HANDOFFS',
+  'MEMORIA',
   'EXPORTADOS',
   '_versoes',
 ];

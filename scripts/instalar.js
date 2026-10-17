@@ -89,17 +89,43 @@ function mesclarSettings(esc, forcar) {
   let retencaoNossa = false;
   if (novo.cleanupPeriodDays == null) { novo.cleanupPeriodDays = RETENCAO_DIAS; retencaoNossa = true; }
   for (const k of ['$schema', 'language', 'effortLevel', 'theme', 'outputStyle']) if (novo[k] == null || forcar) novo[k] = modelo[k];
+  // Piloto automatico (v0.3): modo auto, Opus 5.5 com esforco medio e memoria automatica.
+  // Aplicado na PRIMEIRA instalacao (ou --forcar); depois disso, mudancas do usuario (/model, Shift+Tab, /memory) sao respeitadas.
+  // Valores anteriores ficam guardados para a desinstalacao restaurar.
+  const cfgA = c.lerJSON(c.P.config, {}) || {};
+  const anteriores = Object.assign({}, cfgA.configAnterior || {});
+  const aplicar = forcar || !cfgA.pilotoAutomaticoAplicado;
+  if (aplicar) {
+    const guarda = (k, v) => { if (!(k in anteriores)) anteriores[k] = v === undefined ? null : v; };
+    guarda('model', atual.model); novo.model = modelo.model;
+    guarda('autoMemoryEnabled', atual.autoMemoryEnabled); novo.autoMemoryEnabled = modelo.autoMemoryEnabled;
+    guarda('defaultMode', atual.permissions && atual.permissions.defaultMode);
+  }
+  novo.modelSettings = Object.assign({}, modelo.modelSettings, atual.modelSettings || {});
+  for (const [m, v] of Object.entries(modelo.modelSettings)) if (!novo.modelSettings[m] || novo.modelSettings[m].effortLevel == null) novo.modelSettings[m] = Object.assign({}, novo.modelSettings[m] || {}, v);
   const ehNosso = (sl) => sl && /advogado[\\/]scripts[\\/]statusline/.test(sl.command || '');
   if (!novo.statusLine || ehNosso(novo.statusLine) || forcar) novo.statusLine = modelo.statusLine;
-  novo.permissions = novo.permissions || {};
+  novo.permissions = Object.assign({}, novo.permissions || {});
+  if (aplicar) novo.permissions.defaultMode = modelo.permissions.defaultMode;
+  modelo.permissions.allow = (modelo.permissions.allow || []).concat(regrasScripts());
   for (const k of ['allow', 'ask', 'deny', 'additionalDirectories']) {
-    const conj = new Set(novo.permissions[k] || []);
+    // remove regras amplas antigas (v0.1/v0.2: "node *advogado/scripts/*") antes de mesclar
+    const conj = new Set((novo.permissions[k] || []).filter((x) => !/^(Bash|PowerShell)\(node \*advogado\/scripts\/\*\)$/.test(x)));
     (modelo.permissions[k] || []).forEach((x) => conj.add(x));
     novo.permissions[k] = Array.from(conj);
   }
   novo.hooks = removerNossosHooks(novo.hooks || {});
   for (const [ev, grupos] of Object.entries(modelo.hooks)) novo.hooks[ev] = (novo.hooks[ev] || []).concat(grupos);
-  return { arq, novo, retencaoNossa, nodeCmd };
+  return { arq, novo, retencaoNossa, nodeCmd, anteriores, aplicado: aplicar };
+}
+/** Regras de permissao ESTREITAS: so os scripts do proprio assistente, pelo caminho exato
+ *  (sem curinga no nome do arquivo => nao cobre ../ nem outros .js). Valem no modo manual;
+ *  no modo auto as regras estreitas continuam valendo e o resto passa pelo classificador. */
+const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos'];
+function regrasScripts() {
+  const r = [];
+  for (const s of SCRIPTS_CLI) for (const base of ['$HOME/.claude/advogado/scripts/', '~/.claude/advogado/scripts/']) for (const tool of ['Bash', 'PowerShell']) r.push(tool + '(node "' + base + s + '.js" *)');
+  return r;
 }
 function removerNossosHooks(hooks) {
   const r = {};
@@ -111,7 +137,9 @@ function removerNossosHooks(hooks) {
 }
 
 function blocoClaudeMd(esc, nome) {
-  const t = fs.readFileSync(path.join(RAIZ, 'templates', 'claude-global', 'CLAUDE.md'), 'utf8')
+  // scripts instalados em ~/.claude/advogado/scripts nao tem templates/ ao lado: usa a copia do pacote
+  const cand = [path.join(RAIZ, 'templates', 'claude-global', 'CLAUDE.md'), path.join(c.P.base, 'pacote', 'templates', 'claude-global', 'CLAUDE.md')];
+  const t = fs.readFileSync(cand.find((x) => fs.existsSync(x)) || cand[0], 'utf8')
     .split('{{ESCRITORIO}}').join(barra(esc)).split('{{BASE}}').join(barra(c.P.base)).split('{{NOME}}').join(nome || '(a definir no /boas-vindas)');
   return MARCA_INI + '\n' + t.trim() + '\n' + MARCA_FIM + '\n';
 }
@@ -163,8 +191,9 @@ function instalar() {
   console.log('5/6 CLAUDE.md e settings.json atualizados (suas configurações anteriores foram mantidas)');
   if (!SIMULAR) {
     if (st.retencaoNossa) console.log('   Histórico de conversas: guardado por ' + RETENCAO_DIAS + ' dias (cleanupPeriodDays), por sigilo. Seu valor anterior seria mantido se existisse.');
+    if (st.aplicado) console.log('   Piloto automático: modo auto (permissões revisadas por um classificador), modelo Opus 5.5 com esforço médio e memória automática ligados. Seus valores anteriores foram guardados.');
     if (st.nodeCmd !== 'node') console.log('   Node fora do PATH desta sessão: os hooks usarão o caminho completo ' + st.nodeCmd);
-    c.gravarJSON(c.P.config, Object.assign({}, cfgAnt, { retencaoDefinidaPeloMod: cfgAnt.retencaoDefinidaPeloMod || st.retencaoNossa, escritorio: esc, nome, versao: c.VERSAO, instaladoEm: cfgAnt.instaladoEm || new Date().toISOString(), atualizadoEm: new Date().toISOString(), onboardingConcluido: !!cfgAnt.onboardingConcluido, limiteContexto: cfgAnt.limiteContexto || 75 }));
+    c.gravarJSON(c.P.config, Object.assign({}, cfgAnt, { configAnterior: st.anteriores, pilotoAutomaticoAplicado: cfgAnt.pilotoAutomaticoAplicado || st.aplicado, retencaoDefinidaPeloMod: cfgAnt.retencaoDefinidaPeloMod || st.retencaoNossa, escritorio: esc, nome, versao: c.VERSAO, instaladoEm: cfgAnt.instaladoEm || new Date().toISOString(), atualizadoEm: new Date().toISOString(), onboardingConcluido: !!cfgAnt.onboardingConcluido, limiteContexto: cfgAnt.limiteContexto || 75 }));
     require('child_process').execFileSync(process.execPath, [path.join(c.P.base, 'scripts', 'habilidades.js'), 'registrar-nucleo', dirSk], { stdio: 'ignore' });
   }
   console.log('6/6 Configuração salva em ' + c.P.config);
@@ -186,6 +215,11 @@ function desinstalar() {
     if (s.outputStyle === 'Advogado') delete s.outputStyle;
     const cfgD = c.lerJSON(c.P.config, {}) || {};
     if (cfgD.retencaoDefinidaPeloMod && s.cleanupPeriodDays === RETENCAO_DIAS) delete s.cleanupPeriodDays;
+    const ant = cfgD.configAnterior || {};
+    const restaurar = (obj, k, v) => { if (v === null || v === undefined) delete obj[k]; else obj[k] = v; };
+    if ('model' in ant && s.model === 'claude-opus-5-5') restaurar(s, 'model', ant.model);
+    if ('autoMemoryEnabled' in ant && s.autoMemoryEnabled === true) restaurar(s, 'autoMemoryEnabled', ant.autoMemoryEnabled);
+    if ('defaultMode' in ant && s.permissions && s.permissions.defaultMode === 'auto') restaurar(s.permissions, 'defaultMode', ant.defaultMode);
     const externas = new Set((cfgD.pastasExternas || []).map((p) => barra(p.caminho)));
     if (s.permissions && Array.isArray(s.permissions.additionalDirectories)) s.permissions.additionalDirectories = s.permissions.additionalDirectories.filter((d) => !externas.has(barra(d)) && barra(d) !== barra(cfgD.escritorio || ''));
     if (s.permissions) for (const k of Object.keys(s.permissions)) if (Array.isArray(s.permissions[k])) s.permissions[k] = s.permissions[k].filter((x) => !/advogado[\\/]scripts|advogado$/.test(x));
@@ -203,4 +237,4 @@ function desinstalar() {
 }
 
 if (require.main === module) { if (args.includes('--desinstalar')) desinstalar(); else instalar(); }
-module.exports = { instalarArquivosBase, mesclarSettings, regraCaminho, removerNossosHooks, comandoNode, RETENCAO_DIAS };
+module.exports = { blocoClaudeMd, MARCA_INI, MARCA_FIM, regrasScripts, SCRIPTS_CLI, instalarArquivosBase, mesclarSettings, regraCaminho, removerNossosHooks, comandoNode, RETENCAO_DIAS };

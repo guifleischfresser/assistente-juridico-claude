@@ -28,10 +28,13 @@ console.log('\n1. Instalação');
 let r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--escritorio', ESC, '--nome', 'Dra. Teste']);
 t('instalador termina com sucesso', r.code === 0, r.err || r.out);
 const st = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));
-t('settings.json com 5 eventos de hook', ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'Stop'].every((e) => st.hooks[e]));
+t('settings.json com 6 eventos de hook (inclui SessionEnd da reflexão)', ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'Stop', 'SessionEnd'].every((e) => st.hooks[e]) && /memoria\.js/.test(JSON.stringify(st.hooks.SessionEnd)));
+t('piloto automático: defaultMode auto, Opus 5.5 com esforço médio, memória automática', st.permissions.defaultMode === 'auto' && st.model === 'claude-opus-5-5' && st.modelSettings['claude-opus-5-5'].effortLevel === 'medium' && st.autoMemoryEnabled === true, JSON.stringify({ m: st.model, p: st.permissions.defaultMode, ms: st.modelSettings }));
+t('regras de permissão estreitas (script exato, sem curinga no caminho) para Bash e PowerShell', st.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/primeira-execucao.js" *)') && st.permissions.allow.includes('PowerShell(node "~/.claude/advogado/scripts/memoria.js" *)') && !st.permissions.allow.some((x) => /\*advogado|scripts\/\*|Bash\(\*\)|Bash\(node \*/.test(x)) && !JSON.stringify(st).includes('bypassPermissions'), JSON.stringify(st.permissions.allow));
+t('valores anteriores guardados para a desinstalação restaurar', JSON.parse(fs.readFileSync(path.join(BASE, 'config.json'), 'utf8')).configAnterior.model === null);
 t('statusLine aponta para statusline.js', /statusline\.js/.test(st.statusLine.command));
 t('outputStyle Advogado e idioma pt-BR', st.outputStyle === 'Advogado' && /portugu/.test(st.language));
-t('18 skills do núcleo instaladas', fs.readdirSync(path.join(CL, 'skills')).length === 18);
+t('19 skills do núcleo instaladas', fs.readdirSync(path.join(CL, 'skills')).length === 19);
 t('retenção de conversas = 14 dias (cleanupPeriodDays) quando ausente', st.cleanupPeriodDays === 14);
 t('cópia local do pacote para reparo', fs.existsSync(path.join(BASE, 'pacote', 'scripts', 'instalar.js')) && fs.existsSync(path.join(BASE, 'pacote', 'skills', 'consertar', 'SKILL.md')));
 t('pasta "Em análise" criada com acento', fs.existsSync(path.join(ESC, 'CASOS', 'Em análise')));
@@ -300,12 +303,124 @@ if (process.platform !== 'win32') {
   t('reparo com HOME via symlink (macOS /var) recupera skill e mantém a cópia do pacote', rl.status === 0 && fs.existsSync(path.join(link, '.claude', 'skills', 'revisar', 'SKILL.md')) && fs.existsSync(path.join(link, '.claude', 'advogado', 'pacote', 'scripts', 'instalar.js')), (rl.stdout || '').slice(-500));
   fs.rmSync(link, { force: true }); fs.rmSync(real, { recursive: true, force: true });
 }
+console.log('\n12b. v0.3: piloto automático, memória autônoma e reflexão');
+{
+  // reinstalar respeita a escolha posterior do usuário (/model) e não duplica regras
+  const arqS = path.join(CL, 'settings.json');
+  const s0 = JSON.parse(fs.readFileSync(arqS, 'utf8')); s0.model = 'claude-sonnet-4-6'; s0.permissions.allow.push('Bash(node *advogado/scripts/*)'); fs.writeFileSync(arqS, JSON.stringify(s0, null, 2));
+  node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--escritorio', ESC, '--nome', 'Dra. Teste']);
+  const s1 = JSON.parse(fs.readFileSync(arqS, 'utf8'));
+  t('reinstalar mantém o modelo escolhido depois pelo usuário e remove a regra ampla antiga', s1.model === 'claude-sonnet-4-6' && !s1.permissions.allow.includes('Bash(node *advogado/scripts/*)') && new Set(s1.permissions.allow).size === s1.permissions.allow.length, JSON.stringify(s1.permissions.allow.slice(0, 6)));
+}
+{
+  // Autopiloto em instalação limpa: zero perguntas, pergunta única só com o ambíguo
+  const H = path.join(TMP, 'home-auto'); const CL2 = path.join(H, '.claude'); const ESC2 = path.join(H, 'ESCRITORIO');
+  const env2 = Object.assign({}, process.env, { HOME: H, USERPROFILE: H, CLAUDE_CONFIG_DIR: CL2, GIT_CONFIG_GLOBAL: path.join(H, '.gitconfig'), GIT_CONFIG_NOSYSTEM: '1' });
+  fs.mkdirSync(H, { recursive: true });
+  const run2 = (script, args) => { const x = spawnSync(process.execPath, [script].concat(args || []), { env: env2, encoding: 'utf8' }); return { code: x.status, out: (x.stdout || '') + (x.stderr || '') }; };
+  run2(path.join(RAIZ, 'scripts', 'instalar.js'), ['--silencioso', '--escritorio', ESC2]);
+  const P2 = path.join(CL2, 'advogado', 'scripts', 'primeira-execucao.js');
+  const D = path.join(H, 'Documentos');
+  const mk = (rel, arqs) => { fs.mkdirSync(path.join(D, rel), { recursive: true }); (arqs || []).forEach((a) => fs.writeFileSync(path.join(D, rel, a), a)); };
+  mk('Peticoes', ['peticao inicial Fulana.docx', 'contestacao Beltrano.docx', 'recurso especial Ciclana.docx', 'replica Omega.docx', 'apelacao Souza.docx']);
+  mk('Modelos', ['modelo procuracao.docx', 'minuta contrato honorarios.docx']);
+  ['Fulana x Banco', 'Beltrano x Construtora', 'Ciclana x INSS'].forEach((c2) => mk('Clientes/' + c2, ['a.pdf']));
+  mk('Agenda', ['controle de prazos 2026.xlsx']);
+  mk('Diversos', ['recurso Fulana.docx', 'contestacao Beltrano v2.docx']);
+  let ra = run2(P2, ['autopiloto', '--raiz', D]);
+  const vaza = /Fulana|Beltrano|Ciclana|Omega|Souza|Construtora|INSS|prazos 2026|\.docx|\.xlsx/i;
+  t('autopiloto registra sozinho peças, modelos, casos e prazos (alta confiança)', ra.code === 0 && /1 de peças já escritas/.test(ra.out) && /1 de modelos/.test(ra.out) && /1 de pastas de casos/.test(ra.out) && /1 de controle de prazos/.test(ra.out), ra.out);
+  t('autopiloto cria dossiês e copia amostras de estilo sem perguntar', /Dossiês criados: 3/.test(ra.out) && fs.readdirSync(path.join(ESC2, 'ESTILO', 'amostras')).length >= 3, ra.out);
+  t('pergunta única só com a pasta ambígua, pasta-mãe + contagem, sem nomes de clientes', /PERGUNTA ÚNICA/.test(ra.out) && /\[G\d+\] Documentos\/Diversos: 2 documento/.test(ra.out) && !vaza.test(ra.out), ra.out);
+  ra = run2(P2, ['resolver', 'ok']);
+  const cfg2 = JSON.parse(fs.readFileSync(path.join(CL2, 'advogado', 'config.json'), 'utf8'));
+  t('"ok" aceita a sugestão e não deixa pendência', ra.code === 0 && /Resolvido/.test(ra.out) && cfg2.pastasExternas.some((x) => /Diversos/.test(x.caminho)) && run2(P2, ['resolver', 'ok']).out.includes('Nada pendente'), ra.out + JSON.stringify(cfg2.pastasExternas));
+  // nome: inferido do git, depois definido
+  fs.writeFileSync(path.join(H, '.gitconfig'), '[user]\n\tname = Ana Paula Lima\n');
+  const rn = run2(P2, ['nome-sugerido']);
+  t('nome sugerido a partir do git config (sem perguntar)', /NOME=Ana Paula Lima/.test(rn.out) && /FONTE=git/.test(rn.out), rn.out);
+  const rdn = run2(P2, ['definir-nome', 'Dra. Ana Paula Lima']);
+  t('definir-nome grava na configuração e no CLAUDE.md', rdn.code === 0 && JSON.parse(fs.readFileSync(path.join(CL2, 'advogado', 'config.json'), 'utf8')).nome === 'Dra. Ana Paula Lima' && fs.readFileSync(path.join(CL2, 'CLAUDE.md'), 'utf8').includes('Usuário: Dra. Ana Paula Lima, advogado'), rdn.out);
+  const { classificar } = require(path.join(RAIZ, 'scripts', 'primeira-execucao.js'));
+  t('classificar: pasta em Downloads nunca é alta confiança', classificar({ categoria: 'pecas', comNomeDePeca: 9, rotulo: 'Downloads/x' }, path.join(H, 'Downloads', 'x')).nivel !== 'alta');
+  // desinstalar restaura os valores anteriores
+  run2(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
+  const s3 = JSON.parse(fs.readFileSync(path.join(CL2, 'settings.json'), 'utf8'));
+  t('desinstalar restaura modo/modelo/memória anteriores', s3.model === undefined && !(s3.permissions && s3.permissions.defaultMode) && s3.autoMemoryEnabled === undefined, JSON.stringify(s3));
+}
+{
+  // Memória de estilo: rascunho do assistente x versão final do advogado
+  const MEM = path.join(BASE, 'scripts', 'memoria.js');
+  const peca = path.join(ESC, 'PECAS', 'minhas-pecas', 'outras', 'teste-estilo.md');
+  const texto = 'Excelentíssimo Senhor Doutor Juiz,\n\nO autor vem, respeitosamente, requerer outrossim a tutela, haja vista que o direito é cristalino e evidente nos autos.\n\nOutrossim, requer a citação do réu.\n';
+  fs.writeFileSync(peca, texto);
+  hook('pos-ferramenta.js', { session_id: 'mem', tool_name: 'Write', tool_input: { file_path: peca, content: texto }, tool_response: {} });
+  const idx = JSON.parse(fs.readFileSync(path.join(BASE, 'estado', 'rascunhos', 'indice.json'), 'utf8'));
+  t('peça escrita pelo assistente é fotografada (rascunho)', Object.values(idx.pecas).some((x) => x.arquivo === path.resolve(peca)));
+  fs.writeFileSync(peca, texto.replace('requerer outrossim', 'requerer ademais').replace(' cristalino e', '').replace('Outrossim, requer', 'Ademais, requer'));
+  hook('guarda-escrita.js', { session_id: 'mem', tool_name: 'Edit', tool_input: { file_path: peca, old_string: 'x', new_string: 'y' } });
+  let ap = JSON.parse(fs.readFileSync(path.join(BASE, 'estado', 'aprendizado-estilo.json'), 'utf8'));
+  t('antes de o assistente editar de novo, aprende com a edição do advogado', ap.substituicoes['outrossim → ademais'] === 1 && ap.removidas.cristalino === 1 && !JSON.stringify(ap).includes('Excelentíssimo'), JSON.stringify(ap));
+  // segunda peça com o mesmo ajuste => vira regra no perfil de escrita
+  const peca2 = path.join(ESC, 'PECAS', 'minhas-pecas', 'outras', 'teste-estilo-2.md');
+  fs.writeFileSync(peca2, 'Requer outrossim a juntada dos documentos anexos ao processo.\n');
+  r = node(MEM, ['registrar-rascunho', peca2]);
+  fs.writeFileSync(peca2, 'Requer ademais a juntada dos documentos anexos ao processo.\n');
+  r = node(MEM, ['aprender-edicoes', '--json']);
+  const perfil = fs.readFileSync(path.join(ESC, 'ESTILO', 'perfil-de-escrita.md'), 'utf8');
+  t('ajuste repetido vira regra automática em ESTILO/perfil-de-escrita.md (com backup e changelog)', /Você troca "outrossim" por "ademais" \(2x\)/.test(perfil) && fs.existsSync(path.join(BASE, 'backups', 'memoria')) && /aprendi com 1 peça/.test(fs.readFileSync(path.join(ESC, 'MEMORIA', 'CHANGELOG.md'), 'utf8')), perfil.slice(-500));
+  t('diff ignora nomes próprios e números (não vira memória de estilo)', (() => { const m = require(MEM); const a = m.analisarEdicao('O Banco Omega pagou 1234 reais à autora Maria.', 'O Banco Delta pagou 5678 reais à autora Joana.'); return a.substituicoes.length === 0 && a.adicionadas.length === 0; })());
+  // preferências / cuidados
+  r = node(MEM, ['preferir', 'Sempre pedir justiça gratuita em tópico próprio']);
+  const r2p = node(MEM, ['preferir', 'sempre pedir a justiça gratuita em tópico próprio']);
+  const r3p = node(MEM, ['preferir', 'A cliente de CPF 123.456.789-09 prefere WhatsApp']);
+  const prefs = fs.readFileSync(path.join(ESC, 'MEMORIA', 'preferencias-e-cuidados.md'), 'utf8');
+  t('preferir: memoriza, deduplica (confirmações) e recusa dado de cliente', r.code === 0 && /confirmações: 2/.test(prefs) && r3p.code === 2 && !prefs.includes('123.456'), r2p.out + r3p.out + prefs);
+  t('guarda: CPF em MEMORIA/ ou na memória automática é negado', decisao(hook('guarda-escrita.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: path.join(ESC, 'MEMORIA', 'x.md'), content: 'cliente 123.456.789-09' } })) === 'deny' && decisao(hook('guarda-escrita.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: path.join(CL, 'projects', 'p', 'memory', 'MEMORY.md'), content: 'processo 0001234-56.2024.8.26.0100' } })) === 'deny');
+  // manutenção: CLAUDE.md global enxuto, poda, memória automática sem dado de cliente
+  const mdG = path.join(CL, 'CLAUDE.md');
+  fs.writeFileSync(mdG, fs.readFileSync(mdG, 'utf8').replace('## Ambiente Windows', '- Preferir prazos contados em dias corridos na agenda\n## Ambiente Windows'));
+  const memAuto = path.join(CL, 'projects', 'p1', 'memory'); fs.mkdirSync(memAuto, { recursive: true });
+  fs.writeFileSync(path.join(memAuto, 'MEMORY.md'), '- usuário gosta de resumos curtos\n- cliente com CPF 12345678909 ligou\n');
+  const velho = '- [2025-01-02] Item antigo nunca confirmado · confirmações: 1';
+  fs.writeFileSync(path.join(ESC, 'MEMORIA', 'preferencias-e-cuidados.md'), fs.readFileSync(path.join(ESC, 'MEMORIA', 'preferencias-e-cuidados.md'), 'utf8').replace('## Cuidados', velho + '\n\n## Cuidados'));
+  r = node(MEM, ['manter', '--forcar']);
+  const prefs2 = fs.readFileSync(path.join(ESC, 'MEMORIA', 'preferencias-e-cuidados.md'), 'utf8');
+  t('manter: devolve o CLAUDE.md global ao modelo e move a linha extra para a memória', !fs.readFileSync(mdG, 'utf8').includes('dias corridos') && /dias corridos/.test(prefs2), r.out);
+  t('manter: poda item velho não confirmado para o arquivo morto', !prefs2.includes('Item antigo') && /Item antigo/.test(fs.readFileSync(path.join(ESC, 'MEMORIA', 'arquivo-morto.md'), 'utf8')));
+  const ma = fs.readFileSync(path.join(memAuto, 'MEMORY.md'), 'utf8');
+  t('manter: remove dado de cliente da memória automática do Claude Code (com backup)', !/12345678909/.test(ma) && /resumos curtos/.test(ma) && fs.readdirSync(path.join(BASE, 'backups', 'memoria')).length >= 1, ma);
+  // reflexão: Stop a cada N ações / peça escrita; SessionEnd deixa pendente; SessionStart avisa
+  const SR = 'sessao-reflexao';
+  const arqSes = path.join(BASE, 'estado', 'sessao-' + SR + '.json');
+  fs.writeFileSync(arqSes, JSON.stringify({ lidos: [], handoffs: [], ferramentas: 31 }));
+  let js = hook('gatilho-handoff.js', { session_id: SR, hook_event_name: 'Stop' });
+  t('Stop dispara "🧠 REFLEXÃO AUTOMÁTICA" depois de 30 ações', js.decision === 'block' && /REFLEXÃO AUTOMÁTICA/.test(js.reason) && /criar-skill-automatica/.test(js.reason) && /DOSSIE/.test(js.reason), JSON.stringify(js));
+  js = hook('gatilho-handoff.js', { session_id: SR, hook_event_name: 'Stop' });
+  const js2 = hook('gatilho-handoff.js', { session_id: SR, hook_event_name: 'Stop', stop_hook_active: true });
+  t('reflexão não repete logo em seguida nem entra em laço (stop_hook_active)', !js.decision && !js2.decision);
+  hook('pos-ferramenta.js', { session_id: SR, tool_name: 'Write', tool_input: { file_path: peca2, content: 'x' }, tool_response: {} });
+  const s5 = JSON.parse(fs.readFileSync(arqSes, 'utf8')); s5.ferramentas += 8; fs.writeFileSync(arqSes, JSON.stringify(s5));
+  js = hook('gatilho-handoff.js', { session_id: SR, hook_event_name: 'Stop' });
+  t('peça escrita também dispara a reflexão', js.decision === 'block' && /peça escrita/.test(js.reason), JSON.stringify(js));
+  const s6 = JSON.parse(fs.readFileSync(arqSes, 'utf8')); s6.ferramentas += 6; fs.writeFileSync(arqSes, JSON.stringify(s6));
+  r = node(MEM, ['reflexao', '--automatica', '--fim'], { session_id: SR, hook_event_name: 'SessionEnd', reason: 'logout' });
+  const rf = JSON.parse(fs.readFileSync(path.join(BASE, 'estado', 'reflexao.json'), 'utf8'));
+  t('SessionEnd roda a parte automática e deixa a reflexão pendente (sem saída, código 0)', r.code === 0 && !r.out.trim() && !!rf.reflexaoPendente, JSON.stringify(rf) + r.out);
+  j = hook('sessao-inicio.js', { session_id: 'nova', source: 'startup', hook_event_name: 'SessionStart' });
+  t('SessionStart seguinte avisa "REFLEXÃO PENDENTE" com os passos', /REFLEXÃO PENDENTE/.test(j.hookSpecificOutput.additionalContext) && /memoria\.js/.test(j.hookSpecificOutput.additionalContext));
+  r = node(MEM, ['reflexao']);
+  t('reflexão feita pelo assistente limpa a pendência', r.code === 0 && /REFLEXÃO/.test(r.out) && !JSON.parse(fs.readFileSync(path.join(BASE, 'estado', 'reflexao.json'), 'utf8')).reflexaoPendente, r.out);
+  t('skill reflexao instalada e no núcleo', fs.existsSync(path.join(CL, 'skills', 'reflexao', 'SKILL.md')) && require(path.join(RAIZ, 'scripts', 'lib', 'validar.js')).NUCLEO.includes('reflexao'));
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));
 t('hooks do mod removidos, os do usuário mantidos', !JSON.stringify(st3).includes('advogado/scripts') && st3.hooks && st3.hooks.Notification, JSON.stringify(st3.hooks));
 t('ESCRITORIO intacto', fs.existsSync(dossie) && fs.existsSync(docx));
 t('bloco do CLAUDE.md removido', !fs.readFileSync(path.join(CL, 'CLAUDE.md'), 'utf8').includes('advogado-claude-mod'));
+t('desinstalar não desfaz a escolha posterior do usuário (modelo) e remove o modo auto do mod', st3.model === 'claude-sonnet-4-6' && !st3.permissions.defaultMode && st3.autoMemoryEnabled === undefined, JSON.stringify({ m: st3.model, p: st3.permissions }));
 t('retenção própria do usuário mantida; pastas externas fora de additionalDirectories', st3.cleanupPeriodDays === 7 && !(st3.permissions.additionalDirectories || []).some((d) => /Petições antigas/.test(d)), JSON.stringify(st3.permissions));
 
 console.log('\nResultado: ' + ok + ' ok, ' + falhas + ' falha(s).');

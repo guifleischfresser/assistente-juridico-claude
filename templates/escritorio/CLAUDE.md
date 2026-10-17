@@ -12,5 +12,5 @@
 - Antes de ler autos grandes: `/preparar-autos` e ler só trechos via `autos-md/INDICE.md`.
 - Toda peça passa por `/revisar` (inclui verificação de citações e checagem de "cara de IA").
 
-## Aprendizados (o assistente acrescenta aqui, 1 linha cada, com data)
-- 
+## Aprendizados
+- Ficam em `MEMORIA/preferencias-e-cuidados.md` (mantido pelo assistente). Aqui só o perfil e as regras da casa.

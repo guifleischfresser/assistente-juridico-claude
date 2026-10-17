@@ -17,11 +17,13 @@
 - Procedimentos: skills `/novo-caso`, `/nova-peca`, `/revisar`, `/advogado-do-diabo`, `/verificar-citacoes`, `/preparar-autos`, `/prazos`, `/aprender-meu-estilo`, `/casos`, `/handoff`, `/habilidades`, `/consertar`, `/ajuda`.
 - Estilo do usuário: `ESTILO/perfil-de-escrita.md` (ler antes de redigir).
 - Memória de cada caso: `DOSSIE.md` na pasta do caso.
-- Preferências e aprendizados do escritório: `CLAUDE.md` do ESCRITORIO.
+- Preferências e cuidados aprendidos: `MEMORIA/preferencias-e-cuidados.md` (o assistente mantém; histórico em `MEMORIA/CHANGELOG.md`).
 - Pastas originais do advogado fora do ESCRITORIO: `mapa-de-pastas.md` (só leitura; nunca copiar nem mover).
 - Primeira configuração pendente ou algo quebrado: skills `/primeira-execucao` e `/consertar`.
 
-## Política de habilidades (auto-melhoria)
+## Auto-melhoria: skills e memória sem pedir aprovação
+- **Reflexão** (skill `reflexao`): disparada sozinha pelos hooks ("🧠 REFLEXÃO AUTOMÁTICA"/"REFLEXÃO PENDENTE") e em todo handoff. Aprende com as edições do usuário nas peças, atualiza dossiês, memoriza preferências (`memoria.js preferir`) e cria skills.
+- **Dado de cliente só no DOSSIE.md do caso.** Nunca em memória global (CLAUDE.md, memória automática, MEMORIA/, ESTILO, skills).
 - Ao perceber tarefa repetida (3+ vezes), crie uma skill `auto-*` com a skill `criar-skill-automatica`, **sem pedir aprovação**, seguindo as salvaguardas (rascunho → validação → ensaio → backup → changelog). Informe em uma linha depois.
 - Skills do núcleo não são alteradas. Skill que falhar 2 vezes é aposentada automaticamente.
 - Mantenha este arquivo com menos de 60 linhas. Ferramentas internas: `{{BASE}}/scripts/`.

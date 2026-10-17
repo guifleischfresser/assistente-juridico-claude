@@ -6,7 +6,7 @@ argument-hint: "[refazer]"
 
 # Boas-vindas (perfil e preferências)
 
-> Se a primeira execução ainda não foi concluída (`node "$HOME/.claude/advogado/scripts/primeira-execucao.js" estado`), siga a skill `primeira-execucao` primeiro: ela cuida da instalação, da entrevista sobre as pastas, do estilo e dos dossiês. Esta skill completa o **perfil**.
+> Se a primeira execução ainda não foi concluída (`node "$HOME/.claude/advogado/scripts/primeira-execucao.js" estado`), siga a skill `primeira-execucao` primeiro: ela cuida da instalação, da descoberta automática das pastas, do estilo e dos dossiês. Esta skill completa o **perfil**.
 
 Conduza como uma conversa acolhedora, em português simples. **Uma pergunta por vez**, com opções numeradas quando possível. Nunca mostre comandos técnicos sem explicar. Use a ferramenta de perguntas (AskUserQuestion) quando disponível.
 

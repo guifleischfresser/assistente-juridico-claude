@@ -6,7 +6,8 @@
 ```
 ESCRITORIO/
 ├── ESTRUTURA.md          ← este mapa
-├── CLAUDE.md             ← preferências e aprendizados do escritório (o assistente mantém)
+├── CLAUDE.md             ← perfil e regras da casa (curto; aponta para MEMORIA/)
+├── MEMORIA/              ← preferências e cuidados aprendidos sozinho + CHANGELOG (nunca dados de clientes)
 ├── mapa-de-pastas.md    ← pastas ORIGINAIS do advogado fora daqui (petições, modelos, casos): só apontadas, nunca copiadas
 ├── PRAZOS.md             ← agenda de prazos (tabela). A linha de status avisa o próximo
 ├── CASOS/

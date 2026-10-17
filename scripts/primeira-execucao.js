@@ -21,6 +21,11 @@
  *   dossies --grupo G1 | dossies "<pasta>"
  *                                         cria um dossie por subpasta SEM listar nomes no chat (so contagem)
  *   concluir                              grava o primeiro HANDOFF e imprime o resumo "como usar"
+ *   autopiloto [--raiz <pasta>]... [--json]  varre, classifica e registra SOZINHO o que tem confianca alta;
+ *                                         cria dossies e copia amostras; deixa as duvidas numa PERGUNTA UNICA
+ *   resolver ok | resolver G3=nao G5=sim   aplica a resposta unica (padrao sugerido para o que nao foi citado)
+ *   nome-sugerido                         tenta inferir o nome (git config / nome completo do sistema)
+ *   definir-nome "<nome>"                 grava o nome (config + CLAUDE.md)
  *   reiniciar                             zera o estado (as pastas registradas e arquivos criados ficam)
  */
 const fs = require('fs');
@@ -34,7 +39,7 @@ const ARQ = path.join(c.P.estado, 'primeira-execucao.json');
 const ETAPAS = [
   ['instalacao', 'Instalar o assistente (download verificado + instalador silencioso)'],
   ['verificacao', 'Verificar a instalação (doutor)'],
-  ['entrevista', 'Entrevista: onde ficam suas coisas'],
+  ['entrevista', 'Descoberta das pastas (piloto automático)'],
   ['registro', 'Registrar as pastas por apontamento (mapa-de-pastas.md)'],
   ['estilo', 'Aprender seu estilo de escrita'],
   ['dossies', 'Criar os dossiês dos casos ativos'],
@@ -300,6 +305,129 @@ function concluir() {
 }
 
 // ---------- CLI ----------
+// ---------- piloto automatico ----------
+const TIPO_DE = { pecas: 'pecas-antigas', modelos: 'modelos', casos: 'casos-ativos', prazos: 'prazos' };
+const RE_NOME = {
+  pecas: /pe[cç]as?|peti[cç]|processual|contesta|recurso|iniciais|escritos|produ[cç][aã]o/i,
+  modelos: /modelo|minuta|template|formul|padr[oõ]es/i,
+  casos: /client|casos?\b|processos?|a[cç][oõ]es|demandas|ativos|em andamento|contencioso/i,
+};
+const RE_PRAZO_ARQ = /prazo|agenda|pauta|audi[eê]ncia/i;
+/** Classifica um grupo da varredura: alta (registra sozinho), media (pergunta no fim, com padrao) ou baixa (ignora). */
+function classificar(g, caminho) {
+  const nome = path.basename(caminho || '');
+  const emDownloads = /[\\/](Downloads|Transfer[eê]ncias)([\\/]|$)/i.test(caminho || '');
+  let nivel = 'baixa', alvos = [caminho];
+  if (g.categoria === 'pecas') nivel = g.comNomeDePeca >= 5 || (g.comNomeDePeca >= 3 && RE_NOME.pecas.test(nome)) ? 'alta' : g.comNomeDePeca >= 2 ? 'media' : 'baixa';
+  else if (g.categoria === 'modelos') nivel = g.documentos >= 2 && RE_NOME.modelos.test(nome) ? 'alta' : g.documentos >= 3 ? 'media' : 'baixa';
+  else if (g.categoria === 'casos') nivel = g.subpastas >= 3 && RE_NOME.casos.test(nome) ? 'alta' : g.subpastas >= 2 ? 'media' : 'baixa';
+  else if (g.categoria === 'prazos') {
+    // Nunca aponta uma pasta inteira (ex.: Area de Trabalho) como "prazos": so o(s) arquivo(s) com nome de prazo/agenda.
+    let arqs = [];
+    try { arqs = fs.readdirSync(caminho).filter((n) => EXT_PLAN.test(n) && RE_PRAZO_ARQ.test(n)).slice(0, 3).map((n) => path.join(caminho, n)); } catch (e) { /* */ }
+    if (arqs.length) { nivel = 'alta'; alvos = arqs; }
+  } else return null;
+  if (emDownloads && nivel === 'alta') nivel = 'media';
+  return { nivel, alvos, padrao: nivel === 'media' ? (emDownloads ? 'nao' : 'sim') : null };
+}
+/** Aplica um grupo aceito: registra por apontamento; casos => dossies; pecas => amostras de estilo (copia local). */
+function aplicarGrupo(id, g, alvos, e, resumo) {
+  for (const alvo of alvos) {
+    let r; try { r = mapa.registrar(TIPO_DE[g.categoria], alvo, 'detectado automaticamente (' + id + ')'); } catch (er) { r = { erro: er.message }; }
+    if (r && r.erro) { resumo.erros.push(id + ': ' + r.erro); continue; }
+    resumo.registrados[g.categoria] = (resumo.registrados[g.categoria] || 0) + 1;
+  }
+  if (g.categoria === 'casos') {
+    const dir = alvos[0];
+    try {
+      const subs = fs.readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory() && !PULAR.test(d.name)).slice(0, 300);
+      for (const s of subs) { const r = criarDossie(s.name, path.join(dir, s.name)); if (r.criado) resumo.dossies++; else resumo.dossiesExistentes++; }
+    } catch (er) { resumo.erros.push(id + ': ' + er.message); }
+  }
+  if (g.categoria === 'pecas' && !e.amostrasCopiadas) {
+    const r = copiarAmostras(alvos, 10);
+    resumo.amostras += r.copiados.length;
+    if (r.copiados.length || r.iguais.length) e.amostrasCopiadas = true;
+  }
+}
+function autopiloto(raizes) {
+  const e = ler();
+  const r = varrer(raizes.length ? raizes : raizesPadrao(), {});
+  const caminhos = r._caminhos;
+  e.varredura = { em: new Date().toISOString(), pastas: r.pastasVisitadas, grupos: caminhos };
+  const resumo = { pastasOlhadas: r.pastasVisitadas, registrados: {}, dossies: 0, dossiesExistentes: 0, amostras: 0, pendentes: [], ignorados: 0, erros: [] };
+  const pend = {};
+  // Ordem: pecas antes (amostras do grupo mais forte), depois o resto.
+  const ordem = r.grupos.filter((g) => g.categoria !== 'nuvem').sort((a, b) => (a.categoria === 'pecas' ? -1 : 0) - (b.categoria === 'pecas' ? -1 : 0) || (b.comNomeDePeca || 0) - (a.comNomeDePeca || 0));
+  for (const g of ordem) {
+    const k = classificar(g, caminhos[g.id]);
+    if (!k || k.nivel === 'baixa') { resumo.ignorados++; continue; }
+    if (k.nivel === 'alta') aplicarGrupo(g.id, g, k.alvos, e, resumo);
+    else { pend[g.id] = { grupo: g, alvos: k.alvos, padrao: k.padrao }; resumo.pendentes.push({ id: g.id, categoria: g.categoria, rotulo: g.rotulo, contagem: g.comNomeDePeca || g.documentos || g.subpastas || g.planilhas || 0, padrao: k.padrao }); }
+  }
+  e.pendentes = pend;
+  e.respostas.varrer = 'autopiloto';
+  for (const et of ['entrevista', 'registro']) e.etapas[et] = { feito: true, em: new Date().toISOString(), nota: 'piloto automático' };
+  if (!Object.keys(pend).length) e.etapas.dossies = { feito: true, em: new Date().toISOString(), nota: 'piloto automático: ' + resumo.dossies + ' dossiê(s)' };
+  gravar(e);
+  return resumo;
+}
+const ROT_CAT = { pecas: 'peças já escritas', modelos: 'modelos', casos: 'pastas de casos', prazos: 'controle de prazos' };
+const UNID = { pecas: 'documento(s) com nome de peça', modelos: 'documento(s)', casos: 'pasta(s)', prazos: 'arquivo(s)' };
+function textoAutopiloto(s) {
+  const reg = Object.entries(s.registrados).map(([k, n]) => n + ' de ' + ROT_CAT[k]).join(', ') || 'nenhuma pasta com confiança alta';
+  const L = ['PILOTO AUTOMÁTICO — varredura local concluída (' + s.pastasOlhadas + ' pastas olhadas; só nomes; nada saiu do computador).',
+    'Registrado sozinho (apontamento, sem copiar): ' + reg + '.',
+    'Dossiês criados: ' + s.dossies + (s.dossiesExistentes ? ' (' + s.dossiesExistentes + ' já existiam)' : '') + '. Amostras de estilo copiadas (cópia local): ' + s.amostras + '.'];
+  if (s.erros.length) L.push('Avisos: ' + s.erros.slice(0, 5).join('; '));
+  if (s.pendentes.length) {
+    L.push('', 'PERGUNTA ÚNICA (mostre ao usuário exatamente assim, em UMA mensagem, só pasta-mãe e contagens):');
+    L.push('Encontrei também estas pastas, mas não tenho certeza. Responda "ok" para aceitar o que sugeri, ou diga quais mudar (ex.: "G3 não"):');
+    for (const p of s.pendentes) L.push('- [' + p.id + '] ' + p.rotulo + ': ' + p.contagem + ' ' + UNID[p.categoria] + ' → parece ' + ROT_CAT[p.categoria] + '. Sugestão: ' + (p.padrao === 'sim' ? 'usar' : 'ignorar'));
+    L.push('Depois rode: resolver ok   (ou: resolver G3=nao G5=sim)');
+  } else L.push('', 'Nenhuma dúvida: nada a perguntar.');
+  return L.join('\n');
+}
+function resolver(e, itens) {
+  const pend = e.pendentes || {};
+  const escolha = {};
+  for (const it of itens) { const m = String(it).match(/^(G\d+)\s*=\s*(sim|nao|não|s|n)$/i); if (m) escolha[m[1].toUpperCase()] = /^s/i.test(m[2]) ? 'sim' : 'nao'; }
+  const resumo = { registrados: {}, dossies: 0, dossiesExistentes: 0, amostras: 0, erros: [], ignorados: 0 };
+  for (const [id, p] of Object.entries(pend)) {
+    const d = escolha[id] || p.padrao;
+    if (d === 'sim') aplicarGrupo(id, p.grupo, p.alvos, e, resumo); else resumo.ignorados++;
+  }
+  e.pendentes = {};
+  e.etapas.dossies = { feito: true, em: new Date().toISOString(), nota: 'piloto automático' };
+  gravar(e);
+  return resumo;
+}
+function nomeSugerido() {
+  const { spawnSync } = require('child_process');
+  const tenta = (cmd, a) => { try { const r = spawnSync(cmd, a, { encoding: 'utf8', timeout: 8000, windowsHide: true }); return r.status === 0 ? String(r.stdout || '').trim() : ''; } catch (er) { return ''; } };
+  const usuario = os.userInfo().username || '';
+  const valido = (n) => n && n.length >= 3 && n.length <= 60 && /\p{L}/u.test(n) && n.toLowerCase() !== usuario.toLowerCase() && !/[@\\/:]/.test(n) && !acharSigiloSeguro(n).length;
+  const git = tenta('git', ['config', '--global', 'user.name']);
+  if (valido(git)) return { nome: git, fonte: 'git' };
+  let so = '';
+  if (process.platform === 'darwin') so = tenta('id', ['-F']);
+  else if (process.platform === 'win32') so = tenta('powershell.exe', ['-NoProfile', '-Command', '$u=[adsi]("WinNT://$env:USERDOMAIN/$env:USERNAME,user"); $u.FullName']);
+  else { const l = tenta('getent', ['passwd', usuario]); so = (l.split(':')[4] || '').split(',')[0]; }
+  if (valido(so)) return { nome: so, fonte: 'sistema' };
+  return { nome: '', fonte: '' };
+}
+function acharSigiloSeguro(t) { try { return c.acharSigilo(t); } catch (er) { return []; } }
+function definirNome(nome) {
+  const cfg = c.lerJSON(c.P.config, {}) || {};
+  cfg.nome = nome; c.gravarJSON(c.P.config, cfg);
+  const md = path.join(c.P.claude, 'CLAUDE.md');
+  if (fs.existsSync(md)) {
+    const t = fs.readFileSync(md, 'utf8');
+    const novo = t.replace(/(<!-- advogado-claude-mod:inicio -->[\s\S]*?- Usuário: )([^,\n]*)(, advogado)/, (m, a, b, d) => a + nome + d);
+    if (novo !== t) fs.writeFileSync(md, novo, 'utf8');
+  }
+}
+
 function principal() {
   const cmd = args[0] || 'estado';
   const pos = posicionais();
@@ -390,9 +518,30 @@ function principal() {
       return sair('Dossiês: ' + novos + ' criado(s), ' + ja + ' já existia(m), de ' + subs.length + ' pasta(s). Ficam em ESCRITORIO/CASOS/Ativos (apontando para as pastas originais, sem copiar).');
     }
     case 'concluir': { const r = concluir(); return sair('✅ Primeiro HANDOFF gravado: ' + r.arq + '\n\n' + r.txt); }
+    case 'autopiloto': {
+      const s = autopiloto(valores('--raiz'));
+      if (flag('--json')) return sair(JSON.stringify(s, null, 2));
+      return sair(textoAutopiloto(s));
+    }
+    case 'resolver': {
+      if (!e.pendentes || !Object.keys(e.pendentes).length) return sair('Nada pendente para resolver.');
+      const s = resolver(e, pos.filter((x) => !/^ok$/i.test(x)));
+      return sair('Resolvido. Registradas agora: ' + (Object.entries(s.registrados).map(([k, n]) => n + ' de ' + ROT_CAT[k]).join(', ') || 'nenhuma') + '; ignoradas: ' + s.ignorados + '; dossiês criados: ' + s.dossies + '; amostras copiadas: ' + s.amostras + '.' + (s.erros.length ? ' Avisos: ' + s.erros.join('; ') : ''));
+    }
+    case 'nome-sugerido': {
+      const cfgN = c.config();
+      if (cfgN.nome) return sair('NOME=' + cfgN.nome + '\nFONTE=configuracao');
+      const n = nomeSugerido();
+      return sair('NOME=' + n.nome + '\nFONTE=' + n.fonte);
+    }
+    case 'definir-nome': {
+      const nome = pos.join(' ').trim();
+      if (!nome || nome.length > 60) return sair('Uso: definir-nome "Dra. Ana Souza"', 2);
+      definirNome(nome); return sair('Nome definido: ' + nome + ' (pode mudar quando quiser: diga "me chame de ...").');
+    }
     case 'reiniciar': { gravar(novoEstado()); return sair('Estado da primeira execução zerado (pastas registradas e arquivos criados foram mantidos).'); }
     default: return sair('Comando desconhecido. Veja o cabeçalho deste arquivo.', 2);
   }
 }
 if (require.main === module) principal();
-module.exports = { ETAPAS, PERGUNTAS, varrer, raizesPadrao, slug, mascarar };
+module.exports = { ETAPAS, PERGUNTAS, varrer, raizesPadrao, slug, mascarar, classificar };

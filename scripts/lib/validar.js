@@ -5,7 +5,7 @@ const path = require('path');
 const c = require('./comum');
 
 const RESERVADOS = ['help', 'clear', 'compact', 'config', 'cost', 'doctor', 'init', 'login', 'logout', 'memory', 'model', 'review', 'code-review', 'status', 'statusline', 'hooks', 'agents', 'plugin', 'resume', 'rewind', 'permissions', 'context', 'skills', 'output-style', 'exit', 'export', 'add-dir', 'mcp', 'usage', 'effort', 'verify', 'run', 'loop', 'debug', 'batch', 'synced', 'anthropic-skills'];
-const NUCLEO = ['boas-vindas', 'ajuda', 'novo-caso', 'casos', 'nova-peca', 'formatar-peca', 'revisar', 'advogado-do-diabo', 'verificar-citacoes', 'preparar-autos', 'prazos', 'aprender-meu-estilo', 'handoff', 'criar-skill-automatica', 'habilidades', 'backup', 'primeira-execucao', 'consertar'];
+const NUCLEO = ['boas-vindas', 'ajuda', 'novo-caso', 'casos', 'nova-peca', 'formatar-peca', 'revisar', 'advogado-do-diabo', 'verificar-citacoes', 'preparar-autos', 'prazos', 'aprender-meu-estilo', 'handoff', 'criar-skill-automatica', 'habilidades', 'backup', 'primeira-execucao', 'consertar', 'reflexao'];
 const FERRAMENTAS_LIVRES = ['Read', 'Glob', 'Grep'];
 const REDE = /\b(curl|wget|scp|sftp|ftp|rsync|rclone|Invoke-WebRequest|Invoke-RestMethod|Send-MailMessage|git\s+push|requests\.post|smtplib|fetch\()/i;
 

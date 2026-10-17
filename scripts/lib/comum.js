@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const VERSAO = '0.2.1';
+const VERSAO = '0.3.0';
 
 function dirClaude() {
   return process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
@@ -52,6 +52,7 @@ function config() {
   c.limites.skillsAtivas = c.limites.skillsAtivas || 30;
   c.limites.falhasParaAposentar = c.limites.falhasParaAposentar || 2;
   c.limites.repeticoesParaSugerir = c.limites.repeticoesParaSugerir || 3;
+  c.limites.reflexaoACada = c.limites.reflexaoACada || 30;
   return c;
 }
 

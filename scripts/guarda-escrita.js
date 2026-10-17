@@ -49,10 +49,13 @@ c.rodarHook('guarda-escrita', (ent) => {
     }
   }
 
-  // 3. Harness sem dados de clientes
-  const ehHarness = /CLAUDE\.md$/i.test(arq) || c.dentroDe(arq, c.P.hab) || c.dentroDe(arq, c.P.skillsVivas) || /[\\/]memory[\\/]/.test(arq) || /[\\/]ESTILO[\\/]perfil-de-escrita\.md$/i.test(arq);
+  // 2b. Antes de o assistente mexer numa peca que o advogado pode ter editado: aprende com as edicoes dele
+  try { const mem = require('./memoria'); if (existe && mem.ehPeca(arq)) mem.aprenderEdicoes(arq); } catch (e) { c.log('erros', 'aprender pre: ' + e.message); }
+
+  // 3. Harness/memoria global sem dados de clientes
+  const ehHarness = /CLAUDE\.md$/i.test(arq) || c.dentroDe(arq, path.join(esc, 'MEMORIA')) || c.dentroDe(arq, c.P.hab) || c.dentroDe(arq, c.P.skillsVivas) || /[\\/]memory[\\/]/.test(arq) || /[\\/]ESTILO[\\/]perfil-de-escrita\.md$/i.test(arq);
   if (ehHarness && SIGILO_FORTE.test(novoTexto)) {
-    return deny('Arquivos de configuração do assistente (CLAUDE.md, skills, memória, perfil de escrita) não podem conter CPF, CNPJ ou número de processo. Substitua por marcadores como [CLIENTE], [CPF], [Nº PROCESSO]. Dados de clientes ficam só em CASOS/.');
+    return deny('Arquivos de configuração e memória do assistente (CLAUDE.md, skills, memória automática, MEMORIA/, perfil de escrita) não podem conter CPF, CNPJ ou número de processo. Substitua por marcadores como [CLIENTE], [CPF], [Nº PROCESSO]. Dados de clientes ficam só em CASOS/.');
   }
 
   // 4. CLAUDE.md global curto

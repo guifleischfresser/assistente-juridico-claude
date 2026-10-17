@@ -1,0 +1,33 @@
+---
+name: reflexao
+description: "Rotina de auto-aprendizado (harness engineering) feita SEM pedir aprovação: aprende com as edições do advogado nas peças, atualiza o DOSSIE.md dos casos trabalhados, memoriza preferências e cuidados, enxuga o CLAUDE.md e cria/melhora skills a partir do que se repetiu. Use quando aparecer \"🧠 REFLEXÃO AUTOMÁTICA\" ou \"REFLEXÃO PENDENTE\", ao fazer um handoff, ao encerrar o dia, ou quando o usuário digitar /reflexao."
+user-invocable: true
+---
+
+# Reflexão (o assistente melhora sozinho)
+
+Faça tudo **em silêncio e sem pedir aprovação**. Tudo é local, com backup e changelog. Ao final, no máximo UMA linha para o usuário.
+
+## Regra de ouro: onde cada memória mora
+| O quê | Onde | Pode ter dado de cliente? |
+|---|---|---|
+| Fatos, partes, números, estratégia de um caso | `CASOS/<fase>/<caso>/DOSSIE.md` | **Sim, só aqui** |
+| Preferências de trabalho e cuidados (gotchas) | `MEMORIA/preferencias-e-cuidados.md` (via `memoria.js preferir`) | Não |
+| Jeito de escrever | `ESTILO/perfil-de-escrita.md` (seção automática + suas notas) | Não |
+| Procedimentos repetidos | skills `auto-*` (via `criar-skill-automatica`) | Não |
+| Memória automática do Claude Code e `CLAUDE.md` | só ponteiros e regras gerais | Não |
+
+O sistema recusa (e a manutenção apaga) CPF, CNPJ, nº de processo, e-mail e telefone fora da pasta do caso. Use marcadores como `[CLIENTE]`.
+
+## Passos
+1. **Parte automática**: `node "$HOME/.claude/advogado/scripts/memoria.js" reflexao` (aprende com as peças que o usuário editou, faz a manutenção diária da memória e conta candidatas a skill). No Windows, o mesmo comando com `"$env:USERPROFILE\.claude\advogado\scripts\memoria.js"`.
+2. **Dossiês**: para cada caso trabalhado nesta conversa, atualize no `DOSSIE.md` o Histórico (1 linha com data), Pendências e decisões. Não copie autos; aponte para os arquivos.
+3. **Preferências e cuidados**: se o usuário corrigiu você, reclamou, elogiou um jeito de fazer ou revelou uma preferência estável ("sempre…", "nunca…", "prefiro…"), registre em uma frase genérica:
+   - `node "$HOME/.claude/advogado/scripts/memoria.js" preferir "Petições iniciais sempre com pedido de justiça gratuita em tópico próprio"`
+   - erros a não repetir: acrescente `--tipo cuidado`.
+   Repetir uma preferência já registrada só soma uma confirmação (é o que a mantém viva; itens não confirmados em 120 dias são arquivados).
+4. **Estilo**: se o usuário reescreveu trechos nesta conversa (sem passar pelo arquivo), anote o padrão em uma linha na parte manual de `ESTILO/perfil-de-escrita.md`.
+5. **Skills**: se algum procedimento se repetiu (aviso do detector, candidatas em `~/.claude/advogado/habilidades/candidatas.json` ou sua própria observação de 3+ vezes), aplique a skill `criar-skill-automatica` agora: rascunho → validar → ensaio → publicar. Se uma `auto-*` falhou ou foi corrigida pelo usuário, publique uma versão melhorada.
+6. **Relato**: uma linha só, em português simples, e só se algo mudou. Ex.: "🧠 Aprendi 2 preferências suas e criei a habilidade *procuração ad judicia* (dá para desfazer com /habilidades)."
+
+Não pergunte "posso memorizar?": o advogado já autorizou na instalação. Ele vê tudo em `MEMORIA/CHANGELOG.md` e pode desfazer.

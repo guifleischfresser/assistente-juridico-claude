@@ -4,8 +4,8 @@
  * Simula o fluxo "cole uma frase" seguindo LITERALMENTE os blocos de comando do INSTALAR.md:
  * release local (empacotar.js) servida por HTTP em 127.0.0.1 (layout raw/estavel.json + download por tag)
  * -> bloco *-ambiente -> *-baixar (SHA256 fixado + publicado)
- * -> *-instalar (silencioso) -> doutor -> entrevista com respostas roteirizadas -> registro -> estilo
- * -> dossies -> concluir -> re-execucao (idempotencia) -> checksum adulterado (deve recusar).
+ * -> *-instalar (silencioso, atalho) -> doutor -> nome inferido -> PILOTO AUTOMATICO (varredura + registro +
+ * dossies + amostras sozinhos; uma pergunta unica respondida com "ok") -> estilo -> concluir -> re-execucao (idempotencia) -> checksum adulterado (deve recusar).
  * Tudo num HOME temporario. Nada sai da maquina.
  * Uso: node testes/simular-bootstrap.js [--shell bash|pwsh|powershell] [--manter]
  */
@@ -89,57 +89,53 @@ function cenario(base) {
   t('ESCRITORIO criado na pasta padrão', fs.existsSync(path.join(HOME, 'ESCRITORIO', 'ESTRUTURA.md')));
   t('PE marcar instalacao', PE('marcar', 'instalacao').status === 0);
 
-  console.log('\n3. Etapa 3 — doutor');
+  const respostasDoUsuario = []; // tudo o que o advogado precisou responder (meta: só um "ok" final)
+  t('frase/roteiro sem perguntas de licença, atalho ou nome no instalador', !/NOME_DO_USUARIO/.test(fs.readFileSync(path.join(RAIZ, 'INSTALAR.md'), 'utf8')) && /-Silencioso -Atalho/.test(blocos()['ps-instalar']));
+  const sInst = JSON.parse(fs.readFileSync(path.join(HOME, '.claude', 'settings.json'), 'utf8'));
+  t('instalador liga modo auto + Opus 5.5 (esforço médio) + memória automática; nada de bypass', sInst.permissions.defaultMode === 'auto' && sInst.model === 'claude-opus-5-5' && sInst.modelSettings['claude-opus-5-5'].effortLevel === 'medium' && sInst.autoMemoryEnabled === true && !JSON.stringify(sInst).includes('bypassPermissions'), JSON.stringify(sInst.permissions).slice(0, 400));
+
+  console.log('\n3. Etapa 2 — doutor e nome (inferido, sem perguntar)');
   const d = DOUTOR();
   t('doutor: TUDO CERTO', d.status === 0 && /TUDO CERTO/.test(d.out), d.out);
   PE('marcar', 'verificacao');
+  fs.writeFileSync(path.join(HOME, '.gitconfig'), '[user]\n\tname = Simulada Souza\n');
+  const ns = PE('nome-sugerido'); const nome = (ns.out.match(/^NOME=(.*)$/m) || [])[1] || '';
+  if (!nome.trim()) respostasDoUsuario.push('nome');
+  t('nome descoberto sozinho (git config) e gravado', /NOME=Simulada Souza/.test(ns.out) && PE('definir-nome', nome.trim() || 'Dra. Simulada').status === 0, ns.out);
 
-  console.log('\n4. Etapa 4 — entrevista (interrompida e retomada)');
+  console.log('\n4. Etapa 4 — descoberta autônoma das pastas (PILOTO AUTOMÁTICO)');
   pastasFalsas();
-  const respostas = { area: 'cível e consumidor', varrer: 'sim', 'pecas-antigas': 'Documents/Peticoes', modelos: 'Documents/Modelos', 'casos-ativos': 'OneDrive/Clientes' };
-  for (let i = 0; i < 3; i++) { const q = JSON.parse(PE('proxima-pergunta', '--json').out); PE('responder', q.id, respostas[q.id]); }
-  const est = JSON.parse(PE('estado', '--json').out);
-  t('interrupção: estado aponta entrevista e a próxima pergunta certa', est.proximaEtapa === 'entrevista' && est.proximaPergunta === 'modelos', JSON.stringify(est));
-  const vr = PE('varrer', '--json'); const v = JSON.parse(vr.out); const vtxt = PE('varrer').out;
-  const g = (cat, rot) => v.grupos.find((x) => x.categoria === cat && x.rotulo === rot);
-  t('varredura local agrupa peças, modelos, casos, prazos e nuvem por pasta-mãe', g('pecas', 'Documents/Peticoes') && g('modelos', 'Documents/Modelos') && g('casos', 'OneDrive - Escritorio/Clientes') && g('prazos', 'Desktop') && g('nuvem', 'OneDrive - Escritorio'), JSON.stringify(v).slice(0, 800));
-  t('varredura não mostra nomes de subpastas, arquivos nem caminhos (sigilo)', !/Maria|Joao|Banco|Construtora|peticao inicial|controle de prazos|casa[\\/]/.test(vr.out + vtxt) && /OneDrive - Escritorio\/Clientes: 2 pasta/.test(vtxt), vtxt);
-  const casosDir = path.join(HOME, 'OneDrive - Escritorio', 'Clientes');
-  t('registrar peças/modelos/casos por --grupo e prazos por caminho', [['pecas-antigas', g('pecas', 'Documents/Peticoes').id], ['modelos', g('modelos', 'Documents/Modelos').id], ['casos-ativos', g('casos', 'OneDrive - Escritorio/Clientes').id]].every(([tp, id]) => { const r = PE('registrar', tp, '--grupo', id); return r.status === 0 && !/Maria|Joao/.test(r.out); }) && PE('registrar', 'prazos', path.join(HOME, 'Desktop', 'controle de prazos.xlsx')).status === 0);
-  t('caminho inexistente é recusado', PE('registrar', 'modelos', path.join(HOME, 'nao-existe')).status === 2);
-  let q; let n = 0;
-  while ((q = JSON.parse(PE('proxima-pergunta', '--json').out)) && !q.fim && n++ < 20) PE('responder', q.id, respostas[q.id] || (q.tipo === 'sim-nao' ? 'sim' : 'pular'));
-  t('entrevista completa (todas as perguntas respondidas)', q && q.fim, JSON.stringify(q));
-  t('resposta com CPF é recusada', PE('responder', 'nuvem', 'cliente 123.456.789-00').status === 2);
-  PE('marcar', 'entrevista');
+  const ap = PE('autopiloto');
+  t('autopiloto registra sozinho peças, modelos e prazos e cria dossiês/amostras', ap.status === 0 && /1 de peças já escritas/.test(ap.out) && /1 de modelos/.test(ap.out) && /1 de controle de prazos/.test(ap.out) && /Amostras de estilo copiadas \(cópia local\): 3/.test(ap.out), ap.out);
+  t('saída do autopiloto sem nomes de clientes, arquivos ou caminhos (sigilo)', !/Maria|Joao|Banco|Construtora|peticao inicial|controle de prazos\.xlsx|casa[\\/]/.test(ap.out), ap.out);
+  const perguntaUnica = /PERGUNTA ÚNICA/.test(ap.out);
+  t('no máximo UMA pergunta, em uma só mensagem (pasta de casos ambígua: só 2 subpastas)', perguntaUnica && (ap.out.match(/^- \[G\d+\]/gm) || []).length === 1 && /OneDrive - Escritorio\/Clientes: 2 pasta/.test(ap.out), ap.out);
+  if (perguntaUnica) { respostasDoUsuario.push('ok'); const rs = PE('resolver', 'ok'); t('"ok" aceita as sugestões (casos registrados + dossiês)', rs.status === 0 && /dossiês criados: 2/.test(rs.out), rs.out); }
+  PE('marcar', 'registro'); PE('marcar', 'dossies');
   const mapa = fs.readFileSync(path.join(HOME, 'ESCRITORIO', 'mapa-de-pastas.md'), 'utf8');
   const s = JSON.parse(fs.readFileSync(path.join(HOME, '.claude', 'settings.json'), 'utf8'));
   t('mapa-de-pastas.md + additionalDirectories (apontamento, sem cópia)', /Documents\/Peticoes/.test(mapa.replace(/\\/g, '/')) && s.permissions.additionalDirectories.some((x) => /Clientes$/.test(x)) && !fs.existsSync(path.join(HOME, 'ESCRITORIO', 'Peticoes')), mapa);
-  PE('marcar', 'registro');
-
-  console.log('\n5. Etapa 5 — estilo e dossiês');
-  const ca = PE('copiar-amostras', '--grupo', g('pecas', 'Documents/Peticoes').id, '--max', '10');
-  t('copia SÓ as amostras de estilo', /3 copiada/.test(ca.out), ca.out);
-  const est2 = spawnSync(process.execPath, [path.join(scripts(), 'estilo.js'), '--json'], { env, encoding: 'utf8' });
-  let met = {}; try { met = JSON.parse(est2.stdout); } catch (e) { /* */ }
-  t('métricas de estilo calculadas sobre as amostras copiadas', met.amostras && met.amostras.length === 3, est2.stdout.slice(0, 400));
-  PE('marcar', 'estilo');
-  const ds = PE('dossies', '--grupo', g('casos', 'OneDrive - Escritorio/Clientes').id);
-  t('dossies --grupo: um por pasta de caso, só a contagem no chat', ds.status === 0 && /2 criado/.test(ds.out) && !/Maria|Joao/.test(ds.out), ds.out);
+  const casosDir = path.join(HOME, 'OneDrive - Escritorio', 'Clientes');
   const ativos = fs.readdirSync(path.join(HOME, 'ESCRITORIO', 'CASOS', 'Ativos'));
   const dos = fs.readFileSync(path.join(HOME, 'ESCRITORIO', 'CASOS', 'Ativos', ativos.find((a) => /maria/.test(a)), 'DOSSIE.md'), 'utf8');
   t('dossiês criados apontando para a pasta original', ativos.length === 2 && /Pasta original/.test(dos) && dos.includes(path.join(casosDir, 'Maria x Banco Alfa')), ativos.join(','));
   const pa = spawnSync(process.execPath, [path.join(scripts(), 'preparar-autos.js'), path.join(HOME, 'ESCRITORIO', 'CASOS', 'Ativos', ativos.find((a) => /maria/.test(a)))], { env, encoding: 'utf8' });
   t('/preparar-autos lê da pasta original sem copiar', /pasta original/.test(pa.stdout) && !fs.existsSync(path.join(HOME, 'ESCRITORIO', 'CASOS', 'Ativos', ativos[0], 'documentos', 'inicial.pdf')), pa.stdout + pa.stderr);
-  PE('marcar', 'dossies');
+
+  console.log('\n5. Etapa 5 — estilo (automático)');
+  const est2 = spawnSync(process.execPath, [path.join(scripts(), 'estilo.js'), '--json'], { env, encoding: 'utf8' });
+  let met = {}; try { met = JSON.parse(est2.stdout); } catch (e) { /* */ }
+  t('métricas de estilo calculadas sobre as amostras copiadas sozinho', met.amostras && met.amostras.length === 3, est2.stdout.slice(0, 400));
+  PE('marcar', 'estilo');
 
   console.log('\n6. Etapa 6 — resumo e primeiro HANDOFF');
   const cc = PE('concluir');
   const hs = fs.readdirSync(path.join(HOME, 'ESCRITORIO', 'HANDOFFS')).filter((x) => /primeira-execucao/.test(x));
   t('primeiro HANDOFF gravado e "como usar" impresso', cc.status === 0 && hs.length === 1 && /Como usar/.test(cc.out), cc.out);
-  t('estado: TUDO CONCLUÍDO', /TUDO CONCLUÍDO/.test(PE('estado').out));
+  t('estado: TUDO CONCLUÍDO', /TUDO CONCLUÍDO/.test(PE('estado').out), PE('estado').out);
   const cfg = JSON.parse(fs.readFileSync(path.join(HOME, '.claude', 'advogado', 'config.json'), 'utf8'));
-  t('config: onboardingConcluido e nome gravados', cfg.onboardingConcluido === true && cfg.nome === 'Dra. Simulada', JSON.stringify(cfg));
+  t('config: onboardingConcluido e nome inferido gravados', cfg.onboardingConcluido === true && cfg.nome === 'Simulada Souza', JSON.stringify(cfg));
+  t('PILOTO AUTOMÁTICO: o advogado respondeu só "ok" (zero outras respostas)', respostasDoUsuario.length === 1 && respostasDoUsuario[0] === 'ok', JSON.stringify(respostasDoUsuario));
 
   console.log('\n7. Re-execução (idempotência) e reparo');
   const bx2 = rodarBloco(PS ? 'ps-baixar' : 'sh-baixar', base); const in2 = rodarBloco(PS ? 'ps-instalar' : 'sh-instalar', base);

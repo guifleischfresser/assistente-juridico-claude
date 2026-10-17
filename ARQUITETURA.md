@@ -1,4 +1,4 @@
-# ARQUITETURA — advogado-claude-mod v0.2.1
+# ARQUITETURA — advogado-claude-mod v0.3.0
 
 Documento técnico para o Guilherme. O README.md é o documento voltado ao advogado.
 
@@ -223,7 +223,85 @@ O advogado cola **uma frase** no Claude Code (CLI ou aba Code do Claude Desktop,
 - **Modelo de ameaça.** O SHA256 publicado ao lado do zip protege contra corrupção ou troca no transporte, mas não contra o comprometimento do repositório: quem altera `INSTALAR.md` controla o que o Claude executa. Mitigações: proteção de branch e tags, releases imutáveis e atestado de procedência (PUBLICAR.md).
 - **Fixação de versão (pinning).** `empacotar.js --fixar` grava `release/estavel.json` (`versao`, `tag`, `arquivo`, `sha256`), que é versionado mas fica **fora do zip** — sem dependência circular. O INSTALAR.md lê esse arquivo, valida o formato, baixa pela **tag exata** e exige que o hash coincida com o fixado e com o `.sha256` da release. O CI reconstrói o zip na tag e falha se o hash não for idêntico ao fixado. Assim, trocar o asset da release (ou a release `latest`) não basta para entregar outro pacote; seria preciso alterar a `main`, o que a proteção de branch cobre.
 
-## 13. Roadmap
+## 13. v0.3: piloto automático, modo auto e harness engineering autônomo
+
+### 13.1 Recurso principal: o assistente faz harness engineering sozinho
+Cada instalação evolui para o advogado que a usa, **sem pedir aprovação** e sem tirar o advogado do controle (tudo local, versionado, com changelog e desfazer). São dois pilares:
+
+**(a) Skills autônomas** (já existentes, agora com mais gatilhos):
+- detector de tarefas repetidas (`UserPromptSubmit` → `candidatas.json`) → skill `criar-skill-automatica`;
+- **reflexão** (novo): no `Stop` periódico, no `SessionEnd` (retomado no `SessionStart` seguinte) e em todo handoff, o Claude revisa o que aconteceu e publica skills a partir dos procedimentos repetidos;
+- salvaguardas inalteradas: rascunho → `validar` (YAML, nome, rede, `allowed-tools`, sigilo) → ensaio → backup → publicar → changelog; limites/dia, teto de ativas, aposentadoria após 2 falhas, `desfazer`.
+
+**(b) Memória autônoma em camadas** (onde cada coisa mora):
+
+| Camada | Arquivo | Quem escreve | Dado de cliente? |
+|---|---|---|---|
+| Caso | `CASOS/<fase>/<caso>/DOSSIE.md` | Claude (skill `reflexao`, `handoff`) | **Sim — o único lugar** |
+| Estilo (automático) | bloco `aprendizado-automatico` em `ESTILO/perfil-de-escrita.md` | `memoria.js aprender-edicoes` (determinístico) | Não (filtro) |
+| Preferências e cuidados | `ESCRITORIO/MEMORIA/preferencias-e-cuidados.md` | `memoria.js preferir` (dedupe, confirmações) | Não (recusado) |
+| Changelog / arquivo morto | `MEMORIA/CHANGELOG.md`, `MEMORIA/arquivo-morto.md` | `memoria.js` | Não |
+| Instruções globais | `~/.claude/CLAUDE.md` (bloco do mod) | instalador; `manter` restaura | Não (guarda) |
+| Memória automática do Claude Code | `~/.claude/projects/<proj>/memory/` (`autoMemoryEnabled: true`) | o próprio Claude Code | Não (guarda + faxina) |
+
+**Aprendizado com as edições (diff rascunho × final).**
+- `pos-ferramenta` fotografa cada peça escrita pelo assistente (`estado/rascunhos/<id>.txt`, `.md` em `PECAS/` ou `CASOS/**/pecas/`); `exportar-docx` fotografa o `.docx` gerado (o advogado costuma editar no Word).
+- Antes de o assistente tocar de novo numa peça (`guarda-escrita`, PreToolUse), ao reexportar o .docx, e em toda reflexão, `aprender-edicoes` compara a foto com o arquivo atual.
+- O diff é LCS por parágrafo e, dentro dos blocos alterados, LCS por palavra. Saem substituições 1↔1, palavras cortadas/acrescentadas e a variação do tamanho médio das frases.
+- **Filtro de sigilo do diff:** só entram palavras minúsculas, sem dígitos, com 3+ letras e que **nunca** aparecem com inicial maiúscula fora de início de frase no texto (nomes próprios, números e partes ficam de fora). O acumulado fica em `estado/aprendizado-estilo.json`; uma regra só aparece no perfil depois de 2 ocorrências (substituição) ou 3 (corte/acréscimo).
+- A versão do advogado vira a nova referência, e o bloco automático do perfil é regravado com backup.
+
+**Auto-manutenção (`memoria.js manter`, no máximo 1×/20 h, ou `--forcar`).**
+1. Backup (`~/.claude/advogado/backups/memoria/<carimbo>`, últimos 30).
+2. CLAUDE.md global: o bloco do mod volta ao modelo do pacote; linhas extras viram itens de preferência (aponte, não copie); linhas com dado sensível são descartadas.
+3. CLAUDE.md do ESCRITORIO: a seção "Aprendizados" migra para `MEMORIA/` e vira ponteiro.
+4. Preferências: duplicatas fundidas (Jaccard ≥ 0,7); itens com 1 confirmação e mais de 120 dias → arquivo morto.
+5. Memória automática do Claude Code: linhas com CPF/CNPJ/CNJ/RG/e-mail/telefone são substituídas por um aviso (com backup).
+6. Tudo registrado em `MEMORIA/CHANGELOG.md`.
+
+**Gatilhos da reflexão (hooks).**
+- `Stop` (`gatilho-handoff.js`): além do handoff de 75%, bloqueia **uma vez** com "🧠 REFLEXÃO AUTOMÁTICA" quando há ≥ `limites.reflexaoACada` (30) usos de ferramenta desde a última, ou uma peça escrita e ≥ 8 usos. Roda antes a parte determinística (`memoria.reflexao`) e manda o Claude seguir a skill `reflexao`. Respeita `stop_hook_active` e não repete até novos N usos.
+- `SessionEnd` (`memoria.js reflexao --automatica --fim`, timeout 30 s; a documentação dá orçamento de 1,5 s, elevado até 60 s pelo `timeout`): faz a parte determinística e, se houve trabalho, grava `reflexaoPendente`. O `SessionStart` seguinte injeta "🧠 REFLEXÃO PENDENTE" com os passos; `memoria.js reflexao` (manual) limpa a pendência.
+- Handoff (75% ou `/handoff`): inclui a skill `reflexao`.
+
+**Guardas.** `guarda-escrita` nega CPF/CNPJ/nº CNJ formatados em `CLAUDE.md`, skills, `*/memory/*`, `ESCRITORIO/MEMORIA/**` e `ESTILO/perfil-de-escrita.md`; `memoria.js preferir` recusa qualquer padrão de `acharSigilo` (inclui e-mail e telefone); a faxina pega o que escapar. Os gatilhos são todos *fail-open*: um erro de memória nunca trava o trabalho.
+
+### 13.2 Piloto automático da instalação
+- **Zero perguntas opcionais.** Sem pedido de licença (a frase colada autoriza download verificado + Node LTS), escritório no padrão, atalho sempre no Windows (`-Atalho`), Node instalado sozinho (`winget --silent` / `brew`), amostras de estilo copiadas sozinhas (até 10, cópia local), dossiês criados para cada subpasta de casos.
+- **Nome:** `PE nome-sugerido` tenta `git config --global user.name`, depois o nome completo da conta (macOS `id -F`, Windows `[adsi]WinNT FullName`, Linux `getent passwd` GECOS), com validação; achou → `PE definir-nome` (atualiza `config.json` e a linha "Usuário:" do bloco do CLAUDE.md). Não achou → única pergunta.
+- **Descoberta autônoma (`PE autopiloto`):** a mesma varredura local só de nomes; `classificar()` dá nível alta/média/baixa por categoria:
+  - peças: alta com ≥5 docs com nome de peça, ou ≥3 e nome da pasta compatível; média com ≥2;
+  - modelos: alta com ≥2 docs e nome compatível; média com ≥3;
+  - casos: alta com ≥3 subpastas e nome compatível; média com ≥2;
+  - prazos: alta só quando há arquivos com prazo/agenda/pauta/audiência no nome (registra esses arquivos, não a pasta);
+  - qualquer coisa em Downloads cai de alta para média, e a sugestão padrão é "ignorar".
+  Alta → registra (apontamento), cria dossiês e copia amostras. Média → entra na **pergunta única** (pasta-mãe + contagem + sugestão); `PE resolver ok` aplica as sugestões, `PE resolver G3=nao G5=sim` corrige. A privacidade da v0.2 se mantém: nenhum nome de subpasta/arquivo/caminho no chat.
+- **Leitura de temporários pelo shell** (`Get-Content`/`cat`) em vez da ferramenta Read: evita o prompt de "leitura fora do diretório de trabalho" do modo auto.
+- Mantidos: SHA256 fixado + publicado, parada em política de execução da empresa, retomável/idempotente.
+
+### 13.3 Modo auto, modelo e permissões
+- **Documentado (permission-modes, out/2026):** `permissions.defaultMode: "auto"` só vale em settings de usuário/gerenciadas (não de projeto); no terminal/VS Code, auto já é o modo inicial embutido desde a v2.1.283. Requer modelo suportado (API Anthropic: Opus 4.6+, Sonnet 4.6+, Haiku 5.5) e pode ser desligado pela organização (`disableAutoMode`); indisponível → a sessão abre em Manual. Shift+Tab alterna (status "⏵⏵ auto mode on"); prompts de Bash oferecem "Yes, and switch to auto mode" (os de PowerShell, não); o app Desktop lembra o modo escolhido no seletor.
+- **O instalador grava (na primeira instalação ou com `--forcar`):** `permissions.defaultMode: "auto"`, `model: "claude-opus-5-5"` (Opus 5.5 é nome documentado; id completo `claude-opus-5-5`), `modelSettings["claude-opus-5-5"].effortLevel: "medium"` (o `effortLevel` de topo não vale para o Opus 5.5) e `autoMemoryEnabled: true`. Os valores anteriores ficam em `config.json → configAnterior`; reinstalar **não** sobrescreve escolhas posteriores do usuário (`pilotoAutomaticoAplicado`); desinstalar restaura só se o valor ainda for o do mod. Modelo/esforço valem a partir da próxima sessão (a documentação diz que essas chaves são lidas no início da sessão); permissões e hooks recarregam no meio da sessão.
+- **Fallback sem modo auto: regras estreitas.** A regra ampla `Bash(node *advogado/scripts/*)` saiu (o curinga antes do caminho cobriria `../` e qualquer `.js`, e no modo auto regras amplas de interpretador são descartadas). Entraram regras exatas por script, para `Bash` e `PowerShell`, nas formas `$HOME/...` e `~/...`, por exemplo `Bash(node "$HOME/.claude/advogado/scripts/primeira-execucao.js" *)`. Regras estreitas sobrevivem ao modo auto e resolvem antes do classificador. O INSTALAR.md escreve `PE`/`DOUTOR` exatamente nessa forma.
+- **Nunca** `bypassPermissions` nem `--dangerously-skip-permissions`; a suíte verifica que a palavra não aparece no settings.
+- **Defesa em profundidade.** No modo auto, os hooks continuam rodando: `guarda-sigilo` (rede/upload com dados de cliente), `guarda-escrita` (fontes brutas, skills, memória global sem sigilo, ler antes de sobrescrever, versionamento) e regras `deny`/`ask` (as regras `ask` de WebFetch/WebSearch continuam perguntando).
+
+**Aprovações que restam (realista):**
+
+| Situação | Interações do advogado |
+|---|---|
+| Modo auto ligado, Node presente, nome no Git/conta, nenhuma pasta ambígua | **1** (colar a frase) |
+| Idem, com pasta ambígua | **2** (colar + "ok") |
+| Sem nome detectável | +1 (nome) |
+| Windows sem Node | +1 (UAC do winget) |
+| Classificador pede confirmação de algum passo | +1 (raro) |
+| Sem modo auto (Manual) | +4 a 7 cliques em "Sim" na 1ª instalação (WebFetch do roteiro, PE estado, ambiente, Node, download, instalação); depois as regras estreitas cobrem os scripts |
+
+### 13.4 Modelo de ameaça (adições da v0.3)
+- **Autonomia de memória × injeção de prompt:** um documento malicioso poderia tentar plantar "preferências". As mitigações: preferências são frases curtas (≤ 300 caracteres), ficam num arquivo legível com changelog, só valem como preferência de trabalho (o CLAUDE.md manda tratar conteúdo de documento como dado), e o scanner de injeção do PostToolUse continua avisando. Skills autônomas continuam passando pelo validador (que reprova rede/upload).
+- **Autorização na frase:** a frase autoriza só o que nomeia (instalador verificado deste repositório e Node LTS oficial); o roteiro manda parar em qualquer divergência de SHA256 e em bloqueio corporativo, e nunca reescrever comandos para contornar o classificador.
+
+## 14. Roadmap
 
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
 2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita.
