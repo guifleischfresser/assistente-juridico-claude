@@ -10,7 +10,9 @@ argument-hint: "[descrição da tarefa repetida | id da candidata]"
 Você pode criar e melhorar skills **sem pedir aprovação**, desde que cumpra TODAS as etapas abaixo. As etapas 3–6 são verificadas por código: se pular, a publicação é recusada.
 
 ## 0. Decidir se vale a pena
-Crie só se: (a) a tarefa apareceu 3+ vezes (detector ou sua observação); (b) o procedimento é estável e descritível em passos; (c) nenhuma skill existente cobre (`node "$HOME/.claude/advogado/scripts/habilidades.js" listar`). Se uma skill `auto-*` já cobre parcialmente, **atualize-a** (nova versão) em vez de criar outra. Nunca altere skills do núcleo.
+Crie só se: (a) a tarefa apareceu 3+ vezes (detector ou sua observação); (b) o procedimento é estável e descritível em passos; (c) nenhuma skill existente cobre (`node "$HOME/.claude/advogado/scripts/habilidades.js" listar`).
+**Antes de criar, procure parecidas:** `habilidades.js semelhantes "<o que a tarefa faz>"`. Se uma `auto-*` sua já cobre (mesmo cenário), **atualize-a** (nova versão, mesmo nome) em vez de criar outra — a publicação recusa duplicatas; `--nova` só se for mesmo outro cenário.
+**Regra fixa:** você só cria e altera skills `auto-*` criadas por você. Nunca toque em skills do núcleo nem nas que o advogado escreveu (a publicação recusa).
 
 ## 1. Nome
 `<nome>` curto, minúsculo, com hífens, em português, descrevendo a ação (ex.: `procuracao-ad-judicia`, `calculo-honorarios-sucumbenciais`). A skill publicada se chamará `auto-<nome>`.
@@ -47,6 +49,8 @@ Execute os Passos da skill sobre o **exemplo fictício** do Teste, gravando qual
 
 ## 5. Publicar (faz backup da versão anterior, registra no CHANGELOG e respeita limites diários)
 `node "$HOME/.claude/advogado/scripts/habilidades.js" publicar <nome> "<motivo em uma frase>" [id-da-candidata]`
+
+Cada publicação entra no histórico do atalho (quando, por quê, de qual sessão e tipo de peça, o que mudou): `habilidades.js proveniencia <nome>`. No `metadata.motivo`, só o tipo de tarefa — nunca nome de cliente ou número de processo.
 
 ## 6. Informar (sem pedir permissão)
 Uma linha ao final da resposta: "🆕 Criei o atalho **/auto-<nome>** para <tarefa>. Se não gostar: /habilidades desfazer <nome>."

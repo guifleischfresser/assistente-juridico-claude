@@ -21,6 +21,7 @@
 const fs = require('fs');
 const path = require('path');
 const c = require('./lib/comum');
+const prov = require('./lib/proveniencia');
 const { validarSkill, NUCLEO } = require('./lib/validar');
 
 const PADRAO = { intervaloDias: 15, descricaoAlvo: 200, corpoAlvo: 2500, diasSemUso: 45, similaridade: 0.6, memoryLinhas: 200, memoryAlvo: 150, memoryBytes: 25 * 1024, claudeLinhas: 200, blocoLinhas: 60, claudeEscLinhas: 80, prefsItens: 80 };
@@ -269,6 +270,8 @@ function revisar(opts) {
   const regArq = path.join(c.P.hab, 'registro.json');
   const reg = c.lerJSON(regArq, { skills: {} }) || { skills: {} }; reg.skills = reg.skills || {};
   const filtro = opts.pasta ? () => true : nossas;
+  // Posse (v0.5): fora do modo de teste (--pasta), so mexe nas auto-* criadas pelo proprio assistente.
+  const podeMexer = opts.pasta ? () => true : (x) => prov.ehNossa(path.basename(x.dir), x.dir);
   const antes = medir(pasta, filtro);
   const res = { carimbo, simulado: simular, antes, enxugadas: [], progressivas: [], aposentadas: [], mescladas: [], revertidas: [], memoria: null, backup: simular ? null : backup };
 
@@ -289,11 +292,12 @@ function revisar(opts) {
     s.status = 'aposentada'; s.atualizadoEm = agora().toISOString(); s.historico = (s.historico || []).concat([{ data: agora().toISOString(), acao: 'aposentada', motivo: 'manutenção: ' + motivo }]);
     reg.skills[chave] = s;
     const m = manifesto(); m.aposentadas.push({ nome: chave, destino }); c.gravarJSON(path.join(backup, 'manifesto.json'), m);
+    prov.registrar(chave, 'aposentada', { motivo: 'manutenção: ' + motivo });
     changelogHab(chave + ' aposentada pela manutenção', ['Motivo: ' + motivo, 'Guardada em: ' + destino, 'Para trazer de volta: /habilidades restaurar ' + chave.replace(/^auto-/, '')]);
   };
 
   // 1. aposentar auto-* sem uso ha 45+ dias (nucleo nunca e aposentado)
-  for (const i of listarSkills(pasta).filter((x) => x.auto)) {
+  for (const i of listarSkills(pasta).filter((x) => x.auto && podeMexer(x))) {
     const s = reg.skills[path.basename(i.dir)] || {};
     const ref = s.ultimoUso || s.atualizadoEm || s.criadaEm || fs.statSync(i.dir).mtime.toISOString();
     const d = dias(new Date(ref), agora());
@@ -301,7 +305,7 @@ function revisar(opts) {
   }
 
   // 2. mesclar auto-* duplicadas/sobrepostas: a mais usada fica; a outra vira referencia dela e e aposentada
-  const autos = listarSkills(pasta).filter((x) => x.auto);
+  const autos = listarSkills(pasta).filter((x) => x.auto && podeMexer(x));
   const usadas = new Set();
   for (let a = 0; a < autos.length; a++) for (let b = a + 1; b < autos.length; b++) {
     const A = autos[a], B = autos[b]; if (usadas.has(A.nome) || usadas.has(B.nome)) continue;
@@ -322,6 +326,7 @@ function revisar(opts) {
       removerDir(P.dir); copiarDir(tmp, P.dir);
       const sp = reg.skills[path.basename(P.dir)] || {}; sp.usos = (sp.usos || 0) + ((reg.skills[path.basename(S.dir)] || {}).usos || 0);
       sp.historico = (sp.historico || []).concat([{ data: agora().toISOString(), acao: 'mesclada', motivo: 'incorporou ' + S.nome }]); reg.skills[path.basename(P.dir)] = sp;
+      prov.registrar(path.basename(P.dir), 'mesclada', { de: S.nome, motivo: 'manutenção: semelhança ' + Math.round(sim * 100) + '%' }); prov.registrar(path.basename(S.dir), 'absorvida', { para: P.nome });
       changelogHab(P.nome + ' incorporou ' + S.nome + ' (manutenção)', ['Semelhança: ' + Math.round(sim * 100) + '%', 'Detalhes da antiga em ' + ref]);
       aposentar(S, 'mesclada em ' + P.nome);
     } else res.aposentadas.push({ nome: S.nome, motivo: 'mesclada em ' + P.nome });
@@ -329,7 +334,7 @@ function revisar(opts) {
   }
 
   // 3. enxugar descricoes e aplicar divulgacao progressiva; ensaio de cada uma; reverte as que falham
-  for (const i of listarSkills(pasta).filter(filtro)) {
+  for (const i of listarSkills(pasta).filter((x) => filtro(x) && podeMexer(x))) {
     const tmp = path.join(c.P.estado, 'revisao-tmp', path.basename(i.dir)); removerDir(tmp); copiarDir(i.dir, tmp);
     let texto = i.texto; const feito = [];
     if (i.listada && i.desc.length > lim.descricaoAlvo && !i.fm.dados.when_to_use) {
@@ -352,6 +357,7 @@ function revisar(opts) {
     if (!simular) {
       removerDir(i.dir); copiarDir(tmp, i.dir);
       const chave = path.basename(i.dir);
+      if (/^auto-/.test(chave)) prov.registrar(chave, 'enxugada', { motivo: 'manutenção: ' + feito.join('+') });
       if (reg.skills[chave]) reg.skills[chave].historico = (reg.skills[chave].historico || []).concat([{ data: agora().toISOString(), acao: 'enxugada', motivo: 'manutenção: ' + feito.join('+') }]);
     }
     removerDir(tmp);

@@ -4,6 +4,8 @@
 // - Envio de dados para fora do computador (upload, POST, e-mail, git push, pastas de nuvem) => "ask":
 //   o proprio advogado precisa confirmar na tela. Nada vai para a nuvem sem pedido explicito.
 // - Busca/acesso web contendo CPF, CNPJ, numero de processo etc. => "deny".
+// - v0.5: toda busca/acesso web pergunta ao advogado, salvo sites que ele autorizou (julgados.js autorizar,
+//   que tambem pergunta). verificacaoOnline: "nunca" desliga a internet de vez.
 // - Apagar pastas do ESCRITORIO em massa => "deny" (use _versoes, nunca apague).
 const c = require('./lib/comum');
 
@@ -22,6 +24,7 @@ const ENVIO = [
 const NUVEM = /(OneDrive|Google\s?Drive|GoogleDrive|My\s?Drive|Dropbox|iCloud|Mobile Documents|Box Sync|MEGA)/i;
 const APAGAR_MASSA = /\b(rm\s+(-\w*r\w*f?|-\w*f\w*r)\b|rmdir\s+\/s|Remove-Item\b[^|;]*-Recurse|rd\s+\/s|del\s+\/s)/i;
 
+const REPO_OFICIAL = /^https:\/\/(raw\.githubusercontent\.com\/guifleischfresser\/assistente-juridico-claude\/|github\.com\/guifleischfresser\/assistente-juridico-claude(\/|$))/i;
 function perguntar(motivo) {
   return { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'ask', permissionDecisionReason: '🔒 Sigilo profissional: ' + motivo + ' Só confirme se VOCÊ pediu isso.' } };
 }
@@ -40,6 +43,9 @@ c.rodarHook('guarda-sigilo', (ent) => {
       c.log('guardas', 'negado apagar-massa: ' + cmd.slice(0, 200));
       return negar('Apagar pastas inteiras do ESCRITORIO está bloqueado. Mova para CASOS/Arquivados ou para _versoes em vez de apagar.');
     }
+    if (/julgados\.js["']?\s+autorizar\b/.test(cmd)) {
+      return perguntar('isto AUTORIZA o assistente a consultar sozinho, daqui em diante, os sites indicados (' + cmd.replace(/^.*autorizar\s+/, '').slice(0, 120) + ') para conferir julgados. Só o número do julgado vai na consulta.');
+    }
     if (ENVIO.some((re) => re.test(cmd))) {
       c.log('guardas', 'ask envio: ' + cmd.slice(0, 200));
       return perguntar('este comando pode ENVIAR dados para fora do computador.');
@@ -52,12 +58,24 @@ c.rodarHook('guarda-sigilo', (ent) => {
 
   if (nome === 'WebSearch' || nome === 'WebFetch') {
     const texto = [inp.query, inp.url, inp.prompt].filter(Boolean).join(' ');
-    const achados = c.acharSigilo(texto);
+    const jg = require('./lib/julgados');
+    const pol = jg.politica();
+    let achados = c.acharSigilo(texto);
+    // numero CNJ de um julgado que o advogado pediu para conferir (julgados.js pedir) nao e dado do cliente
+    if (achados.includes('numero de processo (CNJ)') && jg.cnjLiberados(texto)) achados = achados.filter((x) => x !== 'numero de processo (CNJ)');
+    if (pol.modo === 'nunca') return negar('Consultas à internet estão desligadas neste escritório (verificacaoOnline: "nunca"). Trabalhe só com arquivos locais e marque [NÃO VERIFICADO] o que não puder conferir.');
     if (achados.length) {
       c.log('guardas', nome + ' negado por dados pessoais: ' + achados.join(','));
       return negar('A pesquisa na internet continha dados pessoais/sigilosos (' + achados.join(', ') + '). Refaça a busca só com termos jurídicos genéricos (tese, artigo de lei, tribunal), sem nomes, CPF, CNPJ ou número de processo.');
     }
-    return {};
+    // Nada sai sem pedido explicito: so sites que o advogado autorizou passam direto; o resto pergunta na tela.
+    if (nome === 'WebFetch' && jg.dominioAutorizado(inp.url, pol.fontes)) return {};
+    // o proprio roteiro de instalacao/atualizacao do assistente (repositorio oficial) nao leva dado algum
+    if (nome === 'WebFetch' && REPO_OFICIAL.test(String(inp.url || ''))) return {};
+    if (nome === 'WebSearch' && pol.busca) return {};
+    let dom = ''; try { dom = new URL(String(inp.url)).hostname; } catch (e) { dom = ''; }
+    c.log('guardas', nome + ' pergunta: ' + (dom || String(inp.query || '').slice(0, 80)));
+    return perguntar(nome === 'WebFetch' ? 'consulta externa ao site ' + (dom || '(endereço)') + '. Só o endereço é enviado; nada dos seus arquivos.' : 'pesquisa na internet: "' + String(inp.query || '').slice(0, 120) + '".');
   }
 
   if (/^mcp__/.test(nome) && /(send|post|upload|create|write|share|publish|email|message|draft|update|delete)/i.test(nome)) {

@@ -1,6 +1,6 @@
 ---
 name: aprender-meu-estilo
-description: "Aprende o estilo do advogado a partir das peças dele para as minutas não parecerem de máquina. Use quando o usuário quiser que escreva como ele, adicionar amostras ou digitar /aprender-meu-estilo."
+description: "Aprende o estilo do advogado a partir das peças dele para as minutas não parecerem de máquina. Use quando o usuário quiser que escreva como ele ou adicionar amostras."
 ---
 
 # Aprender meu estilo

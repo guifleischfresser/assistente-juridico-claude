@@ -52,6 +52,20 @@ c.rodarHook('guarda-escrita', (ent) => {
   // 2b. Antes de o assistente mexer numa peca que o advogado pode ter editado: aprende com as edicoes dele
   try { const mem = require('./memoria'); if (existe && mem.ehPeca(arq)) mem.aprenderEdicoes(arq); } catch (e) { c.log('erros', 'aprender pre: ' + e.message); }
 
+  // 2c. Erros ja corrigidos pelo advogado (guarda de erros repetidos): bloqueio => nega; aviso => PostToolUse avisa
+  try {
+    const mem = require('./memoria');
+    if (mem.ehPeca(arq) || /\.(md|txt)$/i.test(arq) && c.dentroDe(arq, esc)) {
+      const er = require('./lib/erros');
+      const hits = er.verificar(novoTexto, { ehPeca: mem.ehPeca(arq) }).filter((h) => h.nivel === 'bloqueio');
+      if (hits.length) {
+        er.marcarDisparos(hits.map((h) => h.id));
+        c.log('guardas', 'erro repetido bloqueado em ' + path.basename(arq) + ': ' + hits.map((h) => h.id).join(','));
+        return deny('🛑 Erro que o advogado já corrigiu mais de uma vez (não repita): ' + hits.map((h) => require('./lib/erros').texto(h)).join(' | ') + '. Corrija o texto e grave de novo. (Lista: node "' + path.join(c.P.base, 'scripts', 'erros.js') + '" listar)');
+      }
+    }
+  } catch (e) { c.log('erros', 'erros repetidos pre: ' + e.message); }
+
   // 3. Harness/memoria global sem dados de clientes
   const ehHarness = /CLAUDE\.md$/i.test(arq) || c.dentroDe(arq, path.join(esc, 'MEMORIA')) || c.dentroDe(arq, c.P.hab) || c.dentroDe(arq, c.P.skillsVivas) || /[\\/]memory[\\/]/.test(arq) || /[\\/]ESTILO[\\/]perfil-de-escrita\.md$/i.test(arq);
   if (ehHarness && SIGILO_FORTE.test(novoTexto)) {

@@ -34,7 +34,7 @@ t('regras de permissão estreitas (script exato, sem curinga no caminho) para Ba
 t('valores anteriores guardados para a desinstalação restaurar', JSON.parse(fs.readFileSync(path.join(BASE, 'config.json'), 'utf8')).configAnterior.model === null);
 t('statusLine aponta para statusline.js', /statusline\.js/.test(st.statusLine.command));
 t('outputStyle Advogado e idioma pt-BR', st.outputStyle === 'Advogado' && /portugu/.test(st.language));
-t('20 skills do núcleo instaladas (inclui manutencao)', fs.readdirSync(path.join(CL, 'skills')).length === 20);
+t('24 skills do núcleo instaladas (inclui manutencao, mapa-de-teses, processo, cliente, erros)', fs.readdirSync(path.join(CL, 'skills')).length === 24);
 t('retenção de conversas = 14 dias (cleanupPeriodDays) quando ausente', st.cleanupPeriodDays === 14);
 t('cópia local do pacote para reparo', fs.existsSync(path.join(BASE, 'pacote', 'scripts', 'instalar.js')) && fs.existsSync(path.join(BASE, 'pacote', 'skills', 'consertar', 'SKILL.md')));
 t('pasta "Em análise" criada com acento', fs.existsSync(path.join(ESC, 'CASOS', 'Em análise')));
@@ -62,7 +62,7 @@ t('upload com curl -F => ask', decisao(hook('guarda-sigilo.js', { tool_name: 'Ba
 t('Invoke-RestMethod -Method Post => ask', decisao(hook('guarda-sigilo.js', { tool_name: 'PowerShell', tool_input: { command: 'Invoke-RestMethod -Uri https://x.com -Method Post -Body $b' } })) === 'ask');
 t('git push => ask', decisao(hook('guarda-sigilo.js', { tool_name: 'Bash', tool_input: { command: 'git push origin main' } })) === 'ask');
 t('WebSearch com CPF => deny', decisao(hook('guarda-sigilo.js', { tool_name: 'WebSearch', tool_input: { query: 'processo de João CPF 123.456.789-09' } })) === 'deny');
-t('WebSearch genérico => sem bloqueio', !decisao(hook('guarda-sigilo.js', { tool_name: 'WebSearch', tool_input: { query: 'STJ tema 1061 repetitivo dano moral' } })));
+t('WebSearch genérico => pergunta antes (v0.5: nada sai sem pedido)', decisao(hook('guarda-sigilo.js', { tool_name: 'WebSearch', tool_input: { query: 'STJ tema 1061 repetitivo dano moral' } })) === 'ask');
 t('rm -rf no ESCRITORIO => deny', decisao(hook('guarda-sigilo.js', { tool_name: 'Bash', cwd: ESC, tool_input: { command: 'rm -rf CASOS' } })) === 'deny');
 t('comando comum => sem bloqueio', !decisao(hook('guarda-sigilo.js', { tool_name: 'Bash', tool_input: { command: 'ls -la' } })));
 t('MCP de envio => ask', decisao(hook('guarda-sigilo.js', { tool_name: 'mcp__gmail__send_message', tool_input: {} })) === 'ask');
@@ -495,7 +495,7 @@ console.log('\n12c. Manutenção das habilidades a cada 15 dias (v0.4)');
   const rd = rodar(MAN, ['desfazer'], null, envEm(29));
   t('desfazer restaura tudo: skills aposentadas/mescladas, descrição, MEMORY.md (e remove o arquivo criado)', rd.code === 0 && fs.existsSync(path.join(SK, 'auto-procuracao-velha', 'SKILL.md')) && fs.existsSync(path.join(SK, 'auto-alimentos-peticao', 'SKILL.md')) && fs.readFileSync(pa + '/SKILL.md', 'utf8').includes('revisional de alimentos') && !fs.existsSync(path.join(pa, 'references')) && fs.readFileSync(path.join(memDir, 'MEMORY.md'), 'utf8').split('\n').length === 260 && !fs.readdirSync(memDir).some((n) => /^arquivo-/.test(n)) && !fs.readdirSync(path.join(BASE, 'habilidades', '_aposentadas')).some((n) => n.startsWith('auto-procuracao-velha__')), rd.out + rd.err);
   t('regra de permissão estreita para manutencao.js; doutor conhece o script', st.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/manutencao.js" *)') && /manutencao\.js/.test(fs.readFileSync(path.join(BASE, 'scripts', 'doutor.js'), 'utf8')));
-  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 20 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
+  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 24 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
   // pacote: descricoes do nucleo ja enxutas na origem
   const mp = JSON.parse(rodar(MAN, ['medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out);
   t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3600 (era 5853 na v0.3)', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3600, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
@@ -504,6 +504,200 @@ console.log('\n12c. Manutenção das habilidades a cada 15 dias (v0.4)');
   // limpa a fixture para nao afetar as secoes seguintes
   for (const n of ['auto-peticao-alimentos', 'auto-alimentos-peticao', 'auto-procuracao-velha', 'auto-quebrada']) fs.rmSync(path.join(SK, n), { recursive: true, force: true });
   fs.writeFileSync(cfgArq, JSON.stringify(Object.assign(JSON.parse(fs.readFileSync(cfgArq, 'utf8')), { onboardingConcluido: cfg0.onboardingConcluido }), null, 2));
+}
+
+console.log('\n12d. v0.5: posse/procedência, erros a não repetir, julgados, mapa de teses, processo, plugin, AGENTS.md');
+{
+  const SC = (n) => path.join(BASE, 'scripts', n);
+  const SK = path.join(CL, 'skills');
+  const js = (codigo, e) => { const x = spawnSync(process.execPath, ['-e', codigo], { env: e || env, encoding: 'utf8', cwd: path.join(BASE, 'scripts') }); return { code: x.status, out: (x.stdout || '').trim(), err: x.stderr || '' }; };
+  const ctx = (j) => (j.hookSpecificOutput && (j.hookSpecificOutput.additionalContext || j.hookSpecificOutput.permissionDecisionReason)) || '';
+  const cfgArq = path.join(BASE, 'config.json');
+  const cfgSet = (o) => { const c0 = JSON.parse(fs.readFileSync(cfgArq, 'utf8')); fs.writeFileSync(cfgArq, JSON.stringify(Object.assign(c0, o), null, 2)); };
+
+  // --- 1. posse e procedencia das auto-* (ideia do autoharness)
+  const H = SC('habilidades.js');
+  const alheia = path.join(SK, 'auto-do-advogado'); fs.mkdirSync(alheia, { recursive: true });
+  const descAlheia = 'Skill escrita pelo próprio advogado para notificações extrajudiciais com prazo de resposta e aviso de recebimento, com modelos de várias situações do dia a dia do escritório. Use quando pedir notificação extrajudicial.';
+  fs.writeFileSync(path.join(alheia, 'SKILL.md'), '---\nname: auto-do-advogado\ndescription: "' + descAlheia + '"\n---\n# Minha skill\n## Passos\n1. Faça do meu jeito.\n');
+  const ra = path.join(BASE, 'habilidades', 'rascunhos', 'do-advogado'); fs.mkdirSync(path.join(ra, 'teste'), { recursive: true });
+  fs.writeFileSync(path.join(ra, 'SKILL.md'), '---\nname: auto-do-advogado\ndescription: "Notificação extrajudicial. Use quando o usuário pedir notificação."\nmetadata:\n  origem: automatica\n  motivo: teste\n---\n# x\n## Quando usar\nx\n## Passos\n1. x\n## Teste\n- Exemplo de entrada: [CLIENTE]\n- Resultado esperado: notificação\n');
+  fs.writeFileSync(path.join(ra, 'teste', 'resultado.md'), 'ok\nRESULTADO: APROVADO\n');
+  r = node(H, ['publicar', 'do-advogado', 'teste']);
+  t('automação NÃO sobrescreve auto-* escrita pelo advogado (sem origem automática)', r.code === 2 && /NÃO foi criada pelo assistente/.test(r.out) && fs.readFileSync(path.join(alheia, 'SKILL.md'), 'utf8').includes('Minha skill'), r.out);
+  const rd = path.join(BASE, 'habilidades', 'rascunhos', 'procuracao-foro-geral'); fs.mkdirSync(path.join(rd, 'teste'), { recursive: true });
+  fs.writeFileSync(path.join(rd, 'SKILL.md'), bom.replace(/auto-procuracao-ad-judicia/g, 'auto-procuracao-foro-geral'));
+  fs.writeFileSync(path.join(rd, 'teste', 'resultado.md'), 'ok\nRESULTADO: APROVADO\n');
+  r = node(H, ['publicar', 'procuracao-foro-geral', 'tarefa repetida']);
+  t('duplicata de auto-* existente recusada na publicação (pede para ATUALIZAR a parecida)', r.code === 4 && /auto-procuracao-ad-judicia/.test(r.out) && !fs.existsSync(path.join(SK, 'auto-procuracao-foro-geral')), r.out);
+  r = node(H, ['semelhantes', 'procuração ad judicia com poderes especiais para o foro em geral']);
+  t('semelhantes lista só auto-* do assistente', /auto-procuracao-ad-judicia/.test(r.out) && !/auto-do-advogado/.test(r.out), r.out);
+  r = node(H, ['proveniencia', 'procuracao-ad-judicia']);
+  t('procedência registra criação, edição, falhas, aposentadoria e restauração', /criada/.test(r.out) && /atualizada/.test(r.out) && /falh/.test(r.out) && /aposentad/.test(r.out) && /restaurad/.test(r.out), r.out);
+  const sessP = 'sess-prov';
+  const pecaP = path.join(ESC, 'PECAS', 'minhas-pecas', '2026-10-20_contestacao_v1.md'); fs.mkdirSync(path.dirname(pecaP), { recursive: true }); fs.writeFileSync(pecaP, '# CONTESTAÇÃO\n\nTexto.\n');
+  hook('pos-ferramenta.js', { session_id: sessP, tool_name: 'Write', tool_input: { file_path: pecaP }, tool_response: {} });
+  hook('pos-ferramenta.js', { session_id: sessP, tool_name: 'Bash', tool_input: { command: 'node "$HOME/.claude/advogado/scripts/habilidades.js" publicar procuracao-ad-judicia "melhoria"' }, tool_response: { stdout: '✅ Habilidade /auto-procuracao-ad-judicia publicada (v3, experimental).' } });
+  const ledger = fs.readFileSync(path.join(BASE, 'habilidades', 'proveniencia', 'auto-procuracao-ad-judicia.jsonl'), 'utf8');
+  t('procedência guarda sessão e tipo de peça, sem dados do cliente (só impressão digital)', /"evento":"contexto"/.test(ledger) && /"sessao":"sess-prov"/.test(ledger) && /contesta/.test(ledger) && !/minhas-pecas/.test(ledger), ledger.slice(-400));
+  r = js("const p=require('./lib/proveniencia');console.log(p.registrar('auto-x','criada',{motivo:'cliente CPF 123.456.789-09'}))");
+  t('procedência recusa linha com CPF', r.out === 'false', r.out + r.err);
+  const regA = path.join(BASE, 'habilidades', 'registro.json'); const rg = JSON.parse(fs.readFileSync(regA, 'utf8'));
+  r = node(SC('manutencao.js'), ['revisar'], null);
+  t('manutenção nunca mexe em skill que o assistente não criou (descrição longa mantida)', fs.existsSync(path.join(alheia, 'SKILL.md')) && fs.readFileSync(path.join(alheia, 'SKILL.md'), 'utf8').includes(descAlheia) && !rg.skills['auto-do-advogado'], r.out + r.err);
+
+  // --- 6. erros a nao repetir (ideia do repeat-mistake-guard)
+  const ER = SC('erros.js');
+  const casoA = path.join(ESC, 'CASOS', 'Ativos', 'silva-x-metalurgica'); const casoB = path.join(ESC, 'CASOS', 'Ativos', 'souza-x-banco');
+  for (const k of [casoA, casoB]) { fs.mkdirSync(path.join(k, 'pecas'), { recursive: true }); fs.writeFileSync(path.join(k, 'DOSSIE.md'), '# DOSSIÊ — ' + path.basename(k) + '\n\nProcesso nº 0001234-56.2024.5.02.0001\n\n## Histórico\n- início\n'); }
+  fs.writeFileSync(path.join(casoA, 'HANDOFF.md'), '# HANDOFF\n## Próximos passos\n- Contestar até sexta.\n');
+  r = node(ER, ['registrar', '--licao', 'Ações de São Paulo vão para o TRT da 2ª Região', '--padrao', '.', '--exemplo', 'TRT da 15ª Região']);
+  t('padrão genérico demais recusado', r.code === 2 && /genérico/.test(r.out), r.out);
+  r = node(ER, ['registrar', '--licao', 'Ações de São Paulo vão para o TRT da 2ª Região', '--padrao', 'TRT da 15', '--exemplo', 'TRT da 2ª Região']);
+  t('padrão que não acha o exemplo recusado', r.code === 2 && /não encontra/.test(r.out), r.out);
+  r = node(ER, ['registrar', '--licao', 'Ações de São Paulo vão para o TRT da 2ª Região', '--padrao', 'TRT da 15', '--exemplo', 'Ao TRT da 15ª Região', '--certo', 'TRT da 2ª Região']);
+  t('1ª correção registrada como aviso', r.code === 0 && /aviso/.test(r.out), r.out);
+  const pecaA = path.join(casoA, 'pecas', '2026-10-20_contestacao_v1.md');
+  const txtErro = '# CONTESTAÇÃO\n\nExcelentíssimo Juízo da Vara do Trabalho, TRT da 15ª Região.\n';
+  t('aviso: gravação permitida', decisao(hook('guarda-escrita.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: pecaA, content: txtErro } })) !== 'deny');
+  fs.writeFileSync(pecaA, txtErro);
+  let j = hook('pos-ferramenta.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: pecaA }, tool_response: {} });
+  t('aviso: depois de gravar, o assistente é avisado do erro já corrigido', /já corrigiu antes/.test(ctx(j)) && /TRT da 2ª/.test(ctx(j)), ctx(j));
+  r = node(ER, ['registrar', '--licao', 'Ações de São Paulo vão para o TRT da 2ª Região', '--padrao', 'TRT da 15', '--exemplo', 'Ao TRT da 15ª Região', '--certo', 'TRT da 2ª Região']);
+  t('mesma correção de novo => vira BLOQUEIO (sem duplicar)', /BLOQUEIO/.test(r.out) && JSON.parse(fs.readFileSync(path.join(ESC, 'MEMORIA', 'erros-a-nao-repetir.json'), 'utf8')).checks.filter((x) => x.padrao === 'TRT da 15').length === 1, r.out);
+  j = hook('guarda-escrita.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: path.join(casoA, 'pecas', '2026-10-21_contestacao_v2.md'), content: txtErro } });
+  t('bloqueio: PreToolUse nega a peça com o erro repetido', decisao(j) === 'deny' && /já corrigiu/.test(ctx(j)), JSON.stringify(j));
+  t('bloqueio: texto correto passa', decisao(hook('guarda-escrita.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: path.join(casoA, 'pecas', '2026-10-21_contestacao_v2.md'), content: txtErro.replace('15ª', '2ª') } })) !== 'deny');
+  r = node(ER, ['testar', pecaA]);
+  t('erros.js testar acusa o bloqueio (código 3)', r.code === 3 && /🛑/.test(r.out), r.out);
+  r = node(ER, ['registrar', '--licao', 'Nunca citar o CPF 123.456.789-09 do cliente', '--padrao', 'cliente X', '--exemplo', 'cliente X']);
+  t('lição com dado pessoal recusada', r.code === 2 && /dado pessoal/.test(r.out), r.out);
+  fs.writeFileSync(path.join(ESC, 'MEMORIA', 'erros-a-nao-repetir.json'), '{ quebrado');
+  t('arquivo de erros corrompido não trava a escrita (fail-open)', decisao(hook('guarda-escrita.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: path.join(casoA, 'pecas', 'x_v3.md'), content: txtErro } })) !== 'deny');
+  fs.unlinkSync(path.join(ESC, 'MEMORIA', 'erros-a-nao-repetir.json'));
+  j = hook('registro-pedidos.js', { session_id: S, prompt: 'tá errado de novo, já falei que é TRT da 2ª Região' });
+  t('correção do advogado detectada no pedido => orienta registrar o erro', /CORRIGINDO/.test(ctx(j)) && /erros\.js/.test(ctx(j)), ctx(j));
+  t('pedido comum não dispara o detector de correção', !/CORRIGINDO/.test(ctx(hook('registro-pedidos.js', { session_id: S, prompt: 'faça uma contestação trabalhista para o caso silva' }))));
+  r = js("const m=require('./memoria');const e=require('./lib/erros');m.__teste=1;const f=require('fs');console.log(JSON.stringify(e.registrar({licao:'O advogado troca \"outrossim\" por \"além disso\" nas peças',padrao:'(?<!\\\\p{L})outrossim(?!\\\\p{L})',exemplo:'outrossim',certo:'além disso',origem:'edicoes'})))");
+  t('troca de palavra repetida nas edições vira aviso (padrão com acentos/unicode)', /"ok":true/.test(r.out) && /"nivel":"aviso"/.test(r.out), r.out + r.err);
+
+  // --- 3. julgados: existe? trecho confere? internet so com permissao
+  const JG = SC('julgados.js');
+  const raw = path.join(ESC, 'WIKI', 'raw'); fs.mkdirSync(raw, { recursive: true });
+  fs.writeFileSync(path.join(raw, 'stj-resp-1234567.md'), 'Fonte: https://www.stj.jus.br/x\n\nEMENTA. A responsabilidade do fornecedor é objetiva, nos termos do art. 14 do CDC, bastando a prova do dano e do nexo causal.\n');
+  const pecaJ = path.join(casoA, 'pecas', '2026-10-20_replica_v1.md');
+  fs.writeFileSync(pecaJ, '# RÉPLICA\n\nConforme o REsp 1.234.567/SP, "a responsabilidade do fornecedor é objetiva, nos termos do art. 14 do CDC".\n\nE o REsp 7.654.321/RJ diz que "a responsabilidade do fornecedor é subjetiva, dependendo de culpa".\n');
+  r = node(JG, ['listar', pecaJ]);
+  t('julgados listar mostra julgado, trecho citado e "não verificado"', /REsp 1\.234\.567\/SP/.test(r.out) && /trecho citado: "a responsabilidade/.test(r.out) && /não verificado/.test(r.out), r.out);
+  r = node(JG, ['comparar', '--citacao', 'REsp 1.234.567/SP', '--original', path.join(raw, 'stj-resp-1234567.md'), '--peca', pecaJ, '--fonte', 'https://www.stj.jus.br/x']);
+  t('trecho igual ao original => CONFERE', r.code === 0 && /CONFERE/.test(r.out), r.out);
+  r = node(JG, ['comparar', '--citacao', 'REsp 7.654.321/RJ', '--original', path.join(raw, 'stj-resp-1234567.md'), '--peca', pecaJ]);
+  t('trecho alterado => DIVERGENTE, com as palavras que não estão no original', r.code === 3 && /DIVERGENTE/.test(r.out) && /subjetiva/.test(r.out), r.out);
+  r = node(SC('checar-peca.js'), [pecaJ]);
+  t('checar-peca: conferido conta como fonte; divergente aparece em 🔴', /🔴 linha/.test(r.out) && /1 conferidas no original/.test(r.out), r.out);
+  r = node(SC('exportar-docx.js'), [pecaJ, path.join(TMP, 'rep.docx')]);
+  t('exportação para Word bloqueada com julgado divergente', r.code === 2 && /NÃO conferem/.test(r.out) && !fs.existsSync(path.join(TMP, 'rep.docx')), r.out);
+  r = node(JG, ['registrar', '--citacao', 'REsp 9.999.999/SP', '--status', 'confere', '--fonte', 'WIKI/raw/nao-existe.md']);
+  t('"confere" exige fonte existente (link ou arquivo)', r.code === 2, r.out);
+  j = hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://www.stj.jus.br/jurisprudencia?q=REsp+1234567', prompt: 'ementa' } });
+  t('internet: site oficial ainda não autorizado => PERGUNTA antes', decisao(j) === 'ask', JSON.stringify(j));
+  j = hook('guarda-sigilo.js', { session_id: S, tool_name: 'Bash', tool_input: { command: 'node "$HOME/.claude/advogado/scripts/julgados.js" autorizar stj.jus.br jusbrasil.com.br' } });
+  t('autorizar sites também pede a confirmação do advogado na tela', decisao(j) === 'ask' && /AUTORIZA/.test(ctx(j)), JSON.stringify(j));
+  r = node(JG, ['autorizar', 'stj.jus.br', 'jusbrasil.com.br']);
+  t('autorização gravada', r.code === 0 && /stj\.jus\.br/.test(r.out), r.out);
+  t('internet: site autorizado passa sem perguntar', !decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://processo.stj.jus.br/x?num=1234567', prompt: 'ementa' } })));
+  t('internet: domínio parecido (stj.jus.br.golpe.com) continua perguntando', decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://stj.jus.br.golpe.com/x', prompt: 'x' } })) === 'ask');
+  t('roteiro oficial do assistente (INSTALAR.md no GitHub) não pergunta; outro repositório pergunta', !decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://raw.githubusercontent.com/guifleischfresser/assistente-juridico-claude/main/INSTALAR.md', prompt: 'x' } })) && decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://raw.githubusercontent.com/guifleischfresser/assistente-juridico-claude.evil/main/x', prompt: 'x' } })) === 'ask');
+  t('internet: busca aberta (WebSearch) continua perguntando', decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebSearch', tool_input: { query: 'REsp 1234567 STJ responsabilidade objetiva' } })) === 'ask');
+  const cnj = '0801234-56.2023.8.26.0100';
+  t('número CNJ na consulta => negado (pode ser o processo do cliente)', decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://www.jusbrasil.com.br/busca?q=' + cnj, prompt: 'x' } })) === 'deny');
+  node(JG, ['pedir', 'Acórdão ' + cnj + ' do TJSP']);
+  t('número CNJ de julgado que o advogado pediu para conferir => liberado', decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://www.jusbrasil.com.br/busca?q=' + cnj, prompt: 'x' } })) !== 'deny');
+  t('CPF continua negado mesmo em site autorizado', decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://www.stj.jus.br/?q=123.456.789-09', prompt: 'x' } })) === 'deny');
+  cfgSet({ verificacaoOnline: 'nunca' });
+  t('verificacaoOnline "nunca" => internet desligada', decisao(hook('guarda-sigilo.js', { session_id: S, tool_name: 'WebFetch', tool_input: { url: 'https://www.stj.jus.br/x', prompt: 'x' } })) === 'deny');
+  cfgSet({ verificacaoOnline: 'perguntar' });
+
+  // --- 2. mapa de teses
+  const MT = SC('mapa-teses.js');
+  r = node(MT, ['modelo', casoA, '--titulo', 'Reclamação trabalhista']);
+  const mapa = (r.out.match(/Mapa criado: (.+)$/m) || [])[1];
+  t('mapa de teses criado na pasta do caso (pecas/)', !!mapa && fs.existsSync(mapa) && mapa.startsWith(path.join(casoA, 'pecas')), r.out);
+  fs.writeFileSync(mapa, fs.readFileSync(mapa, 'utf8').replace(/\| 1 \| \[PREENCHER\].*\|\n/, '| 1 | Horas extras | R$ 25.000,00 | alto | cartões de ponto; ônus da prova | Súmula 338 do TST |\n| 2 | Dano moral | 10.000,00 | baixo | ausência de prova do abalo | REsp 1.234.567/SP |\n| 3 | Reflexos | ilíquido | médio | acessório segue o principal | — |\n'));
+  j = hook('pos-ferramenta.js', { session_id: S, tool_name: 'Write', tool_input: { file_path: mapa }, tool_response: {} });
+  t('precedente sem [A VERIFICAR] no mapa => aviso imediato', /Mapa de teses com problemas/.test(ctx(j)) && /Súmula 338/.test(ctx(j)), ctx(j));
+  r = node(MT, ['validar', mapa]);
+  t('validar reprova precedente não marcado nem conferido', r.code === 2 && /Súmula 338 do TST/.test(r.out) && !/REsp 1\.234\.567\/SP" sem/.test(r.out), r.out);
+  r = node(MT, ['marcar', mapa]);
+  const mtx = fs.readFileSync(mapa, 'utf8');
+  t('marcar: [A VERIFICAR] onde falta e CONFERIDO no julgado conferido', /Súmula 338 do TST \[A VERIFICAR\]/.test(mtx) && /REsp 1\.234\.567\/SP \[CONFERIDO: https:\/\/www\.stj\.jus\.br\/x\]/.test(mtx), mtx);
+  r = node(MT, ['totalizar', mapa]);
+  t('totalizar soma por risco (provável/possível/remota) e conta ilíquidos', /Alto \(provável\) R\$ 25\.000,00/.test(r.out) && /Baixo \(remota\) R\$ 10\.000,00/.test(r.out) && /1 ilíquido/.test(r.out) && /\*\*R\$ 35\.000,00\*\*/.test(fs.readFileSync(mapa, 'utf8')), r.out);
+  r = node(MT, ['validar', mapa]);
+  t('mapa válido depois de marcar', r.code === 0, r.out);
+  r = node(MT, ['imprimir', mapa]);
+  const html = mapa.replace(/\.md$/, '.html');
+  t('versão para imprimir (HTML com @page A4) e marcas destacadas', fs.existsSync(html) && /@page\{size:A4/.test(fs.readFileSync(html, 'utf8')) && /<mark>\[A VERIFICAR\]<\/mark>/.test(fs.readFileSync(html, 'utf8')), r.out);
+
+  // --- 4. uma conversa por processo
+  const PR = SC('processo.js');
+  r = node(PR, ['abrir', 'silva']);
+  t('processo abrir: acha o caso pelo nome e mostra dossiê + handoff', r.code === 0 && r.out.includes('CASO_ATIVO=' + casoA) && /Contestar até sexta/.test(r.out), r.out);
+  t('processo abrir: acha pelo número do processo no DOSSIE', node(PR, ['abrir', '0001234-56.2024.5.02.0001']).code === 3);
+  t('processo abrir: ambíguo/inexistente pergunta qual', node(PR, ['abrir', 'inexistente-xyz']).code === 3);
+  const sessC = 'sess-caso';
+  hook('pos-ferramenta.js', { session_id: sessC, tool_name: 'Bash', tool_input: { command: 'node "$HOME/.claude/advogado/scripts/processo.js" abrir silva' }, tool_response: { stdout: r.out } });
+  const vinc = JSON.parse(fs.readFileSync(path.join(BASE, 'estado', 'sessoes-casos.json'), 'utf8'));
+  t('conversa vinculada ao processo (local, estado/sessoes-casos.json)', vinc[sessC] && vinc[sessC].caso === 'Ativos/silva-x-metalurgica', JSON.stringify(vinc));
+  const ini = hook('sessao-inicio.js', { session_id: sessC, source: 'resume', hook_event_name: 'SessionStart' });
+  t('ao retomar a conversa, o assistente sabe que ela é daquele processo', /ESTA CONVERSA É DO PROCESSO "Ativos\/silva-x-metalurgica"/.test(ctx(ini)), ctx(ini).slice(0, 300));
+  const pecaB = path.join(casoB, 'pecas', '2026-10-20_peticao_v1.md'); fs.writeFileSync(pecaB, '# PETIÇÃO\n');
+  j = hook('pos-ferramenta.js', { session_id: sessC, tool_name: 'Write', tool_input: { file_path: pecaB }, tool_response: {} });
+  t('mexer em OUTRO caso na mesma conversa => aviso (uma conversa por processo)', /OUTRO caso/.test(ctx(j)) && /souza-x-banco/.test(ctx(j)), ctx(j));
+  t('aviso de outro caso só uma vez', !/OUTRO caso/.test(ctx(hook('pos-ferramenta.js', { session_id: sessC, tool_name: 'Write', tool_input: { file_path: pecaB }, tool_response: {} }))));
+  r = node(PR, ['anotar', 'silva', 'Cliente prefere acordo até R$ 20 mil']);
+  t('anotar grava no DOSSIE do caso (dado do cliente fica só lá)', r.code === 0 && /Notas da conversa\n- \d{4}-\d\d-\d\d: Cliente prefere acordo/.test(fs.readFileSync(path.join(casoA, 'DOSSIE.md'), 'utf8')) && !fs.readdirSync(path.join(ESC, 'MEMORIA')).filter((f) => fs.statSync(path.join(ESC, 'MEMORIA', f)).isFile()).some((f) => /acordo/.test(fs.readFileSync(path.join(ESC, 'MEMORIA', f), 'utf8'))), r.out);
+
+  // --- 7. AGENTS.md (Codex/Cursor) e palavra de conferencia
+  const ag = path.join(ESC, 'AGENTS.md');
+  t('instalador gerou AGENTS.md no escritório com as regras do núcleo', fs.existsSync(ag) && /advogado-claude-mod:agents:inicio/.test(fs.readFileSync(ag, 'utf8')) && /Sigilo profissional/.test(fs.readFileSync(ag, 'utf8')) && /Codex/.test(fs.readFileSync(ag, 'utf8')));
+  fs.writeFileSync(ag, '# Notas minhas\nNão apagar.\n\n' + fs.readFileSync(ag, 'utf8'));
+  const CXH = path.join(TMP, 'codex-home');
+  const envCx = Object.assign({}, env, { CODEX_HOME: CXH });
+  const rc = spawnSync(process.execPath, [SC('agentes.js'), 'gerar', '--skills', '--codex-global'], { env: envCx, encoding: 'utf8' });
+  t('AGENTS.md regenerado mantém o que o advogado escreveu fora das marcas', /# Notas minhas/.test(fs.readFileSync(ag, 'utf8')) && (fs.readFileSync(ag, 'utf8').match(/agents:inicio/g) || []).length === 1);
+  t('--skills copia as skills para .agents/skills (Codex) e --codex-global grava ~/.codex/AGENTS.md', fs.existsSync(path.join(ESC, '.agents', 'skills', 'nova-peca', 'SKILL.md')) && fs.existsSync(path.join(CXH, 'AGENTS.md')) && Buffer.byteLength(fs.readFileSync(ag)) < 32768, rc.stdout + rc.stderr);
+  r = node(SC('doutor.js'), ['--canario']);
+  t('doutor --canario mostra a palavra de conferência do CLAUDE.md', r.code === 0 && /PALAVRA ESPERADA: JABUTICABA/.test(r.out) && /JABUTICABA/.test(fs.readFileSync(path.join(CL, 'CLAUDE.md'), 'utf8')), r.out);
+  r = node(SC('doutor.js'), ['--json', '--rapido']);
+  let dj = {}; try { dj = JSON.parse(r.out); } catch (e) { /* */ }
+  t('doutor confere AGENTS.md e as ferramentas novas', (dj.itens || []).some((x) => x.id === 'agents-md' && x.ok) && (dj.itens || []).some((x) => x.id === 'ferramentas' && x.ok), r.out.slice(0, 600));
+
+  // --- 5. modo plugin (/plugin install)
+  const CL2 = path.join(TMP, 'plugin', '.claude'); const ESC2 = path.join(TMP, 'plugin', 'ESCRITORIO');
+  const env2 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL2 });
+  const run2 = (args, e) => { const x = spawnSync(process.execPath, args, { env: e || env2, encoding: 'utf8', input: '' }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  run2([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC2]); // instalacao "normal" antiga
+  const st2a = JSON.parse(fs.readFileSync(path.join(CL2, 'settings.json'), 'utf8'));
+  const ini2 = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'sessao-inicio.js')], { env: Object.assign({}, env2, { CLAUDE_PLUGIN_ROOT: RAIZ }), input: JSON.stringify({ session_id: 'p1', source: 'startup', hook_event_name: 'SessionStart' }), encoding: 'utf8' });
+  let c2 = ''; try { c2 = JSON.parse(ini2.stdout).hookSpecificOutput.additionalContext; } catch (e) { c2 = ini2.stdout + ini2.stderr; }
+  t('modo plugin: SessionStart registra a pasta do plugin e avisa o prefixo /advogado-claude:', JSON.parse(fs.readFileSync(path.join(CL2, 'advogado', 'plugin.json'), 'utf8')).raiz === RAIZ && /\/advogado-claude:nova-peca/.test(c2) && /instalar-plugin/.test(c2), c2.slice(0, 500));
+  r = run2([path.join(CL2, 'advogado', 'scripts', 'primeira-execucao.js'), 'estado']);
+  t('PE estado indica MODO PLUGIN (não baixar nada)', /MODO PLUGIN/.test(r.out) && /instalar-plugin/.test(r.out), r.out);
+  r = run2([path.join(CL2, 'advogado', 'scripts', 'primeira-execucao.js'), 'instalar-plugin']);
+  const st2 = JSON.parse(fs.readFileSync(path.join(CL2, 'settings.json'), 'utf8'));
+  const cfg2 = JSON.parse(fs.readFileSync(path.join(CL2, 'advogado', 'config.json'), 'utf8'));
+  t('PE instalar-plugin: conclui a etapa sem download', r.code === 0 && /modo plugin/.test(r.out) && cfg2.modoPlugin === true, r.out + r.err);
+  t('modo plugin: hooks do settings.json removidos (vêm do plugin; sem duplicar)', st2a.hooks && !/advogado[\\/]scripts/.test(JSON.stringify(st2.hooks || {})), JSON.stringify(st2.hooks));
+  t('modo plugin: skills do núcleo não duplicadas em ~/.claude/skills (cópias antigas no backup)', !fs.existsSync(path.join(CL2, 'skills', 'nova-peca')) && fs.existsSync(path.join(CL2, 'advogado', 'habilidades', 'versoes', 'nucleo', 'nova-peca')));
+  t('modo plugin: CLAUDE.md, permissões estreitas e statusline mantidos; nada de bypassPermissions', /advogado-claude-mod:inicio/.test(fs.readFileSync(path.join(CL2, 'CLAUDE.md'), 'utf8')) && st2.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/julgados.js" *)') && /statusline/.test(st2.statusLine.command) && !JSON.stringify(st2).includes('bypassPermissions') && !JSON.stringify(st2).includes('dangerously'));
+  st2.enabledPlugins = { 'advogado-claude@advogado-claude-mod': true }; fs.writeFileSync(path.join(CL2, 'settings.json'), JSON.stringify(st2, null, 2));
+  r = run2([path.join(CL2, 'advogado', 'scripts', 'doutor.js'), '--json', '--rapido']);
+  let dj2 = {}; try { dj2 = JSON.parse(r.out); } catch (e) { /* */ }
+  t('doutor em modo plugin: confere o plugin ativo e as skills do plugin (sem exigir hooks no settings)', dj2.ok === true && (dj2.itens || []).some((x) => x.id === 'plugin' && x.ok) && !(dj2.itens || []).some((x) => x.id === 'hooks'), r.out.slice(0, 900));
+  const pj = JSON.parse(fs.readFileSync(path.join(RAIZ, '.claude-plugin', 'plugin.json'), 'utf8'));
+  const mk = JSON.parse(fs.readFileSync(path.join(RAIZ, '.claude-plugin', 'marketplace.json'), 'utf8'));
+  t('plugin.json e marketplace.json coerentes (nome, versão, source)', pj.name === 'advogado-claude' && pj.version === JSON.parse(js("console.log(JSON.stringify(require('./lib/comum').VERSAO))").out) && mk.name === 'advogado-claude-mod' && mk.plugins[0].name === pj.name && mk.plugins[0].source === './');
 }
 
 console.log('\n13. Desinstalação');

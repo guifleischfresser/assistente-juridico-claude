@@ -11,7 +11,7 @@ const MARCA = '<!-- GERADO de INSTALAR.md por ferramentas/sincronizar-bootstrap.
 const FRONT = [
   '---',
   'name: primeira-execucao',
-  'description: "Instalação e configuração inicial do assistente no piloto automático. Use quando aparecer ONBOARDING PENDENTE ou PRIMEIRA EXECUÇÃO INCOMPLETA, ao refazer a configuração ou digitar /primeira-execucao."',
+  'description: "Instalação e configuração inicial do assistente no piloto automático. Use quando aparecer ONBOARDING PENDENTE ou PRIMEIRA EXECUÇÃO INCOMPLETA ou ao refazer a configuração."',
   'argument-hint: "[retomar | refazer]"',
   '---',
   '',

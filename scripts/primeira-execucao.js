@@ -437,6 +437,8 @@ function principal() {
       const prox = proximaEtapa(e); const perg = proximaPergunta(e);
       const r = { versao: c.VERSAO, arquivo: ARQ, etapas: ETAPAS.map(([n, d]) => ({ etapa: n, descricao: d, feito: !!(e.etapas[n] && e.etapas[n].feito) })), proximaEtapa: prox, proximaPergunta: prox === 'entrevista' && perg ? perg.id : null, respostas: Object.keys(e.respostas), pastasRegistradas: mapa.listar().length, concluido: !prox };
       if (flag('--json')) return sair(JSON.stringify(r, null, 2));
+      const plug = !c.lerJSON(c.P.config, {}).modoPlugin && c.lerJSON(path.join(c.P.base, 'plugin.json'), null);
+      if (plug && prox === 'instalacao') return sair(['Primeira execução — v' + c.VERSAO, 'MODO PLUGIN: o assistente veio pelo /plugin install. Não baixe nada: rode PE instalar-plugin e siga para a Etapa 2.', '', 'PRÓXIMA ETAPA: instalacao (PE instalar-plugin)'].join('\n'));
       return sair(['Primeira execução — v' + c.VERSAO, ...r.etapas.map((x) => (x.feito ? '  ✅ ' : '  ⬜ ') + x.etapa + ' — ' + x.descricao), '', r.concluido ? 'TUDO CONCLUÍDO. (Para refazer: reiniciar)' : 'PRÓXIMA ETAPA: ' + prox + (r.proximaPergunta ? ' (pergunta: ' + r.proximaPergunta + ')' : '')].join('\n'));
     }
     case 'marcar': {
@@ -516,6 +518,18 @@ function principal() {
       let novos = 0, ja = 0;
       for (const s of subs) { const r = criarDossie(s.name, path.join(dir, s.name)); if (r.criado) novos++; else ja++; }
       return sair('Dossiês: ' + novos + ' criado(s), ' + ja + ' já existia(m), de ' + subs.length + ' pasta(s). Ficam em ESCRITORIO/CASOS/Ativos (apontando para as pastas originais, sem copiar).');
+    }
+    case 'instalar-plugin': {
+      // Instalado pelo /plugin install: configura escritorio, CLAUDE.md e permissoes sem baixar nada
+      const pl = c.lerJSON(path.join(c.P.base, 'plugin.json'), null);
+      const raiz = pl && pl.raiz && fs.existsSync(path.join(pl.raiz, 'scripts', 'instalar.js')) ? pl.raiz : null;
+      if (!raiz) return sair('MODO PLUGIN NÃO DETECTADO: a pasta do plugin não foi registrada. Rode /reload-plugins, abra uma conversa nova e tente de novo; ou siga a instalação normal (Etapa 1).', 2);
+      const a = [path.join(raiz, 'scripts', 'instalar.js'), '--modo-plugin', '--silencioso'];
+      const esc = valores('--escritorio')[0]; if (esc) a.push('--escritorio', esc);
+      const r = require('child_process').spawnSync(process.execPath, a, { encoding: 'utf8', timeout: 120000 });
+      if (r.status !== 0) return sair('❌ Instalação em modo plugin falhou:\n' + String(r.stderr || r.stdout).slice(-800), 2);
+      e.etapas.instalacao = { feito: true, em: new Date().toISOString(), obs: 'modo plugin' }; gravar(e);
+      return sair(String(r.stdout).trim() + '\n\n✅ Etapa instalacao concluída (modo plugin). Próxima: verificacao (DOUTOR).');
     }
     case 'concluir': { const r = concluir(); return sair('✅ Primeiro HANDOFF gravado: ' + r.arq + '\n\n' + r.txt); }
     case 'autopiloto': {

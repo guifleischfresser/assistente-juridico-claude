@@ -1,4 +1,4 @@
-# ARQUITETURA — advogado-claude-mod v0.4.0
+# ARQUITETURA — advogado-claude-mod v0.5.0
 
 Documento técnico para o Guilherme. O README.md é o documento voltado ao advogado.
 
@@ -149,7 +149,7 @@ O Claude for Legal, da Anthropic, é centrado nos EUA. Este mod parte do process
 ## 10. Plugin × instalador; Node
 
 - **Instalador (principal):** é o único caminho que entrega statusline, bloco do CLAUDE.md, output style, permissões e configurações de idioma e tema.
-- **Plugin (secundário):** `.claude-plugin/plugin.json` + `marketplace.json`, ambos validados com `claude plugin validate` (CLI 2.1.197). As skills ficam com namespace (`/advogado-claude:novo-caso`), e o SessionStart faz o bootstrap da base.
+- **Plugin (v0.5: caminho completo, instalável de dentro do chat):** `.claude-plugin/plugin.json` + `marketplace.json`, validados com `claude plugin validate`. As skills ficam com namespace (`/advogado-claude:novo-caso`), o SessionStart faz o bootstrap da base e `PE instalar-plugin` roda `instalar.js --modo-plugin` (statusline, CLAUDE.md, permissões e estilo, sem duplicar hooks nem skills). Ver §15.5.
 - **Node:** escolhido em vez de PowerShell/bash duplicados porque oferece um código só para Windows e macOS, JSON nativo e zero dependências npm. Zip, DOCX, leitura de DOCX e cálculo de prazos foram implementados à mão.
 
 ## 11. Testes realizados (Linux)
@@ -364,10 +364,61 @@ Por isso a economia é real em duas frentes: **descrições curtas** reduzem o c
   - `desfazer` restaura tudo (inclusive remove o arquivo de memória criado).
 - No pacote: todas as descrições listadas ≤ 200, contexto fixo ≤ 3.600, `primeira-execucao` < 8.000 e sincronizada; contagem de uso por `/nome`; regra de permissão estreita para `manutencao.js`; núcleo com 20 skills.
 
-## 15. Roadmap
+## 15. v0.5: sete recursos novos
+
+Todos locais, em pt-BR e encaixados na arquitetura existente (skills/memória autônomas, reflexão, manutenção quinzenal, validador, salvaguardas `auto-*`). Descrições sempre carregadas continuam enxutas: **24 skills no núcleo, contexto fixo 3.496 caracteres** (era 3.517 na v0.4 com 20 skills), detalhes em `references/`. Para caber, as descrições do núcleo perderam o redundante "ou digitar /nome" (o `/nome` funciona sem estar na descrição).
+
+### 15.1 Posse, procedência e mescla das `auto-*` (ideias do autoharness)
+- **Regra dura de posse** (`lib/proveniencia.js` `ehNossa`): a automação só toca skills `auto-*` que ela mesma criou — registro com `origem: automatica` **e** `metadata.origem: automatica` no SKILL.md. `habilidades.js publicar` recusa sobrescrever uma `auto-*` que não é nossa; `manutencao.js` (aposentar, mesclar, enxugar) filtra por `podeMexer`. Na v0.4 o enxugamento também alcançava descrições do núcleo na máquina do advogado; agora não (o núcleo já vem enxuto da origem).
+- **Ficha de procedência** por skill: `habilidades/proveniencia/<auto-nome>.jsonl` com eventos `criada`, `atualizada` (versão, motivo, candidata, linhas +/−), `contexto` (sessão, tipo de peça, impressão digital sha256 de 12 caracteres da peça/caso — nunca caminho nem nome de cliente), `usada-ok`, `falhou`, `aposentada`, `mesclada`/`absorvida` (quem absorveu quem), `enxugada`, `desfeita`, `restaurada`. Linha com CPF/CNPJ/CNJ/e-mail é recusada. Consulta: `/habilidades proveniencia <nome>`.
+- **Mescla na criação:** `publicar` compara o rascunho com as `auto-*` nossas (Jaccard de termos ≥ 4 letras) e, com similaridade ≥ 0,5, recusa (código 4) pedindo para **atualizar** a parecida; `--nova` força quando for outro cenário. `habilidades.js semelhantes "<texto>"` mostra as candidatas. A manutenção quinzenal continua mesclando as que escaparem.
+
+### 15.2 Mapa de teses da defesa (`/mapa-de-teses`, `scripts/mapa-teses.js`)
+- `modelo <caso>` cria `<caso>/pecas/mapa-de-teses-AAAA-MM-DD.md` (quadro `| # | Pedido | Valor (R$) | Risco | Teses | Precedentes |` + detalhe por pedido).
+- `validar`: risco ∈ {alto, médio, baixo}; todo precedente com `[A VERIFICAR]` **na mesma célula/linha** ou conferido no livro de julgados (`[CONFERIDO: fonte]`); divergente/inexistente reprova. Um link sozinho não basta.
+- `marcar` (backup em `_versoes`), `totalizar` (soma por risco, CPC 25: provável/possível/remota; ilíquidos contados fora da soma) e `imprimir` (HTML A4 com marcas grifadas → PDF pelo navegador).
+- O PostToolUse valida a cada gravação do mapa e avisa. O script nunca cria citações.
+
+### 15.3 Conferência de julgados (`scripts/julgados.js`, `lib/julgados.js`)
+- **Livro** `ESCRITORIO/WIKI/julgados-verificados.json` (só números públicos): `chave()` normaliza ("REsp n. 1.234.567/SP" → `RESP1234567SP`), status `confere | divergente | inexistente`, fonte (link ou `WIKI/raw/...`).
+- `comparar`: normaliza tokens; substring literal → 1,0; senão LCS em janelas ancoradas nos tokens raros; ≥ 0,97 = confere, e lista as palavras do trecho citado ausentes do original. `trechoCitado` pega aspas ou bloco `>` junto da citação.
+- **Integração:** `lib/citacoes.js` passa a contar `confere` como verificada e marca `problema` em divergente/inexistente (mesmo com link); `checar-peca` mostra 🔴; `exportar-docx` recusa exportar (salvo `--forcar`); PostToolUse avisa; `/nova-peca` (fechamento) e `/mapa-de-teses` mandam conferir.
+- **Rede só com permissão** (`guarda-sigilo.js`): todo `WebFetch`/`WebSearch` → `ask`, exceto domínios em `fontesAutorizadas` (sufixo exato; `stj.jus.br.golpe.com` continua perguntando) e o próprio repositório oficial do assistente (INSTALAR.md) e busca com `buscaWebAutorizada`. `julgados.js autorizar` também passa por `ask` (o advogado confirma na tela). `verificacaoOnline: "nunca"` → `deny`. Dados pessoais → `deny` como antes; número CNJ só passa se for de julgado registrado com `julgados.js pedir`.
+- **Basanos** (cognitio.one) é citado só na documentação, como verificação externa opcional; não há integração.
+
+### 15.4 Uma conversa por processo (`/processo`, `/cliente`, `scripts/processo.js`, `lib/casos.js`)
+- `abrir <nome|número>`: acha o caso em `CASOS/*/*` (palavras sem acento ou número do processo no DOSSIE), imprime DOSSIE + HANDOFF + peças recentes e `CASO_ATIVO=<pasta>`.
+- O PostToolUse vê essa linha e grava `estado/sessoes-casos.json` (`session_id → caso`); no `resume`, o SessionStart injeta "ESTA CONVERSA É DO PROCESSO X; só a memória dele". Gravar arquivo de outro caso na mesma conversa gera um aviso (uma vez por caso).
+- `anotar` grava em "Notas da conversa" do DOSSIE (dado do cliente fica só lá). `/casos abrir` aponta para `/processo`.
+
+### 15.5 Instalação pelo chat (plugin + marketplace)
+- Conferido em code.claude.com (out/2026): `marketplace.json` com `name`, `owner`, `plugins[{name, source}]` (source relativo à raiz, sem `..`); id de instalação `plugin@marketplace`; `version` no `plugin.json` fixa a versão; CLAUDE.md da raiz do plugin **não** é carregado; `${CLAUDE_PLUGIN_ROOT}`/`${CLAUDE_PLUGIN_DATA}` existem só nos hooks (não no Bash).
+- Comandos: `/plugin marketplace add guifleischfresser/assistente-juridico-claude` → `/plugin install advogado-claude@advogado-claude-mod` → `/reload-plugins`.
+- SessionStart em modo plugin grava `~/.claude/advogado/plugin.json` (raiz do plugin), injeta as regras do núcleo enquanto o bloco do CLAUDE.md não existe, avisa o prefixo `/advogado-claude:` e manda rodar `PE instalar-plugin` (INSTALAR Etapa 0 → "MODO PLUGIN").
+- `instalar.js --modo-plugin`: não copia skills do núcleo (move cópias antigas para `habilidades/versoes/nucleo/`), não grava hooks no settings.json (remove os nossos antigos — senão cada guarda rodaria 2×), mantém CLAUDE.md, permissões estreitas, statusline e output style; `config.modoPlugin = true`.
+- Doutor em modo plugin: confere `enabledPlugins["advogado-claude@advogado-claude-mod"]`, `hooks/hooks.json` e skills na raiz do plugin, e avisa hooks duplicados; o reparo usa `--modo-plugin`.
+
+### 15.6 Erros a não repetir (ideia do repeat-mistake-guard; `lib/erros.js`, `scripts/erros.js`, `/erros`)
+- `ESCRITORIO/MEMORIA/erros-a-nao-repetir.json`: `{licao, padrao, exemplo, certo, exceto, escopo, nivel, origem, correcoes, disparos}`.
+- **Registro seguro:** padrão ≤ 200 caracteres, compila, sem quantificador aninhado nem 3× `.*`; precisa achar o `exemplo` e **não** acusar o `certo`; genérico demais é recusado; lição sem dados pessoais.
+- **Escada:** 1ª correção = aviso (PostToolUse injeta "erro já corrigido apareceu de novo"); a mesma correção de novo (mesmo padrão ou lição parecida ≥ 0,6) = **bloqueio** (PreToolUse `deny` na guarda-escrita, para peças e `.md/.txt` do escritório). Fail-open: arquivo corrompido ou regex quebrada não trava nada; cache por mtime.
+- **Gatilhos:** `registro-pedidos` detecta frases de correção ("tá errado", "de novo", "já falei", "tribunal errado", "nunca use"…) e orienta registrar; `memoria.aprenderEdicoes` registra como aviso a troca de palavra que o advogado faz pela 2ª vez.
+
+### 15.7 Portabilidade (ideia do agent-kit; `scripts/agentes.js`)
+- `gerar` escreve `ESCRITORIO/AGENTS.md` (bloco marcado; o resto do arquivo é do usuário) com as regras inegociáveis copiadas do template do CLAUDE.md, mais as conferências manuais que substituem os hooks (internet, `_versoes`, `checar-peca`, `erros.js testar`, `mapa-teses validar`, `processo.js`).
+- Codex (conferido em developers.openai.com, out/2026): lê `~/.codex/AGENTS.md` e os AGENTS.md da raiz do git até a pasta atual (fora de git, só a pasta atual), limite de 32 KiB; skills em `.agents/skills`. Opt-in: `--skills` copia as skills para `ESCRITORIO/.agents/skills`; `--codex-global` grava bloco marcado em `~/.codex/AGENTS.md` (respeita `CODEX_HOME`). Cursor também lê AGENTS.md. O instalador gera o AGENTS.md; o doutor confere.
+
+### 15.8 Palavra de conferência (canário)
+- O bloco do CLAUDE.md global termina com "Palavra de conferência … **JABUTICABA**" (linha comum: comentários HTML podem ser ocultados do modelo). `doutor --canario` imprime a palavra esperada; `/consertar` pede ao modelo a palavra **antes** de ler arquivos e compara.
+
+### 15.9 Testes (v0.5)
+- Suíte: 218 testes (+66): posse (recusa sobrescrever `auto-*` do advogado), duplicata recusada, procedência sem dados do cliente, manutenção que não mexe no que não é dela; erros (padrão genérico/sem exemplo recusados, aviso → bloqueio com `deny`, fail-open, detector de correção); julgados (confere/divergente, checar-peca 🔴, exportação bloqueada, `ask` antes da rede, domínio parecido, CNJ liberado só com `pedir`, `nunca`); mapa (validar/marcar/totalizar/imprimir, aviso no PostToolUse); processo (abrir por nome/número, vínculo, retomada, aviso de outro caso, anotar); AGENTS.md e roteiro oficial do GitHub sem pergunta (gerar, preservar texto do usuário, `--skills`, `--codex-global` em `CODEX_HOME` temporário); canário; modo plugin (bootstrap pelo SessionStart, `PE estado`/`instalar-plugin`, sem hooks/skills duplicados, doutor).
+- Simulações do bootstrap (bash e pwsh): 28 + 28. `claude plugin validate .` OK. shellcheck, actionlint e parser do PowerShell sem erros. CI: Ubuntu, macOS e Windows PowerShell 5.1.
+
+## 16. Roadmap
 
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
-2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita.
+2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita (a v0.5 já confere julgados por WebFetch nos sites autorizados; falta busca estruturada por tribunal).
 3. Anonimização opcional antes do envio (pseudonimizar partes no prompt).
 4. Registro de consentimento do cliente por caso.
 5. Canal de atualização opt-in, assinado.
@@ -375,3 +426,6 @@ Por isso a economia é real em duas frentes: **descrições curtas** reduzem o c
 7. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
 8. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
 9. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
+10. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
+11. Erros a não repetir: sugerir o padrão automaticamente a partir do diff da correção (hoje o assistente escreve o regex e o validador confere).
+12. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.

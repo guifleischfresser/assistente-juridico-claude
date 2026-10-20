@@ -1,6 +1,6 @@
 ---
 name: formatar-peca
-description: "Formata e exporta peça jurídica para Word no padrão forense/ABNT. Use quando o usuário pedir para formatar, gerar o Word/.docx, deixar pronto para protocolar ou digitar /formatar-peca."
+description: "Formata e exporta peça jurídica para Word no padrão forense/ABNT. Use quando o usuário pedir para formatar, gerar o Word/.docx ou deixar pronto para protocolar."
 argument-hint: "[arquivo .md da peça]"
 ---
 

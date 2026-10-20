@@ -2,7 +2,8 @@
 'use strict';
 // Hook PostToolUse (*): monitor de contexto, scanner de prompt injection em arquivos lidos,
 // registro de leitura (para a guarda "ler antes de sobrescrever"), validacao automatica de
-// rascunhos de skill e contagem de uso das skills.
+// rascunhos de skill e contagem de uso das skills. v0.5: vinculo conversa↔processo, aviso de
+// outro caso, procedencia das auto-*, erros ja corrigidos (nivel aviso) e validacao do mapa de teses.
 const path = require('path');
 const c = require('./lib/comum');
 const { usoContexto } = require('./lib/contexto');
@@ -34,6 +35,48 @@ c.rodarHook('pos-ferramenta', (ent) => {
     c.gravarSessao(ent.session_id, s);
   } catch (e) { c.log('erros', 'contadores pos: ' + e.message); }
 
+  // v0.5: uma conversa por processo, procedencia das habilidades e erros que o advogado ja corrigiu
+  try {
+    const esc = c.config().escritorio;
+    const s = c.lerSessao(ent.session_id); let mudou = false;
+    const tr = ent.tool_response;
+    const saida = (nome === 'Bash' || nome === 'PowerShell') ? (typeof tr === 'string' ? tr : tr && typeof tr === 'object' ? [tr.stdout, tr.output, tr.content, tr.result].filter((x) => typeof x === 'string').join('\n') || JSON.stringify(tr) : '') : '';
+    const cmd = String(inp.command || '');
+    const mc = saida.match(/CASO_ATIVO=([^\r\n"]+)/);
+    if (mc && /processo\.js/.test(cmd)) {
+      const pasta = mc[1].replace(/\r$/, '').trim();
+      const kc = require('./lib/casos'); const rel = kc.casoDoArquivo(path.join(pasta, 'DOSSIE.md'), esc);
+      if (rel) { s.casoAtivo = pasta; s.casoAtivoRel = rel; s.avisoOutroCaso = null; kc.vincular(ent.session_id, rel); mudou = true; }
+    }
+    const mp = cmd.match(/habilidades\.js["']?\s+publicar\s+["']?([a-z0-9][a-z0-9-]*)/);
+    if (mp && /publicada/.test(saida)) {
+      const nomeSk = mp[1].startsWith('auto-') ? mp[1] : 'auto-' + mp[1];
+      require('./lib/proveniencia').registrar(nomeSk, 'contexto', require('./lib/proveniencia').contexto(ent.session_id, s, esc));
+    }
+    if (['Write', 'Edit', 'MultiEdit'].includes(nome) && inp.file_path) {
+      const mem = require('./memoria');
+      if (mem.ehPeca(inp.file_path)) { s.ultimaPeca = inp.file_path; mudou = true; }
+      const kc = require('./lib/casos'); const rel = kc.casoDoArquivo(inp.file_path, esc);
+      if (rel && s.casoAtivoRel && rel !== s.casoAtivoRel && s.avisoOutroCaso !== rel) {
+        s.avisoOutroCaso = rel; mudou = true;
+        avisos.push('Atenção: esta conversa é do processo "' + s.casoAtivoRel + '", mas acabou de ser alterado um arquivo de OUTRO caso ("' + rel + '"). Confirme com o advogado se foi intencional e sugira abrir uma conversa separada para cada processo (/processo ' + rel.split('/')[1] + ') para não misturar dados de clientes.');
+      }
+      if (mudou) { c.gravarSessao(ent.session_id, s); mudou = false; }
+      // erros que o advogado ja corrigiu (nivel aviso; o nivel bloqueio e barrado antes, na guarda-escrita)
+      if (/\.(md|txt)$/i.test(inp.file_path) && c.dentroDe(inp.file_path, esc) && require('fs').existsSync(inp.file_path)) {
+        const er = require('./lib/erros'); const fs = require('fs');
+        const hits = er.verificar(fs.readFileSync(inp.file_path, 'utf8'), { ehPeca: mem.ehPeca(inp.file_path) }).filter((h) => h.nivel !== 'bloqueio');
+        if (hits.length) { er.marcarDisparos(hits.map((h) => h.id)); avisos.push('⚠️ Erro que o advogado já corrigiu antes apareceu de novo em ' + path.basename(inp.file_path) + ': ' + hits.slice(0, 3).map(er.texto).join(' | ') + '. Corrija agora, antes de mostrar ao advogado.'); }
+      }
+      // mapa de teses: todo precedente precisa estar [A VERIFICAR] ou conferido
+      if (/mapa-de-teses[^\\/]*\.md$/i.test(inp.file_path) && require('fs').existsSync(inp.file_path)) {
+        const r = require('./mapa-teses').validar(inp.file_path);
+        if (!r.ok) avisos.push('Mapa de teses com problemas: ' + r.erros.slice(0, 6).join('; ') + '. Nunca invente precedente: marque [A VERIFICAR] (node "' + path.join(c.P.base, 'scripts', 'mapa-teses.js') + '" marcar "' + inp.file_path + '").');
+      }
+    }
+    if (mudou) c.gravarSessao(ent.session_id, s);
+  } catch (e) { c.log('erros', 'v05 pos: ' + e.message); }
+
   if (nome === 'Read' || nome === 'WebFetch') {
     const texto = JSON.stringify(ent.tool_response || '').slice(0, 300000);
     const hits = detectarInjecao(texto.replace(/\\n/g, '\n'));
@@ -60,7 +103,9 @@ c.rodarHook('pos-ferramenta', (ent) => {
         const fs = require('fs');
         const { analisarCitacoes } = require('./lib/citacoes');
         const cits = analisarCitacoes(fs.readFileSync(inp.file_path, 'utf8'), path.dirname(inp.file_path), cfgE.escritorio);
-        const pend = cits.filter((x) => !x.verificada && !x.marcada);
+        const prob = cits.filter((x) => x.problema);
+        if (prob.length) avisos.push('🔴 Julgado(s) já conferido(s) no original que NÃO conferem com o que está escrito em ' + path.basename(inp.file_path) + ': ' + prob.slice(0, 5).map((x) => x.texto + ' (' + x.problema + ')').join('; ') + '. Corrija o trecho com o texto exato do original ou remova a citação.');
+        const pend = cits.filter((x) => !x.verificada && !x.marcada && !x.problema);
         if (pend.length) avisos.push('Verificador de citações: ' + pend.length + ' citação(ões) sem fonte em ' + path.basename(inp.file_path) + ': ' + pend.slice(0, 8).map((x) => x.texto).join('; ') + '. Regra do escritório: toda citação sem link/fonte conferida recebe a marca [NÃO VERIFICADO] logo após (rode node "' + path.join(c.P.base, 'scripts', 'checar-peca.js') + '" "' + inp.file_path + '" --marcar) e o usuário deve ser avisado. Nunca invente número de julgado, relator ou data.');
       } catch (e) { c.log('erros', 'citacoes pos: ' + e.message); }
     }

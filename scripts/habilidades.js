@@ -9,11 +9,14 @@
  *   listar | candidatas | validar <nome> | publicar <nome> "<motivo>"
  *   resultado <nome> ok|falha "<detalhe>" | desfazer <nome> | aposentar <nome> "<motivo>"
  *   restaurar <nome> | registrar-nucleo <pasta-skills> | historico [n]
+ *   semelhantes "<texto>" | proveniencia <nome>   (v0.5: posse e livro-razao por skill)
+ *   publicar ... --nova  (cria mesmo havendo auto-* parecida; sem a flag, a publicacao pede para ATUALIZAR a parecida)
  */
 const fs = require('fs');
 const path = require('path');
 const c = require('./lib/comum');
 const { validarSkill, NUCLEO } = require('./lib/validar');
+const prov = require('./lib/proveniencia');
 
 const H = {
   reg: path.join(c.P.hab, 'registro.json'),
@@ -47,7 +50,9 @@ function changelog(titulo, linhas) {
 }
 function sair(msg, codigo) { console.log(msg); process.exit(codigo || 0); }
 
-const [cmd, a1, a2, a3] = process.argv.slice(2);
+const ARGV = process.argv.slice(2);
+const NOVA = ARGV.includes('--nova');
+const [cmd, a1, a2, a3] = ARGV.filter((x) => x !== '--nova');
 const nome = limpar(a1);
 
 switch (cmd) {
@@ -84,8 +89,17 @@ switch (cmd) {
     if (criadasHoje >= cfg.limites.skillsPorDia) sair('⏸️ Limite diário de ' + cfg.limites.skillsPorDia + ' mudanças automáticas atingido. Tente amanhã (salvaguarda contra excesso de mudanças).', 3);
     const ativas = Object.values(reg.skills).filter((s) => s.origem === 'automatica' && s.status !== 'aposentada').length;
     if (!reg.skills[chave] && ativas >= cfg.limites.skillsAtivas) sair('⏸️ Já existem ' + ativas + ' habilidades automáticas ativas (limite). Aposente alguma pouco usada antes.', 3);
-    let backup = null;
-    if (fs.existsSync(viva(nome))) { backup = path.join(H.versoes, chave, c.carimbo()); copiarDir(viva(nome), backup); removerDir(viva(nome)); }
+    // Posse: a automacao so atualiza skills que ela mesma criou (nunca nucleo nem skill do usuario)
+    if (fs.existsSync(viva(nome)) && !prov.ehNossa(chave)) sair('❌ Já existe /' + chave + ' e ela NÃO foi criada pelo assistente (skill sua ou de outro pacote). A automação nunca mexe nela: escolha outro nome.', 2);
+    // Agrupar, nao empilhar: se ja existe auto-* parecida, atualize-a em vez de criar outra
+    if (!reg.skills[chave] && !NOVA) {
+      const fmN = c.lerFrontmatter(fs.readFileSync(path.join(dir, 'SKILL.md'), 'utf8')).dados;
+      const par = prov.semelhantes(nome.replace(/-/g, ' ') + ' ' + (fmN.description || ''), 0.5, chave);
+      if (par.length) sair('🔁 Já existe uma habilidade parecida: /' + par[0].nome + ' (semelhança ' + Math.round(par[0].similaridade * 100) + '%). Em vez de criar outra, ATUALIZE essa: copie ~/.claude/skills/' + par[0].nome + ' para rascunhos/' + par[0].nome.replace(/^auto-/, '') + ', incorpore o novo caso (ex.: seção "## Variantes") e publique. Se for mesmo outra tarefa, publique com --nova.', 4);
+    }
+    let backup = null; let textoAnterior = null;
+    if (fs.existsSync(viva(nome))) {
+      try { textoAnterior = fs.readFileSync(path.join(viva(nome), 'SKILL.md'), 'utf8'); } catch (e) { /* */ } backup = path.join(H.versoes, chave, c.carimbo()); copiarDir(viva(nome), backup); removerDir(viva(nome)); }
     copiarDir(dir, viva(nome), ['teste']);
     const ensaio = path.join(H.versoes, chave, 'ensaios', c.carimbo() + '.md');
     c.garantirDir(path.dirname(ensaio)); fs.copyFileSync(path.join(dir, 'teste', 'resultado.md'), ensaio);
@@ -97,6 +111,8 @@ switch (cmd) {
       historico: (ant.historico || []).concat([{ data: agora(), acao: ant.versao ? 'atualizada' : 'criada', motivo: a2 || '', backup }]),
     };
     c.gravarJSON(H.reg, reg);
+    const textoNovo = fs.readFileSync(path.join(dir, 'SKILL.md'), 'utf8');
+    prov.registrar(chave, ant.versao ? 'atualizada' : 'criada', { versao: reg.skills[chave].versao, motivo: String(a2 || '').slice(0, 200), candidata: a3 || null, linhas: ant.versao ? prov.difLinhas(textoAnterior, textoNovo) : null });
     const cand = c.lerJSON(H.cand, []);
     cand.forEach((x) => { if (x.status === 'sugerida' && a3 && x.id === a3) x.status = 'criada'; });
     c.gravarJSON(H.cand, cand);
@@ -117,6 +133,8 @@ switch (cmd) {
       changelog(chave + ' falhou (' + s.falhas + '/' + cfg.limites.falhasParaAposentar + ')', ['Detalhe: ' + (a3 || 'não informado')]);
     }
     c.gravarJSON(H.reg, reg);
+    prov.registrar(chave, a2 === 'ok' ? 'usada-ok' : 'falhou', { motivo: a2 === 'ok' ? null : String(a3 || '').slice(0, 200) });
+    if (s.falhas >= cfg.limites.falhasParaAposentar && !prov.ehNossa(chave)) sair('Registrado. ' + chave + ' falhou ' + s.falhas + 'x, mas não foi criada pelo assistente: não será aposentada automaticamente.');
     if (s.falhas >= cfg.limites.falhasParaAposentar) {
       require('child_process').execFileSync(process.execPath, [__filename, 'aposentar', nome, 'falhou ' + s.falhas + ' vezes: ' + (a3 || '')], { stdio: 'inherit' });
     } else sair('Registrado: ' + chave + ' ' + (a2 === 'ok' ? 'sucesso' : 'falha') + '.');
@@ -129,6 +147,7 @@ switch (cmd) {
     moverDir(viva(nome), destino);
     if (reg.skills[chave]) { reg.skills[chave].status = 'aposentada'; reg.skills[chave].atualizadoEm = agora(); reg.skills[chave].historico = (reg.skills[chave].historico || []).concat([{ data: agora(), acao: 'aposentada', motivo: a2 || '' }]); }
     c.gravarJSON(H.reg, reg);
+    prov.registrar(chave, 'aposentada', { motivo: String(a2 || '').slice(0, 200) });
     changelog(chave + ' aposentada', ['Motivo: ' + (a2 || 'não informado'), 'Guardada em: ' + destino, 'Para trazer de volta: /habilidades restaurar ' + nome]);
     sair('🗄️ /' + chave + ' aposentada (guardada em _aposentadas). Restaurar: /habilidades restaurar ' + nome);
     break;
@@ -148,6 +167,7 @@ switch (cmd) {
     s.versao = Math.max(1, (s.versao || 1) - 1); s.status = 'experimental'; s.falhas = 0; s.atualizadoEm = agora();
     s.historico = (s.historico || []).concat([{ data: agora(), acao: 'desfeita', backup: ultimo }]);
     reg.skills[chave] = s; c.gravarJSON(H.reg, reg);
+    prov.registrar(chave, 'desfeita', { motivo: 'voltou à versão anterior' });
     changelog(chave + ' revertida para a versão anterior', ['Restaurada de: ' + ultimo]);
     sair('↩️ /' + chave + ' voltou para a versão anterior.');
     break;
@@ -160,6 +180,7 @@ switch (cmd) {
     moverDir(path.join(H.apos, lista[lista.length - 1]), viva(nome));
     const reg = lerReg(); const s = reg.skills[chave] || { origem: 'automatica', versao: 1 };
     s.status = 'experimental'; s.falhas = 0; s.atualizadoEm = agora(); reg.skills[chave] = s; c.gravarJSON(H.reg, reg);
+    prov.registrar(chave, 'restaurada', { de: '_aposentadas' });
     changelog(chave + ' restaurada', ['Origem: _aposentadas/' + lista[lista.length - 1]]);
     sair('♻️ /' + chave + ' restaurada.');
     break;
@@ -175,6 +196,16 @@ switch (cmd) {
     sair('Núcleo registrado.');
     break;
   }
+  case 'semelhantes': {
+    const lista = prov.semelhantes(a1 || '', a2 ? parseFloat(a2) : 0.4);
+    sair(lista.length ? lista.map((x) => '- /' + x.nome + ' (' + Math.round(x.similaridade * 100) + '%): ' + x.descricao).join('\n') + '\nATUALIZE a mais parecida em vez de criar outra (só use --nova se for outra tarefa).' : 'Nenhuma habilidade automática parecida. Pode criar.');
+    break;
+  }
+  case 'proveniencia': {
+    if (!nome) sair('Uso: proveniencia <nome>', 1);
+    sair(prov.linhaDoTempo('auto-' + nome));
+    break;
+  }
   case 'historico': {
     const t = fs.existsSync(H.log) ? fs.readFileSync(H.log, 'utf8') : 'Sem histórico ainda.';
     const blocos = t.split(/\n(?=## )/); const n = parseInt(a1, 10) || 10;
@@ -182,5 +213,5 @@ switch (cmd) {
     break;
   }
   default:
-    sair('Comandos: listar | candidatas | validar <nome> | publicar <nome> "<motivo>" [id-candidata] | resultado <nome> ok|falha "<detalhe>" | desfazer <nome> | aposentar <nome> "<motivo>" | restaurar <nome> | historico [n]');
+    sair('Comandos: listar | candidatas | validar <nome> | publicar <nome> "<motivo>" [id-candidata] | resultado <nome> ok|falha "<detalhe>" | desfazer <nome> | aposentar <nome> "<motivo>" | restaurar <nome> | historico [n] | semelhantes "<texto>" | proveniencia <nome>');
 }

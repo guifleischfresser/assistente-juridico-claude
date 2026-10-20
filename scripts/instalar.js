@@ -4,6 +4,8 @@
  * Instalador multiplataforma (chamado por instalar.ps1 / instalar.sh / instalar.bat).
  * Uso: node scripts/instalar.js [--escritorio "<pasta>"] [--nome "Dra. Ana"] [--simular] [--forcar]
  *      node scripts/instalar.js --desinstalar        (nunca apaga o ESCRITORIO)
+ *      node <raiz-do-plugin>/scripts/instalar.js --modo-plugin   (instalado pelo /plugin install: as skills
+ *        e os hooks vem do plugin; aqui so ESCRITORIO, CLAUDE.md, permissoes, statusline e estilo)
  * Faz backup de ~/.claude/settings.json e CLAUDE.md antes de qualquer mudanca.
  * --silencioso: aceito por compatibilidade (este script nunca faz perguntas).
  * Retencao: define cleanupPeriodDays = 14 SOMENTE se o usuario nao tiver valor proprio
@@ -20,6 +22,7 @@ const MARCA_FIM = '<!-- advogado-claude-mod:fim -->';
 const args = process.argv.slice(2);
 const opt = (n) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : null; };
 const SIMULAR = args.includes('--simular');
+const MODO_PLUGIN = args.includes('--modo-plugin');
 const barra = (p) => p.replace(/\\/g, '/');
 const RETENCAO_DIAS = 14;
 const PACOTE_ITENS = ['scripts', 'skills', 'templates', 'output-styles', 'hooks', '.claude-plugin', 'README.md', 'INSTALAR.md', 'ARQUITETURA.md', 'CHANGELOG.md'];
@@ -75,7 +78,7 @@ function regraCaminho(p) {
   return '/' + b; // => //caminho/absoluto
 }
 
-function mesclarSettings(esc, forcar) {
+function mesclarSettings(esc, forcar, modoPlugin) {
   const arq = path.join(c.P.claude, 'settings.json');
   const atual = c.lerJSON(arq, {}) || {};
   const modelo = JSON.parse(fs.readFileSync(path.join(RAIZ, 'templates', 'settings.modelo.json'), 'utf8')
@@ -115,13 +118,15 @@ function mesclarSettings(esc, forcar) {
     novo.permissions[k] = Array.from(conj);
   }
   novo.hooks = removerNossosHooks(novo.hooks || {});
-  for (const [ev, grupos] of Object.entries(modelo.hooks)) novo.hooks[ev] = (novo.hooks[ev] || []).concat(grupos);
+  // modo plugin: os hooks vem do hooks/hooks.json do plugin; repeti-los aqui faria cada guarda rodar 2x
+  if (!modoPlugin) for (const [ev, grupos] of Object.entries(modelo.hooks)) novo.hooks[ev] = (novo.hooks[ev] || []).concat(grupos);
+  if (!Object.keys(novo.hooks).length) delete novo.hooks;
   return { arq, novo, retencaoNossa, nodeCmd, anteriores, aplicado: aplicar };
 }
 /** Regras de permissao ESTREITAS: so os scripts do proprio assistente, pelo caminho exato
  *  (sem curinga no nome do arquivo => nao cobre ../ nem outros .js). Valem no modo manual;
  *  no modo auto as regras estreitas continuam valendo e o resto passa pelo classificador. */
-const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos'];
+const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos', 'julgados', 'processo', 'mapa-teses', 'erros', 'agentes'];
 function regrasScripts() {
   const r = [];
   for (const s of SCRIPTS_CLI) for (const base of ['$HOME/.claude/advogado/scripts/', '~/.claude/advogado/scripts/']) for (const tool of ['Bash', 'PowerShell']) r.push(tool + '(node "' + base + s + '.js" *)');
@@ -184,19 +189,21 @@ function instalar() {
       copiarDir(destino, path.join(c.P.hab, 'versoes', 'nucleo', n, c.carimbo()));
       fs.rmSync(destino, { recursive: true, force: true }); // copia limpa: sem references/ antigas (a versao anterior ficou no backup acima)
     }
-    copiarDir(path.join(dirSk, n), destino);
+    // modo plugin: as skills do nucleo vem do plugin (/advogado-claude:<nome>); copia-las duplicaria cada atalho
+    if (!MODO_PLUGIN) copiarDir(path.join(dirSk, n), destino);
   }
   escrever(path.join(c.P.claude, 'output-styles', 'advogado.md'), fs.readFileSync(path.join(RAIZ, 'output-styles', 'advogado.md'), 'utf8'));
-  console.log('4/6 Habilidades (skills) e estilo de resposta instalados');
+  console.log('4/6 ' + (MODO_PLUGIN ? 'Habilidades: vêm do plugin (atalhos /advogado-claude:<nome>); estilo de resposta instalado' : 'Habilidades (skills) e estilo de resposta instalados'));
   const md = mesclarClaudeMd(esc, nome); escrever(md.arq, md.novo);
-  const st = mesclarSettings(esc, args.includes('--forcar'));
+  const st = mesclarSettings(esc, args.includes('--forcar'), MODO_PLUGIN);
   if (!SIMULAR) c.gravarJSON(st.arq, st.novo);
   console.log('5/6 CLAUDE.md e settings.json atualizados (suas configurações anteriores foram mantidas)');
   if (!SIMULAR) {
     if (st.retencaoNossa) console.log('   Histórico de conversas: guardado por ' + RETENCAO_DIAS + ' dias (cleanupPeriodDays), por sigilo. Seu valor anterior seria mantido se existisse.');
     if (st.aplicado) console.log('   Piloto automático: modo auto (permissões revisadas por um classificador), modelo Opus 5.5 com esforço médio e memória automática ligados. Seus valores anteriores foram guardados.');
     if (st.nodeCmd !== 'node') console.log('   Node fora do PATH desta sessão: os hooks usarão o caminho completo ' + st.nodeCmd);
-    c.gravarJSON(c.P.config, Object.assign({}, cfgAnt, { configAnterior: st.anteriores, pilotoAutomaticoAplicado: cfgAnt.pilotoAutomaticoAplicado || st.aplicado, retencaoDefinidaPeloMod: cfgAnt.retencaoDefinidaPeloMod || st.retencaoNossa, escritorio: esc, nome, versao: c.VERSAO, instaladoEm: cfgAnt.instaladoEm || new Date().toISOString(), atualizadoEm: new Date().toISOString(), onboardingConcluido: !!cfgAnt.onboardingConcluido, limiteContexto: cfgAnt.limiteContexto || 75 }));
+    c.gravarJSON(c.P.config, Object.assign({}, cfgAnt, { configAnterior: st.anteriores, pilotoAutomaticoAplicado: cfgAnt.pilotoAutomaticoAplicado || st.aplicado, retencaoDefinidaPeloMod: cfgAnt.retencaoDefinidaPeloMod || st.retencaoNossa, escritorio: esc, nome, versao: c.VERSAO, instaladoEm: cfgAnt.instaladoEm || new Date().toISOString(), atualizadoEm: new Date().toISOString(), onboardingConcluido: !!cfgAnt.onboardingConcluido, limiteContexto: cfgAnt.limiteContexto || 75, modoPlugin: MODO_PLUGIN, raizPlugin: MODO_PLUGIN ? barra(RAIZ) : null }));
+    try { require('./agentes').gerar({ escritorio: esc, silencioso: true }); } catch (e) { c.log('erros', 'AGENTS.md: ' + e.message); }
     require('child_process').execFileSync(process.execPath, [path.join(c.P.base, 'scripts', 'habilidades.js'), 'registrar-nucleo', dirSk], { stdio: 'ignore' });
   }
   console.log('6/6 Configuração salva em ' + c.P.config);

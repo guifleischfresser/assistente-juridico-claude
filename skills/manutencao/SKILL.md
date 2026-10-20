@@ -21,12 +21,12 @@ Roda sozinha a cada 15 dias, no início de uma conversa. Aqui o usuário pede na
 
 O que a revisão faz, sempre com backup, ensaio (dry-run) e changelog:
 1. Aposenta atalhos `auto-*` sem uso há 45+ dias (vão para `_aposentadas`; voltam com `/habilidades restaurar`).
-2. Mescla atalhos `auto-*` quase iguais (o mais usado fica; o outro vira `references/variante-*.md`).
+2. Mescla atalhos `auto-*` repetidos ou sobrepostos (o mais usado fica; o outro vira `references/variante-*.md` e o histórico registra quem absorveu quem).
 3. Enxuga descrições longas (meta: 200 caracteres) mantendo o "Use quando" e o `/comando`.
 4. Move detalhes pesados do corpo para `references/*.md`, lidos só quando necessários.
 5. Confere o tamanho do CLAUDE.md e da memória (MEMORY.md acima de 200 linhas é arquivado em parte).
 6. Valida cada skill alterada; a que falhar no ensaio volta como estava.
 
-Nunca muda o que uma skill do núcleo faz; só encurta a descrição e reorganiza detalhes. Relatórios ficam em `ESCRITORIO/MEMORIA/revisoes/`.
+**Regra fixa:** a manutenção só mexe nos atalhos que o próprio assistente criou (`auto-*` com origem registrada). Skills do núcleo e as que o advogado escreveu nunca são alteradas, mescladas nem aposentadas. Cada mudança entra no histórico do atalho (`/habilidades proveniencia <nome>`). Relatórios ficam em `ESCRITORIO/MEMORIA/revisoes/`.
 
 Se o usuário quiser refinar uma mesclagem (texto da skill que ficou), use a skill criar-skill-automatica, seguindo as salvaguardas dela.

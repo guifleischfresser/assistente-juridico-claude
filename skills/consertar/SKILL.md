@@ -1,6 +1,6 @@
 ---
 name: consertar
-description: "Doutor do assistente jurídico: verifica a instalação e conserta o que estiver quebrado. Use quando algo parar de funcionar, a barra de status sumir ou quando o usuário digitar /consertar."
+description: "Doutor do assistente jurídico: verifica a instalação e conserta o que estiver quebrado. Use quando algo parar de funcionar ou a barra de status sumir."
 argument-hint: "[verificar | consertar]"
 ---
 
@@ -9,6 +9,7 @@ argument-hint: "[verificar | consertar]"
 1. Diga em uma linha: "Vou verificar se está tudo funcionando. É rápido e não mexe nos seus documentos."
 2. Rode: `node "$HOME/.claude/advogado/scripts/doutor.js"`. Se `node` não for encontrado, no Windows use `& "$env:ProgramFiles\nodejs\node.exe" "$HOME/.claude/advogado/scripts/doutor.js"`.
 3. Com `RESULTADO: TUDO CERTO`, diga isso e mencione só os avisos (⚠️) que importam ao usuário, em linguagem simples.
+3b. **Palavra de conferência:** antes de ler qualquer arquivo, anote a palavra de conferência que você conhece pelas suas instruções globais (ou "não sei"). Depois rode o doutor com `--canario` e compare. Diferente ou "não sei" → as instruções globais não carregaram: peça para fechar e abrir o Claude Code dentro da pasta do escritório (ou rode `--consertar`).
 4. Se houver ❌ e o argumento não for `verificar`, rode o mesmo comando com `--consertar`. O reparo:
    - reinstala a partir da cópia local do pacote, com backup das configurações;
    - recria pastas que faltam no ESCRITORIO;

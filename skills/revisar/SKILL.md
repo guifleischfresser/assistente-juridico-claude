@@ -1,6 +1,6 @@
 ---
 name: revisar
-description: "Revisão técnica completa de peça ou contrato: citações, requisitos legais por tipo. Use quando o usuário pedir revisão, conferência, \"dá uma olhada\", \"está bom?\" ou digitar /revisar."
+description: "Revisão técnica completa de peça ou contrato: citações, requisitos legais por tipo. Use quando o usuário pedir revisão, conferência, \"dá uma olhada\" ou \"está bom?\"."
 argument-hint: "[arquivo]"
 ---
 

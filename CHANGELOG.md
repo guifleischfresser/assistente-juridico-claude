@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.5.0 — 2026-10-20
+**Sete recursos novos, todos locais e em pt-BR.** Núcleo com 24 skills e contexto fixo de 3.496 caracteres (menor que o da v0.4, com 20 skills).
+1. **Posse, procedência e mescla das habilidades automáticas** (ideias do autoharness).
+   - Regra dura: a automação só cria, altera, mescla ou aposenta `auto-*` criadas por ela (registro + `metadata.origem: automatica`). Núcleo e skills do advogado nunca são tocados; a manutenção não enxuga mais descrições do núcleo na máquina do advogado.
+   - Ficha por skill (`habilidades/proveniencia/*.jsonl`): criação, edições (linhas +/−), sessão e tipo de peça (só impressão digital, sem dados do cliente), usos, falhas, mesclas (quem absorveu quem), aposentadoria. Comando: `/habilidades proveniencia <nome>`.
+   - `publicar` recusa duplicata de `auto-*` parecida (código 4) e pede para atualizar a existente; `--nova` força. Novo `habilidades.js semelhantes`.
+2. **Mapa de teses da defesa** (`/mapa-de-teses`, `mapa-teses.js modelo|validar|marcar|totalizar|imprimir`): quadro por pedido (valor, risco alto/médio/baixo, teses, precedentes) na pasta do caso, soma por risco (provável/possível/remota) e versão para imprimir. Todo precedente fica `[A VERIFICAR]` até ser conferido.
+3. **Conferência de julgados** (`julgados.js`): existe? o trecho entre aspas bate com o original (mostra as palavras que divergem)? Livro em `WIKI/julgados-verificados.json`. Integrado ao verificador de citações, ao `checar-peca` (🔴), à exportação para Word (bloqueia divergentes), ao fechamento da `/nova-peca` e ao mapa de teses.
+   - **Internet só com permissão:** toda busca/acesso web pergunta antes, exceto os sites que o advogado autorizou (`julgados.js autorizar`, que também pede confirmação). `verificacaoOnline: "nunca"` desliga. Número CNJ só sai se for de julgado pedido para conferência.
+   - Basanos (cognitio.one) mencionado só na documentação, como ferramenta externa opcional.
+4. **Uma conversa por processo** (`/processo`, `/cliente`, `processo.js abrir|anotar|listar|atual`): carrega só o dossiê e o handoff do caso, vincula a conversa ao processo (retomada lembra), avisa ao mexer em outro caso e grava anotações só no DOSSIE do caso.
+5. **Instalação pelo chat (plugin):** `/plugin marketplace add guifleischfresser/assistente-juridico-claude` e `/plugin install advogado-claude@advogado-claude-mod`. Novo `instalar.js --modo-plugin` e `PE instalar-plugin` (sem hooks nem skills duplicados); SessionStart registra a raiz do plugin, injeta as regras do núcleo até a configuração terminar e avisa o prefixo `/advogado-claude:`. Doutor entende o modo plugin. O caminho do INSTALAR.md continua igual.
+6. **Erros a não repetir** (ideia do repeat-mistake-guard; `/erros`, `erros.js`): a correção do advogado vira um check com exemplo real; na 2ª vez, a peça com aquele erro é bloqueada na gravação (PreToolUse `deny`); antes disso, aviso no PostToolUse. Detector de frases de correção no pedido; trocas de palavra repetidas nas edições entram como aviso. Rápido e fail-open.
+7. **Portabilidade** (ideia do agent-kit; `agentes.js gerar [--skills] [--codex-global]`): `ESCRITORIO/AGENTS.md` com as mesmas regras do CLAUDE.md para Codex e Cursor, com as conferências manuais no lugar dos hooks. Gerado pelo instalador; o doutor confere.
+- **Palavra de conferência:** o CLAUDE.md global tem uma palavra-canário; `doutor --canario` e `/consertar` confirmam que as instruções globais foram carregadas.
+- Descrições do núcleo sem o redundante "ou digitar /nome". Regras de permissão estreitas para os scripts novos. Validador: regras das `auto-*` mantidas; núcleo com 24 nomes reservados.
+- Testes: 218 na suíte (+66), simulações bash/pwsh 28+28, `claude plugin validate` OK.
+
 ## 0.4.0 — 2026-10-17
 **Recurso principal: manutenção das habilidades a cada 15 dias, sozinha, para gastar menos contexto.**
 - Novo `scripts/manutencao.js` e skill de núcleo `/manutencao` (20 no núcleo; `disable-model-invocation`, sem custo fixo): `medir`, `revisar`, `simular`, `desfazer`, `estado`.

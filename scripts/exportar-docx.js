@@ -11,6 +11,7 @@
  *   > citacao longa | - item / 1. item / a) item | <!-- centralizar --> antes de um paragrafo
  *   <!-- sem-recuo --> | <!-- quebra-pagina -->.  "[NAO VERIFICADO]" e "[PREENCHER ...]" saem grifados.
  * Recusa exportar se houver citacao sem fonte e sem a marca [NAO VERIFICADO] (salvo --forcar).
+ * v0.5: recusa tambem julgado registrado como divergente/inexistente no livro de conferencias (julgados.js).
  */
 const fs = require('fs');
 const path = require('path');
@@ -133,7 +134,14 @@ if (require.main === module) {
   const md = fs.readFileSync(args[0], 'utf8');
   const { analisarCitacoes } = require('./lib/citacoes');
   const todas = analisarCitacoes(md, path.dirname(args[0]), cfg.escritorio);
-  const pend = todas.filter((x) => !x.verificada && !x.marcada && x.tipo === 'jurisprudencia');
+  const prob = todas.filter((x) => x.problema);
+  if (prob.length && !forcar) {
+    console.log('❌ Exportação interrompida: ' + prob.length + ' julgado(s) conferido(s) no original que NÃO conferem com a peça:');
+    prob.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + '): ' + (x.problema === 'inexistente' ? 'não existe' : 'trecho/conteúdo divergente') + ' — fonte: ' + (x.fonteRegistro || '?')));
+    console.log('Corrija o trecho ou remova a citação (/verificar-citacoes). (Para exportar mesmo assim: --forcar)');
+    process.exit(2);
+  }
+  const pend = todas.filter((x) => !x.verificada && !x.marcada && !x.problema && x.tipo === 'jurisprudencia');
   const leis = todas.filter((x) => !x.verificada && !x.marcada && x.tipo === 'legislacao');
   if (pend.length && !forcar) {
     console.log('❌ Exportação interrompida: ' + pend.length + ' citação(ões) de JURISPRUDÊNCIA sem fonte e sem a marca [NÃO VERIFICADO]:');

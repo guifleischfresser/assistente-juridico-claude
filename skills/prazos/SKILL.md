@@ -1,6 +1,6 @@
 ---
 name: prazos
-description: "Mostra, cadastra, calcula e dá baixa em prazos processuais em dias úteis. Use quando o usuário falar de prazo, intimação, publicação, vencimento, agenda, \"quando vence\" ou digitar /prazos."
+description: "Mostra, cadastra, calcula e dá baixa em prazos processuais em dias úteis. Use quando o usuário falar de prazo, intimação, publicação, vencimento, agenda ou \"quando vence\"."
 argument-hint: "[listar | calcular DD/MM/AAAA dias | novo | feito]"
 ---
 

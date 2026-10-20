@@ -1,6 +1,6 @@
 ---
 name: preparar-autos
-description: "Converte os PDFs/DOCX do processo em Markdown leve uma vez e detecta instruções ocultas para IA. Use quando o usuário trouxer autos, PDFs ou anexos, antes de ler PDF grande ou digitar /preparar-autos."
+description: "Converte os PDFs/DOCX do processo em Markdown leve uma vez e detecta instruções ocultas para IA. Use quando o usuário trouxer autos, PDFs ou anexos ou antes de ler PDF grande."
 argument-hint: "[caso] [--ocr]"
 ---
 

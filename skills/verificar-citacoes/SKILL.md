@@ -1,6 +1,6 @@
 ---
 name: verificar-citacoes
-description: "Verificador anti-alucinação de jurisprudência e legislação citadas em peças. Use quando o usuário pedir para conferir citações/jurisprudência ou digitar /verificar-citacoes."
+description: "Verificador anti-alucinação: confere se julgados citados existem e se o trecho entre aspas bate com o original. Use para conferir citações/jurisprudência."
 argument-hint: "[arquivo]"
 ---
 
@@ -8,14 +8,13 @@ argument-hint: "[arquivo]"
 
 Arquivo: $ARGUMENTS
 
-Princípio: **citação sem fonte é risco profissional** (multa por litigância de má-fé, ofício à OAB). O verificador nunca "confirma de memória".
+Princípio: **citação sem fonte é risco profissional** (litigância de má-fé, ofício à OAB). Nunca "confirme de memória". `S="$HOME/.claude/advogado/scripts"`.
 
-1. Relatório automático: `node "$HOME/.claude/advogado/scripts/checar-peca.js" "<arquivo>"` (seção Citações).
-2. Para cada citação **sem fonte**, nesta ordem:
-   a. Procure na `WIKI/paginas/` (Grep pelo número/tema). Achou com fonte → acrescente `[fonte: WIKI/paginas/...]` logo após a citação.
-   b. Procure nos autos do caso (`autos-md/`) — se a citação veio de decisão ou peça dos autos, cite a origem: `[fonte: autos-md/<doc>.md pág. N]`.
-   c. Se o usuário **pedir** pesquisa na internet: busque só em fontes oficiais (stf.jus.br, stj.jus.br, tst.jus.br, sites dos TJs/TRFs/TRTs, planalto.gov.br) e **só com termos jurídicos** (classe, número, tema), nunca com nomes ou dados do cliente. Confirme existência, número, relator, órgão, data e que a ementa diz o que a peça afirma. Salve o inteiro teor/ementa em `WIKI/raw/` e um resumo em `WIKI/paginas/` (ver `WIKI/schema/SCHEMA.md`), e cite com o link oficial.
-   d. Não confirmou → mantenha/insira ` [NÃO VERIFICADO]`: `node "$HOME/.claude/advogado/scripts/checar-peca.js" "<arquivo>" --marcar` (faz backup antes).
-3. Se encontrar citação que **não existe** ou que diz outra coisa, destaque em 🔴 e proponha remover ou reescrever o argumento sem ela.
-4. Legislação: confira se o dispositivo existe e se está vigente (atenção a revogações e renumerações); cite o Planalto quando conferido.
-5. Entregue tabela: citação | situação (✅ fonte / ⚠️ não verificado / 🔴 inexistente ou distorcida) | fonte.
+1. Relatório: `node "$S/checar-peca.js" "<arquivo>"` e `node "$S/julgados.js" listar "<arquivo>"` (julgado, trecho citado, situação).
+2. Para cada julgado ainda **não verificado**, nesta ordem:
+   a. **Local primeiro:** `WIKI/raw/` e `WIKI/paginas/` (Grep pelo número), depois os autos (`autos-md/`). Achou o texto original → salve/aponte o arquivo e rode `node "$S/julgados.js" comparar --citacao "<julgado>" --original "<arquivo do original>" --peca "<arquivo>" --fonte "<link ou WIKI/raw/...>"`.
+   b. **Internet só com permissão:** veja `node "$S/julgados.js" politica`. Se nenhum site estiver autorizado, **pergunte uma vez** ao advogado (texto pronto no comando). Ele aceitando: `node "$S/julgados.js" autorizar <sites>` (o sistema pede confirmação na tela). Antes de cada consulta: `node "$S/julgados.js" pedir "<julgado>"`. Use WebFetch só nos sites autorizados e só com o número do julgado — nunca nome, CPF ou dado do cliente. Passo a passo e endereços: `references/conferencia-online.md`.
+   c. **Não deu para conferir** (sem permissão, site fora do ar, não achou) → ` [NÃO VERIFICADO]`: `node "$S/checar-peca.js" "<arquivo>" --marcar`.
+3. Resultado 🔴 (julgado não existe ou trecho diverge): registre (`julgados.js registrar --status inexistente|divergente --fonte ...`), mostre o que muda e proponha corrigir o trecho, remover ou reescrever o argumento. A exportação para Word fica bloqueada até resolver.
+4. Legislação: confira existência e vigência (revogações/renumerações) no Planalto quando autorizado.
+5. Entregue tabela: julgado | situação (✅ confere / ⚠️ não verificado / 🔴 divergente ou inexistente) | fonte | o que fazer.

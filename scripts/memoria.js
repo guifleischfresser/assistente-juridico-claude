@@ -160,7 +160,11 @@ function aprenderEdicoes(soArquivo) {
     const foto = ler(path.join(k.fotos, id + '.txt')); if (foto == null) continue;
     const a = analisarEdicao(foto, atual);
     res.editadas++; ap.pecasAnalisadas++;
-    for (const s of a.substituicoes) ap.substituicoes[s] = (ap.substituicoes[s] || 0) + 1;
+    for (const s of a.substituicoes) {
+      ap.substituicoes[s] = (ap.substituicoes[s] || 0) + 1;
+      // v0.5: a 2a vez que o advogado faz a MESMA troca, vira "erro a nao repetir" (nivel aviso)
+      if (ap.substituicoes[s] === 2) { try { registrarTrocaComoErro(s); res.erros = (res.erros || 0) + 1; } catch (e) { /* fail-open */ } }
+    }
     for (const w of a.removidas) if (!PALAVRAS_VAZIAS.has(w)) ap.removidas[w] = (ap.removidas[w] || 0) + 1;
     for (const w of a.adicionadas) if (!PALAVRAS_VAZIAS.has(w)) ap.adicionadas[w] = (ap.adicionadas[w] || 0) + 1;
     if (a.antes && a.depois) ap.frases = ap.frases.concat([[Math.round(a.antes), Math.round(a.depois)]]).slice(-30);
@@ -172,6 +176,13 @@ function aprenderEdicoes(soArquivo) {
   c.gravarJSON(k.aprendizado, ap);
   if (res.editadas) { res.regras = atualizarPerfil(ap); changelog('aprendi com ' + res.editadas + ' peça(s) editada(s) por você; perfil de escrita atualizado (' + res.regras + ' ajuste(s) ativos).'); }
   return res;
+}
+
+function registrarTrocaComoErro(s) {
+  const [antes, depois] = s.split(' → ');
+  if (!antes || !depois || antes.length < 3) return null;
+  const esc = antes.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return require('./lib/erros').registrar({ licao: 'O advogado troca "' + antes + '" por "' + depois + '" nas peças', padrao: '(?<!\\p{L})' + esc + '(?!\\p{L})', exemplo: antes, certo: depois, origem: 'edicoes' });
 }
 
 function topo(obj, min, n) { return Object.entries(obj).filter(([, v]) => v >= min).sort((a, b) => b[1] - a[1]).slice(0, n); }

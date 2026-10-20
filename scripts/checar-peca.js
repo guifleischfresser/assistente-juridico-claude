@@ -41,10 +41,12 @@ function checar(arquivo, opc) {
 }
 
 function relatorio(r) {
-  const pend = r.cits.filter((x) => !x.verificada && !x.marcada), marc = r.cits.filter((x) => x.marcada), ok = r.cits.filter((x) => x.verificada);
+  const prob = r.cits.filter((x) => x.problema);
+  const pend = r.cits.filter((x) => !x.verificada && !x.marcada && !x.problema), marc = r.cits.filter((x) => x.marcada && !x.problema), ok = r.cits.filter((x) => x.verificada);
   const L = ['# Checagem automática — ' + path.basename(r.arquivo), ''];
   L.push('## Citações (' + r.cits.length + ')');
-  L.push('- ✅ Com fonte: ' + ok.length + ' | ⚠️ Marcadas NÃO VERIFICADO: ' + marc.length + ' | ❌ Sem fonte nem marca: ' + pend.length);
+  L.push('- ✅ Com fonte: ' + ok.length + ' (' + r.cits.filter((x) => x.conferida).length + ' conferidas no original) | ⚠️ Marcadas NÃO VERIFICADO: ' + marc.length + ' | ❌ Sem fonte nem marca: ' + pend.length + (prob.length ? ' | 🔴 Divergentes/inexistentes: ' + prob.length : ''));
+  prob.forEach((x) => L.push('  - 🔴 linha ' + x.linha + ': ' + x.texto + ' — ' + (x.problema === 'inexistente' ? 'NÃO EXISTE' : 'trecho/conteúdo DIVERGE do original') + ' (conferido em ' + (x.fonteRegistro || 'fonte registrada') + '): remova ou reescreva'));
   pend.forEach((x) => L.push('  - ❌ linha ' + x.linha + ': ' + x.texto + ' (' + x.tipo + ')'));
   marc.forEach((x) => L.push('  - ⚠️ linha ' + x.linha + ': ' + x.texto));
   L.push('', '## Naturalidade do texto');
@@ -59,7 +61,7 @@ function relatorio(r) {
 }
 
 function marcar(r) {
-  const pend = r.cits.filter((x) => !x.verificada && !x.marcada).sort((a, b) => b.fim - a.fim);
+  const pend = r.cits.filter((x) => !x.verificada && !x.marcada && !x.problema).sort((a, b) => b.fim - a.fim);
   if (!pend.length) return 0;
   const cfg = c.config();
   if (c.dentroDe(r.arquivo, cfg.escritorio)) c.versionar(r.arquivo, path.join(cfg.escritorio, '_versoes'), cfg.escritorio);

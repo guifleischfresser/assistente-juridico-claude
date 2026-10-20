@@ -1,6 +1,6 @@
 ---
 name: nova-peca
-description: "Redige minuta de peça jurídica brasileira no estilo do advogado. Use quando o usuário pedir para escrever, redigir ou minutar qualquer peça ou documento jurídico, ou digitar /nova-peca."
+description: "Redige minuta de peça jurídica brasileira no estilo do advogado. Use quando o usuário pedir para escrever, redigir ou minutar qualquer peça ou documento jurídico."
 argument-hint: "[tipo da peça] [caso]"
 ---
 
@@ -26,5 +26,6 @@ Pedido: $ARGUMENTS
 1. Salve em `CASOS/<fase>/<caso>/pecas/AAAA-MM-DD_<tipo>_v1.md` (nova versão = v2, v3; não sobrescreva versões anteriores).
 2. O verificador automático de citações vai rodar sozinho; trate os avisos (marque [NÃO VERIFICADO] ou inclua a fonte).
 3. Rode a checagem: `node "$HOME/.claude/advogado/scripts/checar-peca.js" "<arquivo>" --tipo <tipo>` e corrija o que for possível.
+3b. **Julgados com trecho entre aspas:** confira com `/verificar-citacoes` (original local em `WIKI/raw/` ou, só com permissão do advogado, no site do tribunal). Trecho divergente bloqueia a exportação.
 4. Atualize o Histórico e as Pendências do `DOSSIE.md`.
 5. Entregue: resumo da tese em 3 linhas, lista de `[PREENCHER]` e de `[NÃO VERIFICADO]`, e ofereça `/advogado-do-diabo`, `/revisar` e `/formatar-peca`.

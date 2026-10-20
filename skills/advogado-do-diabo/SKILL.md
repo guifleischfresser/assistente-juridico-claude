@@ -1,6 +1,6 @@
 ---
 name: advogado-do-diabo
-description: "Revisor adversário: ataca a minuta como fariam a parte contrária, o juiz e o tribunal. Use quando o usuário pedir para testar, atacar, criticar ou \"achar furos\" na peça ou digitar /advogado-do-diabo."
+description: "Revisor adversário: ataca a minuta como fariam a parte contrária, o juiz e o tribunal. Use quando o usuário pedir para testar, atacar, criticar ou \"achar furos\" na peça."
 argument-hint: "[arquivo] [perspectiva: contraparte|juiz|tribunal|todas]"
 context: fork
 agent: general-purpose

@@ -7,7 +7,8 @@
 ESCRITORIO/
 ├── ESTRUTURA.md          ← este mapa
 ├── CLAUDE.md             ← perfil e regras da casa (curto; aponta para MEMORIA/)
-├── MEMORIA/              ← preferências e cuidados aprendidos sozinho + CHANGELOG (nunca dados de clientes)
+├── AGENTS.md             ← as mesmas regras para Codex/Cursor (gerado; edite só fora das marcas)
+├── MEMORIA/              ← preferências e cuidados aprendidos sozinho, erros-a-nao-repetir.json + CHANGELOG (nunca dados de clientes)
 ├── mapa-de-pastas.md    ← pastas ORIGINAIS do advogado fora daqui (petições, modelos, casos): só apontadas, nunca copiadas
 ├── PRAZOS.md             ← agenda de prazos (tabela). A linha de status avisa o próximo
 ├── CASOS/
@@ -24,6 +25,7 @@ ESCRITORIO/
 ├── WIKI/
 │   ├── raw/              ← FONTES BRUTAS: inteiro teor, leis, artigos baixados. Nunca editadas
 │   ├── paginas/          ← resumos DERIVADOS (jurisprudencia/, legislacao/, doutrina/), sempre com fonte
+│   ├── julgados-verificados.json ← livro de conferência dos julgados (confere/divergente/inexistente + fonte)
 │   └── schema/           ← regras de como escrever uma página da WIKI
 ├── HANDOFFS/             ← espelho central de todos os handoffs (cada handoff é gravado em 2 lugares)
 ├── EXPORTADOS/           ← .docx gerados para protocolo/envio
@@ -36,7 +38,7 @@ ESCRITORIO/
 - `HANDOFF.md` — onde paramos e próximos passos (cópia em HANDOFFS/).
 - `documentos/` — originais recebidos (PDF, DOCX). Não editar.
 - `autos-md/` — autos convertidos para texto por `/preparar-autos` (economiza limite de uso), com `INDICE.md`.
-- `pecas/` — minutas e versões das peças deste caso (`.md`); a versão final vai para EXPORTADOS/ em `.docx`.
+- `pecas/` — minutas e versões das peças deste caso (`.md`), inclusive o `mapa-de-teses-AAAA-MM-DD.md`; a versão final vai para EXPORTADOS/ em `.docx`.
 
 ## Regras de movimentação (fases)
 - Em análise → Ativos: quando houver contratação/estratégia definida (`/casos ativar`).

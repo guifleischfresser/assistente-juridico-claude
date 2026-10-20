@@ -49,6 +49,7 @@ curl -fsSL -o "$d/INSTALAR.md" "https://raw.githubusercontent.com/guifleischfres
 ## Etapa 0 — Já existe instalação ou etapa em andamento?
 
 Rode `PE estado`.
+- **`MODO PLUGIN`** (o assistente veio pelo `/plugin install`): não baixe nada. Rode `PE instalar-plugin` e vá para a Etapa 2.
 - **Comando não encontrado:** instalação nova. Vá para a Etapa 1.
 - **Funcionou:** veja `PRÓXIMA ETAPA` e vá direto para ela, avisando "Vou continuar de onde paramos." (`instalacao`/`verificacao` = Etapa 1–3; `entrevista`/`registro`/`dossies` = Etapa 4; `estilo` = Etapa 5; `resumo` = Etapa 6). Se aparecer `TUDO CONCLUÍDO`, rode `DOUTOR` e mostre o resumo "como usar" da Etapa 6.
 

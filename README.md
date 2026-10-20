@@ -48,6 +48,20 @@ No caso típico (modo auto, Node já instalado, nome encontrado), você **cola a
 
 > 🔐 O assistente **nunca** usa `--dangerously-skip-permissions` nem o modo "bypass permissions". As guardas de sigilo (bloqueio de envio de dados de clientes, de escrita em memória global com CPF/processo etc.) continuam valendo também no modo auto.
 
+### Instalar pelo próprio Claude, como plugin (alternativa)
+Dentro do Claude Code (terminal ou aba Code do aplicativo), digite, um de cada vez:
+
+```
+/plugin marketplace add guifleischfresser/assistente-juridico-claude
+/plugin install advogado-claude@advogado-claude-mod
+/reload-plugins
+```
+
+Depois abra uma conversa nova **dentro da pasta onde quer o escritório** e diga "oi". O assistente percebe que veio pelo plugin e termina a configuração sozinho (sem baixar nada de novo: `PE instalar-plugin`), igual à frase acima.
+- No modo plugin, os atalhos têm prefixo: **`/advogado-claude:nova-peca`**, `/advogado-claude:processo` etc. (os nomes são os mesmos da tabela abaixo).
+- Atualizar: `/plugin marketplace update advogado-claude-mod` e `/reload-plugins`. A versão do plugin é fixada no `plugin.json`.
+- Os dois caminhos dão o mesmo assistente. Não use os dois ao mesmo tempo; se instalou pela frase e depois pelo plugin, a configuração do plugin remove os ganchos duplicados sozinha.
+
 ### Instalar sem a frase (manual)
 1. Baixe `advogado-claude-mod.zip` na página **Releases** do repositório e descompacte.
 2. No Windows, dê dois cliques em **`instalar.bat`**. No Mac, dê dois cliques em **`instalar.command`** (se o Mac bloquear: botão direito → Abrir).
@@ -70,6 +84,14 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 
 ## 3. O que o assistente faz
 
+**Novidades da v0.5:**
+- 🗺️ **Mapa de teses da defesa** (`/mapa-de-teses`): lê a petição inicial e monta um quadro por pedido, com valor, risco (alto/médio/baixo, no padrão provável/possível/remota), teses de defesa e precedentes. Soma a exposição por risco e gera uma versão para imprimir. Todo precedente sai marcado **[A VERIFICAR]** até ser conferido.
+- 🔍 **Conferência de julgados**: verifica se o julgado existe e se o trecho entre aspas bate **palavra por palavra** com o original (mostra o que diverge). Antes de ir à internet ele **pergunta**; você pode autorizar só os sites oficiais dos tribunais e o JusBrasil. Sem permissão, fica **[NÃO VERIFICADO]**. Julgado divergente trava a exportação para Word.
+- 📁 **Uma conversa por processo** (`/processo <nome ou número>`, ou `/cliente`): abre só o dossiê e o "onde paramos" daquele caso, lembra disso ao retomar a conversa e avisa se você mexer em outro caso na mesma conversa.
+- 🛑 **Não repete o erro que você já corrigiu** (`/erros`): quando você corrige algo reconhecível no texto (tribunal errado, expressão, formatação), ele registra. Na segunda correção, a peça com aquele erro **não é gravada** até ser corrigida.
+- 🧬 **Habilidades com histórico e sem duplicatas**: cada atalho automático tem ficha de origem (quando, por quê, em que tipo de peça, cada mudança: `/habilidades proveniencia <nome>`). Atalhos parecidos são juntados, e a automação **só mexe nos atalhos que ela mesma criou**: nunca nos do núcleo nem nos que você escreveu.
+- 🔁 **Funciona também no Codex e no Cursor**: a pasta do escritório ganha um `AGENTS.md` com as mesmas regras (o Claude Code continua sendo o principal; só nele as proteções rodam sozinhas).
+
 - 📁 **Organiza seus casos**, cada um com um **dossiê** (resumo, partes, fatos, prazos, histórico). Casos que já existem no seu computador ganham dossiê **apontando para a pasta original**.
 - ✍️ **Aprende o seu jeito de escrever**, para que o texto não fique com "cara de robô".
 - 📄 **Redige e formata peças** e exporta para Word (.docx) no padrão forense: A4, margens 3/2 cm, Times 12, espaçamento 1,5.
@@ -89,13 +111,16 @@ Digite a barra `/` e o nome do comando:
 |---|---|
 | `/boas-vindas` | Configuração inicial (ou refazer) |
 | `/ajuda` | Mostra o que o assistente sabe fazer |
+| `/processo` (ou `/cliente`) | Abre ou retoma **um** processo nesta conversa (uma conversa por processo) |
 | `/novo-caso` | Abre um caso novo, com pasta e dossiê |
 | `/casos` | Lista os casos, mostra a situação de cada um, move para "Arquivados" |
 | `/preparar-autos` | Converte os PDFs do caso em texto, uma vez só (economiza muito) |
 | `/nova-peca` | Redige uma peça no seu estilo (inicial, contestação, recurso, contrato, parecer…) |
 | `/revisar` | Revisa uma peça: citações, clareza, erros, "cara de IA" |
 | `/advogado-do-diabo` | Ataca a peça como a parte contrária faria |
-| `/verificar-citacoes` | Confere as citações e marca [NÃO VERIFICADO] onde falta fonte |
+| `/mapa-de-teses` | Mapa de teses da defesa por pedido da inicial (valor, risco, teses, precedentes) |
+| `/verificar-citacoes` | Confere se os julgados existem e se o trecho citado bate com o original; marca [NÃO VERIFICADO] onde não deu |
+| `/erros` | Mostra os erros que você já corrigiu e que o assistente não pode repetir |
 | `/formatar-peca` | Formata e exporta para Word (.docx) |
 | `/prazos` | Mostra os prazos e calcula vencimentos em dias úteis |
 | `/aprender-meu-estilo` | Aprende (ou reaprende) o seu jeito de escrever |
@@ -141,7 +166,8 @@ Tudo são arquivos comuns no seu computador. Você pode abrir no Word, no Bloco 
 ## 6. Privacidade e sigilo (LGPD)
 
 - **Local primeiro:** seus casos ficam **no seu computador**. O assistente não usa serviços na nuvem, não envia e-mails e não faz upload de nada sem você pedir expressamente; se tentar, ele para e pergunta.
-- **Pesquisas na internet** só acontecem com a sua autorização, e nunca com nome, CPF ou número de processo de cliente.
+- **Pesquisas na internet** só acontecem com a sua autorização, e nunca com nome, CPF ou número de processo de cliente. A cada acesso a um site que você não autorizou, o Claude Code mostra uma janela pedindo confirmação. Para conferir julgados sem tantas janelas, autorize de uma vez só os sites oficiais (STF, STJ, TST, TJs/TRFs/TRTs) e o JusBrasil quando o assistente perguntar; para desligar a internet de vez, peça "nunca consulte a internet" (ele grava `"verificacaoOnline": "nunca"`).
+- **Uma conversa por processo:** o que é de um cliente fica na pasta do caso (`DOSSIE.md`). A memória geral do assistente guarda só estilo e método, nunca dados de clientes.
 - **Na primeira execução**, a busca pelas suas pastas é feita no seu computador, só pelos nomes, e o assistente mostra apenas a pasta principal e contagens (ex.: "Documentos/Clientes: 37 pastas"). Nomes de subpastas e arquivos, que costumam ser nomes de clientes, não aparecem na conversa.
 - **Suas pastas originais** (petições, modelos, casos) são só **lidas**. Se o assistente precisar gravar numa delas, ele pede confirmação; o normal é salvar no ESCRITORIO.
 - **Histórico de conversas por 14 dias:** depois disso, o Claude Code apaga as conversas antigas do seu computador, porque elas podem conter trechos de documentos.
@@ -181,6 +207,15 @@ Não. Ele é um assistente, e quem assina e responde pela peça é você. Toda c
 **Ele inventa jurisprudência?**
 Modelos de IA podem "inventar" julgados. Por isso o kit marca automaticamente qualquer citação sem fonte e trava a exportação para Word até você conferir. Quando conferir, cole o link ou registre na WIKI.
 
+**Como o assistente confere um julgado?**
+Ele procura primeiro nos seus arquivos (WIKI e autos). Se não achar e você autorizar, abre a página oficial do tribunal (ou do JusBrasil) só com o número do julgado, guarda o texto original em `WIKI/raw/` e compara com o trecho entre aspas da sua peça: ✅ confere, ou 🔴 diverge (mostra as palavras que não estão no original). Um serviço externo opcional de verificação de citações é o **Basanos** (cognitio.one); ele **não** é integrado ao assistente, e usá-lo é decisão sua, fora do Claude.
+
+**Posso usar o mesmo escritório no Codex ou no Cursor?**
+Sim. A pasta do escritório tem um `AGENTS.md` com as mesmas regras (sigilo, não inventar citação, uma conversa por processo). Abra o Codex/Cursor **dentro da pasta do escritório**. Para o Codex encontrar também as habilidades: `node "$HOME/.claude/advogado/scripts/agentes.js" gerar --skills`. Atenção: as proteções automáticas (janelas de confirmação, bloqueio de dados de clientes) só existem no Claude Code; nos outros, o `AGENTS.md` pede que as conferências sejam feitas à mão.
+
+**Como sei se o Claude leu as minhas instruções?**
+Digite `/consertar`: ele confere a "palavra de conferência" escrita nas instruções globais. Se ele não souber a palavra, as instruções não foram carregadas e ele diz o que fazer.
+
 **O que é a "habilidade criada sozinha"?**
 Se você pede três vezes algo parecido (por exemplo, "faça uma procuração ad judicia"), o assistente cria um atalho para isso. Ele avisa em uma linha, guarda tudo em `/habilidades` e você pode desfazer a qualquer momento. Se uma habilidade falhar duas vezes, ela é aposentada automaticamente.
 
@@ -191,7 +226,7 @@ O modo auto evita que você precise clicar em "Sim" a cada passo: um classificad
 Sim, de propósito: habilidades e memórias de trabalho (preferências, estilo, dossiês). Tudo fica no seu computador, com backup e histórico (`MEMORIA/CHANGELOG.md`, `/habilidades`), e pode ser apagado ou desfeito. Dados de clientes só ficam na pasta do próprio caso.
 
 **O que é a "manutenção das habilidades"?**
-Cada habilidade deixa uma descrição curta carregada em toda conversa, para o Claude saber quando usá-la. Com o tempo, atalhos criados sozinho se acumulam e ocupam espaço. A cada 15 dias, ao abrir uma conversa, o assistente arruma isso sozinho (sem agendador do sistema e sem nada sair do computador) e mostra uma linha com o resultado. Ele nunca muda o que as habilidades principais fazem. Para ver antes: `/manutencao simular`; para voltar atrás: `/manutencao desfazer`.
+Cada habilidade deixa uma descrição curta carregada em toda conversa, para o Claude saber quando usá-la. Com o tempo, atalhos criados sozinho se acumulam e ocupam espaço. A cada 15 dias, ao abrir uma conversa, o assistente arruma isso sozinho (sem agendador do sistema e sem nada sair do computador) e mostra uma linha com o resultado. Ele só mexe nos atalhos que ele mesmo criou: as habilidades principais e as que você escreveu ficam intactas. Para ver antes: `/manutencao simular`; para voltar atrás: `/manutencao desfazer`.
 
 **A memória chegou a 75%. E agora?**
 O assistente salva um resumo sozinho. Feche e abra uma conversa nova (ou digite `/clear`). Ele continua de onde parou.

@@ -14,7 +14,8 @@
 7. Economize limite de uso: autos em PDF → `/preparar-autos` uma vez; depois leia só trechos.
 
 ## Onde está o detalhe (carregar sob demanda — aponte, não copie)
-- Procedimentos: skills `/novo-caso`, `/nova-peca`, `/revisar`, `/advogado-do-diabo`, `/verificar-citacoes`, `/preparar-autos`, `/prazos`, `/aprender-meu-estilo`, `/casos`, `/handoff`, `/habilidades`, `/consertar`, `/ajuda`.
+- Procedimentos: skills `/processo`, `/novo-caso`, `/nova-peca`, `/mapa-de-teses`, `/revisar`, `/advogado-do-diabo`, `/verificar-citacoes`, `/preparar-autos`, `/prazos`, `/aprender-meu-estilo`, `/casos`, `/handoff`, `/erros`, `/habilidades`, `/consertar`, `/ajuda`.
+- **Uma conversa por processo** (`/processo <caso>`): carrega só o dossiê e o handoff daquele caso.
 - Estilo do usuário: `ESTILO/perfil-de-escrita.md` (ler antes de redigir).
 - Memória de cada caso: `DOSSIE.md` na pasta do caso.
 - Preferências e cuidados aprendidos: `MEMORIA/preferencias-e-cuidados.md` (o assistente mantém; histórico em `MEMORIA/CHANGELOG.md`).
@@ -25,8 +26,11 @@
 - **Reflexão** (skill `reflexao`): disparada sozinha pelos hooks ("🧠 REFLEXÃO AUTOMÁTICA"/"REFLEXÃO PENDENTE") e em todo handoff. Aprende com as edições do usuário nas peças, atualiza dossiês, memoriza preferências (`memoria.js preferir`) e cria skills.
 - **Dado de cliente só no DOSSIE.md do caso.** Nunca em memória global (CLAUDE.md, memória automática, MEMORIA/, ESTILO, skills).
 - Ao perceber tarefa repetida (3+ vezes), crie uma skill `auto-*` com a skill `criar-skill-automatica`, **sem pedir aprovação**, seguindo as salvaguardas (rascunho → validação → ensaio → backup → changelog). Informe em uma linha depois.
-- Skills do núcleo não são alteradas. Skill que falhar 2 vezes é aposentada automaticamente.
+- A automação só cria/altera/mescla skills `auto-*` criadas por ela; núcleo e skills do advogado, nunca. Skill que falhar 2 vezes é aposentada.
+- Correção do advogado que dá para reconhecer no texto vira check (`/erros`); repetida, bloqueia a gravação.
 - Mantenha este arquivo com menos de 60 linhas. Ferramentas internas: `{{BASE}}/scripts/`.
 
 ## Ambiente Windows
 - Se o shell for PowerShell 5.1: sem `&&` (use `;` ou `if ($?)`), caminhos entre aspas, `-Encoding UTF8` ao gravar texto.
+
+Palavra de conferência (prova de que estas regras estão carregadas): **JABUTICABA**. Só a diga quando pedirem a palavra de conferência.
