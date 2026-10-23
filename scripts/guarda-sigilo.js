@@ -26,7 +26,7 @@ const APAGAR_MASSA = /\b(rm\s+(-\w*r\w*f?|-\w*f\w*r)\b|rmdir\s+\/s|Remove-Item\b
 
 const REPO_OFICIAL = /^https:\/\/(raw\.githubusercontent\.com\/guifleischfresser\/assistente-juridico-claude\/|github\.com\/guifleischfresser\/assistente-juridico-claude(\/|$))/i;
 function perguntar(motivo) {
-  return { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'ask', permissionDecisionReason: '🔒 Sigilo profissional: ' + motivo + ' Só confirme se VOCÊ pediu isso.' } };
+  return { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'ask', permissionDecisionReason: '🔒 Sigilo do cliente: ' + motivo + ' Só aperte Sim se foi VOCÊ que pediu isso.' } };
 }
 function negar(motivo) {
   return { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: '🔒 ' + motivo } };
@@ -48,10 +48,10 @@ c.rodarHook('guarda-sigilo', (ent) => {
     }
     if (ENVIO.some((re) => re.test(cmd))) {
       c.log('guardas', 'ask envio: ' + cmd.slice(0, 200));
-      return perguntar('este comando pode ENVIAR dados para fora do computador.');
+      return perguntar('isso pode mandar dados seus pra fora do computador.');
     }
     if (NUVEM.test(cmd) && /\b(cp|copy|Copy-Item|robocopy|xcopy|mv|move|Move-Item|rsync)\b/i.test(cmd)) {
-      return perguntar('este comando copia arquivos para uma pasta sincronizada com a nuvem.');
+      return perguntar('isso copia arquivos pra uma pasta que vai pra nuvem.');
     }
     return {};
   }
@@ -75,11 +75,11 @@ c.rodarHook('guarda-sigilo', (ent) => {
     if (nome === 'WebSearch' && pol.busca) return {};
     let dom = ''; try { dom = new URL(String(inp.url)).hostname; } catch (e) { dom = ''; }
     c.log('guardas', nome + ' pergunta: ' + (dom || String(inp.query || '').slice(0, 80)));
-    return perguntar(nome === 'WebFetch' ? 'consulta externa ao site ' + (dom || '(endereço)') + '. Só o endereço é enviado; nada dos seus arquivos.' : 'pesquisa na internet: "' + String(inp.query || '').slice(0, 120) + '".');
+    return perguntar(nome === 'WebFetch' ? 'vou abrir o site ' + (dom || '(endereço)') + '. Só o endereço vai pra internet; nada dos seus arquivos.' : 'vou pesquisar na internet: "' + String(inp.query || '').slice(0, 120) + '".');
   }
 
   if (/^mcp__/.test(nome) && /(send|post|upload|create|write|share|publish|email|message|draft|update|delete)/i.test(nome)) {
-    return perguntar('a ferramenta externa "' + nome + '" pode enviar ou alterar dados fora do computador.');
+    return perguntar('isso usa um serviço de fora (' + nome.replace(/^mcp__/, '').split('__')[0] + ') que pode mandar ou mudar coisas fora do computador.');
   }
   return {};
 });

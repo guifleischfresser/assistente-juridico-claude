@@ -84,6 +84,11 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 
 ## 3. O que o assistente faz
 
+**Novidades da v0.6:**
+- 🩺 **Avisa quando o Claude "perde o fio"**: no começo de cada conversa ele confere se está no modo automático, se as pastas dos seus casos continuam no lugar e se uma atualização do Claude não tirou algum acesso. Se algo mudou, a primeira coisa que você lê é o problema, em português do dia a dia, e o conserto em um passo (por exemplo: "tô no modo manual, aperta Shift+Tab até aparecer auto" ou "o Claude perdeu a chave da pasta das peças — digita /consertar").
+- 🕵️ **Nada de texto escondido**: ele se recusa a gravar ou exportar peça com fonte branca, letra minúscula, texto oculto do Word ou caracteres invisíveis. E avisa quando um documento que chegou (autos, PDF, site) traz um recado escondido para a IA, sem obedecer.
+- 🧹 **Atalhos parecidos**: a arrumação de 15 dias só junta atalhos que o próprio assistente criou. Se um atalho seu ou do núcleo parecer com outro, ele só anota no relatório e não mexe.
+
 **Novidades da v0.5:**
 - 🗺️ **Mapa de teses da defesa** (`/mapa-de-teses`): lê a petição inicial e monta um quadro por pedido, com valor, risco (alto/médio/baixo, no padrão provável/possível/remota), teses de defesa e precedentes. Soma a exposição por risco e gera uma versão para imprimir. Todo precedente sai marcado **[A VERIFICAR]** até ser conferido.
 - 🔍 **Conferência de julgados**: verifica se o julgado existe e se o trecho entre aspas bate **palavra por palavra** com o original (mostra o que diverge). Antes de ir à internet ele **pergunta**; você pode autorizar só os sites oficiais dos tribunais e o JusBrasil. Sem permissão, fica **[NÃO VERIFICADO]**. Julgado divergente trava a exportação para Word.

@@ -6,6 +6,7 @@
 //  3. Arquivos de "harness" (CLAUDE.md, skills, memoria) nao recebem dados de clientes (CPF, processo...).
 //  4. CLAUDE.md global fica curto (aponte, nao copie).
 //  5. Ler antes de sobrescrever (Write em arquivo existente nao lido nesta sessao).
+//  1a. v0.6: texto oculto (fonte branca/minuscula, vanish, largura zero) em peca/documento => nega.
 //  1b. Pastas originais registradas (mapa-de-pastas) => pede confirmacao.
 //  6. Caso arquivado => pede confirmacao. 7. Versiona (backup) antes de alterar arquivo existente.
 const fs = require('fs');
@@ -32,10 +33,26 @@ c.rodarHook('guarda-escrita', (ent) => {
     }
   }
 
+  // 1a. v0.6: NUNCA inserir texto oculto em peca/documento juridico (fonte branca, minuscula, vanish,
+  // caracteres de largura zero, CSS que esconde). Bloqueio duro, antes de qualquer "ask".
+  try {
+    const ehDocJuridico = /\.(md|txt|html?|rtf|xml)$/i.test(arq) && (require('./memoria').ehPeca(arq) ||
+      ['PECAS', 'EXPORTADOS', 'MODELOS'].some((p) => c.dentroDe(arq, path.join(esc, p))) ||
+      (c.dentroDe(arq, path.join(esc, 'CASOS')) && !/[\\/](autos-md|_versoes)[\\/]/i.test(arq)) || !!require('./lib/mapa').emPastaExterna(arq));
+    if (ehDocJuridico && novoTexto) {
+      const inj = require('./lib/injecao');
+      const oc = inj.ocultoNoTexto(novoTexto);
+      if (oc.length) {
+        c.log('guardas', 'texto oculto barrado em ' + path.basename(arq) + ': ' + oc.map((o) => o.motivo).join(','));
+        return deny(inj.avisoGravacao(oc, 'no texto que eu ia gravar em "' + path.basename(arq) + '"') + ' (Para o assistente: remova os caracteres invisíveis e qualquer formatação que esconda texto; diga isso ao advogado em uma linha, sem termos técnicos.)');
+      }
+    }
+  } catch (e) { c.log('erros', 'oculto pre: ' + e.message); }
+
   // 1b. Pastas originais do advogado (registradas por apontamento): somente leitura por padrao
   try {
     const ext = require('./lib/mapa').emPastaExterna(arq);
-    if (ext) return ask('Este arquivo fica numa pasta ORIGINAL do advogado (' + ext.caminho + ', registrada como "' + ext.tipo + '"). O padrão é só ler essas pastas. Confirme se quer mesmo gravar aqui; o normal é salvar no ESCRITORIO.');
+    if (ext) return ask('Esse arquivo fica numa pasta sua, ' + require('./lib/diagnostico').nomeAmigavel(ext) + ', que eu normalmente só leio. Quer mesmo que eu grave nela? (O normal é eu salvar no escritório.)');
   } catch (e) { /* sem mapa */ }
 
   // 2. Skills do mod
@@ -88,7 +105,7 @@ c.rodarHook('guarda-escrita', (ent) => {
 
   // 6. Caso arquivado
   if (existe && c.dentroDe(arq, path.join(esc, 'CASOS', 'Arquivados'))) {
-    return ask('Este arquivo pertence a um caso ARQUIVADO. Confirma a alteração? (Para reabrir o caso, use /casos.)');
+    return ask('Esse caso está arquivado. Quer mesmo que eu mexa nele? (Para reabrir o caso, use /casos.)');
   }
 
   // 7. Versionar antes de alterar

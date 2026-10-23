@@ -17,6 +17,8 @@
  *      node manutencao.js revisar [--simular] [--automatica] [--pasta <dir>] [--json]
  *      node manutencao.js desfazer [<carimbo>]
  *      node manutencao.js estado [--json]
+ * Posse: so auto-* criadas pelo assistente sao mescladas/aposentadas/enxugadas. v0.6: sobreposicao que
+ * envolve skill do nucleo ou do advogado vai so para o relatorio ("Atalhos parecidos — não mexi").
  */
 const fs = require('fs');
 const path = require('path');
@@ -190,8 +192,24 @@ function ensaio(antes, dirNovo) {
 
 // ---------------------------------------------------------------- duplicadas
 const VAZIAS = new Set('para com uma use quando usuario usuário pedir pede fazer faz gera gerar skill auto que dos das nos nas pelo pela sem por como mais este esta isso'.split(' '));
-function termos(i) { return new Set((i.nome.replace(/^auto-/, '') + ' ' + i.desc).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').match(/[a-z]{4,}/g).filter((w) => !VAZIAS.has(w))); }
+function termos(i) { return new Set(((i.nome.replace(/^auto-/, '') + ' ' + i.desc).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').match(/[a-z]{4,}/g) || []).filter((w) => !VAZIAS.has(w))); }
 function similaridade(a, b) { const A = termos(a), B = termos(b); let n = 0; for (const w of A) if (B.has(w)) n++; return n / (A.size + B.size - n || 1); }
+
+// v0.6: sobreposicao envolvendo nucleo ou skill do advogado => SO RELATORIO (nunca mescla, aposenta ou enxuga).
+// Pares auto-*(nossa) x auto-*(nossa) seguem para a mescla automatica acima; nucleo x nucleo e projeto do pacote.
+const DONOS = { nucleo: 'do assistente', advogado: 'que você criou ou instalou', automatica: 'automático, criado por mim' };
+function dono(x, podeMexer) { return x.nucleo ? 'nucleo' : (x.auto && podeMexer(x)) ? 'automatica' : 'advogado'; }
+function sobreposicoes(lista, lim, podeMexer, ignorar) {
+  const r = [];
+  const sk = lista.filter((x) => !(ignorar && ignorar.has(x.nome)));
+  for (let a = 0; a < sk.length; a++) for (let b = a + 1; b < sk.length; b++) {
+    const A = sk[a], B = sk[b]; const dA = dono(A, podeMexer), dB = dono(B, podeMexer);
+    if ((dA === 'automatica' && dB === 'automatica') || (dA === 'nucleo' && dB === 'nucleo') || A.nome === B.nome) continue;
+    const sim = similaridade(A, B); if (sim < lim.similaridade) continue;
+    r.push({ a: A.nome, donoA: dA, b: B.nome, donoB: dB, similaridade: Math.round(sim * 100) / 100 });
+  }
+  return r;
+}
 
 // ---------------------------------------------------------------- memoria e CLAUDE.md
 function orcamentos(lim, aplicar, backup) {
@@ -273,7 +291,7 @@ function revisar(opts) {
   // Posse (v0.5): fora do modo de teste (--pasta), so mexe nas auto-* criadas pelo proprio assistente.
   const podeMexer = opts.pasta ? () => true : (x) => prov.ehNossa(path.basename(x.dir), x.dir);
   const antes = medir(pasta, filtro);
-  const res = { carimbo, simulado: simular, antes, enxugadas: [], progressivas: [], aposentadas: [], mescladas: [], revertidas: [], memoria: null, backup: simular ? null : backup };
+  const res = { carimbo, simulado: simular, antes, enxugadas: [], progressivas: [], aposentadas: [], mescladas: [], sobrepostas: [], revertidas: [], memoria: null, backup: simular ? null : backup };
 
   if (!simular) {
     c.garantirDir(backup);
@@ -332,6 +350,18 @@ function revisar(opts) {
     } else res.aposentadas.push({ nome: S.nome, motivo: 'mesclada em ' + P.nome });
     removerDir(tmp);
   }
+
+  // 2b. sobreposicao com nucleo ou skill do advogado: so anota no relatorio, nao mexe em nada
+  try {
+    let lista = listarSkills(pasta);
+    if (!opts.pasta) {
+      // modo plugin: o nucleo vem da pasta do plugin, nao de ~/.claude/skills
+      const raiz = (c.lerJSON(path.join(c.P.base, 'plugin.json'), null) || {}).raiz;
+      if (c.config().modoPlugin && raiz && fs.existsSync(path.join(raiz, 'skills'))) lista = lista.concat(listarSkills(path.join(raiz, 'skills')).filter((x) => x.nucleo && !lista.some((y) => y.nome === x.nome)));
+    }
+    const fora = new Set(res.aposentadas.map((x) => x.nome));
+    res.sobrepostas = sobreposicoes(lista, lim, podeMexer, fora);
+  } catch (e) { c.log('erros', 'sobreposicoes: ' + e.message); }
 
   // 3. enxugar descricoes e aplicar divulgacao progressiva; ensaio de cada uma; reverte as que falham
   for (const i of listarSkills(pasta).filter((x) => filtro(x) && podeMexer(x))) {
@@ -393,6 +423,7 @@ function resumoLinha(r) {
   if (r.mescladas.length) p.push(r.mescladas.length + ' mesclada(s)');
   p.push(r.aposentadas.length + ' aposentada(s)');
   if (r.revertidas.length) p.push(r.revertidas.length + ' alteração(ões) revertida(s) no ensaio');
+  if (r.sobrepostas && r.sobrepostas.length) p.push(r.sobrepostas.length + ' par(es) de atalhos parecidos só anotado(s) no relatório, sem mexer');
   p.push('contexto fixo das skills ' + (r.reducaoFixo > 0 ? '-' + r.reducaoFixo + '%' : 'sem mudança') + ' (' + r.antes.fixo + ' → ' + r.depois.fixo + ' caracteres)');
   return 'Manutenção feita: ' + p.join(', ') + '.';
 }
@@ -409,6 +440,7 @@ function gravarRelatorio(r, lim) {
   if (r.progressivas.length) L.push('## Detalhes movidos para references/ (carregados sob demanda)', ...r.progressivas.map((x) => '- /' + x.nome + ': ' + x.de + ' → ' + x.para + ' caracteres (' + x.referencias.join(', ') + ')'), '');
   if (r.mescladas.length) L.push('## Mescladas', ...r.mescladas.map((x) => '- /' + x.entrou + ' → incorporada em /' + x.ficou + ' (semelhança ' + Math.round(x.similaridade * 100) + '%)'), '');
   if (r.aposentadas.length) L.push('## Aposentadas (não carregam mais; dá para restaurar)', ...r.aposentadas.map((x) => '- /' + x.nome + ': ' + x.motivo), '');
+  if (r.sobrepostas && r.sobrepostas.length) L.push('## Atalhos parecidos — anotei, mas NÃO mexi neles', '> Achei atalhos que fazem coisas parecidas. Como pelo menos um deles é do assistente ou foi você que criou, eu não juntei, não apaguei e não encurtei nenhum. Se quiser, me peça para comparar os dois, ou apague o que você não usa.', ...r.sobrepostas.map((x) => '- /' + x.a + ' (' + DONOS[x.donoA] + ') e /' + x.b + ' (' + DONOS[x.donoB] + '): parecidos em ' + Math.round(x.similaridade * 100) + '%.'), '');
   if (r.revertidas.length) L.push('## Revertidas no ensaio (nada foi alterado nelas)', ...r.revertidas.map((x) => '- /' + x.nome + ' (' + x.etapa + '): ' + x.erros.join('; ')), '');
   L.push('## CLAUDE.md e memória', ...r.memoria.itens.map((x) => '- ' + x), ...r.memoria.acoes.map((x) => '- Feito: ' + x), '');
   L.push('## Desfazer', '- Tudo: `/manutencao desfazer` (backup em `' + r.backup.replace(/\\/g, '/') + '`).', '- Uma habilidade aposentada: `/habilidades restaurar <nome>`.', '');
@@ -460,7 +492,7 @@ function aoIniciarSessao() {
   return { executada: !!r, resumo: null };
 }
 
-module.exports = { medir, revisar, desfazer, verificarAgenda, aoIniciarSessao, encurtarDescricao, progressiva, infoSkill, similaridade, ensaio, PADRAO };
+module.exports = { medir, revisar, desfazer, verificarAgenda, aoIniciarSessao, encurtarDescricao, progressiva, infoSkill, similaridade, sobreposicoes, ensaio, PADRAO };
 
 if (require.main === module) {
   const a = process.argv.slice(2); const cmd = a[0] || 'estado'; const json = a.includes('--json');
@@ -473,7 +505,7 @@ if (require.main === module) {
   } else if (cmd === 'revisar') {
     const r = revisar({ simular: a.includes('--simular'), automatica: a.includes('--automatica'), pasta });
     if (json) console.log(JSON.stringify(Object.assign({}, r, { antes: { fixo: r.antes.fixo, corpo: r.antes.corpo }, depois: { fixo: r.depois.fixo, corpo: r.depois.corpo } }), null, 1));
-    else console.log((r.simulado ? '(SIMULAÇÃO — nada foi alterado) ' : '') + r.resumo + (r.relatorio ? '\nRelatório: ' + r.relatorio : '') + (r.revertidas.length ? '\nRevertidas: ' + r.revertidas.map((x) => x.nome + ' (' + x.erros[0] + ')').join('; ') : '') + (r.simulado ? '' : '\nDesfazer: node "' + __filename + '" desfazer'));
+    else console.log((r.simulado ? '(SIMULAÇÃO — nada foi alterado) ' : '') + r.resumo + (r.relatorio ? '\nRelatório: ' + r.relatorio : '') + (r.sobrepostas.length ? '\nAtalhos parecidos (não mexi): ' + r.sobrepostas.map((x) => '/' + x.a + ' ~ /' + x.b).join('; ') : '') + (r.revertidas.length ? '\nRevertidas: ' + r.revertidas.map((x) => x.nome + ' (' + x.erros[0] + ')').join('; ') : '') + (r.simulado ? '' : '\nDesfazer: node "' + __filename + '" desfazer'));
   } else if (cmd === 'desfazer') {
     const r = desfazer(a[1] && !a[1].startsWith('--') ? a[1] : null);
     console.log(r.ok ? '↩️ Manutenção ' + r.carimbo + ' desfeita: tudo voltou ao estado anterior.' : 'Nada desfeito: ' + r.erro); if (!r.ok) process.exitCode = 2;

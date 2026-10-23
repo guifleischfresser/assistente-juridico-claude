@@ -45,7 +45,7 @@ function conteudo(esc, nome, sk) {
     '> Gerado por `node "' + S + '/agentes.js" gerar` a partir das mesmas regras do CLAUDE.md. Vale para Codex, Cursor e outros agentes que leem AGENTS.md. O principal continua sendo o **Claude Code** (lá as proteções rodam sozinhas). Edite só fora destas marcas.',
     '',
     '## Quem atendo',
-    '- Usuário: ' + (nome ? nome + ', advogado(a)' : 'advogado(a)') + ' no Brasil, **sem conhecimento técnico**. Português simples, uma pergunta por vez, sem jargão de informática.',
+    '- Usuário: ' + (nome ? nome + ', advogado(a)' : 'advogado(a)') + ' no Brasil, **sem conhecimento técnico**. Português simples, uma pergunta por vez, sem jargão de informática. Ao avisar de um problema: a causa na rotina dele e o conserto em um passo.',
     '- Escritório: `' + barra(esc) + '` (esta pasta). Mapa em `ESTRUTURA.md`; perfil do escritório em `CLAUDE.md`; estilo em `ESTILO/perfil-de-escrita.md` (leia antes de redigir).',
     '',
     '## Regras inegociáveis',

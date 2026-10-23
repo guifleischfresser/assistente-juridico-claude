@@ -7,7 +7,8 @@
  *  - pula arquivos ja convertidos (manifesto por hash) e anexos duplicados (mesmo hash)
  *  - omite paginas repetidas entre documentos e remove cabecalhos/rodapes/carimbos repetidos (ex.: PJe)
  *  - marca paginas sem texto (escaneadas) -> OCR local opcional (--ocr, exige pdftoppm + tesseract)
- *  - procura instrucoes escondidas para IA (prompt injection), inclusive texto oculto/branco em DOCX
+ *  - procura instrucoes escondidas para IA (prompt injection), inclusive texto oculto/branco/minusculo em DOCX,
+ *    HTML que esconde texto e caracteres de largura zero (v0.6: lib/injecao.js); avisa, nunca obedece
  *  - gera INDICE.md com paginas, ~tokens e alertas, para ler so os trechos necessarios
  * Uso: node preparar-autos.js "<pasta do caso>" [--ocr] [--refazer]
  */
@@ -16,7 +17,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 const { lerZip } = require('./lib/zip');
-const { detectarInjecao } = require('./lib/injecao');
+const { detectarInjecao, ocultoNoDocx, ocultoNoTexto, limparInvisiveis } = require('./lib/injecao');
 
 const tokens = (s) => Math.round(String(s).length / 3.5);
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
@@ -48,20 +49,15 @@ function pdfPaginas(arq, ocr) {
 function docxTexto(arq) {
   const z = lerZip(arq);
   const xml = (z.get('word/document.xml') || Buffer.from('')).toString('utf8');
-  const ocultos = [];
   const pars = xml.split(/<\/w:p>/).map((p) => {
     let t = '';
-    for (const r of p.split(/<\/w:r>/)) {
-      const txt = (r.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((x) => x.replace(/<[^>]+>/g, '')).join('');
-      if (!txt) continue;
-      const oculto = /<w:vanish\/>/.test(r) || /<w:color w:val="(FFFFFF|ffffff)"/.test(r) || /<w:sz w:val="[1-4]"\/>/.test(r);
-      if (oculto && txt.trim()) ocultos.push(txt.trim());
-      t += txt;
-    }
+    for (const r of p.split(/<\/w:r>/)) t += (r.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((x) => x.replace(/<[^>]+>/g, '')).join('');
     return t;
   }).filter((t) => t.trim());
   const dec = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
-  return { texto: dec(pars.join('\n\n')), ocultos: ocultos.map(dec) };
+  // texto oculto (vanish, fonte branca, minuscula): detecção centralizada em lib/injecao.js
+  const ocultos = ocultoNoDocx(xml).map((o) => o.texto + ' [' + o.motivo + ']');
+  return { texto: dec(pars.join('\n\n')), ocultos };
 }
 
 function limparRepetidos(pags) {
@@ -111,7 +107,14 @@ function principal() {
     }
     if (ext === '.pdf') { const r = pdfPaginas(arq, args.includes('--ocr')); if (!r) { semFerramenta++; linhas.push('| ' + rel + ' | ? | ? | ? | ? | sem conversor de PDF instalado |'); continue; } pags = r.pags; via = r.via; }
     else if (ext === '.docx') { const r = docxTexto(arq); pags = [r.texto]; ocultos = r.ocultos; via = 'leitor docx'; }
-    else { let t = fs.readFileSync(arq, 'utf8'); if (ext.startsWith('.htm')) t = t.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, '').replace(/<[^>]+>/g, ' '); pags = [t]; via = 'texto'; }
+    else {
+      let t = fs.readFileSync(arq, 'utf8');
+      if (ext.startsWith('.htm')) { ocultos = ocultoNoTexto(t).filter((o) => o.texto).map((o) => o.motivo + ': ' + o.texto); t = t.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, '').replace(/<[^>]+>/g, ' '); }
+      pags = [t]; via = 'texto';
+    }
+    // texto oculto em qualquer formato (largura zero, HTML/CSS que esconde): avisa e tira os invisiveis do texto convertido
+    const invis = ocultoNoTexto(pags.join('\n')).map((o) => o.motivo + (o.texto ? ': ' + o.texto : ''));
+    if (invis.length) { ocultos = ocultos.concat(invis); pags = pags.map(limparInvisiveis); }
     pags = limparRepetidos(pags);
     let semTexto = 0, repetidas = 0; const partes = [];
     pags.forEach((p, i) => {
@@ -123,7 +126,7 @@ function principal() {
       partes.push('\n<!-- pág. ' + (i + 1) + ' -->\n' + limpo);
     });
     const corpo = partes.join('\n');
-    const inj = detectarInjecao(corpo).concat(ocultos.length ? ['TEXTO OCULTO no DOCX: ' + ocultos.join(' | ').slice(0, 300)] : []);
+    const inj = detectarInjecao(corpo + '\n' + ocultos.join('\n')).concat(ocultos.length ? ['TEXTO OCULTO no documento: ' + ocultos.join(' | ').slice(0, 300)] : []);
     const al = [];
     if (inj.length) { al.push('🚨 possível instrução escondida para IA'); alertas.push('**' + rel + '**: ' + inj.map((x) => '"' + x.slice(0, 220) + '"').join('; ')); }
     if (semTexto) al.push(semTexto + ' pág. escaneada(s)');
