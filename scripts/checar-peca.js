@@ -4,7 +4,7 @@
  * Checagem automatica de uma peca (usada por /revisar, /verificar-citacoes e pelo hook pos-escrita).
  * Uso: node checar-peca.js <arquivo.md> [--tipo inicial|contestacao|recurso|contrato|parecer] [--json] [--marcar]
  *  --marcar : insere " [NÃO VERIFICADO]" apos cada citacao pendente (faz backup em _versoes antes).
- * Relatorio: citacoes (verificadas/marcadas/pendentes), "cara de IA", restos de markdown/emoji,
+ * Relatorio: texto oculto (v0.6), citacoes (verificadas/marcadas/pendentes), "cara de IA", restos de markdown/emoji,
  * campos a preencher, tamanho de paragrafos vs. perfil de escrita, requisitos minimos por tipo.
  */
 const fs = require('fs');
@@ -37,13 +37,15 @@ function checar(arquivo, opc) {
   try { const pf = fs.readFileSync(path.join(cfg.escritorio, 'ESTILO', 'perfil-de-escrita.md'), 'utf8'); const m = pf.match(/m[eé]dia[^\n\d]{0,40}(\d{2,3})\s*palavras/i); if (m) perfilMedia = +m[1]; } catch (e) { /* sem perfil */ }
   const tipo = opc.tipo || (/contesta/i.test(arquivo) ? 'contestacao' : /recurso|apela|agravo/i.test(arquivo) ? 'recurso' : /contrato/i.test(arquivo) ? 'contrato' : /parecer/i.test(arquivo) ? 'parecer' : /inicial|peticao/i.test(arquivo) ? 'inicial' : null);
   const faltando = tipo ? (REQUISITOS[tipo] || []).filter(([, re]) => !re.test(texto)).map(([n]) => n) : [];
-  return { arquivo, tipo, cits, ia, emoji, restosMd, preencher, media, perfilMedia, faltando, texto };
+  const oculto = require('./lib/injecao').ocultoNoTexto(texto);
+  return { arquivo, tipo, cits, ia, emoji, restosMd, preencher, media, perfilMedia, faltando, oculto, texto };
 }
 
 function relatorio(r) {
   const prob = r.cits.filter((x) => x.problema);
   const pend = r.cits.filter((x) => !x.verificada && !x.marcada && !x.problema), marc = r.cits.filter((x) => x.marcada && !x.problema), ok = r.cits.filter((x) => x.verificada);
   const L = ['# Checagem automática — ' + path.basename(r.arquivo), ''];
+  if (r.oculto && r.oculto.length) L.push('## 🔴 Texto escondido', '- Achei texto escondido na peça (' + r.oculto.map((o) => o.motivo).join('; ') + '). Isso pode ser visto como trapaça: tire antes de protocolar. A exportação para Word fica bloqueada até sair.', '');
   L.push('## Citações (' + r.cits.length + ')');
   L.push('- ✅ Com fonte: ' + ok.length + ' (' + r.cits.filter((x) => x.conferida).length + ' conferidas no original) | ⚠️ Marcadas NÃO VERIFICADO: ' + marc.length + ' | ❌ Sem fonte nem marca: ' + pend.length + (prob.length ? ' | 🔴 Divergentes/inexistentes: ' + prob.length : ''));
   prob.forEach((x) => L.push('  - 🔴 linha ' + x.linha + ': ' + x.texto + ' — ' + (x.problema === 'inexistente' ? 'NÃO EXISTE' : 'trecho/conteúdo DIVERGE do original') + ' (conferido em ' + (x.fonteRegistro || 'fonte registrada') + '): remova ou reescreva'));

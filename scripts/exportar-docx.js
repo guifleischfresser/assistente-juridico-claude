@@ -12,6 +12,8 @@
  *   <!-- sem-recuo --> | <!-- quebra-pagina -->.  "[NAO VERIFICADO]" e "[PREENCHER ...]" saem grifados.
  * Recusa exportar se houver citacao sem fonte e sem a marca [NAO VERIFICADO] (salvo --forcar).
  * v0.5: recusa tambem julgado registrado como divergente/inexistente no livro de conferencias (julgados.js).
+ * v0.6: recusa SEMPRE (codigo 3, sem --forcar) peca com texto oculto: fonte branca/minuscula, vanish,
+ *       caracteres de largura zero, CSS que esconde (lib/injecao.js).
  */
 const fs = require('fs');
 const path = require('path');
@@ -132,6 +134,13 @@ if (require.main === module) {
   const forcar = process.argv.includes('--forcar');
   if (!args[0]) { console.log('Uso: node exportar-docx.js <entrada.md> [saida.docx] [--forcar]'); process.exit(1); }
   const md = fs.readFileSync(args[0], 'utf8');
+  // v0.6: nunca exportar peca com texto oculto (nem com --forcar): fonte branca/minuscula, vanish, largura zero
+  const inj = require('./lib/injecao');
+  const oculto = inj.ocultoNoTexto(md);
+  if (oculto.length) {
+    console.log(inj.avisoGravacao(oculto, 'na peça') + '\n(Não gerei o Word. Detalhe para o assistente: ' + oculto.map((o) => o.motivo + (o.texto ? ' «' + o.texto.slice(0, 60) + '»' : '')).join('; ') + '. Remova e exporte de novo; --forcar não libera isto.)');
+    process.exit(3);
+  }
   const { analisarCitacoes } = require('./lib/citacoes');
   const todas = analisarCitacoes(md, path.dirname(args[0]), cfg.escritorio);
   const prob = todas.filter((x) => x.problema);
@@ -153,7 +162,11 @@ if (require.main === module) {
   // memoria de estilo: aprende com o que o advogado mudou no .docx anterior e fotografa o novo rascunho
   let mem = null; try { mem = require('./memoria'); if (!(mem.ehPeca(saida) || mem.ehPeca(args[0]))) mem = null; } catch (e) { mem = null; }
   if (mem && fs.existsSync(saida)) { try { mem.aprenderEdicoes(saida); } catch (e) { /* */ } }
-  fs.writeFileSync(saida, montarDocx(converter(md)));
+  const corpoXml = converter(md);
+  // defesa em profundidade: o Word gerado tambem nao pode ter run invisivel
+  const ocXml = inj.ocultoNoDocx(corpoXml).concat(inj.detectarInvisiveis(corpoXml).map((m) => ({ motivo: m })));
+  if (ocXml.length) { console.log(inj.avisoGravacao(ocXml, 'no Word que eu ia gerar') + ' (Não gerei o arquivo.)'); process.exit(3); }
+  fs.writeFileSync(saida, montarDocx(corpoXml));
   if (mem) { try { mem.registrarRascunho(saida); } catch (e) { /* */ } }
   const marcadas = todas.filter((x) => x.marcada).length;
   if (leis.length) console.log('ℹ️ ' + leis.length + ' dispositivo(s) legal(is) citados sem fonte (ex.: ' + leis[0].texto + '). Confira a redação vigente no Planalto.');

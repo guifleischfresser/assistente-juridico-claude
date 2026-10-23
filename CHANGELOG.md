@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.6.0 — 2026-10-23
+**Foco: o assistente nunca falha em silêncio, nunca esconde texto em peça e fala a língua do advogado.**
+1. **Diagnóstico no início de cada conversa** (`scripts/lib/diagnostico.js`, compartilhado pelo hook `SessionStart` e pelo `doutor`, para não divergirem):
+   - **modo automático**: `permissions.defaultMode` (usuário → projeto → local) e o modo da sessão; só "Manual" gera aviso (plano/aceitar edições escolhidos na hora, não). Se o auto já está configurado mas a sessão abriu em Manual (plano/empresa não libera), o aviso sai no máximo 1x por dia; `config.avisos.modoAuto: false` silencia;
+   - **pastas registradas**: ESCRITORIO, pastas externas do mapa e a "Pasta original" dos casos importados (pelo nome amigável, sem caminho cru);
+   - **acessos que o instalador grava**: `additionalDirectories` (escritório e pastas externas), regras de `permissions.allow`, hooks (ou plugin ativo) e o bloco do `CLAUDE.md` global.
+   - O aviso vai **no topo** do contexto, como "⚠️ AVISO PARA O ADVOGADO" (causa + 1 passo), com o detalhe técnico separado e marcado para não ser repetido ao advogado.
+   - Doutor: mesmas checagens, mensagens coloquiais (ids internos mantidos; detalhe em `tecnico` no `--json`). `--consertar` agora devolve o modo auto como padrão (com backup; nunca `bypassPermissions`) e, para pasta que mudou de lugar, pede ao advogado onde ela está (skill `/consertar` reconecta com `PE remover` + `PE registrar`).
+2. **Anti-texto-oculto e scan de injeção** (centralizado em `scripts/lib/injecao.js`):
+   - **Nunca inserir**: a guarda de escrita nega (antes de qualquer "pergunta") gravar peça/documento do escritório com caracteres de largura zero/direção, fonte branca ou quase branca, fonte ≤ 2 pt, `vanish`/`specVanish`/`webHidden` ou CSS que esconde (`display:none`, `visibility:hidden`, `opacity:0`). A exportação para Word recusa com código 3 — **nem `--forcar` libera** — e confere também o XML gerado. `checar-peca` mostra 🔴 Texto escondido.
+   - **Escanear o que chega**: `preparar-autos` detecta texto oculto em DOCX, HTML que esconde texto e caracteres invisíveis em qualquer formato (e os tira do texto convertido); o PostToolUse faz o mesmo em leituras e páginas web. A detecção de injeção ignora caracteres invisíveis usados para quebrar palavras ("ig<U+200B>nore") e ganhou frases em português ("esqueça todas as instruções", "novas instruções:", "não obedeça o pedido do usuário"). Sempre **avisa sem obedecer**.
+3. **Sobreposição de habilidades na manutenção de 15 dias**: a mescla automática continua só entre `auto-*` criadas pelo assistente. Pares parecidos que envolvem o **núcleo** ou skills **do advogado** vão apenas para o relatório ("Atalhos parecidos — anotei, mas NÃO mexi neles") e para a linha de resumo; núcleo × núcleo não entra. Funciona também no modo plugin.
+4. **Regra de linguagem para advogados iniciantes em IA**: o que o advogado lê (avisos do início da conversa, doutor, perguntas das guardas, relatórios) fala da rotina dele e dá o conserto em um passo, sem jargão (settings, hook, permissão, JSON, caminho…). Aplicada ao `CLAUDE.md` global, às regras do modo plugin, ao `AGENTS.md`, ao estilo de resposta "Advogado", ao `INSTALAR.md`/`primeira-execucao` e às skills `consertar` (com `references/avisos.md`), `manutencao`, `reflexao` e `boas-vindas`.
+- Testes: 248 na suíte (+30), com sandbox próprio: modo auto desligado, sessão em Manual (1x/dia), pasta registrada e pasta de caso sumidas, acessos apagados por "atualização", conserto pelo doutor, bloqueio de texto oculto na gravação e na exportação, scan dos autos/leitura/web e relatório de sobreposição sem mexer em núcleo nem em skill do advogado.
+
 ## 0.5.0 — 2026-10-20
 **Sete recursos novos, todos locais e em pt-BR.** Núcleo com 24 skills e contexto fixo de 3.496 caracteres (menor que o da v0.4, com 20 skills).
 1. **Posse, procedência e mescla das habilidades automáticas** (ideias do autoharness).

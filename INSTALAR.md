@@ -26,7 +26,7 @@ curl -fsSL -o "$d/INSTALAR.md" "https://raw.githubusercontent.com/guifleischfres
 1. **Piloto automático: não faça perguntas opcionais.** Use os padrões deste roteiro. Só existem DUAS perguntas possíveis, e cada uma só se necessária:
    - o nome do usuário, **se** não der para descobrir sozinho (Etapa 2);
    - a **pergunta única** final sobre pastas ambíguas, **se** houver alguma (Etapa 4). Um simples "ok" aceita tudo.
-2. **Fale só em português do Brasil, simples, sem jargão.** Antes de cada etapa, uma frase curta dizendo o que está fazendo ("Agora vou baixar o assistente do site oficial e conferir se o arquivo é autêntico."). Não espere resposta para seguir.
+2. **Fale só em português do Brasil, do dia a dia, sem jargão.** Antes de cada etapa, uma frase curta dizendo o que está fazendo ("Agora vou baixar o assistente do site oficial e conferir se o arquivo é autêntico."). Não espere resposta para seguir. Se algo der errado, diga o problema na rotina do advogado e o conserto em **um passo**, sem termos como settings, hook, permissão, JSON ou caminho de pasta (ex.: "tô no modo manual, aperta Shift+Tab até aparecer auto").
 3. **Janelas de permissão (modo auto).** O ideal é o Claude Code estar no **modo auto** (barra de status mostra "⏵⏵ auto mode on" no terminal; no aplicativo, o seletor de modo mostra **Auto**). Nele, um classificador aprova sozinho os comandos seguros e quase não aparecem janelas.
    - Se aparecer uma janela de permissão, diga **uma vez**: "Para eu não ficar te interrompendo, escolha **'Yes, and switch to auto mode'** (ou aperte **Shift+Tab** até aparecer *auto mode on*; no aplicativo, escolha **Auto** no seletor de modo). Se essa opção não existir, clique em **Sim** — o instalador grava regras para não perguntar de novo."
    - **Nunca** sugira `--dangerously-skip-permissions` nem o modo `bypassPermissions`.
@@ -236,16 +236,17 @@ Se houver arquivos em `ESCRITORIO/ESTILO/amostras`, diga "Vou ler algumas peças
 2. Mostre o resumo em até 10 linhas, incluindo: o nome usado (e que pode mudar), o que foi registrado (tipos e pasta-mãe), e:
    > "Pronto! Daqui para frente é só conversar comigo. Eu aprendo sozinho com o seu jeito de trabalhar: crio habilidades para tarefas repetidas e guardo suas preferências (tudo no seu computador; dados de clientes só ficam na pasta de cada caso). Feche e abra o Claude Code para ativar os atalhos, o modo auto e a barra de status. Na próxima vez, abra o Claude Code na pasta ESCRITORIO."
 3. No Windows, lembre que o atalho **Escritorio Claude** na Área de Trabalho abre o assistente na pasta certa.
-4. Se esta conversa não estava no modo auto, diga: "Na próxima conversa o modo auto já vem ligado. Se o seu plano ou a sua empresa não permitirem o modo auto, tudo funciona igual; só aparecem algumas janelas de permissão a mais."
+4. Se esta conversa não estava no modo auto, diga: "Na próxima conversa o modo auto já vem ligado. Se o seu plano ou a sua empresa não permitirem o modo auto, tudo funciona igual; só vou te pedir licença umas vezes a mais. E se um dia algo sumir depois de uma atualização, eu te aviso logo no começo da conversa e digo como arrumar."
 
 ## Problemas comuns
 
 | Sintoma | O que fazer |
 |---|---|
-| Muitas janelas de permissão | Shift+Tab até "auto mode on" (ou seletor **Auto** no aplicativo). Se o modo auto não aparecer, o plano/modelo/empresa não o libera; clique em **Sim** (as regras do instalador reduzem as próximas). |
+| Muitas janelas de permissão | Diga: "Tô no modo manual, por isso fico te pedindo licença — aperta Shift+Tab até aparecer “auto” (no aplicativo, escolha **Auto**)." Se o modo auto não aparecer, o plano/modelo/empresa não o libera: "tudo bem, é só clicar Sim" (as regras do instalador reduzem as próximas). |
 | `node` não encontrado logo após instalar | Use o caminho completo (Regra 11). Depois de reabrir o Claude Code, `node` passa a funcionar. |
 | "execução de scripts desabilitada" | Política da empresa: não contorne. Oriente procurar o TI. |
 | CHECKSUM DIFERENTE | Pare. Não instale. Peça para tentar mais tarde. |
 | Antivírus bloqueou | Os arquivos são scripts de texto abertos; sugira liberar a pasta temporária ou instalar manualmente pelo README. |
 | Conversa caiu no meio | Cole a mesma frase de novo: a Etapa 0 retoma de onde parou. |
-| Algo parou de funcionar depois | Digite `/consertar`. |
+| Algo parou de funcionar depois (ex.: depois de atualizar o Claude) | Cada conversa nova confere sozinha o modo auto, as pastas registradas e os acessos, e abre com "⚠️ AVISO PARA O ADVOGADO" se algo sumiu. O conserto é `/consertar`. |
+| Uma pasta registrada mudou de lugar | Pergunte uma vez onde ela está agora e reconecte com `PE remover` + `PE registrar` (skill `/consertar`). Nunca mova nem copie a pasta. |
