@@ -6,6 +6,9 @@
  *      node processo.js listar
  *      node processo.js anotar <caso> "<texto>"               grava no DOSSIE.md do caso (dados do cliente ficam só lá)
  *      node processo.js atual                                 casos abertos recentemente (por conversa)
+ *      node processo.js foro <caso> [--tribunal TJPR] [--comarca Curitiba]
+ *                                    tribunal/comarca do caso (linha "Tribunal: … · Comarca: …" no DOSSIE.md);
+ *                                    o /prazos usa esse foro para escolher o calendário forense (v0.7)
  * Tudo local. A memória global (MEMORIA/) nunca recebe dados do cliente.
  */
 const fs = require('fs');
@@ -37,6 +40,8 @@ switch (a[0]) {
     console.log('=== DOSSIE.md ===\n' + (dossie || '(sem DOSSIE.md — crie com /novo-caso)'));
     if (handoff) console.log('\n=== HANDOFF.md (onde paramos) ===\n' + handoff);
     console.log('\n=== Peças recentes ===\n' + (pecas.length ? pecas.map((f) => '- pecas/' + f).join('\n') : '(nenhuma)'));
+    const foro = require('./lib/calendario').foroDoCaso(x.pasta);
+    console.log('\nCalendário forense do caso: ' + (foro.tribunal || foro.comarca ? require('./lib/calendario').descreverContexto(foro) + ' (prazos deste caso usam os feriados e suspensões desse foro)' : 'tribunal/comarca não informados — pergunte ao advogado e grave com processo.js foro "' + x.nome + '" --tribunal <sigla> --comarca <cidade>'));
     console.log('\nAutos convertidos: ' + (autos ? 'sim (autos-md/INDICE.md)' : 'não — use /preparar-autos se precisar ler o processo'));
     console.log('\nRegras desta conversa: trabalhe só neste caso; leia outros casos apenas se o advogado pedir; anotações do cliente vão para o DOSSIE.md deste caso (processo.js anotar), nunca para MEMORIA/.');
     break;
@@ -60,5 +65,24 @@ switch (a[0]) {
     console.log(l.length ? 'Casos abertos recentemente (uma conversa cada):\n' + l.map((x) => '- ' + x.caso + ' (' + String(x.em).slice(0, 10) + ')').join('\n') : 'Nenhuma conversa vinculada a caso ainda. Use /processo <nome>.');
     break;
   }
-  default: console.log('Uso: processo.js abrir <caso> | listar | anotar <caso> "<texto>" | atual'); process.exit(1);
+  case 'foro': {
+    const cl = require('./lib/calendario');
+    const iT = a.indexOf('--tribunal'), iC = a.indexOf('--comarca');
+    const tribunal = iT > 0 ? cl.limparTribunal(a[iT + 1]) : '', comarca = iC > 0 ? cl.limparComarca(a[iC + 1]) : '';
+    const fim = [iT, iC].filter((n) => n > 0).sort((p, q) => p - q)[0];
+    const x = unico(a.slice(1, fim > 0 ? fim : undefined).join(' '));
+    const f = path.join(x.pasta, 'DOSSIE.md');
+    if (!tribunal && !comarca) { const fo = cl.foroDoCaso(x.pasta); console.log('Foro de ' + x.rel + ': ' + (fo.tribunal || fo.comarca ? cl.descreverContexto(fo) : 'não informado') + '\nPara gravar: processo.js foro "' + x.nome + '" --tribunal <sigla> --comarca <cidade>'); break; }
+    let t = ''; try { t = fs.readFileSync(f, 'utf8'); } catch (e) { t = '# DOSSIÊ — ' + x.nome + '\n\n## Identificação\n'; }
+    const atual = cl.foroDoCaso(x.pasta);
+    const linha = '- Tribunal: ' + (tribunal || atual.tribunal || '[TRIBUNAL]') + ' · Comarca: ' + (comarca || atual.comarca || '[COMARCA]') + ' (calendário forense dos prazos)';
+    c.versionar(f, path.join(esc, '_versoes'), esc);
+    const re = /^[ \t]*[-*]?[ \t]*\**Tribunal\**[ \t]*:.*$/m;
+    if (re.test(t)) t = t.replace(re, linha);
+    else { const m = t.match(/^##\s+Identifica.*$/m); t = m ? t.slice(0, m.index + m[0].length) + '\n' + linha + t.slice(m.index + m[0].length) : t.trimEnd() + '\n\n' + linha + '\n'; }
+    fs.writeFileSync(f, t, 'utf8');
+    console.log('⚖️ Foro de ' + x.rel + ': ' + cl.descreverContexto(cl.foroDoCaso(x.pasta)) + ' — os prazos deste caso passam a usar esse calendário forense.');
+    break;
+  }
+  default: console.log('Uso: processo.js abrir <caso> | listar | anotar <caso> "<texto>" | atual | foro <caso> [--tribunal X] [--comarca Y]'); process.exit(1);
 }

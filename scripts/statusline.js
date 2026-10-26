@@ -32,17 +32,23 @@ c.lerEntrada().then((e) => {
       partes.push(cor(n, '🧠 memória ' + pct + '% ' + barra + (pct >= cfg.limiteContexto ? ' → hora do handoff' : '')));
     }
 
+    // v0.7: vencimento com o calendario forense do caso (tribunal/comarca) e a prorrogacao do art. 224 par. 1o.
+    // O cache cai sozinho quando PRAZOS.md ou calendario.json mudam.
     const cache = path.join(c.P.estado, 'prazo-cache.json');
+    const arqPz = path.join(cfg.escritorio, 'PRAZOS.md');
+    const mt = (f) => { try { return fs.statSync(f).mtimeMs; } catch (er) { return 0; } };
+    const chave = mt(arqPz) + '|' + mt(require('./lib/calendario').arquivo());
     let prox = c.lerJSON(cache, null);
-    if (!prox || Date.now() - prox.ts > 120000) {
-      const itens = pz.lerPrazos(path.join(cfg.escritorio, 'PRAZOS.md'));
+    if (!prox || Date.now() - prox.ts > 120000 || prox.chave !== chave) {
+      const itens = require('./lib/calendario').avaliarPrazos(pz.lerPrazos(arqPz), { cfg }).sort((a, b) => a.efetivo - b.efetivo);
       const i = itens[0];
-      prox = { ts: Date.now(), item: i ? { uteis: pz.diasUteisAte(i.data, new Date(), cfg.feriadosExtras), tarefa: i.tarefa, caso: i.caso } : null };
+      prox = { ts: Date.now(), chave, item: i ? { uteis: i.uteis, tarefa: i.tarefa, caso: i.caso, vencimento: pz.iso(i.efetivo) } : null };
       try { c.gravarJSON(cache, prox); } catch (er) { /* ignora */ }
     }
     if (prox.item) {
       const u = prox.item.uteis;
-      const txt = u < 0 ? 'PRAZO VENCIDO' : u === 0 ? 'prazo HOJE' : 'prazo em ' + u + (u > 1 ? ' dias úteis' : ' dia útil');
+      const dm = prox.item.vencimento ? ' (' + prox.item.vencimento.slice(8, 10) + '/' + prox.item.vencimento.slice(5, 7) + ')' : '';
+      const txt = (u < 0 ? 'PRAZO VENCIDO' : u === 0 ? 'prazo HOJE' : 'prazo em ' + u + (u > 1 ? ' dias úteis' : ' dia útil')) + dm;
       partes.push(cor(u <= 2 ? 31 : u <= 5 ? 33 : 32, '⏰ ' + txt + ': ' + String(prox.item.tarefa).slice(0, 30)));
     } else partes.push('⏰ sem prazos próximos');
 

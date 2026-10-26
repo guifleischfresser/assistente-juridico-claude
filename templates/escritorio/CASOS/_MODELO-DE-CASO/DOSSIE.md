@@ -5,6 +5,7 @@
 ## Identificação
 - Cliente: [CLIENTE] · Parte contrária: [PARTE CONTRÁRIA]
 - Processo nº: [Nº PROCESSO] · Juízo/Tribunal: [JUÍZO] · Sistema: [PJe / e-SAJ / eproc]
+- Tribunal: [TRIBUNAL] · Comarca: [COMARCA] (calendário forense dos prazos; ex.: TJPR · Curitiba)
 - Área / rito: [ex.: cível, procedimento comum]
 - Fase: Em análise | Ativo | Arquivado · Aberto em: [DATA]
 

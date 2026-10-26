@@ -27,7 +27,7 @@ if (args.includes('--canario')) {
   process.exit(m ? 0 : 2);
 }
 const ID_PLUGIN = 'advogado-claude@advogado-claude-mod';
-const FERRAMENTAS = ['julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
+const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
 const ROTEIROS = ['sessao-inicio.js', 'registro-pedidos.js', 'guarda-escrita.js', 'guarda-sigilo.js', 'pos-ferramenta.js', 'gatilho-handoff.js', 'gatilho-handoff-passos.js', 'memoria.js', 'manutencao.js', 'statusline.js'];
 
 /** Pasta do plugin (gravada pelo hook de inicio em modo plugin; o Bash nao recebe CLAUDE_PLUGIN_ROOT). */
@@ -151,6 +151,18 @@ function diagnosticar() {
     if (fs.existsSync(a) && c.lerJSON(a, null) == null) add('estado-' + n, false, 'A lista dos atalhos automáticos embaralhou — ' + CONS + ' (guardo a versão estragada de lado).', 'erro', 'estado', a);
   }
 
+  // 5b. calendario forense (v0.7): informativo; arquivo ausente e normal; ilegivel = aviso com conserto
+  try {
+    const cl = require('./lib/calendario');
+    const cal = cl.ler();
+    if (cal.invalido) add('calendario', false, 'O calendário forense (feriados locais e suspensões que você cadastrou) ficou ilegível, então conto os prazos só com os feriados nacionais — ' + CONS + ' (guardo a cópia estragada de lado e a gente recadastra as datas com a fonte).', 'aviso', 'calendario', cl.arquivo() + ': JSON inválido');
+    else {
+      const pend = cl.extrasPendentes(cal, c.config());
+      const n = cal.entradas.length + pend.length, sem = cal.entradas.filter((e) => e.semFonte || !e.fonte).length + pend.length;
+      add('calendario', true, n ? 'Calendário forense: ' + n + ' entrada(s)' + (sem ? ' (' + sem + ' sem fonte — vale conferir)' : '') : 'Calendário forense: nenhuma data local cadastrada ainda (uso os feriados nacionais e o recesso)', 'info');
+    }
+  } catch (e) { add('calendario', false, 'Não consegui ler o calendário forense — ' + CONS + '.', 'aviso', 'reinstalar', e.message); }
+
   // 6. testes funcionais rapidos (sem rede)
   if (!RAPIDO && fs.existsSync(path.join(c.P.base, 'scripts', 'guarda-sigilo.js'))) {
     const roda = (sc, ent) => spawnSync(process.execPath, [path.join(c.P.base, 'scripts', sc)], { input: JSON.stringify(ent), encoding: 'utf8', timeout: 15000 });
@@ -167,7 +179,7 @@ function diagnosticar() {
       let docOk = false; try { docOk = require('./lib/zip').lerZip(path.join(tmp, 't.docx')).has('word/document.xml'); } catch (e) { /* */ }
       add('teste-docx', docOk, docOk ? 'Teste: gerar peça em Word funciona' : 'Teste: não consegui gerar a peça em Word — ' + CONS + '.', 'erro', 'reinstalar', docOk ? null : String(ex.stderr || '').slice(0, 200));
     } finally { try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { /* */ } }
-    try { const pz = require('./lib/prazos'); const v = pz.calcularVencimento(new Date(2026, 2, 2), 15); add('teste-prazos', v instanceof Date && !isNaN(v), 'Teste: conta de prazo em dias úteis funciona', 'erro', 'reinstalar'); } catch (e) { add('teste-prazos', false, 'Teste: a conta de prazo falhou — ' + CONS + '.', 'erro', 'reinstalar', e.message); }
+    try { const pz = require('./lib/prazos'); const v = pz.calcularVencimento(new Date(2026, 10, 3), 5, [], { bloqueios: (d) => (pz.iso(d) >= '2026-11-04' && pz.iso(d) <= '2026-11-06' ? [{ id: 't' }] : []) }); add('teste-prazos', v instanceof Date && pz.iso(v) === '2026-11-13', 'Teste: conta de prazo em dias úteis (com suspensão local) funciona', 'erro', 'reinstalar'); } catch (e) { add('teste-prazos', false, 'Teste: a conta de prazo falhou — ' + CONS + '.', 'erro', 'reinstalar', e.message); }
   }
 
   // 7. opcionais
@@ -195,6 +207,10 @@ function consertar(r) {
       if (fs.existsSync(a) && c.lerJSON(a, null) == null) { const dest = a + '.corrompido-' + c.carimbo(); fs.renameSync(a, dest); feitos.push('Guardei de lado uma anotação que tinha embaralhado (' + path.basename(dest) + ')'); }
     }
     precisa.add('reinstalar');
+  }
+  if (precisa.has('calendario')) {
+    const arqC = require('./lib/calendario').arquivo();
+    if (fs.existsSync(arqC) && require('./lib/calendario').ler().invalido) { const dest = arqC + '.corrompido-' + c.carimbo(); fs.renameSync(arqC, dest); feitos.push('Guardei de lado o calendário forense que tinha embaralhado (' + path.basename(dest) + '); recadastre as datas com a fonte pelo /prazos'); }
   }
   if (precisa.has('reinstalar')) {
     const inst = path.join(c.P.base, 'pacote', 'scripts', 'instalar.js');
