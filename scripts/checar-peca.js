@@ -49,7 +49,7 @@ function relatorio(r) {
   L.push('## Citações (' + r.cits.length + ')');
   L.push('- ✅ Com fonte: ' + ok.length + ' (' + r.cits.filter((x) => x.conferida).length + ' conferidas no original) | ⚠️ Marcadas NÃO VERIFICADO: ' + marc.length + ' | ❌ Sem fonte nem marca: ' + pend.length + (prob.length ? ' | 🔴 Divergentes/inexistentes: ' + prob.length : ''));
   prob.forEach((x) => L.push('  - 🔴 linha ' + x.linha + ': ' + x.texto + ' — ' + (x.problema === 'inexistente' ? 'NÃO EXISTE' : 'trecho/conteúdo DIVERGE do original') + ' (conferido em ' + (x.fonteRegistro || 'fonte registrada') + '): remova ou reescreva'));
-  pend.forEach((x) => L.push('  - ❌ linha ' + x.linha + ': ' + x.texto + ' (' + x.tipo + ')'));
+  pend.forEach((x) => L.push('  - ❌ linha ' + x.linha + ': ' + x.texto + ' (' + x.tipo + ')' + (x.semTexto ? ' (o arquivo salvo não tinha texto legível — veja `julgados.js situacao`)' : '')));
   marc.forEach((x) => L.push('  - ⚠️ linha ' + x.linha + ': ' + x.texto));
   L.push('', '## Naturalidade do texto');
   L.push(r.ia.length ? '- Expressões com "cara de IA": ' + r.ia.join('; ') : '- Nenhuma expressão típica de IA encontrada.');

@@ -8,6 +8,8 @@
  * Nao consulta a internet: verificar = o advogado (ou uma pesquisa pedida por ele) confirmou a fonte.
  * v0.5: tambem consulta o livro de conferencias (julgados.js): 'confere' conta como verificada;
  * 'divergente'/'inexistente' viram problema (bloqueia a exportacao) mesmo com link.
+ * 'sem-texto' (o arquivo salvo do original nao tinha texto legivel): nem conferida nem problema; continua
+ * pendente (link/fonte nao bastam) ate nova conferencia ou a marca [NAO VERIFICADO].
  */
 const fs = require('fs');
 const path = require('path');
@@ -45,8 +47,9 @@ function analisarCitacoes(texto, baseDir, escritorio) {
     let reg = null; if (a.tipo === 'jurisprudencia') { try { reg = require('./julgados').consultar(a.texto); } catch (e) { /* sem livro */ } }
     a.conferida = !!(reg && reg.status === 'confere');
     a.problema = reg && (reg.status === 'divergente' || reg.status === 'inexistente') ? reg.status : null;
+    a.semTexto = !!(reg && reg.status === 'sem-texto');
     a.fonteRegistro = reg && reg.fonte || null;
-    a.verificada = !a.problema && (/https?:\/\/\S+/.test(janela) || fonteOk || a.conferida);
+    a.verificada = !a.problema && !a.semTexto && (/https?:\/\/\S+/.test(janela) || fonteOk || a.conferida);
     a.marcada = /\[N[ÃA]O VERIFICAD[OA]|\[A VERIFICAR/i.test(janela);
     a.linha = texto.slice(0, a.ini).split('\n').length;
   });
