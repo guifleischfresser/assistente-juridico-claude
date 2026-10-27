@@ -24,12 +24,12 @@ function tem(cmd) {
   try { execFileSync(process.platform === 'win32' ? 'where' : 'which', [cmd], { stdio: 'ignore' }); return true; } catch (e) { return false; }
 }
 
-/** Paginas de um PDF (pdftotext; alternativa markitdown). opts.layout=false: ordem de leitura, sem colunas. */
+/** Paginas de um PDF (pdftotext; alternativa markitdown). opts.silencioso: sem os avisos do pdftotext na tela.
+ *  -layout mantem as linhas como na pagina (sem ele o pdftotext gruda a palavra hifenizada no rodape). */
 function pdfPaginas(arq, ocr, opts) {
   if (tem('pdftotext')) {
-    const layout = !(opts && opts.layout === false);
-    const o = { maxBuffer: 512 * 1024 * 1024 }; if (opts) o.stdio = ['ignore', 'pipe', 'ignore'];
-    const txt = execFileSync('pdftotext', ['-enc', 'UTF-8'].concat(layout ? ['-layout'] : [], [arq, '-']), o).toString('utf8');
+    const o = { maxBuffer: 512 * 1024 * 1024 }; if (opts && opts.silencioso) o.stdio = ['ignore', 'pipe', 'ignore'];
+    const txt = execFileSync('pdftotext', ['-enc', 'UTF-8', '-layout', arq, '-'], o).toString('utf8');
     const pags = txt.split('\f'); if (pags.length > 1 && !pags[pags.length - 1].trim()) pags.pop();
     if (ocr && tem('pdftoppm') && tem('tesseract')) {
       pags.forEach((p, i) => {
@@ -232,7 +232,7 @@ function extrairTexto(arquivo, opts) {
   } else if (ext === '.pdf') {
     r.tipo = 'pdf';
     let lido = null;
-    if (buf.length) { try { lido = pdfPaginas(arquivo, false, { layout: false }); } catch (e) { lido = { pags: [], via: 'pdftotext', erro: true }; } }
+    if (buf.length) { try { lido = pdfPaginas(arquivo, false, { silencioso: true }); } catch (e) { lido = { pags: [], via: 'pdftotext', erro: true }; } }
     if (!buf.length) r.via = 'pdf';
     else if (!lido) { r.via = 'nenhum'; r.semTexto = true; r.motivo = 'sem-leitor-pdf'; return r; }
     else {
