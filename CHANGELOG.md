@@ -2,10 +2,10 @@
 
 ## Não lançado
 - **Conferência de julgados lê página salva do site, PDF e Word** (`scripts/lib/extrair.js`): `julgados.js comparar --original` deixa de dar "divergente" por causa de menus, programação do site, `&nbsp;`/`&aacute;`, acentos em latin1, quebras e hifenização de linha, números de página e cabeçalhos repetidos do PDF. Usa só o texto visível: trecho escondido na página (ou em Word) não conta e gera aviso; instruções para IA no original geram aviso e nunca são obedecidas.
-  - Comparação tolerante à forma (NFKC, hífen discricionário, invisíveis, espaços especiais, palavra hifenizada no fim da linha), com o mesmo limiar de 0,97 e a mesma lista de palavras. A palavra do original **omitida** no trecho agora também conta como diferença (salvo onde o trecho marca `(...)`) e é mostrada.
+  - Comparação tolerante à forma (NFKC, hífen discricionário, invisíveis, espaços especiais, palavra hifenizada no fim da linha), com o mesmo limiar de 0,97 e a mesma lista de palavras. A palavra do original **omitida** no trecho agora também conta como diferença e é mostrada.
   - Arquivo sem texto legível (PDF escaneado, página vazia ou só com a programação do site, sem leitor de PDF) vira **`sem-texto`**: nem confere nem diverge, código 4, um passo simples para o advogado; fica pendente na checagem, na exportação para Word e no mapa de teses, e nunca rebaixa um registro anterior.
   - `pdfPaginas`/`docxTexto` saíram do `preparar-autos.js` para o lib (mesmo comportamento).
-- Testes: 271 na suíte (+23), com página de tribunal em UTF-8/latin1 e PDF gerados no próprio teste (PDF real só com o Poppler instalado).
+- Testes: 270 na suíte (+22), com página de tribunal em UTF-8/latin1 e PDF gerados no próprio teste (PDF real só com o Poppler instalado).
 
 ## 0.6.0 — 2026-10-23
 **Foco: o assistente nunca falha em silêncio, nunca esconde texto em peça e fala a língua do advogado.**
