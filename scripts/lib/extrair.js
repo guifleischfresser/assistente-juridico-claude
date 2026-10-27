@@ -189,7 +189,6 @@ const MARCA_LINHA = [
   /^fls?\.?\s*\d[\d.]*(?:\s*(?:v|verso))?\.?$/i,       // fls. 12
   /^[-–—]\s*\d+\s*[-–—]$/,                              // - 3 -
   /^num\.?\s*\d+\s*[-–—]\s*p[áa]g\.?\s*\d+$/i,         // Num. 123 - Pág. 3
-  /^\d{1,4}$/,                                          // linha so com numero
 ];
 // carimbos que nunca fazem parte do texto do julgado, mesmo no meio da linha
 const MARCA_DENTRO = [/\bNum\.\s*\d+\s*[-–—]\s*P[áa]g\.\s*\d+\b/gi, /\bP[áa]gina\s+\d+\s+de\s+\d+\b/gi];
@@ -200,6 +199,8 @@ function limparPaginasPdf(pags) {
   let linhas = (pags || []).map((p) => String(p || '').replace(/\r\n?/g, '\n').split('\n')
     .map((l) => { let x = l; for (const re of MARCA_DENTRO) x = x.replace(re, ' '); return x.replace(/\s+$/, ''); })
     .filter((l) => !MARCA_LINHA.some((re) => re.test(l.trim()))));
+  // numero de pagina solto ("12"): so nas bordas da pagina (no meio pode ser "art.\n14\ndo CDC")
+  linhas = linhas.map((ls) => { const idx = ls.map((l, i) => (l.trim() ? i : -1)).filter((i) => i >= 0); const b = new Set(idx.slice(0, 2).concat(idx.slice(-2))); return ls.filter((l, i) => !(b.has(i) && /^\d{1,4}$/.test(l.trim()))); });
   // cabecalho/rodape: so as 3 primeiras e 3 ultimas linhas nao vazias de cada pagina
   const bordas = (ls) => { const idx = ls.map((l, i) => (l.trim() ? i : -1)).filter((i) => i >= 0); return new Set(idx.slice(0, 3).concat(idx.slice(-3))); };
   if (linhas.length >= 2) {
