@@ -15,51 +15,12 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { execFileSync } = require('child_process');
-const { lerZip } = require('./lib/zip');
-const { detectarInjecao, ocultoNoDocx, ocultoNoTexto, limparInvisiveis } = require('./lib/injecao');
+const { detectarInjecao, ocultoNoTexto, limparInvisiveis } = require('./lib/injecao');
+// leitores de PDF e Word compartilhados com julgados.js comparar
+const { pdfPaginas, docxTexto } = require('./lib/extrair');
 
 const tokens = (s) => Math.round(String(s).length / 3.5);
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
-function tem(cmd) {
-  try { execFileSync(process.platform === 'win32' ? 'where' : 'which', [cmd], { stdio: 'ignore' }); return true; } catch (e) { return false; }
-}
-
-function pdfPaginas(arq, ocr) {
-  if (tem('pdftotext')) {
-    const txt = execFileSync('pdftotext', ['-enc', 'UTF-8', '-layout', arq, '-'], { maxBuffer: 512 * 1024 * 1024 }).toString('utf8');
-    const pags = txt.split('\f'); if (pags.length > 1 && !pags[pags.length - 1].trim()) pags.pop();
-    if (ocr && tem('pdftoppm') && tem('tesseract')) {
-      pags.forEach((p, i) => {
-        if (p.replace(/\s/g, '').length >= 30) return;
-        try {
-          const tmp = path.join(require('os').tmpdir(), 'autos-ocr-' + process.pid + '-' + i);
-          execFileSync('pdftoppm', ['-r', '200', '-f', String(i + 1), '-l', String(i + 1), '-png', '-singlefile', arq, tmp]);
-          pags[i] = execFileSync('tesseract', [tmp + '.png', '-', '-l', 'por'], { stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8') + '\n[texto obtido por OCR local — conferir]';
-          fs.unlinkSync(tmp + '.png');
-        } catch (e) { /* segue sem OCR */ }
-      });
-    }
-    return { pags, via: 'pdftotext' };
-  }
-  if (tem('markitdown')) return { pags: [execFileSync('markitdown', [arq], { maxBuffer: 512 * 1024 * 1024 }).toString('utf8')], via: 'markitdown' };
-  return null;
-}
-
-function docxTexto(arq) {
-  const z = lerZip(arq);
-  const xml = (z.get('word/document.xml') || Buffer.from('')).toString('utf8');
-  const pars = xml.split(/<\/w:p>/).map((p) => {
-    let t = '';
-    for (const r of p.split(/<\/w:r>/)) t += (r.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((x) => x.replace(/<[^>]+>/g, '')).join('');
-    return t;
-  }).filter((t) => t.trim());
-  const dec = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
-  // texto oculto (vanish, fonte branca, minuscula): detecção centralizada em lib/injecao.js
-  const ocultos = ocultoNoDocx(xml).map((o) => o.texto + ' [' + o.motivo + ']');
-  return { texto: dec(pars.join('\n\n')), ocultos };
-}
-
 function limparRepetidos(pags) {
   if (pags.length < 3) return pags;
   const cont = new Map();
