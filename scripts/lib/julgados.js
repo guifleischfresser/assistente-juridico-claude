@@ -37,7 +37,6 @@ function registrar(cit, dados) {
 const INVIS = /[­​-‏‪-‮⁠-⁤⁦-⁩﻿]/g;
 const ESPACOS = /[   -   　]/g;
 const HIFEN_FIM_LINHA = /(\p{L})[-‐‑][ \t]*\r?\n[ \t]*(\p{L})/gu;
-const RETICENCIAS = /[([]\s*(?:\.\s*){2,}\.?\s*[)\]]|[([]\s*…\s*[)\]]/g; // "(...)" "[...]": trecho omitido de proposito
 /** Palavras normalizadas. opts.hifen: 'juntar' (padrao: "consti-\ntucional" -> constitucional) | 'separar'
  *  | 'compactar' (junta tambem o hifen entre letras na mesma linha: "guarda-chuva" -> guardachuva). */
 function tokens(t, opts) {
@@ -50,7 +49,7 @@ function tokens(t, opts) {
     .replace(/[“”«»"'‘’]/g, ' ').match(/[a-z0-9]+/g) || [];
 }
 /** Alinhamento do trecho T com uma janela J do original: cada palavra trocada, acrescentada ou omitida custa 1.
- *  Pular palavras do original so e livre antes do inicio, depois do fim e onde o trecho marca "(...)". */
+ *  Pular palavras do original so e livre antes do inicio e depois do fim. */
 function alinhar(T, J, livres, completo) {
   const m = T.length, n = J.length;
   const D = completo ? [] : null;
@@ -103,17 +102,11 @@ function compararTokens(T, livres, O) {
 }
 /** Compara o trecho citado com o texto original. Retorna { similaridade 0..1, literal, faltando[], omitidas[] }.
  *  faltando = palavras do trecho que nao estao no original; omitidas = palavras do original que o trecho pulou
- *  (sem "(...)" marcando a omissao). "guarda-\nchuva" e ambiguo: o original e comparado com a hifenizacao
+ *  . "guarda-\nchuva" e ambiguo: o original e comparado com a hifenizacao
  *  de fim de linha reunida, mantida como separador e (nos dois lados) com todo hifen entre letras unido;
  *  fica a melhor. Rigor igual: >= 0,97, palavra por palavra. */
 function comparar(trecho, original) {
-  const partes = String(trecho || '').split(RETICENCIAS);
-  const montar = (opts) => {
-    const T = [], livres = new Set();
-    partes.forEach((p, i) => { if (i > 0 && T.length) livres.add(T.length); T.push(...tokens(p, opts)); });
-    livres.delete(T.length);
-    return { T, livres };
-  };
+  const montar = (opts) => ({ T: tokens(trecho, opts), livres: new Set() });
   const normal = montar(), compacto = montar({ hifen: 'compactar' });
   const pares = [[normal, tokens(original)], [normal, tokens(original, { hifen: 'separar' })], [compacto, tokens(original, { hifen: 'compactar' })]];
   let melhor = null;
