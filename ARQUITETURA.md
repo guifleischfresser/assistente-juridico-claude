@@ -1,4 +1,4 @@
-# ARQUITETURA — advogado-claude-mod v0.7.0
+# ARQUITETURA — advogado-claude-mod v0.8.0
 
 Documento técnico para o Guilherme. O README.md é o documento voltado ao advogado.
 
