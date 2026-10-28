@@ -84,6 +84,11 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 
 ## 3. O que o assistente faz
 
+**Novidades da v0.7 — calendário forense do seu tribunal e da sua comarca:**
+- 📅 O prazo agora é contado com o calendário **daquele caso**: feriados municipais e estaduais, suspensões de prazo e dias de sistema fora do ar do tribunal/comarca do processo. Feriado de Curitiba não mexe em prazo de Londrina.
+- ✍️ Você cadastra cada data **com a fonte** (lei, portaria, ato ou link). O assistente não traz lista pronta inventada; data sem fonte fica marcada **[SEM FONTE]** e é lembrada em todo cálculo.
+- 🔁 Ao cadastrar uma suspensão, ele mostra quais prazos da sua lista mudam (antes → depois) e **só reescreve depois do seu "sim"**. Vencimento que cai em feriado, suspensão ou indisponibilidade passa para o próximo dia útil (CPC art. 224 §1º), já na barra de status.
+
 **Novidades da v0.6:**
 - 🩺 **Avisa quando o Claude "perde o fio"**: no começo de cada conversa ele confere se está no modo automático, se as pastas dos seus casos continuam no lugar e se uma atualização do Claude não tirou algum acesso. Se algo mudou, a primeira coisa que você lê é o problema, em português do dia a dia, e o conserto em um passo (por exemplo: "tô no modo manual, aperta Shift+Tab até aparecer auto" ou "o Claude perdeu a chave da pasta das peças — digita /consertar").
 - 🕵️ **Nada de texto escondido**: ele se recusa a gravar ou exportar peça com fonte branca, letra minúscula, texto oculto do Word ou caracteres invisíveis. E avisa quando um documento que chegou (autos, PDF, site) traz um recado escondido para a IA, sem obedecer.
@@ -104,7 +109,7 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 - 😈 Tem um **advogado do diabo**, que ataca a sua peça antes da parte contrária.
 - 📚 **Lê os autos em PDF uma vez só**, transforma em texto e tira as repetições, o que economiza o seu limite de uso.
 - 🛡️ **Avisa sobre instruções escondidas** em documentos da parte contrária.
-- ⏰ **Controla prazos em dias úteis**, considerando o recesso forense e os feriados nacionais.
+- ⏰ **Controla prazos em dias úteis**, considerando o recesso forense, os feriados nacionais e o **calendário forense local** de cada caso (veja abaixo).
 - 🧠 **Aprende sozinho.** Quando percebe uma tarefa repetida, cria um atalho novo. Tudo fica registrado e pode ser desfeito.
 - 🩺 **Conserta a si mesmo**: digite `/consertar`.
 
@@ -127,7 +132,7 @@ Digite a barra `/` e o nome do comando:
 | `/verificar-citacoes` | Confere se os julgados existem e se o trecho citado bate com o original; marca [NÃO VERIFICADO] onde não deu |
 | `/erros` | Mostra os erros que você já corrigiu e que o assistente não pode repetir |
 | `/formatar-peca` | Formata e exporta para Word (.docx) |
-| `/prazos` | Mostra os prazos e calcula vencimentos em dias úteis |
+| `/prazos` | Mostra os prazos, calcula vencimentos em dias úteis e cadastra feriados locais e suspensões do tribunal |
 | `/aprender-meu-estilo` | Aprende (ou reaprende) o seu jeito de escrever |
 | `/handoff` | Salva um resumo do trabalho para continuar depois |
 | `/habilidades` | Mostra as habilidades que o assistente criou sozinho e permite desfazer |
@@ -137,11 +142,20 @@ Digite a barra `/` e o nome do comando:
 | `/primeira-execucao` | Refaz ou continua a configuração inicial |
 | `/backup` | Copia o escritório para um HD externo ou pendrive |
 
+### Calendário forense: feriados locais e suspensões
+Cada caso guarda o seu foro no dossiê (`Tribunal: TJPR · Comarca: Curitiba`). Exemplo de conversa:
+
+> **Você:** suspensão de prazos no TJPR de 04 a 06/11 por indisponibilidade do sistema, Portaria nº … (cole o número ou o link)
+> **Assistente:** gravei no calendário do TJPR. Isto muda: *Silva x Banco — contestação: 10/11/2026 → 13/11/2026*. Posso atualizar a sua lista de prazos?
+> **Você:** pode.
+
+E no cálculo: *"Prazo de 15 dias úteis no TJPR, comarca de Curitiba: vence 12/11/2026 (considerei o feriado municipal X e a suspensão da Portaria Y)"*. Para ver o que está cadastrado: `/prazos` e peça "calendário do TJPR em Curitiba". Tudo fica no seu computador (`~/.claude/advogado/calendario.json`) e continua lá se você reinstalar ou desinstalar.
+
 ### A barra de status (embaixo da tela)
-`⚖️ Dra. Ana │ 📁 Silva x Banco (contestação) │ 🧠 memória 42% ▓▓▓▓░░░░ │ ⏰ prazo em 2 dias úteis: contestação`
+`⚖️ Dra. Ana │ 📁 Silva x Banco (contestação) │ 🧠 memória 42% ▓▓▓▓░░░░ │ ⏰ prazo em 2 dias úteis (12/11): contestação`
 
 - **🧠 memória:** quanto da "memória de curto prazo" da conversa já foi usado. Em **75%**, o assistente salva um resumo (⚠️ HANDOFF AUTOMÁTICO) para você continuar numa conversa nova sem perder nada.
-- **⏰ prazo:** o próximo prazo da sua lista `PRAZOS.md`.
+- **⏰ prazo:** o próximo prazo da sua lista `PRAZOS.md`, com a data já prorrogada se cair em feriado ou suspensão do foro do caso.
 
 ---
 

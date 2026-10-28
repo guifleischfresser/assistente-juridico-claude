@@ -498,7 +498,7 @@ console.log('\n12c. Manutenção das habilidades a cada 15 dias (v0.4)');
   t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 24 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
   // pacote: descricoes do nucleo ja enxutas na origem
   const mp = JSON.parse(rodar(MAN, ['medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out);
-  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3600 (era 5853 na v0.3)', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3600, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
+  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3543 (era 5853 na v0.3; 3543 na v0.6); /prazos ≤ 171', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3543 && mp.skills.find((s) => s.nome === 'prazos').descricao <= 171, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
   const pe = mp.skills.find((s) => s.nome === 'primeira-execucao');
   t('primeira-execucao com divulgação progressiva (SKILL.md < 8000; etapas em references/, sincronizadas)', pe.corpo < 8000 && pe.refs > 10000 && rodar(path.join(RAIZ, 'ferramentas', 'sincronizar-bootstrap.js'), ['--verificar']).code === 0, JSON.stringify(pe));
   // limpa a fixture para nao afetar as secoes seguintes
@@ -906,7 +906,7 @@ console.log('\n12e. v0.6: diagnóstico no início da conversa, anti-texto-oculto
   criar('auto-peticao-alimentos', dAlim, true); criar('auto-alimentos-peticao', dAlim.replace('Monta', 'Gera'), true);
   const fUser = criar('minha-peticao-alimentos', dAlim.replace('Monta', 'Escreve'), false);
   const prazosNuc = fs.readFileSync(path.join(SK6, 'prazos', 'SKILL.md'), 'utf8');
-  const fUser2 = criar('meus-prazos', 'Mostra, cadastra, calcula e dá baixa em prazos processuais em dias úteis do escritório. Use quando o usuário falar de prazo, intimação, publicação, vencimento ou agenda.', false);
+  const fUser2 = criar('meus-prazos', 'Prazos em dias úteis do escritório: mostra, cadastra, calcula, dá baixa e registra feriado ou suspensão local. Use quando o usuário falar de prazo, intimação ou vencimento.', false);
   const u1 = fs.readFileSync(fUser, 'utf8'), u2 = fs.readFileSync(fUser2, 'utf8');
   const reg6 = JSON.parse(fs.readFileSync(REG6, 'utf8')); const agora6 = new Date().toISOString();
   reg6.skills['auto-peticao-alimentos'] = { origem: 'automatica', status: 'estavel', versao: 1, usos: 5, ultimoUso: agora6, criadaEm: agora6 };
@@ -920,6 +920,127 @@ console.log('\n12e. v0.6: diagnóstico no início da conversa, anti-texto-oculto
   t('manutenção: núcleo x núcleo não vira ruído no relatório', !sob.some((x) => x.donoA === 'nucleo' && x.donoB === 'nucleo'));
   const rel6 = m6.relatorio && fs.existsSync(m6.relatorio) ? fs.readFileSync(m6.relatorio, 'utf8') : '';
   t('relatório explica em linguagem simples: "Atalhos parecidos — anotei, mas NÃO mexi neles" (você criou / do assistente)', /Atalhos parecidos — anotei, mas NÃO mexi neles/.test(rel6) && /\/meus-prazos \(que você criou ou instalou\) e \/prazos \(do assistente\)|\/prazos \(do assistente\) e \/meus-prazos \(que você criou ou instalou\)/.test(rel6) && /par\(es\) de atalhos parecidos só anotado/.test(m6.resumo || ''), rel6.slice(0, 1500));
+}
+
+console.log('\n12f. v0.7: calendário forense local (feriados e suspensões por tribunal/comarca)');
+{
+  // sandbox proprio, com uma instalacao "antiga" que usava config.feriadosExtras
+  const R7 = path.join(TMP, 'v07'); const CL7 = path.join(R7, '.claude'); const ESC7 = path.join(R7, 'ESCRITORIO');
+  const B7 = path.join(CL7, 'advogado'); const SC7 = (n) => path.join(B7, 'scripts', n);
+  const env7 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL7 });
+  const run7 = (args, entrada) => { const x = spawnSync(process.execPath, args, { env: env7, encoding: 'utf8', cwd: R7, input: entrada == null ? '' : (typeof entrada === 'string' ? entrada : JSON.stringify(entrada)) }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  fs.mkdirSync(B7, { recursive: true });
+  fs.writeFileSync(path.join(B7, 'config.json'), JSON.stringify({ escritorio: ESC7, feriadosExtras: ['12-08', '2026-10-30'] }, null, 2));
+  r = run7([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC7, '--nome', 'Dra. Sete']);
+  t('v0.7: instalação do sandbox (config antigo com feriadosExtras)', r.code === 0, r.err || r.out);
+  const CALF = path.join(B7, 'calendario.json'); const cal7 = () => JSON.parse(fs.readFileSync(CALF, 'utf8'));
+  const cfg7 = () => JSON.parse(fs.readFileSync(path.join(B7, 'config.json'), 'utf8'));
+  let c7 = fs.existsSync(CALF) ? cal7() : { entradas: [] };
+  t('migração: feriadosExtras viram entradas globais [SEM FONTE] (anual e data única), sem tirar nada do config.json', c7.versao === 1 && c7.entradas.length === 2 && c7.entradas.every((e) => e.escopo === 'global' && e.semFonte === true && e.tipo === 'feriado') && c7.entradas.some((e) => e.recorrente && e.inicio === '12-08') && c7.entradas.some((e) => !e.recorrente && e.inicio === '2026-10-30') && JSON.stringify(cfg7().feriadosExtras) === '["12-08","2026-10-30"]', JSON.stringify(c7));
+  r = run7([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC7]);
+  t('migração idempotente: reinstalar não duplica', r.code === 0 && cal7().entradas.length === 2, JSON.stringify(cal7()));
+  const st7 = JSON.parse(fs.readFileSync(path.join(CL7, 'settings.json'), 'utf8'));
+  t('sem script novo: a regra estreita de prazos.js já cobre o subcomando calendario', st7.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/prazos.js" *)') && st7.permissions.allow.includes('PowerShell(node "~/.claude/advogado/scripts/prazos.js" *)'));
+
+  // casos com foro no DOSSIE (processo.js foro)
+  const PZ = SC7('prazos.js'); const PR = SC7('processo.js');
+  for (const n of ['2026-curitiba-banco', '2026-londrina-banco', '2026-maringa-banco']) { fs.mkdirSync(path.join(ESC7, 'CASOS', 'Ativos', n), { recursive: true }); fs.copyFileSync(path.join(RAIZ, 'templates', 'escritorio', 'CASOS', '_MODELO-DE-CASO', 'DOSSIE.md'), path.join(ESC7, 'CASOS', 'Ativos', n, 'DOSSIE.md')); }
+  r = run7([PR, 'foro', 'curitiba banco', '--tribunal', 'tj-pr', '--comarca', 'Comarca de Curitiba']);
+  run7([PR, 'foro', 'londrina banco', '--tribunal', 'TJPR', '--comarca', 'Londrina']);
+  run7([PR, 'foro', 'maringa banco', '--tribunal', 'TJPR', '--comarca', 'Maringá']);
+  const dCur = fs.readFileSync(path.join(ESC7, 'CASOS', 'Ativos', '2026-curitiba-banco', 'DOSSIE.md'), 'utf8');
+  t('processo.js foro grava "Tribunal: TJPR · Comarca: Curitiba" no DOSSIE (nome limpo) e o abrir mostra o calendário do caso', r.code === 0 && /^- Tribunal: TJPR · Comarca: Curitiba/m.test(dCur) && /Juízo\/Tribunal: \[JUÍZO\]/.test(dCur) && /Calendário forense do caso: TJPR, comarca de Curitiba/.test(run7([PR, 'abrir', 'curitiba banco']).out), r.out + dCur.slice(0, 400));
+
+  // a) feriado municipal so na comarca certa
+  r = run7([PZ, 'calendario', 'adicionar', '--tipo', 'feriado', '--data', '08/09', '--recorrente', '--tribunal', 'TJPR', '--comarca', 'Curitiba', '--motivo', 'Feriado municipal de teste', '--fonte', 'Lei Municipal nº 0000/0000 (teste)']);
+  t('cadastro de feriado municipal recorrente (com fonte)', r.code === 0 && /Gravado no calendário forense/.test(r.out) && cal7().entradas.length === 3, r.out + r.err);
+  const rCur = run7([PZ, 'calcular', '04/09/2026', '3', '--caso', 'curitiba banco']);
+  const rLon = run7([PZ, 'calcular', '04/09/2026', '3', '--caso', 'londrina banco']);
+  t('a) feriado municipal de Curitiba empurra o prazo em Curitiba (11/09) e lista data, motivo e fonte', /Vencimento estimado: .*11\/09\/2026/.test(rCur.out) && /Calendário usado: TJPR, comarca de Curitiba \(caso Ativos\/2026-curitiba-banco\)/.test(rCur.out) && /08\/09 \(todo ano\) — feriado — TJPR, comarca de Curitiba — Feriado municipal de teste — fonte: Lei Municipal/.test(rCur.out) && /Resumo: Prazo de 3 dias úteis no TJPR, comarca de Curitiba: vence 11\/09\/2026 \(considerei/.test(rCur.out), rCur.out);
+  t('a) ... e NÃO afeta Londrina, do mesmo TJPR (10/09)', /Vencimento estimado: .*10\/09\/2026/.test(rLon.out) && !/Feriado municipal de teste/.test(rLon.out), rLon.out);
+
+  // e) prazos existentes: com e sem dados de calculo
+  const PZF = path.join(ESC7, 'PRAZOS.md');
+  fs.appendFileSync(PZF, '| 10/11/2026 | 2026-londrina-banco | Contestação | intimação ' + require(path.join(RAIZ, 'scripts', 'lib', 'prazos')).marcaCalculo(new Date(2026, 10, 3), 5) + ' | pendente |\n| 13/11/2026 | 2026-londrina-banco | Réplica | intimação DJEN | pendente |\n| 13/11/2026 | 2026-curitiba-banco | Recurso | intimação DJEN | pendente |\n');
+  const pzAntes = fs.readFileSync(PZF, 'utf8');
+  // b) suspensao por intervalo
+  r = run7([PZ, 'calendario', 'adicionar', '--tipo', 'suspensão', '--de', '04/11/2026', '--ate', '06/11/2026', '--tribunal', 'TJPR', '--motivo', 'Indisponibilidade do sistema (teste)', '--fonte', 'Portaria nº 0/2026 (teste)']);
+  t('e) cadastro mostra os prazos afetados (antes → depois) e NÃO reescreve o PRAZOS.md sem --confirmar', r.code === 0 && /Contestação: 10\/11\/2026 → 13\/11\/2026 \(recontado: 5 dias úteis desde 03\/11\/2026\)/.test(r.out) && !/Réplica/.test(r.out) && /SIMULAÇÃO/.test(r.out) && fs.readFileSync(PZF, 'utf8') === pzAntes, r.out);
+  r = run7([PZ, 'calcular', '03/11/2026', '5', '--tribunal', 'TJPR', '--comarca', 'Londrina']);
+  t('b) suspensão de 04 a 06/11 empurra o vencimento de 10/11 para 13/11 (e cita a portaria)', /Vencimento estimado: .*13\/11\/2026/.test(r.out) && /04\/11\/2026 a 06\/11\/2026 — suspensão de prazos — TJPR — Indisponibilidade do sistema \(teste\) — fonte: Portaria nº 0\/2026/.test(r.out), r.out);
+  // c) vencimento caindo em indisponibilidade
+  const argsC = [PZ, 'calendario', 'adicionar', '--tipo', 'indisponibilidade', '--data', '13/11/2026', '--tribunal', 'TJPR', '--comarca', 'Londrina', '--motivo', 'Queda do sistema em Londrina (teste)', '--fonte', 'Certidão de indisponibilidade (teste)'];
+  r = run7(argsC);
+  t('c) vencimento que cai em indisponibilidade prorroga: recontado (10/11 → 16/11) e, sem dados de cálculo, só o art. 224 §1º (13/11 → 16/11)', /Contestação: 10\/11\/2026 → 16\/11\/2026/.test(r.out) && /Réplica: 13\/11\/2026 → 16\/11\/2026 \(sem dados de cálculo na linha: só a prorrogação do art\. 224 §1º/.test(r.out) && !/Recurso/.test(r.out) && fs.readFileSync(PZF, 'utf8') === pzAntes, r.out);
+  r = run7([PZ, 'calcular', '03/11/2026', '5', '--caso', 'londrina banco']);
+  t('c) cálculo cujo último dia cairia na indisponibilidade (13/11) termina no próximo dia útil (16/11)', /Vencimento estimado: .*16\/11\/2026/.test(r.out), r.out);
+  r = run7([PZ, 'listar', '60']);
+  t('listar mostra o vencimento prorrogado com o motivo (calendário do caso)', /2026-11-13 → 2026-11-16 \(prorrogado, art\. 224 §1º: Queda do sistema em Londrina \(teste\)\).*Réplica/.test(r.out) || /VENCIDO/.test(r.out), r.out);
+  const nAntes = cal7().entradas.length;
+  r = run7(argsC.concat(['--confirmar']));
+  const pzDepois = fs.readFileSync(PZF, 'utf8');
+  t('e) com --confirmar reescreve só as datas afetadas (cópia em _versoes) e não duplica a entrada', /já estava no calendário/.test(r.out) && cal7().entradas.length === nAntes && /\| 16\/11\/2026 \| 2026-londrina-banco \| Contestação \|/.test(pzDepois) && /\| 16\/11\/2026 \| 2026-londrina-banco \| Réplica \|/.test(pzDepois) && /\| 13\/11\/2026 \| 2026-curitiba-banco \| Recurso \|/.test(pzDepois) && /\[cálculo: 03\/11\/2026 \+ 5 dias úteis\]/.test(pzDepois) && fs.readdirSync(path.join(ESC7, '_versoes')).some((f) => /PRAZOS\.md$/.test(f)), r.out + '\n' + pzDepois);
+  r = run7([PZ, 'calendario', 'recalcular']);
+  t('recalcular depois de confirmar: nada mais muda', /Nenhum prazo do PRAZOS.md muda/.test(r.out), r.out);
+
+  // f) sem fonte
+  r = run7([PZ, 'calendario', 'adicionar', '--tipo', 'feriado', '--data', '20/10/2026', '--comarca', 'Curitiba', '--motivo', 'Feriado que ninguém conferiu']);
+  t('f) sem fonte: recusado, pede a fonte e não grava nada', r.code === 1 && /Falta a FONTE/.test(r.out) && !cal7().entradas.some((e) => /ninguém conferiu/.test(e.motivo)), r.out);
+  r = run7([PZ, 'calendario', 'adicionar', '--tipo', 'feriado', '--data', '20/10/2026', '--comarca', 'Curitiba', '--motivo', 'Feriado que ninguém conferiu', '--sem-fonte']);
+  const sf = cal7().entradas.find((e) => /ninguém conferiu/.test(e.motivo));
+  const rSf = run7([PZ, 'calcular', '19/10/2026', '1', '--caso', 'curitiba banco']);
+  t('f) --sem-fonte grava marcado [SEM FONTE] e o cálculo sinaliza "considerei … [SEM FONTE] — confirme"', sf && sf.semFonte === true && /\[SEM FONTE\]/.test(r.out) && /Vencimento estimado: .*21\/10\/2026/.test(rSf.out) && /⚠️ considerei 20\/10\/2026 \(Feriado que ninguém conferiu\) \[SEM FONTE\] — confirme/.test(rSf.out), r.out + rSf.out);
+  r = run7([PZ, 'calendario', 'ver', '--caso', 'londrina banco', '--ano', '2026']);
+  t('calendario ver: calendário ativo de Londrina (nacionais + TJPR + Londrina; sem os de Curitiba)', /Calendário forense ativo — TJPR, comarca de Londrina — 2026/.test(r.out) && /Queda do sistema em Londrina/.test(r.out) && /Indisponibilidade do sistema \(teste\)/.test(r.out) && !/Curitiba/.test(r.out.split('\n').slice(2).join('\n')), r.out);
+  r = run7([PZ, 'calendario', 'remover', sf.id]);
+  t('calendario remover <id>: tira a entrada e guarda cópia', r.code === 0 && !cal7().entradas.some((e) => e.id === sf.id) && fs.readdirSync(path.join(B7, 'calendario-versoes')).length >= 1, r.out);
+
+  // g) statusline e SessionStart com o calendario do caso
+  const pzL = require(path.join(RAIZ, 'scripts', 'lib', 'prazos'));
+  let X = new Date(); for (let n = 0; n < 3;) { X = pzL.somaDias(X, 1); if (pzL.ehDiaUtil(X)) n++; }
+  const xBR = String(X.getDate()).padStart(2, '0') + '/' + String(X.getMonth() + 1).padStart(2, '0') + '/' + X.getFullYear();
+  fs.writeFileSync(PZF, '| Vencimento | Caso | O que fazer | Origem | Status |\n|---|---|---|---|---|\n| ' + xBR + ' | 2026-maringa-banco | Apelação | intimação | pendente |\n');
+  const sl7 = () => { try { fs.unlinkSync(path.join(B7, 'estado', 'prazo-cache.json')); } catch (e) { /* */ } const o = run7([SC7('statusline.js')], { session_id: 's7', context_window: { used_percentage: 10 } }).out; const m = o.match(/prazo em (\d+) dias? úte\S* \((\d\d\/\d\d)\)/); return { o, n: m ? +m[1] : null, dm: m ? m[2] : null }; };
+  const slA = sl7();
+  run7([PZ, 'calendario', 'adicionar', '--tipo', 'indisponibilidade', '--data', xBR, '--comarca', 'Maringá', '--motivo', 'Indisponibilidade em Maringá (teste)', '--fonte', 'Ato nº 0 (teste)']);
+  const slB = sl7();
+  t('g) statusline: vencimento em indisponibilidade da comarca do caso aparece prorrogado (data nova, mesmos dias úteis)', slA.n != null && slA.dm === xBR.slice(0, 5) && slB.dm && slB.dm !== slA.dm && slB.n === slA.n, slA.o + ' || ' + slB.o);
+  const j7 = (() => { const x = run7([SC7('sessao-inicio.js')], { session_id: 's7', source: 'startup', hook_event_name: 'SessionStart', cwd: R7 }); try { return JSON.parse(x.out); } catch (e) { return {}; } })();
+  const cx7 = (j7.hookSpecificOutput && j7.hookSpecificOutput.additionalContext) || '';
+  t('g) SessionStart: próximo prazo com o vencimento prorrogado e o motivo', new RegExp('prorrogado de ' + pzL.iso(X) + ', art\\. 224 §1º: Indisponibilidade em Maringá \\(teste\\)').test(cx7) && /Apelação/.test(cx7), cx7.slice(0, 1500));
+  // cache da statusline cai sozinho quando o calendario muda
+  const cal8 = cal7(); const idM = cal8.entradas.find((e) => /Maringá/.test(e.motivo)).id;
+  run7([SC7('statusline.js')], { session_id: 's7', context_window: { used_percentage: 10 } });
+  run7([PZ, 'calendario', 'remover', idM]);
+  const slC = run7([SC7('statusline.js')], { session_id: 's7', context_window: { used_percentage: 10 } }).out;
+  t('g) statusline recalcula na hora quando o calendário muda (sem esperar o cache)', slC.includes('(' + slA.dm + ')'), slC);
+
+  // h) doutor
+  r = run7([SC7('doutor.js'), '--json', '--rapido']);
+  let dj7 = {}; try { dj7 = JSON.parse(r.out); } catch (e) { /* */ }
+  const itC = (dj7.itens || []).find((x) => x.id === 'calendario') || {};
+  const nC = cal7().entradas.length, nS = cal7().entradas.filter((e) => e.semFonte).length;
+  t('h) doutor mostra "Calendário forense: N entrada(s) (X sem fonte)"', itC.ok === true && new RegExp('Calendário forense: ' + nC + ' entrada\\(s\\) \\(' + nS + ' sem fonte').test(itC.msg), JSON.stringify(itC));
+  const bkCal = fs.readFileSync(CALF, 'utf8');
+  fs.writeFileSync(CALF, '{"versao":1,"entradas":[');
+  r = run7([SC7('doutor.js'), '--json', '--rapido']); try { dj7 = JSON.parse(r.out); } catch (e) { dj7 = {}; }
+  const itC2 = (dj7.itens || []).find((x) => x.id === 'calendario') || {};
+  const rCalc = run7([PZ, 'calcular', '03/11/2026', '5', '--caso', 'londrina banco']);
+  const rAdd = run7([PZ, 'calendario', 'adicionar', '--tipo', 'feriado', '--data', '01/12/2026', '--global', '--motivo', 'x', '--fonte', 'y']);
+  t('h) calendário ilegível: doutor dá aviso com conserto (sem falhar), o cálculo avisa e nada é gravado por cima', itC2.ok === false && itC2.nivel === 'aviso' && itC2.conserto === 'calendario' && dj7.ok === true && /ilegível/.test(rCalc.out) && rAdd.code === 2 && fs.readFileSync(CALF, 'utf8') === '{"versao":1,"entradas":[', JSON.stringify(itC2) + rCalc.out + rAdd.out);
+  r = run7([SC7('doutor.js'), '--consertar']);
+  t('h) doutor --consertar guarda o calendário estragado de lado', !fs.existsSync(CALF) && fs.readdirSync(B7).some((n) => /^calendario\.json\.corrompido-/.test(n)), r.out.slice(-500));
+  fs.writeFileSync(CALF, bkCal);
+  fs.rmSync(path.join(B7, 'calendario.json.tmp-x'), { force: true });
+
+  // d) reinstalar nao apaga; desinstalar preserva
+  r = run7([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC7]);
+  t('d) reinstalar não apaga nem duplica o calendário do advogado', r.code === 0 && fs.readFileSync(CALF, 'utf8') === bkCal, r.out.slice(-300));
+  r = run7([path.join(RAIZ, 'scripts', 'instalar.js'), '--desinstalar']);
+  t('d) desinstalar preserva calendario.json (e avisa)', r.code === 0 && fs.readFileSync(CALF, 'utf8') === bkCal && /calendário forense .* preservado/.test(r.out), r.out);
+
+  // compatibilidade da biblioteca antiga
+  t('lib/prazos: assinaturas antigas continuam (extras "MM-DD"), com parâmetro opcional de calendário', pzL.iso(pzL.calcularVencimento(new Date(2026, 8, 4), 3, ['09-08'])) === '2026-09-11' && pzL.iso(pzL.calcularVencimento(new Date(2026, 8, 4), 3)) === '2026-09-10' && pzL.ehDiaUtil(new Date(2026, 8, 8), ['09-08']) === false && pzL.diasUteisAte(new Date(2026, 10, 14), new Date(2026, 10, 12)) === 2 && pzL.feriados(2026).has('2026-11-20'));
 }
 
 console.log('\n13. Desinstalação');
