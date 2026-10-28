@@ -1,4 +1,4 @@
-# Testa em Linux/Windows/macOS a cada push e PR; em tags v* gera o zip + SHA256 e publica a Release.
+# Testa em Linux/Windows/macOS a cada push e PR (também no fuso de São Paulo às 23h30, com relógio falso); em tags v* gera o zip + SHA256 e publica a Release.
 # Os nomes fixos (advogado-claude-mod.zip / .sha256) permitem o link estável
 #   https://github.com/<dono>/<repo>/releases/latest/download/advogado-claude-mod.zip
 # usado pelo INSTALAR.md.
@@ -55,9 +55,35 @@ jobs:
         if: runner.os == 'Windows'
         run: node testes/simular-bootstrap.js --shell powershell
 
+  # "Hoje" do assistente é o dia LOCAL da máquina do advogado. Roda a suíte às 23h30 de São Paulo (já 28/10 em UTC)
+  # com relógio falso (testes/relogio-falso.js, via ADVOGADO_TESTE_AGORA; funciona em qualquer sistema).
+  # O TZ é garantido no Ubuntu; Windows/macOS rodam o mesmo relógio (as regressões que dependem de TZ se pulam se o Node não aplicar TZ).
+  testes-fuso:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os != 'ubuntu-latest' }}
+    env:
+      TZ: America/Sao_Paulo
+      ADVOGADO_TESTE_AGORA: '2026-10-27T23:30:00-03:00'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Ferramentas opcionais (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          python3 -m pip install --quiet python-docx || true
+      - name: Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)
+        run: node testes/rodar-testes.js
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: testes
+    needs: [testes, testes-fuso]
     runs-on: ubuntu-latest
     permissions:
       contents: write

@@ -448,6 +448,7 @@ Feriados estaduais/municipais e suspensões por tribunal/comarca (antigo Roadmap
 - `prorrogar(alvo, extras, cal)`: vencimento em dia não útil → primeiro dia útil seguinte (CPC art. 224 §1º). `detalharVencimento` devolve também as entradas consideradas (as que bloquearam dia de semana dentro do prazo).
 - Rito não muda: JEC/trabalhista em dias úteis; penal em dias corridos (o script não serve) — aviso mantido na saída.
 - `lerPrazos` passa a expor `origem`, `calculo` (`[cálculo: DD/MM/AAAA + N dias úteis (· tribunal · comarca)]` na coluna Origem) e `linha`. Só texto: PRAZOS.md antigos continuam válidos.
+- **"Hoje" = dia local** (`lib/prazos.agora()`/`hojeLocal()`): relógio e fuso do sistema do advogado (ou `TZ`), nunca UTC (entre 21h e 23h59 em São Paulo o UTC já é o dia seguinte). `ADVOGADO_AGORA` fixa o instante. A chave do cache da statusline inclui o dia local. Testes: `testes/relogio-falso.js` (`ADVOGADO_TESTE_AGORA`, propagado aos filhos por `NODE_OPTIONS`) e o job `testes-fuso` do CI (TZ=America/Sao_Paulo, 27/10/2026 23h30).
 
 ### 16.4 Migração de `feriadosExtras`
 - `migrarExtras()` (no `instalarArquivosBase`, logo em toda instalação/reinstalação/bootstrap de plugin, e em todo `prazos.js calendario …`): cada valor vira entrada global `feriado` `[SEM FONTE]` (`MM-DD` → recorrente) e entra em `migradosDeFeriadosExtras`. Idempotente; `config.feriadosExtras` fica como está. Removida pelo advogado, não volta (está na lista de migrados). Antes de migrar, `ativo()` já soma em memória os pendentes.

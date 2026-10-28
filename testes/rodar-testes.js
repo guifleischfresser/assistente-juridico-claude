@@ -8,6 +8,13 @@ const os = require('os');
 const { spawnSync, execFileSync } = require('child_process');
 
 const RAIZ = path.resolve(__dirname, '..');
+// Relogio falso opcional (CI: job de fuso). Vale para este processo e para todos os filhos (NODE_OPTIONS).
+if (process.env.ADVOGADO_TESTE_AGORA) {
+  const rf = path.join(__dirname, 'relogio-falso.js');
+  require(rf);
+  process.env.NODE_OPTIONS = ((process.env.NODE_OPTIONS || '') + ' --require "' + rf.replace(/\\/g, '/') + '"').trim();
+  console.log('Relógio falso: ' + process.env.ADVOGADO_TESTE_AGORA + ' · TZ=' + (process.env.TZ || '(sistema)') + ' · agora local: ' + new Date().toString());
+}
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'adv-teste-'));
 const CL = path.join(TMP, '.claude');
 const ESC = path.join(TMP, 'ESCRITORIO');
@@ -997,7 +1004,14 @@ console.log('\n12f. v0.7: calendário forense local (feriados e suspensões por 
 
   // g) statusline e SessionStart com o calendario do caso
   const pzL = require(path.join(RAIZ, 'scripts', 'lib', 'prazos'));
-  let X = new Date(); for (let n = 0; n < 3;) { X = pzL.somaDias(X, 1); if (pzL.ehDiaUtil(X)) n++; }
+  // X = 3o dia util a partir de hoje NO CALENDARIO DO CASO (inclui os feriados migrados do sandbox, como 30/10/2026),
+  // calculado pelo proprio lib instalado, no mesmo relogio dos scripts. Antes usava so os feriados nacionais e
+  // quebrava nos dias em que X caia num feriado do calendario (ex.: rodando em 27/10/2026).
+  const diaUtilDoCaso = (caso, n) => run7(['-e', 'const cl=require(' + JSON.stringify(SC7('lib/calendario.js')) + '),pz=require(' + JSON.stringify(SC7('lib/prazos.js')) + '),c=require(' + JSON.stringify(SC7('lib/comum.js')) + ');const cfg=c.config();const cal=cl.ativo(cl.resolverContexto({caso:' + JSON.stringify(caso) + '},cfg.escritorio),cfg);let X=pz.hojeLocal(),k=0;while(k<' + n + '){X=pz.somaDias(X,1);if(pz.ehDiaUtil(X,[],cal))k++;}process.stdout.write(pz.iso(X));']).out.trim();
+  const xIso = diaUtilDoCaso('maringa banco', 3);
+  let X = pzL.lerData(xIso);
+  t('g) (preparo) 3º dia útil do calendário do caso calculado', !!X, xIso);
+  X = X || pzL.somaDias(new Date(), 5);
   const xBR = String(X.getDate()).padStart(2, '0') + '/' + String(X.getMonth() + 1).padStart(2, '0') + '/' + X.getFullYear();
   fs.writeFileSync(PZF, '| Vencimento | Caso | O que fazer | Origem | Status |\n|---|---|---|---|---|\n| ' + xBR + ' | 2026-maringa-banco | Apelação | intimação | pendente |\n');
   const sl7 = () => { try { fs.unlinkSync(path.join(B7, 'estado', 'prazo-cache.json')); } catch (e) { /* */ } const o = run7([SC7('statusline.js')], { session_id: 's7', context_window: { used_percentage: 10 } }).out; const m = o.match(/prazo em (\d+) dias? úte\S* \((\d\d\/\d\d)\)/); return { o, n: m ? +m[1] : null, dm: m ? m[2] : null }; };
@@ -1032,6 +1046,40 @@ console.log('\n12f. v0.7: calendário forense local (feriados e suspensões por 
   t('h) doutor --consertar guarda o calendário estragado de lado', !fs.existsSync(CALF) && fs.readdirSync(B7).some((n) => /^calendario\.json\.corrompido-/.test(n)), r.out.slice(-500));
   fs.writeFileSync(CALF, bkCal);
   fs.rmSync(path.join(B7, 'calendario.json.tmp-x'), { force: true });
+
+  // i) fuso: entre 21h e 23h59 em São Paulo o UTC já é o dia seguinte; "hoje" tem de ser o dia LOCAL da máquina
+  {
+    // sem depender de TZ (vale em qualquer sistema): 23h30 locais ainda são "hoje"
+    const h2330 = new Date(2026, 9, 27, 23, 30);
+    t('i) lib/prazos: 23h30 locais de 27/10 ainda são 27/10 (hojeLocal) e 28/10 fica a 1 dia útil', pzL.iso(pzL.hojeLocal(h2330)) === '2026-10-27' && pzL.diasUteisAte(new Date(2026, 9, 28), h2330) === 1 && pzL.diasUteisAte(new Date(2026, 9, 27), h2330) === 0);
+    const AG = '2026-10-27T23:30:00-03:00'; // terça 27/10 em São Paulo = quarta 28/10 02:30 UTC
+    const runF = (agora, args, entrada) => { const x = spawnSync(process.execPath, args, { env: Object.assign({}, env7, { TZ: 'America/Sao_Paulo', ADVOGADO_AGORA: agora }), encoding: 'utf8', cwd: R7, input: entrada == null ? '' : JSON.stringify(entrada) }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+    const tzOk = runF(AG, ['-e', 'process.stdout.write(String(new Date(' + JSON.stringify(AG) + ').getDate()))']).out === '27';
+    if (!tzOk) console.log('  ⏭️  i) o Node deste sistema não aplica TZ=America/Sao_Paulo: regressões de fuso com TZ puladas (as sem TZ continuam)');
+    else {
+      const libF = runF(AG, ['-e', 'const pz=require(' + JSON.stringify(SC7('lib/prazos.js')) + ');process.stdout.write([pz.iso(pz.hojeLocal()),pz.diasUteisAte(pz.lerData("28/10/2026")),pz.diasUteisAte(pz.lerData("27/10/2026")),new Date(' + JSON.stringify(AG) + ').toISOString().slice(0,10)].join(","))']).out;
+      t('i) TZ=America/Sao_Paulo, 27/10 23h30 (28/10 em UTC): hoje = 27/10; 28/10 a 1 dia útil; 27/10 = 0', libF === '2026-10-27,1,0,2026-10-28', libF);
+      const pzBk = fs.readFileSync(PZF, 'utf8');
+      const cab = '| Vencimento | Caso | O que fazer | Origem | Status |\n|---|---|---|---|---|\n';
+      const cacheF = path.join(B7, 'estado', 'prazo-cache.json');
+      const slF = (agora) => runF(agora, [SC7('statusline.js')], { session_id: 's7f', context_window: { used_percentage: 10 } }).out;
+      fs.writeFileSync(PZF, cab + '| 27/10/2026 | 2026-maringa-banco | Embargos | intimação | pendente |\n| 28/10/2026 | 2026-maringa-banco | Réplica | intimação | pendente |\n');
+      fs.rmSync(cacheF, { force: true });
+      const sF = slF(AG);
+      t('i) statusline às 23h30 em São Paulo: prazo de 27/10 é HOJE (não "vencido" pelo UTC)', /prazo HOJE \(27\/10\): Embargos/.test(sF), sF);
+      const jF = (() => { const x = runF(AG, [SC7('sessao-inicio.js')], { session_id: 's7f', source: 'startup', hook_event_name: 'SessionStart', cwd: R7 }); try { return JSON.parse(x.out); } catch (e) { return {}; } })();
+      const cxF = (jF.hookSpecificOutput && jF.hookSpecificOutput.additionalContext) || '';
+      t('i) SessionStart às 23h30 em São Paulo: 27/10 com 0 dia útil e 28/10 com 1', /2026-10-27 \(0 dia\(s\) útil\(eis\)\): 2026-maringa-banco — Embargos/.test(cxF) && /2026-10-28 \(1 dia\(s\) útil\(eis\)\): 2026-maringa-banco — Réplica/.test(cxF), cxF.slice(0, 1500));
+      fs.writeFileSync(PZF, cab + '| 28/10/2026 | 2026-maringa-banco | Réplica | intimação | pendente |\n');
+      fs.rmSync(cacheF, { force: true });
+      const sF2 = slF(AG);
+      const sF3 = slF('2026-10-28T00:05:00-03:00'); // virada do dia local, sem apagar o cache
+      t('i) statusline: 28/10 a 1 dia útil às 23h30 de 27/10 e HOJE depois da meia-noite local (o cache vira com o dia local)', /prazo em 1 dia útil \(28\/10\): Réplica/.test(sF2) && /prazo HOJE \(28\/10\): Réplica/.test(sF3), sF2 + ' || ' + sF3);
+      const rCalcF = runF('2026-10-27T21:00:00-03:00', [PZ, 'calendario', 'ver', '--caso', 'maringa banco']);
+      t('i) calendario ver sem --ano às 21h de 31/12 local usa o ano local', (() => { const x = runF('2026-12-31T21:00:00-03:00', [PZ, 'calendario', 'ver', '--caso', 'maringa banco']); return /— 2026\b/.test(x.out) && !/— 2027\b/.test(x.out); })() && rCalcF.code === 0, rCalcF.out.slice(0, 300));
+      fs.writeFileSync(PZF, pzBk); fs.rmSync(cacheF, { force: true });
+    }
+  }
 
   // d) reinstalar nao apaga; desinstalar preserva
   r = run7([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC7]);

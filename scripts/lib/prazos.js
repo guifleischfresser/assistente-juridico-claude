@@ -17,6 +17,14 @@ function pascoa(ano) { // algoritmo de Meeus/Jones/Butcher
   return new Date(ano, mes - 1, dia);
 }
 function iso(d) { const z = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); }
+/**
+ * "Agora" e "hoje" do assistente: sempre o relogio e o fuso LOCAL da maquina do advogado
+ * (o do sistema; respeita TZ=... se definido). Nunca comparar datas por toISOString()/UTC:
+ * entre 21h e 23h59 em Sao Paulo o UTC ja e o dia seguinte.
+ * ADVOGADO_AGORA (ISO com fuso, ex. 2026-10-27T23:30:00-03:00) fixa o instante, como na manutencao (testes).
+ */
+function agora() { const v = process.env.ADVOGADO_AGORA; if (v) { const d = new Date(v); if (!isNaN(d.getTime())) return d; } return new Date(); }
+function hojeLocal(d) { d = d || agora(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 function somaDias(d, n) { const r = new Date(d.getFullYear(), d.getMonth(), d.getDate()); r.setDate(r.getDate() + n); return r; }
 
 function feriados(ano, extras) {
@@ -68,8 +76,7 @@ function detalharVencimento(inicio, dias, extras, cal) {
 }
 /** Dias uteis entre hoje (exclusive) e a data (inclusive). Negativo = vencido. */
 function diasUteisAte(alvo, hoje, extras, cal) {
-  hoje = hoje || new Date();
-  const h = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+  const h = hojeLocal(hoje || agora());
   const a = prorrogar(alvo, extras, cal);
   if (a.getTime() === h.getTime()) return 0;
   const passo = a > h ? 1 : -1; let d = h, n = 0;
@@ -123,4 +130,4 @@ function lerPrazos(arquivo) {
   return itens.sort((a, b) => a.data - b.data);
 }
 
-module.exports = { pascoa, feriados, ehDiaUtil, ehDiaContavel, calcularVencimento, diasUteisAte, lerData, lerPrazos, iso, emRecesso, somaDias, prorrogar, entradasNoPeriodo, detalharVencimento, lerCalculo, marcaCalculo, RE_CALCULO };
+module.exports = { agora, hojeLocal, pascoa, feriados, ehDiaUtil, ehDiaContavel, calcularVencimento, diasUteisAte, lerData, lerPrazos, iso, emRecesso, somaDias, prorrogar, entradasNoPeriodo, detalharVencimento, lerCalculo, marcaCalculo, RE_CALCULO };
