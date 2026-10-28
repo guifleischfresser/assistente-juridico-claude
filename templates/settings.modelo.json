@@ -23,7 +23,8 @@
       "Read(~/.ssh/**)",
       "Read(**/.env)",
       "Read(**/*.pfx)",
-      "Read(**/*.p12)"
+      "Read(**/*.p12)",
+      "Read(**/_anonimizacao/**)"
     ],
     "additionalDirectories": [
       "{{ESCRITORIO}}",
@@ -45,7 +46,7 @@
       { "matcher": "Write|Edit|MultiEdit|NotebookEdit", "hooks": [
         { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/guarda-escrita.js"], "timeout": 15 }
       ] },
-      { "matcher": "^(Bash|PowerShell|WebFetch|WebSearch|mcp__.*)$", "hooks": [
+      { "matcher": "^(Bash|PowerShell|WebFetch|WebSearch|Read|NotebookRead|Grep|mcp__.*)$", "hooks": [
         { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/guarda-sigilo.js"], "timeout": 10 }
       ] }
     ],

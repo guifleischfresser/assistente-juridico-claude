@@ -138,10 +138,12 @@ function diagnosticarSessao(opts) {
         const nossos = [];
         for (const [ev, grupos] of Object.entries(s.hooks || {})) for (const g of grupos || []) for (const h of g.hooks || []) {
           const m = (JSON.stringify(h.args || []) + ' ' + (h.command || '')).match(/advogado[\\/]+scripts[\\/]+([\w-]+\.js)/);
-          if (m) nossos.push({ ev, script: m[1] });
+          if (m) nossos.push({ ev, script: m[1], matcher: g.matcher || '' });
         }
         const faltamEv = Object.entries(EVENTOS).filter(([ev, sc]) => !nossos.some((n) => n.ev === ev && n.script === sc)).map(([ev]) => ev);
         if (!nossos.some((n) => n.script === 'guarda-sigilo.js')) faltamEv.push('PreToolUse(guarda-sigilo)');
+        // anonimizacao: a guarda de sigilo precisa ver as leituras (Read/Grep) para proteger o original e a tabela
+        else if (!nossos.some((n) => n.script === 'guarda-sigilo.js' && /\bRead\b/.test(n.matcher))) faltamEv.push('PreToolUse(guarda-sigilo: Read|Grep)');
         if (faltamEv.length) prob('hooks', 'erro', 'Algumas proteções do assistente (sigilo, cópia de segurança das peças, aviso de prazo) foram desligadas por uma atualização do Claude — ' + CONSERTAR.replace('devolvo', 'religo') + '.', 'Hooks faltando: ' + faltamEv.join(', '), 'reinstalar');
         else ok('hooks', 'Proteções do assistente ligadas');
       }

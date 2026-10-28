@@ -14,6 +14,8 @@
  * v0.5: recusa tambem julgado registrado como divergente/inexistente no livro de conferencias (julgados.js).
  * v0.6: recusa SEMPRE (codigo 3, sem --forcar) peca com texto oculto: fonte branca/minuscula, vanish,
  *       caracteres de largura zero, CSS que esconde (lib/injecao.js).
+ * Anonimizacao: recusa (codigo 2, salvo --forcar) peca com marcador nao revertido ([PARTE_A], [CPF_1]...);
+ *       com --forcar, os marcadores saem grifados.
  */
 const fs = require('fs');
 const path = require('path');
@@ -29,7 +31,7 @@ function runs(texto, base) {
   base = base || {};
   texto = texto.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '$1 ($2)').replace(/`([^`]+)`/g, '$1');
   const out = [];
-  const re = /(\*\*[^*]+\*\*|\*[^*]+\*|_[^_]+_|\[N[ÃA]O VERIFICADO[^\]]*\]|\[PREENCHER[^\]]*\]|\[[A-ZÇÃÉÍÓÚ ]{3,}\])/g;
+  const re = /(\*\*[^*]+\*\*|\*[^*]+\*|_[^_]+_|\[N[ÃA]O VERIFICADO[^\]]*\]|\[PREENCHER[^\]]*\]|\[[A-ZÇÃÉÍÓÚ ]{3,}\]|\[(?:PARTE|CPF|CNPJ|PROCESSO|RG|EMAIL|TELEFONE|ENDERECO|CEP)_[A-Z0-9]{1,4}(?:#\d{1,3})?\])/g;
   let ult = 0, m;
   while ((m = re.exec(texto))) {
     if (m.index > ult) out.push(run(texto.slice(ult, m.index), base));
@@ -141,6 +143,13 @@ if (require.main === module) {
     console.log(inj.avisoGravacao(oculto, 'na peça') + '\n(Não gerei o Word. Detalhe para o assistente: ' + oculto.map((o) => o.motivo + (o.texto ? ' «' + o.texto.slice(0, 60) + '»' : '')).join('; ') + '. Remova e exporte de novo; --forcar não libera isto.)');
     process.exit(3);
   }
+  // anonimizacao: o Word e a versao final; marcador que sobrou e dado que faltou devolver
+  const restantes = require('./lib/anonimizar').marcadores(md);
+  if (restantes.length && !forcar) {
+    console.log('❌ Exportação interrompida: a peça ainda tem ' + restantes.length + ' marcador(es) de anonimização no lugar de dados reais (ex.: ' + Array.from(new Set(restantes.map((m) => m.marcador))).slice(0, 5).join(', ') + ', linha ' + restantes[0].linha + ').');
+    console.log('Devolva os dados reais antes: node "' + path.join(__dirname, 'anonimizar.js') + '" reverter "' + args[0] + '" e exporte o arquivo -dados-reais. (Para exportar mesmo assim, com os marcadores grifados: --forcar)');
+    process.exit(2);
+  }
   const { analisarCitacoes } = require('./lib/citacoes');
   const todas = analisarCitacoes(md, path.dirname(args[0]), cfg.escritorio);
   const prob = todas.filter((x) => x.problema);
@@ -170,6 +179,7 @@ if (require.main === module) {
   if (mem) { try { mem.registrarRascunho(saida); } catch (e) { /* */ } }
   const marcadas = todas.filter((x) => x.marcada).length;
   if (leis.length) console.log('ℹ️ ' + leis.length + ' dispositivo(s) legal(is) citados sem fonte (ex.: ' + leis[0].texto + '). Confira a redação vigente no Planalto.');
+  if (restantes.length) console.log('⚠️ ' + restantes.length + ' marcador(es) de anonimização foram para o Word (grifados em amarelo) porque você usou --forcar. Troque pelos dados reais antes de protocolar.');
   console.log('✅ Documento gerado: ' + saida + (marcadas ? '\n⚠️ Atenção: ' + marcadas + ' citação(ões) marcadas [NÃO VERIFICADO] (grifadas em amarelo). Confira antes de protocolar.' : ''));
 }
 module.exports = { converter, montarDocx };

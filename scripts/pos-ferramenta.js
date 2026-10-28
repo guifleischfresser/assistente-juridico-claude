@@ -76,6 +76,14 @@ c.rodarHook('pos-ferramenta', (ent) => {
     if (mudou) c.gravarSessao(ent.session_id, s);
   } catch (e) { c.log('erros', 'v05 pos: ' + e.message); }
 
+  // anonimizacao: o advogado autorizou ler o ORIGINAL de um caso anonimizado => lembrete de usar os marcadores
+  if (nome === 'Read' && inp.file_path) {
+    try {
+      const r = require('./lib/anonimizar').avaliarLeitura(inp.file_path, c.config().escritorio);
+      if (r && r.decisao === 'ask') avisos.push('🔒 Você leu o ORIGINAL de um caso anonimizado ("' + r.caso + '"), com os dados reais do cliente. Na peça, nas anotações e na memória continue usando só os marcadores ([PARTE_A], [CPF_1]…)' + (r.copia ? '; para o resto do trabalho, leia a cópia ' + r.copia : '') + '. Não repita os dados reais na conversa.');
+    } catch (e) { c.log('erros', 'anonimizar pos: ' + e.message); }
+  }
+
   if (nome === 'Read' || nome === 'WebFetch') {
     const tr = ent.tool_response;
     const bruto = typeof tr === 'string' ? tr : tr && typeof tr === 'object' ? [tr.content, tr.result, tr.output, tr.text, tr.file && tr.file.content].filter((x) => typeof x === 'string').join('\n') || JSON.stringify(tr) : '';

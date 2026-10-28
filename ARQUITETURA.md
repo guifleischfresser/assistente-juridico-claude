@@ -64,8 +64,8 @@ O padrão é `%USERPROFILE%\ESCRITORIO`, e não Documentos, porque Documentos é
 |---|---|---|
 | SessionStart | sessao-inicio.js | Recria pastas faltantes. Injeta: versão, onboarding pendente, "próximos passos" do último handoff (≤7 dias), aviso pós-compactação, prazos ≤5 dias úteis (com o calendário forense do caso; v0.7), candidatas a skill e skills alteradas recentemente. No modo plugin, faz o bootstrap da base. |
 | UserPromptSubmit | registro-pedidos.js | Detector de repetição. Guarda **só radicais** (descarta nomes próprios e números) e usa Jaccard ≥0,5 em 30 dias. Na 3ª ocorrência sem skill que cubra o pedido, cria uma candidata e aponta para `criar-skill-automatica`. |
-| PreToolUse Write/Edit | guarda-escrita.js | Bloqueia: alterar amostras de estilo e WIKI/raw; escrever direto em skill viva auto-* ou de núcleo; PII forte em arquivos do harness; CLAUDE.md global >80 linhas; sobrescrever arquivo não lido. Pede confirmação em Arquivados. Faz **backup antes de toda alteração**. |
-| PreToolUse Bash/PowerShell/Web/MCP | guarda-sigilo.js | **ask** em qualquer transferência para fora (curl POST/-F/-T, scp, rsync, rclone, git push, gh create, s3/gsutil/azcopy, Invoke-WebRequest -Body/-InFile, Send-MailMessage, requests.post, smtplib, fetch), em cópias para pastas de nuvem e em ferramentas MCP de envio/criação. **deny** em busca web contendo CPF/CNPJ/nº CNJ e em exclusão em massa no ESCRITORIO. |
+| PreToolUse Write/Edit | guarda-escrita.js | Bloqueia: alterar amostras de estilo e WIKI/raw; escrever direto em skill viva auto-* ou de núcleo; PII forte em arquivos do harness; CLAUDE.md global >80 linhas; sobrescrever arquivo não lido; tabela de anonimização fora da pasta do caso e dado real de caso anonimizado no harness (§17). Pede confirmação em Arquivados. Faz **backup antes de toda alteração**. |
+| PreToolUse Bash/PowerShell/Web/MCP/Read/Grep | guarda-sigilo.js | **ask** em qualquer transferência para fora (curl POST/-F/-T, scp, rsync, rclone, git push, gh create, s3/gsutil/azcopy, Invoke-WebRequest -Body/-InFile, Send-MailMessage, requests.post, smtplib, fetch), em cópias para pastas de nuvem e em ferramentas MCP de envio/criação. **deny** em busca web contendo CPF/CNPJ/nº CNJ e em exclusão em massa no ESCRITORIO. Anonimização (§17): **ask** ao ler o original de caso anonimizado; **deny** na tabela (Read/Grep/terminal). |
 | PostToolUse * | pos-ferramenta.js | Scanner de injeção em Read/WebFetch; checagem de citações a cada escrita de peça; validação automática de rascunho de skill; contador de uso; aviso único entre 65% e 75% de contexto. |
 | Stop | gatilho-handoff.js | ≥ limite → `block` + "⚠️ HANDOFF AUTOMÁTICO…". Respeita `stop_hook_active` e só dispara de novo após mais 10 pontos. |
 | statusLine | statusline.js | `⚖️ nome │ 📁 caso (fase) │ 🧠 memória X% ▓▓░ │ ⏰ prazo │ modelo` |
@@ -135,6 +135,7 @@ O alerta entra como `additionalContext`. O CLAUDE.md reforça que documentos sã
 - O detector de repetição não guarda o texto dos pedidos.
 - O DOSSIE tem uma seção "Uso de IA (Recomendação CFOAB nº 001/2024)", e há um modelo de termo de consentimento.
 - **Limitação conhecida:** o conteúdo da conversa vai para a API da Anthropic (inerente ao Claude Code), e os transcripts ficam em `~/.claude/projects` por `cleanupPeriodDays`. Ver as questões em aberto.
+- **Anonimização opcional por caso** (`/anonimizar`, §17): reduz o que vai para a API trocando partes e documentos por marcadores antes da leitura; a tabela fica só na pasta do caso.
 
 ## 9. Brasil-nativo
 
@@ -468,16 +469,59 @@ Feriados estaduais/municipais e suspensões por tribunal/comarca (antigo Roadmap
 ### 16.7 Testes (v0.7)
 - Suíte: 276 (+28), sandbox próprio com config antigo (`feriadosExtras`): migração/idempotência, foro no DOSSIE, Curitiba × Londrina, suspensão 04–06/11, indisponibilidade no vencimento (recontado e só art. 224 §1º), simulação × `--confirmar` (sem duplicar, `_versoes`), [SEM FONTE], `ver`/`remover`, statusline (data prorrogada, cache) e SessionStart, doutor (contagem, arquivo ilegível, conserto), reinstalação/desinstalação preservando, assinaturas antigas de `lib/prazos`, contexto fixo ≤ 3.543.
 
-## 17. Roadmap
+## 17. Anonimização opcional antes do envio (antigo Roadmap item 3)
+
+Pseudonimização **reversível, por caso e opt-in**: o assistente lê cópias com marcadores; a tabela de correspondência fica só na pasta do caso; a reversão devolve os dados reais no rascunho final. Tudo local, sem rede, Node puro.
+
+### 17.1 Arquivos e comandos (`scripts/anonimizar.js`, `scripts/lib/anonimizar.js`, skill `/anonimizar`)
+| Item | Onde |
+|---|---|
+| Tabela (dados reais) | `CASOS/<fase>/<caso>/_anonimizacao/tabela.json` — `{"tipo":"tabela-anonimizacao","versao":1,"caso","ativa","contadores","entradas":[{id,tipo,chave,chaves?,original,formas[]}],"documentos":{rel:{sha256,copia,em}}}` |
+| Cópias anonimizadas | `<caso>/anonimizado/<mesmo caminho relativo>` (`.md/.txt` mantêm o nome; `.pdf/.docx/.html` → `<nome>.<ext>.md` via `lib/extrair.js`); arquivo de fora do caso → `anonimizado/<nome>` |
+| Versão com dados reais | `<peça>-dados-reais.md` ao lado da peça (anterior → `_versoes/`); `--saida` muda |
+
+- `preparar <caso>`: liga (`ativa: true`) e alimenta a tabela com DOSSIE (`Cliente`, `Parte contrária`, `Partes`, rótulos processuais e `Anonimizar também:`), `--nome/--cpf/--cnpj/--processo/--rg/--email/--telefone/--endereco/--cep` e os detectores rodando sobre DOSSIE, `documentos/` e `autos-md/` (sem gravar cópias). `aplicar <caso> [arquivos]` exige `ativa` (código 2 senão). `reverter`, `conferir`, `estado`, `desligar` (mantém a tabela). Saídas nunca trazem dado real; códigos 0/1/2/3 como os outros scripts.
+- Regra estreita `Bash/PowerShell(node "…/anonimizar.js" *)` no instalador; `doutor` confere o script (FERRAMENTAS); empacotamento e plugin pegam o arquivo pelo `git ls-files`/pasta `scripts/`; desinstalar remove a regra (filtro `advogado/scripts`) e nunca toca tabelas nem cópias (ficam no ESCRITORIO).
+
+### 17.2 Marcadores, estabilidade e reversão determinística
+- Tipos → prefixos: nome `PARTE_<A,B,…,Z,AA…>`; `CPF_n`, `CNPJ_n`, `PROCESSO_n` (CNJ), `RG_n`, `EMAIL_n`, `TELEFONE_n`, `ENDERECO_n`, `CEP_n`. Contadores por caso, criados na ordem de aparição (DOSSIE primeiro: o cliente costuma ser `[PARTE_A]`).
+- **Chave** por tipo: nomes/endereços dobrados (NFD sem diacríticos, minúsculas, espaços unificados, sem pontuação final — "S.A." = "S.A"); documentos e telefone por dígitos (telefone sem o 55); e-mail em minúsculas. A mesma chave → a mesma entrada, em todos os documentos do caso.
+- **Grafias**: `formas[0]` é a canônica (`[PARTE_A]`); cada grafia diferente encontrada no texto entra em `formas` e vira `[PARTE_A#n]`. Como a grafia exata é guardada (incluindo NFD e espaços/CRLF dentro do nome), `reverterTexto(anonimizarTexto(x))` reproduz `x` byte a byte; a peça nova escrita com `[PARTE_A]` recebe a grafia canônica.
+- Localização no texto: documentos por regex (ASCII; NFC e NFD coincidem); nomes e endereços por busca na versão dobrada com mapa de índices para o original (acento em NFD do macOS, maiúsculas, sem acento), com fronteira de palavra. Sobreposição: começa antes e, no empate, a mais longa.
+- Reversão: regex `\[(PARTE|CPF|CNPJ|PROCESSO|RG|EMAIL|TELEFONE|ENDERECO|CEP)_(…)(#n)?\]` (tolerante a caixa); marcador sem entrada ou variante inexistente fica como está e é listado com a linha (**órfão**, código 2) — nunca se inventa o dado.
+
+### 17.3 Detecção (e limites)
+- CPF formatado (`000.000.000-00`) ou 11 dígitos **com DV válido**; CNPJ idem (14); CNJ formatado ou 20 dígitos; RG depois de "RG"; e-mail; telefone com DDD entre parênteses/separado (+55 opcional); CEP formatado ou depois de "CEP"; endereço "Rua/Av./Alameda/Travessa/Rodovia/Estrada/Praça/Largo/Servidão …, nº".
+- Nomes (regex Unicode no texto em NFC; palavras com inicial maiúscula, conectores da/de/do/das/dos/e, nunca atravessando linha): rótulo processual (`Autor:`, `Réu:`, `Requerente:`, `Reclamada:`, `Exequente:`, `Testemunha` **não** — só se qualificada), qualificação (`NOME, brasileiro|portador|inscrito|pessoa jurídica|residente…`) e sufixo de PJ. Limpeza: tira tratamento (Sr./Dr./Exmo.), palavras de abertura e, se houver trecho final em CAIXA ALTA depois de palavras comuns, fica com ele; exige 2+ palavras.
+- **Não perfeita** (documentado ao advogado em toda aplicação): nome isolado, apelido, sobrenome solto, nome em meio de frase sem qualificação. Juiz/advogado/tribunal não são trocados. O nome da pasta do caso aparece em `/processo`. Remédio: a linha `Anonimizar também:` no DOSSIE (escrita pelo advogado, fora da conversa) ou `--nome "Nome|Variante"` (variantes separadas por `|` são a mesma parte).
+
+### 17.4 Guardas (todas fail-open, como os outros hooks)
+- **Por que `ask` e não `deny` no original:** a decisão é do advogado (ele pode querer que o Claude veja um trecho real), e o `deny` cego quebraria fluxos legítimos (`/preparar-autos`, conferência). O hook só pergunta quando o arquivo está num caso com `ativa: true`, fora de `anonimizado/`, e **contém** algum dado da tabela (texto ≤ 3 MB, comparação dobrada para nomes e por dígitos para documentos) ou é binário (PDF/Word/imagem). Peças só com marcadores passam livres. Para isso a `guarda-sigilo` passou a ouvir `Read|NotebookRead|Grep` (mesmo grupo de `PreToolUse`, sem hook novo; o doutor acusa matcher antigo e `/consertar` religa).
+- **Grep**: só pergunta em modo conteúdo (`output_mode: content` ou `-A/-B/-C`) — `files_with_matches`/`count` mostram só nomes. Pergunta se o caminho está no caso fora das cópias ou é ancestral de caso anonimizado ligado.
+- **Tabela**: `deny` sempre (mesmo com a anonimização desligada) em Read/Grep para caminho com segmento `_anonimizacao` (qualquer caixa, NFC) e em comando Bash/PowerShell que cite `_anonimizacao` (o próprio `anonimizar.js` nunca precisa do caminho). Defesa em profundidade: `Read(**/_anonimizacao/**)` em `permissions.deny`.
+- **PostToolUse**: depois de uma leitura autorizada do original, injeta o lembrete de continuar com marcadores.
+- **guarda-escrita** (antes de tudo): gravar na pasta da tabela → deny; texto com a assinatura `tabela-anonimizacao` (ou estrutura `formas`/`original` + marcadores) em qualquer outro arquivo → deny ("tabela fora da pasta do caso"); se o destino é harness (CLAUDE.md, skills, `*/memory/*`, `MEMORIA/**`, `habilidades/`, perfil de escrita) e o texto contém dado real de **qualquer** tabela do escritório → deny (complementa o filtro de CPF/CNJ formatado, que não pegava nomes).
+- Leituras de originais por terminal (`cat`, scripts) não são interceptadas — limitação aceita (seria parsing frágil de shell); a pasta da tabela é.
+
+### 17.5 Integrações
+- `processo.js abrir`: com a anonimização ligada, DOSSIE e HANDOFF saem com marcadores (entradas novas entram na tabela) e uma linha "🔒 Caso ANONIMIZADO…".
+- `exportar-docx.js`: marcador restante → código 2 (antes da checagem de citações); `--forcar` exporta e grifa os marcadores (como `[NÃO VERIFICADO]`). `checar-peca.js`: seção "Anonimização" com a contagem.
+- Instruções: linha no CLAUDE.md global, no `AGENTS.md` (Codex/Cursor, onde não há hooks) e em `/formatar-peca`; `/ajuda` e README.
+
+### 17.6 Contexto fixo e testes
+- `/anonimizar` é listada (descrição de 157 caracteres) para o Claude reconhecer o pedido em linguagem natural; corpo de ~2,4 mil caracteres e detalhes em `references/detalhes.md`. Contexto fixo **3.539 → 3.710** (25 skills); o teste de limite foi ajustado para ≤ 3.710 por esse motivo (CHANGELOG). Alternativa considerada: `disable-model-invocation: true` (custo zero), descartada porque o advogado costuma pedir sem o `/`.
+- Suíte 12g (+31): instalação/inventário, opt-in, cópias sem dado real, todos os tipos com e sem formatação, acento/maiúsculas/NFD, estabilidade entre documentos, casos separados, ida e volta idêntica, órfão, exportação barrada/`--forcar`, `checar-peca`, perguntas e negativas do hook, PostToolUse, guarda-escrita (tabela fora do caso, dado real na memória), `/processo`, `estado`, `desligar`.
+
+## 18. Roadmap
 
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
 2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita (a v0.5 já confere julgados por WebFetch nos sites autorizados; falta busca estruturada por tribunal).
-3. Anonimização opcional antes do envio (pseudonimizar partes no prompt).
-4. Registro de consentimento do cliente por caso.
-5. Canal de atualização opt-in, assinado.
-6. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
-7. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
-8. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
-9. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
-10. Erros a não repetir: sugerir o padrão automaticamente a partir do diff da correção (hoje o assistente escreve o regex e o validador confere).
-11. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.
+3. Registro de consentimento do cliente por caso.
+4. Canal de atualização opt-in, assinado.
+5. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
+6. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
+7. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
+8. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
+9. Erros a não repetir: sugerir o padrão automaticamente a partir do diff da correção (hoje o assistente escreve o regex e o validador confere).
+10. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.
+11. Anonimização: reconhecimento de nomes com dicionário local de prenomes/sobrenomes (menos falso negativo) e cópia anonimizada direto em `.docx`.

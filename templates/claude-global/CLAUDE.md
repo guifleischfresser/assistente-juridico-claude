@@ -17,6 +17,7 @@
 ## Onde está o detalhe (carregar sob demanda — aponte, não copie)
 - Procedimentos: skills `/processo`, `/novo-caso`, `/nova-peca`, `/mapa-de-teses`, `/revisar`, `/advogado-do-diabo`, `/verificar-citacoes`, `/preparar-autos`, `/prazos`, `/aprender-meu-estilo`, `/casos`, `/handoff`, `/erros`, `/habilidades`, `/consertar`, `/ajuda`.
 - **Uma conversa por processo** (`/processo <caso>`): carrega só o dossiê e o handoff daquele caso.
+- **Caso anonimizado** (`/anonimizar`, só se o advogado pedir): leia só `anonimizado/`, escreva com os marcadores (`[PARTE_A]`, `[CPF_1]`), nunca abra `_anonimizacao/`; dados reais só no fim (`/anonimizar reverter`).
 - Estilo do usuário: `ESTILO/perfil-de-escrita.md` (ler antes de redigir).
 - Memória de cada caso: `DOSSIE.md` na pasta do caso.
 - Preferências e cuidados aprendidos: `MEMORIA/preferencias-e-cuidados.md` (o assistente mantém; histórico em `MEMORIA/CHANGELOG.md`).

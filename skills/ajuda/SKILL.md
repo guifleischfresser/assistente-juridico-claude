@@ -17,6 +17,7 @@ Responda com esta tabela (ajuste se houver habilidades `auto-*` novas: liste-as 
 | `/mapa-de-teses` | Monto o mapa da defesa: cada pedido da inicial com valor, risco, teses e precedentes [A VERIFICAR] |
 | `/verificar-citacoes` | Confiro se cada julgado existe e se o trecho citado bate com o original (internet só com sua permissão); o resto fica [NÃO VERIFICADO] |
 | `/erros` | Mostro os erros que você já corrigiu e que não posso repetir |
+| `/anonimizar` | Só se você pedir, por caso: troco nomes, CPF/CNPJ, nº do processo, e-mails, telefones e endereços por marcadores antes de ler, e no fim devolvo os dados reais na peça (a tabela fica só na pasta do caso) |
 | `/formatar-peca` | Gero o .docx formatado (ABNT/forense) para protocolo |
 | `/prazos` | Mostro e calculo prazos em dias úteis |
 | `/aprender-meu-estilo` | Aprendo seu jeito de escrever a partir das suas peças |

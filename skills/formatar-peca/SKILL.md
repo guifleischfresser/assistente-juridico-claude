@@ -16,6 +16,7 @@ Arquivo: $ARGUMENTS (se vazio, pergunte qual peça ou use a última editada no c
 2. Exporte (gera sem depender de Word ou internet):
    `node "$HOME/.claude/advogado/scripts/exportar-docx.js" "<peça.md>" "<ESCRITORIO>/EXPORTADOS/<nome>.docx"`
    - Se recusar por citação de jurisprudência sem fonte, **não force**: rode `/verificar-citacoes` e explique ao usuário. Só use `--forcar` se o usuário pedir expressamente, ciente do risco.
+   - Caso anonimizado: se recusar por marcador restante (`[PARTE_A]`, `[CPF_1]`…), rode `/anonimizar reverter` e exporte o arquivo `-dados-reais` (não leia esse arquivo).
    - Fonte, tamanho e recuos vêm de `config.json` → `formatacao` (definidos no /boas-vindas).
 3. Alternativa (se o usuário quiser e estiver instalado): `pandoc "<peça.md>" -o "<saida.docx>"`.
 4. Informe o caminho do arquivo, lembre que `[NÃO VERIFICADO]` e `[PREENCHER]` saem grifados em amarelo e que a revisão final e a assinatura são do advogado.

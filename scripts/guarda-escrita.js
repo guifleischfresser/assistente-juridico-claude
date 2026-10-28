@@ -9,6 +9,8 @@
 //  1a. v0.6: texto oculto (fonte branca/minuscula, vanish, largura zero) em peca/documento => nega.
 //  1b. Pastas originais registradas (mapa-de-pastas) => pede confirmacao.
 //  6. Caso arquivado => pede confirmacao. 7. Versiona (backup) antes de alterar arquivo existente.
+//  0. Anonimizacao: a tabela (dados reais) so e gravada pelo anonimizar.js, nunca sai da pasta do caso
+//     e nada dela vai para CLAUDE.md, skills, memoria ou perfil de estilo.
 const fs = require('fs');
 const path = require('path');
 const c = require('./lib/comum');
@@ -25,6 +27,11 @@ c.rodarHook('guarda-escrita', (ent) => {
   const esc = cfg.escritorio;
   const existe = fs.existsSync(arq);
   const novoTexto = [inp.content, inp.new_string].concat((inp.edits || []).map((e) => e.new_string)).filter(Boolean).join('\n');
+
+  // 0. Tabela de anonimizacao: so o script grava; conteudo dela fora da pasta do caso e negado
+  const ehHarness = /CLAUDE\.md$/i.test(arq) || c.dentroDe(arq, path.join(esc, 'MEMORIA')) || c.dentroDe(arq, c.P.hab) || c.dentroDe(arq, c.P.skillsVivas) || /[\\/]memory[\\/]/.test(arq) || /[\\/]ESTILO[\\/]perfil-de-escrita\.md$/i.test(arq);
+  const an = require('./lib/anonimizar').avaliarGravacao(arq, novoTexto, ehHarness, esc);
+  if (an) { c.log('guardas', 'anonimizacao: gravacao negada em ' + path.basename(arq)); return deny(an.motivo); }
 
   // 1. Fontes brutas
   for (const bruto of ['ESTILO/amostras', 'WIKI/raw']) {
@@ -84,7 +91,6 @@ c.rodarHook('guarda-escrita', (ent) => {
   } catch (e) { c.log('erros', 'erros repetidos pre: ' + e.message); }
 
   // 3. Harness/memoria global sem dados de clientes
-  const ehHarness = /CLAUDE\.md$/i.test(arq) || c.dentroDe(arq, path.join(esc, 'MEMORIA')) || c.dentroDe(arq, c.P.hab) || c.dentroDe(arq, c.P.skillsVivas) || /[\\/]memory[\\/]/.test(arq) || /[\\/]ESTILO[\\/]perfil-de-escrita\.md$/i.test(arq);
   if (ehHarness && SIGILO_FORTE.test(novoTexto)) {
     return deny('Arquivos de configuração e memória do assistente (CLAUDE.md, skills, memória automática, MEMORIA/, perfil de escrita) não podem conter CPF, CNPJ ou número de processo. Substitua por marcadores como [CLIENTE], [CPF], [Nº PROCESSO]. Dados de clientes ficam só em CASOS/.');
   }

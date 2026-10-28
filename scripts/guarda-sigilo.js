@@ -7,6 +7,8 @@
 // - v0.5: toda busca/acesso web pergunta ao advogado, salvo sites que ele autorizou (julgados.js autorizar,
 //   que tambem pergunta). verificacaoOnline: "nunca" desliga a internet de vez.
 // - Apagar pastas do ESCRITORIO em massa => "deny" (use _versoes, nunca apague).
+// - Anonimizacao (opt-in por caso): ler o ORIGINAL de caso anonimizado (Read, ou Grep que mostra trechos)
+//   => "ask" (o advogado decide); a tabela com os dados reais (_anonimizacao/) => "deny" em Read/Grep/terminal.
 const c = require('./lib/comum');
 
 const ENVIO = [
@@ -37,8 +39,18 @@ c.rodarHook('guarda-sigilo', (ent) => {
   const inp = ent.tool_input || {};
   const cfg = c.config();
 
+  if (nome === 'Read' || nome === 'NotebookRead' || nome === 'Grep') {
+    const an = require('./lib/anonimizar');
+    const r = nome === 'Grep' ? an.avaliarBusca(inp, ent.cwd, cfg.escritorio) : an.avaliarLeitura(inp.file_path || inp.notebook_path, cfg.escritorio);
+    if (!r) return {};
+    c.log('guardas', nome + ' ' + r.decisao + ' (anonimização)');
+    return r.decisao === 'deny' ? negar(r.motivo) : perguntar(r.motivo);
+  }
+
   if (nome === 'Bash' || nome === 'PowerShell') {
     const cmd = String(inp.command || '');
+    const tab = require('./lib/anonimizar').avaliarComando(cmd);
+    if (tab) { c.log('guardas', 'negado acesso a tabela de anonimizacao'); return negar(tab.motivo); }
     if (APAGAR_MASSA.test(cmd) && (cmd.includes('ESCRITORIO') || c.dentroDe(ent.cwd || '', cfg.escritorio))) {
       c.log('guardas', 'negado apagar-massa: ' + cmd.slice(0, 200));
       return negar('Apagar pastas inteiras do ESCRITORIO está bloqueado. Mova para CASOS/Arquivados ou para _versoes em vez de apagar.');

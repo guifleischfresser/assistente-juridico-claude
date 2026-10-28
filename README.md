@@ -84,6 +84,14 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 
 ## 3. O que o assistente faz
 
+**Novo (ainda não lançado) — anonimização opcional, por caso (`/anonimizar`):**
+- 🕶️ Só quando você pedir, e só no caso que você escolher: antes de o Claude ler os documentos, os **nomes das partes, CPF/CNPJ, nº do processo, RG, e-mails, telefones e endereços** viram marcadores como `[PARTE_A]`, `[CPF_1]` e `[PROCESSO_1]`. O Claude trabalha e escreve a peça com esses marcadores.
+- ↩️ No fim, `/anonimizar reverter` devolve os dados reais no rascunho final (um arquivo `…-dados-reais.md`), no seu computador. Se sobrar marcador sem correspondência, ele avisa e não inventa nada; a exportação para Word também recusa peça com marcador.
+- 🗝️ A tabela que liga cada marcador ao dado real fica **só na pasta do caso** (`_anonimizacao/`): o Claude não consegue lê-la nem copiá-la para a memória ou para as instruções. Se ele for abrir o documento original de um caso anonimizado, o Claude Code **pergunta antes**.
+- ⚠️ A detecção de nomes não é perfeita (apelido, nome sozinho, sobrenome solto). **Passe o olho nas cópias** (pasta `anonimizado/` do caso) antes de usar. Se alguém escapou, escreva no dossiê do caso a linha `Anonimizar também: Nome Um; Nome Dois` e peça para anonimizar de novo.
+
+Exemplo: *"Anonimizei 3 documentos do caso Silva x Banco: 4 nomes e 1 CPF viraram marcadores. A tabela ficou só na pasta do caso."*
+
 **Novidades da v0.7 — calendário forense do seu tribunal e da sua comarca:**
 - 📅 O prazo agora é contado com o calendário **daquele caso**: feriados municipais e estaduais, suspensões de prazo e dias de sistema fora do ar do tribunal/comarca do processo. Feriado de Curitiba não mexe em prazo de Londrina.
 - ✍️ Você cadastra cada data **com a fonte** (lei, portaria, ato ou link). O assistente não traz lista pronta inventada; data sem fonte fica marcada **[SEM FONTE]** e é lembrada em todo cálculo.
@@ -131,6 +139,7 @@ Digite a barra `/` e o nome do comando:
 | `/mapa-de-teses` | Mapa de teses da defesa por pedido da inicial (valor, risco, teses, precedentes) |
 | `/verificar-citacoes` | Confere se os julgados existem e se o trecho citado bate com o original; marca [NÃO VERIFICADO] onde não deu |
 | `/erros` | Mostra os erros que você já corrigiu e que o assistente não pode repetir |
+| `/anonimizar` | Só se você pedir, por caso: troca nomes, CPF/CNPJ, nº do processo e contatos por marcadores antes de o Claude ler, e devolve os dados reais na peça final (`/anonimizar reverter`) |
 | `/formatar-peca` | Formata e exporta para Word (.docx) |
 | `/prazos` | Mostra os prazos, calcula vencimentos em dias úteis e cadastra feriados locais e suspensões do tribunal |
 | `/aprender-meu-estilo` | Aprende (ou reaprende) o seu jeito de escrever |
@@ -167,7 +176,7 @@ ESCRITORIO/
 ├── mapa-de-pastas.md ← onde ficam suas pastas antigas (só apontadas, nunca copiadas)
 ├── PRAZOS.md         ← sua lista de prazos
 ├── CASOS/
-│   ├── Ativos/       ← cada caso tem DOSSIE.md, documentos/, autos-md/ e pecas/
+│   ├── Ativos/       ← cada caso tem DOSSIE.md, documentos/, autos-md/ e pecas/ (se anonimizado, também anonimizado/ e _anonimizacao/)
 │   ├── Em análise/
 │   └── Arquivados/
 ├── PECAS/            ← seus modelos e peças prontas
@@ -190,6 +199,7 @@ Tudo são arquivos comuns no seu computador. Você pode abrir no Word, no Bloco 
 - **Na primeira execução**, a busca pelas suas pastas é feita no seu computador, só pelos nomes, e o assistente mostra apenas a pasta principal e contagens (ex.: "Documentos/Clientes: 37 pastas"). Nomes de subpastas e arquivos, que costumam ser nomes de clientes, não aparecem na conversa.
 - **Suas pastas originais** (petições, modelos, casos) são só **lidas**. Se o assistente precisar gravar numa delas, ele pede confirmação; o normal é salvar no ESCRITORIO.
 - **Histórico de conversas por 14 dias:** depois disso, o Claude Code apaga as conversas antigas do seu computador, porque elas podem conter trechos de documentos.
+- **Anonimização opcional** (`/anonimizar`): num caso mais sensível, você pode pedir que o Claude só veja cópias com marcadores (`[PARTE_A]`, `[CPF_1]`) no lugar dos dados reais. A tabela de correspondência fica só na pasta do caso, e os dados voltam na peça final no seu computador. Não é perfeita para nomes: confira as cópias.
 - **Não apaga nada:** antes de alterar um arquivo, ele guarda uma cópia em `ESCRITORIO/_versoes`.
 - **Importante:** o texto da conversa é processado pelos servidores da Anthropic, porque é assim que o Claude funciona. Avalie, com base no Código de Ética da OAB e na Recomendação CFOAB nº 001/2024, o que é adequado compartilhar, e considere obter o consentimento do cliente (há um modelo em `PECAS/modelos/termo-consentimento-ia.md`).
 - **Evite** colocar a pasta ESCRITORIO dentro do OneDrive, Google Drive ou Dropbox, a menos que o seu escritório já use esses serviços de forma adequada para dados de clientes.
@@ -246,6 +256,9 @@ Sim, de propósito: habilidades e memórias de trabalho (preferências, estilo, 
 
 **O que é a "manutenção das habilidades"?**
 Cada habilidade deixa uma descrição curta carregada em toda conversa, para o Claude saber quando usá-la. Com o tempo, atalhos criados sozinho se acumulam e ocupam espaço. A cada 15 dias, ao abrir uma conversa, o assistente arruma isso sozinho (sem agendador do sistema e sem nada sair do computador) e mostra uma linha com o resultado. Ele só mexe nos atalhos que ele mesmo criou: as habilidades principais e as que você escreveu ficam intactas. Para ver antes: `/manutencao simular`; para voltar atrás: `/manutencao desfazer`.
+
+**Dá para o Claude não ver o nome do meu cliente?**
+Em boa parte, sim: peça `/anonimizar` no caso. Ele cria cópias dos documentos com marcadores no lugar de nomes, CPF/CNPJ, número do processo, e-mails, telefones e endereços, e trabalha só com elas. No fim, `/anonimizar reverter` coloca os dados reais de volta no rascunho, sem passar pela conversa. Limites honestos: nomes soltos ou apelidos podem escapar da detecção (confira as cópias), o nome da pasta do caso continua aparecendo e o que você mesmo escrever na conversa vai para o Claude como sempre.
 
 **A memória chegou a 75%. E agora?**
 O assistente salva um resumo sozinho. Feche e abra uma conversa nova (ou digite `/clear`). Ele continua de onde parou.

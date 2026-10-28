@@ -27,7 +27,7 @@ if (args.includes('--canario')) {
   process.exit(m ? 0 : 2);
 }
 const ID_PLUGIN = 'advogado-claude@advogado-claude-mod';
-const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
+const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'anonimizar.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
 const ROTEIROS = ['sessao-inicio.js', 'registro-pedidos.js', 'guarda-escrita.js', 'guarda-sigilo.js', 'pos-ferramenta.js', 'gatilho-handoff.js', 'gatilho-handoff-passos.js', 'memoria.js', 'manutencao.js', 'statusline.js'];
 
 /** Pasta do plugin (gravada pelo hook de inicio em modo plugin; o Bash nao recebe CLAUDE_PLUGIN_ROOT). */
