@@ -146,7 +146,7 @@ function calendario(sub) {
     mostrarAfetados(!!op.confirmar, 'Prazos que mudam de vencimento (antes → depois)');
   } else if (sub === 'ver') {
     const { ctx, cal: ativo } = contexto();
-    const ano = parseInt(op.ano, 10) || new Date().getFullYear();
+    const ano = parseInt(op.ano, 10) || pz.agora().getFullYear();
     console.log('Calendário forense ativo — ' + cl.descreverContexto(ctx) + ' — ' + ano);
     console.log('Nacionais (sempre): ' + Array.from(pz.feriados(ano)).sort().map((d) => cl.br(d)).join(', ') + '; recesso 20/12–20/01 (art. 220).');
     const doAno = ativo.entradas.filter((e) => e.recorrente || String(e.inicio).slice(0, 4) <= String(ano) && String(e.fim || e.inicio).slice(0, 4) >= String(ano));

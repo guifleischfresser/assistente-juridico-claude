@@ -195,7 +195,7 @@ function linhaEntrada(e, comId) {
  */
 function avaliarPrazos(itens, op) {
   op = op || {};
-  const cfg = op.cfg || c.config(); const hoje = op.hoje || new Date();
+  const cfg = op.cfg || c.config(); const hoje = op.hoje || pz.agora();
   const ctxCache = new Map(), calCache = new Map();
   return itens.map((i) => {
     let ctx;

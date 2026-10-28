@@ -1,5 +1,11 @@
 # Changelog
 
+## Não lançado
+- **"Hoje" é sempre o dia local da máquina do advogado** (statusline, SessionStart, `prazos.js` e calendário forense): novos `agora()`/`hojeLocal()` em `scripts/lib/prazos.js`, usados por `diasUteisAte`, `calendario.avaliarPrazos` (statusline, SessionStart, `listar`, `calendario recalcular`) e pelo ano padrão de `calendario ver`. Fuso do sistema (ou `TZ`); `ADVOGADO_AGORA` fixa o instante (como na manutenção). O cache da statusline agora também vira na meia-noite local: às 00h05 o prazo do dia aparece como HOJE, sem esperar 2 minutos. Nenhuma comparação de data usa UTC (o código já usava dia local; agora há um ponto único e teste que garante).
+- **Teste do calendário que dependia da data em que rodava** (falhava em 27/10/2026, a qualquer hora): o 3º dia útil do teste da statusline/SessionStart passa a ser contado no calendário do próprio caso (com os feriados migrados do sandbox, como 30/10), e não só pelos feriados nacionais.
+- **CI:** novo job `testes-fuso` (Linux obrigatório; Windows/macOS informativos, como no job principal) roda a suíte com `TZ=America/Sao_Paulo` e relógio falso em 27/10/2026 23h30 (28/10 em UTC) — `testes/relogio-falso.js`, ativado por `ADVOGADO_TESTE_AGORA`, vale para a suíte e todos os scripts filhos, sem faketime. A release passa a exigir esse job.
+- Testes: 305 na suíte (+7): 23h30 locais ainda são "hoje"; com `TZ=America/Sao_Paulo` às 23h30 de 27/10, prazo de 27/10 = HOJE e de 28/10 = 1 dia útil na statusline e no SessionStart; virada da meia-noite local com cache; ano local em `calendario ver` às 21h de 31/12.
+
 ## 0.7.0 — 2026-10-27
 **Foco: calendário forense local — feriados estaduais/municipais e suspensões por tribunal e comarca (Roadmap item 6) — e conferência de julgados que lê a página salva do site, PDF e Word.**
 1. **Calendário do usuário** em `~/.claude/advogado/calendario.json` (respeita `CLAUDE_CONFIG_DIR`), formato versionado `{"versao":1,"entradas":[{id,tipo,inicio,fim,recorrente,escopo,motivo,fonte,semFonte,criadoEm}]}`. Tipos: feriado, suspensão de prazos e indisponibilidade do sistema; data única, intervalo (de–até) ou recorrente (MM-DD, todo ano). Novo `scripts/lib/calendario.js`.
