@@ -9,6 +9,7 @@
  *      node processo.js foro <caso> [--tribunal TJPR] [--comarca Curitiba]
  *                                    tribunal/comarca do caso (linha "Tribunal: … · Comarca: …" no DOSSIE.md);
  *                                    o /prazos usa esse foro para escolher o calendário forense (v0.7)
+ * Caso anonimizado (/anonimizar): abrir mostra DOSSIE e HANDOFF já com marcadores.
  * Tudo local. A memória global (MEMORIA/) nunca recebe dados do cliente.
  */
 const fs = require('fs');
@@ -31,8 +32,15 @@ switch (a[0]) {
     const termo = a.slice(1).join(' ');
     if (!termo) { console.log('Uso: abrir <nome do caso ou número do processo>'); process.exit(1); }
     const x = unico(termo);
-    const dossie = ler(path.join(x.pasta, 'DOSSIE.md'), 5000);
-    const handoff = ler(path.join(x.pasta, 'HANDOFF.md'), 2500);
+    let dossie = ler(path.join(x.pasta, 'DOSSIE.md'), 5000);
+    let handoff = ler(path.join(x.pasta, 'HANDOFF.md'), 2500);
+    // caso anonimizado: dossie e handoff chegam a conversa com marcadores (tabela so na pasta do caso)
+    const an = require('./lib/anonimizar'); const tab = an.lerTabela(x.pasta); const anonimo = !!(tab && tab.ativa !== false);
+    if (anonimo) {
+      if (dossie) dossie = an.anonimizarTexto(dossie, tab).texto;
+      if (handoff) handoff = an.anonimizarTexto(handoff, tab).texto;
+      an.gravarTabela(x.pasta, tab);
+    }
     let pecas = []; try { pecas = fs.readdirSync(path.join(x.pasta, 'pecas')).filter((f) => /\.(md|docx)$/i.test(f)).sort().reverse().slice(0, 6); } catch (e) { /* */ }
     const autos = fs.existsSync(path.join(x.pasta, 'autos-md', 'INDICE.md'));
     console.log('CASO_ATIVO=' + x.pasta);
@@ -43,6 +51,7 @@ switch (a[0]) {
     const foro = require('./lib/calendario').foroDoCaso(x.pasta);
     console.log('\nCalendário forense do caso: ' + (foro.tribunal || foro.comarca ? require('./lib/calendario').descreverContexto(foro) + ' (prazos deste caso usam os feriados e suspensões desse foro)' : 'tribunal/comarca não informados — pergunte ao advogado e grave com processo.js foro "' + x.nome + '" --tribunal <sigla> --comarca <cidade>'));
     console.log('\nAutos convertidos: ' + (autos ? 'sim (autos-md/INDICE.md)' : 'não — use /preparar-autos se precisar ler o processo'));
+    if (anonimo) console.log('\n🔒 Caso ANONIMIZADO: leia só as cópias em anonimizado/ (dossiê acima já com marcadores), escreva a peça com os marcadores ([PARTE_A], [CPF_1]…) e nunca abra _anonimizacao/. Dados reais só no fim: /anonimizar reverter <peça>.');
     console.log('\nRegras desta conversa: trabalhe só neste caso; leia outros casos apenas se o advogado pedir; anotações do cliente vão para o DOSSIE.md deste caso (processo.js anotar), nunca para MEMORIA/.');
     break;
   }

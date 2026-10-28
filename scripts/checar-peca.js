@@ -38,7 +38,8 @@ function checar(arquivo, opc) {
   const tipo = opc.tipo || (/contesta/i.test(arquivo) ? 'contestacao' : /recurso|apela|agravo/i.test(arquivo) ? 'recurso' : /contrato/i.test(arquivo) ? 'contrato' : /parecer/i.test(arquivo) ? 'parecer' : /inicial|peticao/i.test(arquivo) ? 'inicial' : null);
   const faltando = tipo ? (REQUISITOS[tipo] || []).filter(([, re]) => !re.test(texto)).map(([n]) => n) : [];
   const oculto = require('./lib/injecao').ocultoNoTexto(texto);
-  return { arquivo, tipo, cits, ia, emoji, restosMd, preencher, media, perfilMedia, faltando, oculto, texto };
+  const anonimos = require('./lib/anonimizar').marcadores(texto).length;
+  return { arquivo, tipo, cits, ia, emoji, restosMd, preencher, media, perfilMedia, faltando, oculto, anonimos, texto };
 }
 
 function relatorio(r) {
@@ -56,6 +57,7 @@ function relatorio(r) {
   if (r.emoji) L.push('- ' + r.emoji + ' emoji(s) — remover.');
   if (r.restosMd) L.push('- ' + r.restosMd + ' resto(s) de formatação técnica (tabela/código) — revisar.');
   L.push('- Parágrafo médio: ' + r.media + ' palavras' + (r.perfilMedia ? ' (seu estilo: ~' + r.perfilMedia + ')' : ''));
+  if (r.anonimos) L.push('', '## Anonimização', '- ' + r.anonimos + ' marcador(es) de anonimização ([PARTE_A], [CPF_1]…). Antes do Word: /anonimizar reverter (gera a versão -dados-reais); a exportação recusa marcador restante.');
   if (r.preencher.length) L.push('', '## Campos a preencher (' + r.preencher.length + ')', '- ' + Array.from(new Set(r.preencher)).join(', '));
   if (r.tipo) L.push('', '## Requisitos mínimos (' + r.tipo + ')', r.faltando.length ? r.faltando.map((f) => '- ❓ não encontrei: ' + f).join('\n') : '- Todos os itens básicos parecem presentes.');
   L.push('', '_Checagem automática de apoio. A revisão final e a responsabilidade técnica são do advogado._');

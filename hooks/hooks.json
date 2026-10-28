@@ -46,7 +46,7 @@
         ]
       },
       {
-        "matcher": "^(Bash|PowerShell|WebFetch|WebSearch|mcp__.*)$",
+        "matcher": "^(Bash|PowerShell|WebFetch|WebSearch|Read|NotebookRead|Grep|mcp__.*)$",
         "hooks": [
           {
             "type": "command",

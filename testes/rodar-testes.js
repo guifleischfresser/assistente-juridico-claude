@@ -34,7 +34,7 @@ t('regras de permissão estreitas (script exato, sem curinga no caminho) para Ba
 t('valores anteriores guardados para a desinstalação restaurar', JSON.parse(fs.readFileSync(path.join(BASE, 'config.json'), 'utf8')).configAnterior.model === null);
 t('statusLine aponta para statusline.js', /statusline\.js/.test(st.statusLine.command));
 t('outputStyle Advogado e idioma pt-BR', st.outputStyle === 'Advogado' && /portugu/.test(st.language));
-t('24 skills do núcleo instaladas (inclui manutencao, mapa-de-teses, processo, cliente, erros)', fs.readdirSync(path.join(CL, 'skills')).length === 24);
+t('25 skills do núcleo instaladas (inclui manutencao, mapa-de-teses, processo, cliente, erros, anonimizar)', fs.readdirSync(path.join(CL, 'skills')).length === 25);
 t('retenção de conversas = 14 dias (cleanupPeriodDays) quando ausente', st.cleanupPeriodDays === 14);
 t('cópia local do pacote para reparo', fs.existsSync(path.join(BASE, 'pacote', 'scripts', 'instalar.js')) && fs.existsSync(path.join(BASE, 'pacote', 'skills', 'consertar', 'SKILL.md')));
 t('pasta "Em análise" criada com acento', fs.existsSync(path.join(ESC, 'CASOS', 'Em análise')));
@@ -495,10 +495,10 @@ console.log('\n12c. Manutenção das habilidades a cada 15 dias (v0.4)');
   const rd = rodar(MAN, ['desfazer'], null, envEm(29));
   t('desfazer restaura tudo: skills aposentadas/mescladas, descrição, MEMORY.md (e remove o arquivo criado)', rd.code === 0 && fs.existsSync(path.join(SK, 'auto-procuracao-velha', 'SKILL.md')) && fs.existsSync(path.join(SK, 'auto-alimentos-peticao', 'SKILL.md')) && fs.readFileSync(pa + '/SKILL.md', 'utf8').includes('revisional de alimentos') && !fs.existsSync(path.join(pa, 'references')) && fs.readFileSync(path.join(memDir, 'MEMORY.md'), 'utf8').split('\n').length === 260 && !fs.readdirSync(memDir).some((n) => /^arquivo-/.test(n)) && !fs.readdirSync(path.join(BASE, 'habilidades', '_aposentadas')).some((n) => n.startsWith('auto-procuracao-velha__')), rd.out + rd.err);
   t('regra de permissão estreita para manutencao.js; doutor conhece o script', st.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/manutencao.js" *)') && /manutencao\.js/.test(fs.readFileSync(path.join(BASE, 'scripts', 'doutor.js'), 'utf8')));
-  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 24 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
+  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 25 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
   // pacote: descricoes do nucleo ja enxutas na origem
   const mp = JSON.parse(rodar(MAN, ['medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out);
-  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3543 (era 5853 na v0.3; 3543 na v0.6); /prazos ≤ 171', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3543 && mp.skills.find((s) => s.nome === 'prazos').descricao <= 171, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
+  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3710 (era 5853 na v0.3; 3539 na v0.7 + 171 da /anonimizar); /prazos ≤ 171', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3710 && mp.skills.find((s) => s.nome === 'prazos').descricao <= 171, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
   const pe = mp.skills.find((s) => s.nome === 'primeira-execucao');
   t('primeira-execucao com divulgação progressiva (SKILL.md < 8000; etapas em references/, sincronizadas)', pe.corpo < 8000 && pe.refs > 10000 && rodar(path.join(RAIZ, 'ferramentas', 'sincronizar-bootstrap.js'), ['--verificar']).code === 0, JSON.stringify(pe));
   // limpa a fixture para nao afetar as secoes seguintes
@@ -1041,6 +1041,133 @@ console.log('\n12f. v0.7: calendário forense local (feriados e suspensões por 
 
   // compatibilidade da biblioteca antiga
   t('lib/prazos: assinaturas antigas continuam (extras "MM-DD"), com parâmetro opcional de calendário', pzL.iso(pzL.calcularVencimento(new Date(2026, 8, 4), 3, ['09-08'])) === '2026-09-11' && pzL.iso(pzL.calcularVencimento(new Date(2026, 8, 4), 3)) === '2026-09-10' && pzL.ehDiaUtil(new Date(2026, 8, 8), ['09-08']) === false && pzL.diasUteisAte(new Date(2026, 10, 14), new Date(2026, 10, 12)) === 2 && pzL.feriados(2026).has('2026-11-20'));
+}
+
+console.log('\n12g. Anonimização opcional por caso (pseudonimização reversível, só local)');
+{
+  const R8 = path.join(TMP, 'anon'); const CL8 = path.join(R8, '.claude'); const ESC8 = path.join(R8, 'ESCRITORIO');
+  const B8 = path.join(CL8, 'advogado'); const SC8 = (n) => path.join(B8, 'scripts', n);
+  const env8 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL8 });
+  const run8 = (args, entrada) => { const x = spawnSync(process.execPath, args, { env: env8, encoding: 'utf8', cwd: R8, input: entrada == null ? '' : (typeof entrada === 'string' ? entrada : JSON.stringify(entrada)) }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  const hook8 = (n, e) => { const x = run8([SC8(n)], e); let o = {}; try { o = x.out ? JSON.parse(x.out) : {}; } catch (er) { o = { _bruto: x.out }; } return Object.assign(o, { _r: x }); };
+  const motivo8 = (o) => (o.hookSpecificOutput && (o.hookSpecificOutput.permissionDecisionReason || o.hookSpecificOutput.additionalContext)) || '';
+  fs.mkdirSync(R8, { recursive: true });
+  r = run8([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC8, '--nome', 'Dra. Oito']);
+  t('anonimização: instalação do sandbox', r.code === 0, r.err || r.out);
+  const st8 = JSON.parse(fs.readFileSync(path.join(CL8, 'settings.json'), 'utf8'));
+  const grpSig = st8.hooks.PreToolUse.find((g) => /guarda-sigilo/.test(JSON.stringify(g)));
+  t('inventário: anonimizar.js instalado, regra estreita Bash/PowerShell, guarda de sigilo também nas leituras (Read/Grep) e tabela negada nas permissões', fs.existsSync(SC8('anonimizar.js')) && fs.existsSync(SC8('lib/anonimizar.js')) && st8.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/anonimizar.js" *)') && st8.permissions.allow.includes('PowerShell(node "~/.claude/advogado/scripts/anonimizar.js" *)') && /\bRead\b/.test(grpSig.matcher) && /\bGrep\b/.test(grpSig.matcher) && st8.permissions.deny.includes('Read(**/_anonimizacao/**)') && st8.hooks.PreToolUse.length === 2, JSON.stringify(grpSig.matcher));
+  const hj = JSON.parse(fs.readFileSync(path.join(RAIZ, 'hooks', 'hooks.json'), 'utf8'));
+  t('inventário: plugin (hooks.json) com o mesmo matcher; skill /anonimizar no núcleo; doutor sem falta de ferramenta', hj.hooks.PreToolUse.some((g) => g.matcher === grpSig.matcher) && require(path.join(RAIZ, 'scripts', 'lib', 'validar.js')).NUCLEO.includes('anonimizar') && fs.existsSync(path.join(CL8, 'skills', 'anonimizar', 'SKILL.md')) && (() => { const d = JSON.parse(run8([SC8('doutor.js'), '--json', '--rapido']).out); const f = d.itens.find((i) => i.id === 'ferramentas'); const h = d.itens.find((i) => i.id === 'hooks'); return f.ok && (!h || h.ok); })());
+
+  // caso A (com CRLF, maiusculas, sem acento, CPF/CNJ com e sem formatacao) e caso B (mesmo nome de pessoa)
+  const AN = SC8('anonimizar.js'); const PR8 = SC8('processo.js');
+  const casoA = path.join(ESC8, 'CASOS', 'Ativos', '2026-caso-alfa'); const casoB = path.join(ESC8, 'CASOS', 'Ativos', '2026-caso-beta'); const casoC = path.join(ESC8, 'CASOS', 'Ativos', '2026-caso-gama');
+  for (const k of [casoA, casoB, casoC]) { fs.mkdirSync(path.join(k, 'documentos'), { recursive: true }); fs.mkdirSync(path.join(k, 'pecas'), { recursive: true }); }
+  fs.writeFileSync(path.join(casoA, 'DOSSIE.md'), '# DOSSIÊ — 2026-caso-alfa\n\n## Identificação\n- Cliente: João da Silva · Parte contrária: Banco Exemplo S.A.\n- Processo nº: 0001234-56.2024.8.16.0001\n- Anonimizar também: Ana Paula Ribeiro\n');
+  const inicialA = 'EXCELENTÍSSIMO SENHOR JUIZ DE DIREITO\r\n\r\nJOÃO DA SILVA, brasileiro, casado, inscrito no CPF sob o nº 123.456.789-09, RG nº 12.345.678-9, residente na Rua das Flores, 123, CEP 80010-000, e-mail joao.silva@exemplo.com.br, telefone (41) 99876-5432, vem propor ação em face de BANCO EXEMPLO S.A., pessoa jurídica inscrita no CNPJ 11.222.333/0001-81.\r\n\r\nProcesso nº 0001234-56.2024.8.16.0001 (no sistema: 00012345620248160001). O autor, Joao da Silva, CPF 12345678909, foi atendido por Ana Paula Ribeiro.\r\n';
+  const procA = 'Outorgante: João da Silva, CPF 12345678909.\nOutorgado: Dr. Fulano (advogado).\n';
+  const decisaoA = ('Requerido: Banco Exemplo S.A.\nTestemunha: José Antônio Pereira dos Santos, brasileiro, viúvo.\nJosé Antônio Pereira dos Santos confirmou os fatos.\n').normalize('NFD');
+  fs.writeFileSync(path.join(casoA, 'documentos', 'inicial.md'), inicialA);
+  fs.writeFileSync(path.join(casoA, 'documentos', 'procuracao.txt'), procA);
+  fs.mkdirSync(path.join(casoA, 'autos-md'), { recursive: true }); fs.writeFileSync(path.join(casoA, 'autos-md', 'decisao.md'), decisaoA);
+  fs.writeFileSync(path.join(casoB, 'DOSSIE.md'), '# DOSSIÊ\n- Cliente: Carla Mendes Duarte · Parte contrária: Loja Beta Ltda.\n');
+  fs.writeFileSync(path.join(casoB, 'documentos', 'notificacao.md'), 'Notificante: Carla Mendes Duarte, brasileira, CPF 987.654.321-00. Testemunha: João da Silva, brasileiro.\n');
+  fs.writeFileSync(path.join(casoC, 'DOSSIE.md'), '# DOSSIÊ\n- Cliente: Pedro Alves Moura\n');
+  fs.writeFileSync(path.join(casoC, 'documentos', 'contrato.md'), 'Pedro Alves Moura, brasileiro, CPF 123.456.789-09.\n');
+  const tabA = path.join(casoA, '_anonimizacao', 'tabela.json'); const tabB = path.join(casoB, '_anonimizacao', 'tabela.json');
+  const shaArq = (f) => require('crypto').createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+  const shaIni = shaArq(path.join(casoA, 'documentos', 'inicial.md'));
+
+  r = run8([AN, 'aplicar', 'caso alfa']);
+  t('opt-in: sem /anonimizar preparar, aplicar recusa (código 2) e nada é criado', r.code === 2 && /desligada/.test(r.out) && !fs.existsSync(path.join(casoA, 'anonimizado')) && !fs.existsSync(tabA), r.out);
+  r = run8([AN, 'preparar', 'caso alfa']);
+  const REAIS = /Silva|silva|Exemplo|Ribeiro|Pereira|123\.456|12345678909|11\.222|0001234|00012345|joao\.|99876|Flores|80010/;
+  t('preparar: tabela só na pasta do caso, anonimização LIGADA, e a saída não mostra nenhum dado real', r.code === 0 && fs.existsSync(tabA) && JSON.parse(fs.readFileSync(tabA, 'utf8')).ativa === true && /LIGADA/.test(r.out) && !REAIS.test(r.out) && !fs.existsSync(path.join(B8, 'tabela.json')), r.out);
+  r = run8([AN, 'aplicar', 'caso alfa']);
+  t('aplicar: "Anonimizei 3 documentos do caso …: … nomes e … CPF… viraram marcadores. A tabela ficou só na pasta do caso." sem dado real na saída', r.code === 0 && /Anonimizei 3 documentos do caso 2026-caso-alfa: \d+ nomes, 1 CPF, .*viraram marcadores\. A tabela ficou só na pasta do caso\./.test(r.out) && /não é perfeita/.test(r.out) && !REAIS.test(r.out), r.out);
+  const cpA = (rel) => path.join(casoA, 'anonimizado', rel);
+  const iniAn = fs.existsSync(cpA('documentos/inicial.md')) ? fs.readFileSync(cpA('documentos/inicial.md'), 'utf8') : '';
+  const procAn = fs.existsSync(cpA('documentos/procuracao.txt')) ? fs.readFileSync(cpA('documentos/procuracao.txt'), 'utf8') : '';
+  const decAn = fs.existsSync(cpA('autos-md/decisao.md')) ? fs.readFileSync(cpA('autos-md/decisao.md'), 'utf8') : '';
+  t('original intacto; cópias em anonimizado/ (mesmo caminho) sem nenhum dado real', shaArq(path.join(casoA, 'documentos', 'inicial.md')) === shaIni && iniAn && procAn && decAn && !REAIS.test(iniAn + procAn) && !/Santos/.test(decAn.normalize('NFC')), iniAn + '\n---\n' + procAn + '\n---\n' + decAn);
+  t('CPF/CNPJ/CNJ formatados e sem formatação, RG, e-mail, telefone, endereço e CEP viram marcadores (sem pontos = mesmo dado, outra grafia)', /\[PARTE_A#\d\], brasileiro/.test(iniAn) && /CPF sob o nº \[CPF_1\]/.test(iniAn) && /CPF \[CPF_1#2\]/.test(iniAn) && /CNPJ \[CNPJ_1\]/.test(iniAn) && /Processo nº \[PROCESSO_1\] \(no sistema: \[PROCESSO_1#2\]\)/.test(iniAn) && /RG nº \[RG_1\]/.test(iniAn) && /\[EMAIL_1\]/.test(iniAn) && /\[TELEFONE_1\]/.test(iniAn) && /na \[ENDERECO_1\], CEP \[CEP_1\]/.test(iniAn) && /\r\n/.test(iniAn), iniAn);
+  t('nomes com acento/maiúsculas/sem acento: JOÃO DA SILVA, Joao da Silva e João da Silva são a mesma parte ([PARTE_A], [PARTE_A#n]); acento em NFD (macOS) também', /O autor, \[PARTE_A#\d\], CPF/.test(iniAn) && /Outorgante: \[PARTE_A\], CPF \[CPF_1#2\]/.test(procAn) && /Testemunha: \[PARTE_[A-Z]+(#\d+)?\], brasileiro/.test(decAn) && (decAn.match(/\[PARTE_([A-Z]+)(?:#\d+)?\] confirmou/) || [])[1] === (decAn.match(/Testemunha: \[PARTE_([A-Z]+)/) || [])[1], procAn + decAn);
+  t('marcadores estáveis entre documentos do mesmo caso (Banco Exemplo S.A. = [PARTE_B] na inicial e na decisão)', /em face de \[PARTE_B#?\d*\], pessoa/.test(iniAn) && /Requerido: \[PARTE_B\]/.test(decAn), iniAn + decAn);
+  // ida e volta identica (CRLF, NFD, grafias)
+  const volta = (cp, orig) => { const s = path.join(R8, 'volta-' + path.basename(orig)); const x = run8([AN, 'reverter', cp, '--saida', s, '--caso', 'caso alfa']); return x.code === 0 && fs.readFileSync(s, 'utf8') === fs.readFileSync(orig, 'utf8') && !REAIS.test(x.out); };
+  t('reverter: ida e volta idêntica byte a byte (CRLF, NFD, grafias diferentes) nos 3 documentos', volta(cpA('documentos/inicial.md'), path.join(casoA, 'documentos', 'inicial.md')) && volta(cpA('documentos/procuracao.txt'), path.join(casoA, 'documentos', 'procuracao.txt')) && volta(cpA('autos-md/decisao.md'), path.join(casoA, 'autos-md', 'decisao.md')));
+  const nEntA = JSON.parse(fs.readFileSync(tabA, 'utf8')).entradas.length;
+  r = run8([AN, 'aplicar', 'caso alfa']);
+  t('aplicar de novo é determinístico (mesmas cópias, tabela sem dado novo)', fs.readFileSync(cpA('documentos/inicial.md'), 'utf8') === iniAn && JSON.parse(fs.readFileSync(tabA, 'utf8')).entradas.length === nEntA && r.code === 0);
+  const shaTabA = shaArq(tabA);
+  // caso B: tabela propria
+  run8([AN, 'preparar', 'caso beta']); r = run8([AN, 'aplicar', 'caso beta']);
+  const notB = fs.readFileSync(path.join(casoB, 'anonimizado', 'documentos', 'notificacao.md'), 'utf8');
+  const tA = JSON.parse(fs.readFileSync(tabA, 'utf8')), tB = JSON.parse(fs.readFileSync(tabB, 'utf8'));
+  const idJoao = (tt) => (tt.entradas.find((e) => e.formas.includes('João da Silva')) || {}).id;
+  t('casos diferentes não compartilham tabela (cada um na sua pasta; João da Silva tem marcador próprio em cada caso; a tabela do caso A não mudou)', r.code === 0 && fs.existsSync(tabB) && idJoao(tA) === 'PARTE_A' && idJoao(tB) && idJoao(tB) !== 'PARTE_A' && /Notificante: \[PARTE_A\]/.test(notB) && shaArq(tabA) === shaTabA && !tB.entradas.some((e) => e.formas.includes('Banco Exemplo S.A.')), notB + JSON.stringify(tB.entradas.map((e) => e.id)));
+
+  // peca escrita com marcadores: reverter, orfao, exportar
+  const pecaA = path.join(casoA, 'pecas', '2026-10-28_inicial_v1.md');
+  fs.writeFileSync(pecaA, '# PETIÇÃO INICIAL\n\n[PARTE_A], inscrito no CPF sob o nº [CPF_1], em face de [PARTE_B], processo [PROCESSO_1].\n\nTestemunha: [PARTE_Z].\n\nTermos em que, pede deferimento.\n');
+  r = run8([AN, 'conferir', pecaA]);
+  t('conferir: conta os marcadores e aponta o sem correspondência', r.code === 2 && /\[PARTE_Z\] \(linha 5\)/.test(r.out), r.out);
+  r = run8([AN, 'reverter', pecaA]);
+  const realA = path.join(casoA, 'pecas', '2026-10-28_inicial_v1-dados-reais.md');
+  const txReal = fs.existsSync(realA) ? fs.readFileSync(realA, 'utf8') : '';
+  t('marcador órfão: avisado com a linha, deixado como está (nada inventado), código 2; os demais revertidos e o rascunho com marcadores intacto', r.code === 2 && /1 marcador\(es\) sem correspondência/.test(r.out) && /\[PARTE_Z\] \(linha 5\)/.test(r.out) && /^João da Silva, inscrito no CPF sob o nº 123\.456\.789-09, em face de Banco Exemplo S\.A\., processo 0001234-56\.2024\.8\.16\.0001\.$/m.test(txReal) && /Testemunha: \[PARTE_Z\]/.test(txReal) && /\[PARTE_A\]/.test(fs.readFileSync(pecaA, 'utf8')) && !REAIS.test(r.out), r.out + txReal);
+  const docx8 = path.join(ESC8, 'EXPORTADOS', 'inicial-anon.docx');
+  r = run8([SC8('exportar-docx.js'), pecaA, docx8]);
+  t('exportar-docx recusa (código 2) peça com marcador não revertido', r.code === 2 && /marcador\(es\) de anonimização/.test(r.out) && /reverter/.test(r.out) && !fs.existsSync(docx8), r.out);
+  r = run8([SC8('exportar-docx.js'), pecaA, docx8, '--forcar']);
+  t('… e com --forcar exporta, com aviso (marcadores grifados)', r.code === 0 && fs.existsSync(docx8) && /--forcar/.test(r.out), r.out + r.err);
+  fs.writeFileSync(pecaA, fs.readFileSync(pecaA, 'utf8').replace('[PARTE_Z]', '[PARTE_C]'));
+  r = run8([AN, 'reverter', pecaA]);
+  const docx8b = path.join(ESC8, 'EXPORTADOS', 'inicial-real.docx');
+  const rx = run8([SC8('exportar-docx.js'), realA, docx8b]);
+  t('corrigido o órfão: reverte sem pendência (código 0, versão anterior em _versoes) e a versão -dados-reais exporta sem --forcar', r.code === 0 && /Testemunha: Ana Paula Ribeiro/.test(fs.readFileSync(realA, 'utf8')) && rx.code === 0 && fs.existsSync(docx8b) && fs.readdirSync(path.join(ESC8, '_versoes', 'CASOS', 'Ativos', '2026-caso-alfa', 'pecas')).some((n) => /dados-reais/.test(n)), r.out + rx.out);
+  r = run8([SC8('checar-peca.js'), pecaA]);
+  t('checar-peca conta os marcadores e lembra de reverter antes do Word', /## Anonimização/.test(r.out) && /5 marcador/.test(r.out), r.out);
+
+  // guarda de sigilo: leitura do original x copia; tabela
+  const S8 = 'sess-anon';
+  const dec8 = (o) => o.hookSpecificOutput && o.hookSpecificOutput.permissionDecision;
+  let j8 = hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: path.join(casoA, 'documentos', 'inicial.md') } });
+  t('hook: ler o ORIGINAL de caso anonimizado => pergunta ao advogado (ask), apontando a cópia', dec8(j8) === 'ask' && /ANONIMIZADO/.test(motivo8(j8)) && /anonimizado\/documentos\/inicial\.md/.test(motivo8(j8)), JSON.stringify(j8));
+  t('hook: a cópia anonimizada, a peça só com marcadores e caso não anonimizado => sem pergunta', !dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: cpA('documentos/inicial.md') } })) && !dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: pecaA } })) && !dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: path.join(casoC, 'documentos', 'contrato.md') } })));
+  t('hook: DOSSIE.md e a versão -dados-reais (têm dado real) => pergunta', dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: path.join(casoA, 'DOSSIE.md') } })) === 'ask' && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: realA } })) === 'ask');
+  const tabVar = path.join(casoA, '_ANONIMIZACAO', 'tabela.json');
+  t('hook: a tabela => negada para Read (qualquer caixa), Grep e terminal (cat / Get-Content / cópia)', dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: tabA } })) === 'deny' && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: tabVar } })) === 'deny' && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Grep', tool_input: { pattern: 'original', path: path.join(casoA, '_anonimizacao') } })) === 'deny' && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Bash', tool_input: { command: 'cat "' + tabA + '"' } })) === 'deny' && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'PowerShell', tool_input: { command: 'Copy-Item CASOS\\Ativos\\2026-caso-alfa\\_anonimizacao\\tabela.json $env:TEMP' } })) === 'deny');
+  t('hook: Grep com trechos (content) no caso anonimizado ou acima dele => pergunta; só nomes de arquivo ou nas cópias => livre', dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Grep', tool_input: { pattern: 'CPF', path: casoA, output_mode: 'content' } })) === 'ask' && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Grep', tool_input: { pattern: 'CPF', path: path.join(ESC8, 'CASOS'), output_mode: 'content' } })) === 'ask' && !dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Grep', tool_input: { pattern: 'CPF', path: casoA } })) && !dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Grep', tool_input: { pattern: 'CPF', path: path.join(casoA, 'anonimizado'), output_mode: 'content' } })));
+  j8 = hook8('pos-ferramenta.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: path.join(casoA, 'documentos', 'inicial.md') }, tool_response: { content: 'x' } });
+  t('PostToolUse: se o advogado autorizou ler o original, lembra de seguir só com marcadores', /leu o ORIGINAL de um caso anonimizado/.test(motivo8(j8)), JSON.stringify(j8));
+
+  // guarda de escrita: tabela e conteudo dela
+  const conteudoTab = fs.readFileSync(tabA, 'utf8');
+  j8 = hook8('guarda-escrita.js', { session_id: S8, tool_name: 'Write', tool_input: { file_path: path.join(ESC8, 'PECAS', 'tabela-copia.json'), content: conteudoTab } });
+  let j8b = hook8('guarda-escrita.js', { session_id: S8, tool_name: 'Write', tool_input: { file_path: path.join(CL8, 'projects', 'p', 'memory', 'tabela.md'), content: conteudoTab } });
+  let j8c = hook8('guarda-escrita.js', { session_id: S8, tool_name: 'Edit', tool_input: { file_path: tabA, old_string: 'a', new_string: 'b' } });
+  t('guarda-escrita: a tabela fora da pasta do caso (escritório ou memória) e editar a própria tabela => negados', dec8(j8) === 'deny' && /fora da pasta do caso/.test(motivo8(j8)) && dec8(j8b) === 'deny' && dec8(j8c) === 'deny', JSON.stringify([j8, j8b, j8c]).slice(0, 600));
+  const cmdEsc = path.join(ESC8, 'CLAUDE.md'); hook8('pos-ferramenta.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: cmdEsc }, tool_response: {} });
+  j8 = hook8('guarda-escrita.js', { session_id: S8, tool_name: 'Edit', tool_input: { file_path: cmdEsc, old_string: '#', new_string: '# Cliente importante: Joao da Silva' } });
+  j8b = hook8('guarda-escrita.js', { session_id: S8, tool_name: 'Write', tool_input: { file_path: path.join(ESC8, 'MEMORIA', 'nota.md'), content: 'Atenção ao BANCO EXEMPLO S.A. nas audiências' } });
+  j8c = hook8('guarda-escrita.js', { session_id: S8, tool_name: 'Write', tool_input: { file_path: path.join(casoA, 'pecas', 'nova.md'), content: '[PARTE_A] contra [PARTE_B]' } });
+  t('guarda-escrita: dado real (nome, mesmo sem acento/caixa) de caso anonimizado no CLAUDE.md ou em MEMORIA/ => negado; peça com marcadores => livre', dec8(j8) === 'deny' && /caso anonimizado/.test(motivo8(j8)) && dec8(j8b) === 'deny' && !dec8(j8c), JSON.stringify([j8, j8b, j8c]).slice(0, 600));
+
+  // /processo e estado
+  r = run8([PR8, 'abrir', 'caso alfa']);
+  t('/processo abrir em caso anonimizado: dossiê já com marcadores e a regra do caso', r.code === 0 && /Cliente: \[PARTE_A\] · Parte contrária: \[PARTE_B\]/.test(r.out) && /Caso ANONIMIZADO/.test(r.out) && !/Silva|Exemplo|Ribeiro|0001234/.test(r.out), r.out.slice(0, 800));
+  r = run8([AN, 'estado']); const r2 = run8([AN, 'estado', 'caso alfa']);
+  t('estado: lista os casos anonimizados e os documentos, sem dado real', /2026-caso-alfa: LIGADA/.test(r.out) && /2026-caso-beta: LIGADA/.test(r.out) && !/gama/.test(r.out) && /anonimizado\/documentos\/inicial\.md/.test(r2.out) && !REAIS.test(r.out + r2.out), r.out + r2.out);
+  r = run8([AN, 'desligar', 'caso alfa']);
+  t('desligar: o original volta a ser lido sem pergunta, mas a tabela fica (reverter continua funcionando) e continua protegida', r.code === 0 && !dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: path.join(casoA, 'documentos', 'inicial.md') } })) && dec8(hook8('guarda-sigilo.js', { session_id: S8, tool_name: 'Read', tool_input: { file_path: tabA } })) === 'deny' && run8([AN, 'reverter', pecaA, '--saida', path.join(R8, 'x.md')]).code === 0, r.out);
+  run8([AN, 'preparar', 'caso alfa']);
+
+  // biblioteca: deteccao
+  const LA = require(path.join(RAIZ, 'scripts', 'lib', 'anonimizar.js'));
+  const tipos = (s) => LA.detectar(s).map((x) => x.tipo).join(',');
+  t('detecção: CPF sem pontos só com dígito verificador válido; CNPJ/CNJ só dígitos; telefone ≠ CPF', tipos('12345678909') === 'cpf' && tipos('12345678900') === '' && tipos('11222333000181') === 'cnpj' && tipos('00012345620248160001') === 'cnj' && tipos('ligue (11) 3333-4444') === 'telefone' && tipos('R$ 1.234,56 em 12/10/2026') === '');
 }
 
 console.log('\n13. Desinstalação');
