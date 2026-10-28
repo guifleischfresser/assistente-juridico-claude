@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const VERSAO = '0.7.0';
+const VERSAO = '0.8.0';
 
 function dirClaude() {
   return process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');

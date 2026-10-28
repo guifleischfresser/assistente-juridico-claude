@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.8.0 — 2026-10-28
 **Foco: anonimização opcional antes do envio (Roadmap item 3) — pseudonimizar as partes por caso, só quando o advogado quiser, e devolver os dados reais no rascunho final, tudo no computador dele.**
 1. **`/anonimizar` (skill nova, núcleo 25) + `scripts/anonimizar.js` + `scripts/lib/anonimizar.js`.** Subcomandos: `preparar <caso>` (cria/atualiza a tabela e liga a anonimização do caso), `aplicar <caso> [arquivo…]` (cópias em `<caso>/anonimizado/`, original intacto; PDF/Word/página salva viram `.md`), `reverter <peça>` (grava `<peça>-dados-reais.md`), `conferir <peça>`, `estado [<caso>]` e `desligar <caso>`. Mensagem para o advogado: "Anonimizei 3 documentos do caso X: 4 nomes, 1 CPF … viraram marcadores. A tabela ficou só na pasta do caso." O script nunca imprime dado real (a saída vai para a conversa).
 2. **Marcadores estáveis por caso:** `[PARTE_A]`, `[CPF_1]`, `[CNPJ_1]`, `[PROCESSO_1]`, `[RG_1]`, `[EMAIL_1]`, `[TELEFONE_1]`, `[ENDERECO_1]`, `[CEP_1]`. O mesmo dado tem o mesmo marcador em todos os documentos do caso; outra grafia do mesmo dado (MAIÚSCULAS, sem acento, CPF/CNJ sem pontuação, acento em NFD do macOS) ganha sufixo (`[PARTE_A#2]`), e por isso **reverter(aplicar(x)) é idêntico byte a byte** (inclusive CRLF).
