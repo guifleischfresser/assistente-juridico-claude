@@ -94,7 +94,7 @@ function marcar(arq) {
     const reg = jg.consultar(x.texto);
     let marca = ' [A VERIFICAR]';
     if (reg && reg.status === 'confere') { marca = ' [CONFERIDO: ' + reg.fonte + ']'; n.conferidos++; }
-    else if (reg) { marca = ' [🔴 ' + (reg.status === 'inexistente' ? 'NÃO EXISTE' : 'DIVERGENTE') + ': ' + reg.fonte + ']'; n.divergentes++; }
+    else if (reg && reg.status !== 'sem-texto') { marca = ' [🔴 ' + (reg.status === 'inexistente' ? 'NÃO EXISTE' : 'DIVERGENTE') + ': ' + reg.fonte + ']'; n.divergentes++; }
     else n.aVerificar++;
     if (m) t = t.slice(0, x.fim) + marca + t.slice(x.fim + m[0].length); else t = t.slice(0, x.fim) + marca + t.slice(x.fim);
   }

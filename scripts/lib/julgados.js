@@ -5,7 +5,8 @@
  * A busca do original (WebFetch em site oficial/JusBrasil) e feita pelo assistente, e a guarda de
  * sigilo PERGUNTA antes de qualquer acesso a site que o advogado nao autorizou (config.fontesAutorizadas).
  * Livro de conferencias (sem dados de clientes; julgados sao publicos): ESCRITORIO/WIKI/julgados-verificados.json
- *   status: confere | divergente | inexistente     (sem registro = nao verificado)
+ *   status: confere | divergente | inexistente | sem-texto   (sem registro = nao verificado)
+ *   sem-texto: o arquivo salvo do original nao tinha texto legivel; nao conta como conferido nem como problema.
  */
 const fs = require('fs');
 const path = require('path');
@@ -31,41 +32,97 @@ function registrar(cit, dados) {
 }
 
 // ---------------------------------------------------------------- comparacao do trecho
-function tokens(t) {
-  return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+// Normalizacao tolerante a FORMA (nunca ao conteudo): ligaduras e larguras (NFKC), hifen discricionario,
+// caracteres invisiveis, espacos especiais e palavra hifenizada no fim da linha. Palavras continuam palavras.
+const INVIS = /[­​-‏‪-‮⁠-⁤⁦-⁩﻿]/g;
+const ESPACOS = /[   -   　]/g;
+const HIFEN_FIM_LINHA = /(\p{L})[-‐‑][ \t]*\r?\n[ \t]*(\p{L})/gu;
+/** Palavras normalizadas. opts.hifen: 'juntar' (padrao: "consti-\ntucional" -> constitucional) | 'separar'
+ *  | 'compactar' (junta tambem o hifen entre letras na mesma linha: "guarda-chuva" -> guardachuva). */
+function tokens(t, opts) {
+  let s = String(t || '').replace(/[ºª°]/g, ' ').normalize('NFKC')
+    .replace(/­[ \t]*\r?\n[ \t]*/g, '').replace(INVIS, '').replace(ESPACOS, ' ');
+  const h = opts && opts.hifen;
+  if (h !== 'separar') s = s.replace(HIFEN_FIM_LINHA, '$1$2');
+  if (h === 'compactar') s = s.replace(/(\p{L})[-\u2010\u2011](?=\p{L})/gu, '$1');
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
     .replace(/[“”«»"'‘’]/g, ' ').match(/[a-z0-9]+/g) || [];
 }
-function lcs(a, b) {
-  const m = a.length, n = b.length; if (!m || !n) return 0;
-  let prev = new Array(n + 1).fill(0);
-  for (let i = 1; i <= m; i++) { const cur = new Array(n + 1).fill(0); for (let j = 1; j <= n; j++) cur[j] = a[i - 1] === b[j - 1] ? prev[j - 1] + 1 : Math.max(prev[j], cur[j - 1]); prev = cur; }
-  return prev[n];
+/** Alinhamento do trecho T com uma janela J do original: cada palavra trocada, acrescentada ou omitida custa 1.
+ *  Pular palavras do original so e livre antes do inicio e depois do fim. */
+function alinhar(T, J, livres, completo) {
+  const m = T.length, n = J.length;
+  const D = completo ? [] : null;
+  let prev = new Int32Array(n + 1);
+  if (D) D.push(prev);
+  for (let i = 1; i <= m; i++) {
+    const cur = new Int32Array(n + 1); cur[0] = i; const pula = livres.has(i) ? 0 : 1;
+    for (let j = 1; j <= n; j++) {
+      const sub = prev[j - 1] + (T[i - 1] === J[j - 1] ? 0 : 1), acr = prev[j] + 1, omi = cur[j - 1] + pula;
+      cur[j] = sub < acr ? (sub < omi ? sub : omi) : (acr < omi ? acr : omi);
+    }
+    prev = cur; if (D) D.push(cur);
+  }
+  let fim = 0; for (let j = 1; j <= n; j++) if (prev[j] < prev[fim]) fim = j;
+  const r = { custo: prev[fim], omitidas: [] };
+  if (D) { // volta pelo caminho para listar as palavras do original que o trecho deixou de fora
+    let i = m, j = fim;
+    while (i > 0 && j > 0) {
+      const pula = livres.has(i) ? 0 : 1;
+      if (D[i][j] === D[i - 1][j - 1] + (T[i - 1] === J[j - 1] ? 0 : 1)) { i--; j--; }
+      else if (D[i][j] === D[i][j - 1] + pula) { if (pula) r.omitidas.unshift(J[j - 1]); j--; }
+      else i--;
+    }
+  }
+  return r;
 }
-/** Compara o trecho citado com o texto original. Retorna { similaridade 0..1, literal, faltando[] }. */
-function comparar(trecho, original) {
-  const T = tokens(trecho), O = tokens(original);
-  if (!T.length || !O.length) return { similaridade: 0, literal: false, faltando: T.slice(0, 10) };
-  const tn = T.join(' '), on = ' ' + O.join(' ') + ' ';
-  if (on.includes(' ' + tn + ' ')) return { similaridade: 1, literal: true, faltando: [] };
-  // ancora na palavra mais rara do trecho e mede a maior subsequencia comum numa janela ao redor
+function compararTokens(T, livres, O) {
+  if (!T.length || !O.length) return { similaridade: 0, literal: false, faltando: T.slice(0, 10), omitidas: [] };
+  if (!livres.size && (' ' + O.join(' ') + ' ').includes(' ' + T.join(' ') + ' ')) return { similaridade: 1, literal: true, faltando: [], omitidas: [] };
+  // ancora nas palavras mais raras do trecho e alinha numa janela ao redor
   const freq = {}; for (const w of O) freq[w] = (freq[w] || 0) + 1;
   const ancoras = Array.from(new Set(T)).filter((w) => freq[w]).sort((a, b) => freq[a] - freq[b]).slice(0, 3);
-  let melhor = 0, melhorJan = [];
+  let melhor = Infinity, melhorJan = [];
+  const feitas = new Set();
   for (const anc of ancoras) {
     let vistos = 0;
     for (let p = 0; p < O.length && vistos < 40; p++) {
       if (O[p] !== anc) continue; vistos++;
       const iT = T.indexOf(anc);
-      const ini = Math.max(0, p - iT - Math.ceil(T.length * 0.3)); const jan = O.slice(ini, ini + Math.ceil(T.length * 1.6) + 2);
-      const s = lcs(T, jan) / T.length;
-      if (s > melhor) { melhor = s; melhorJan = jan; }
+      const ini = Math.max(0, p - iT - Math.ceil(T.length * 0.3));
+      if (feitas.has(ini)) continue; feitas.add(ini);
+      const jan = O.slice(ini, ini + Math.ceil(T.length * 1.6) + 2);
+      const custo = alinhar(T, jan, livres).custo;
+      if (custo < melhor) { melhor = custo; melhorJan = jan; }
     }
   }
+  if (melhor === Infinity) return { similaridade: 0, literal: false, faltando: T.slice(0, 12), omitidas: [] };
   const J = new Set(melhorJan);
-  return { similaridade: Math.round(melhor * 1000) / 1000, literal: false, faltando: T.filter((w) => !J.has(w)).slice(0, 12) };
+  return { similaridade: Math.round(Math.max(0, 1 - melhor / T.length) * 1000) / 1000, literal: false, faltando: T.filter((w) => !J.has(w)).slice(0, 12), omitidas: alinhar(T, melhorJan, livres, true).omitidas.slice(0, 12) };
 }
-/** Classifica o resultado da comparacao. */
-function situacao(cmp) { return cmp.literal || cmp.similaridade >= 0.97 ? 'confere' : 'divergente'; }
+/** Compara o trecho citado com o texto original. Retorna { similaridade 0..1, literal, faltando[], omitidas[] }.
+ *  faltando = palavras do trecho que nao estao no original; omitidas = palavras do original que o trecho pulou
+ *  . "guarda-\nchuva" e ambiguo: o original e comparado com a hifenizacao
+ *  de fim de linha reunida, mantida como separador e (nos dois lados) com todo hifen entre letras unido;
+ *  fica a melhor. Rigor igual: >= 0,97, palavra por palavra. */
+function comparar(trecho, original) {
+  const montar = (opts) => ({ T: tokens(trecho, opts), livres: new Set() });
+  const normal = montar(), compacto = montar({ hifen: 'compactar' });
+  const pares = [[normal, tokens(original)], [normal, tokens(original, { hifen: 'separar' })], [compacto, tokens(original, { hifen: 'compactar' })]];
+  let melhor = null;
+  for (const [{ T, livres }, O] of pares) {
+    const r = compararTokens(T, livres, O);
+    if (!melhor || r.similaridade > melhor.similaridade) melhor = r;
+    if (r.literal) break;
+  }
+  return melhor;
+}
+const STATUS_SEM_TEXTO = 'sem-texto';
+/** Classifica o resultado: confere | divergente ('sem-texto' se o original salvo nao tinha texto legivel). */
+function situacao(cmp) {
+  if (cmp && cmp.semTexto) return STATUS_SEM_TEXTO;
+  return cmp.literal || cmp.similaridade >= 0.97 ? 'confere' : 'divergente';
+}
 
 /** Trecho entre aspas (ou citacao em bloco ">") logo depois/antes da citacao, no mesmo bloco. */
 function trechoCitado(texto, ini, fim) {
@@ -94,4 +151,4 @@ function cnjLiberados(texto) {
   return nums.length > 0 && nums.every((n) => pend.some((k) => k.includes(n.replace(/\D/g, ''))));
 }
 
-module.exports = { chave, lerLivro, consultar, registrar, comparar, situacao, trechoCitado, politica, dominioAutorizado, pedir, lerPendentes, cnjLiberados, FONTES_SUGERIDAS, arqLivro };
+module.exports = { chave, lerLivro, consultar, registrar, tokens, comparar, situacao, STATUS_SEM_TEXTO, trechoCitado, politica, dominioAutorizado, pedir, lerPendentes, cnjLiberados, FONTES_SUGERIDAS, arqLivro };

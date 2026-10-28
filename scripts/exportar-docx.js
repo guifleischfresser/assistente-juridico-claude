@@ -154,7 +154,7 @@ if (require.main === module) {
   const leis = todas.filter((x) => !x.verificada && !x.marcada && x.tipo === 'legislacao');
   if (pend.length && !forcar) {
     console.log('❌ Exportação interrompida: ' + pend.length + ' citação(ões) de JURISPRUDÊNCIA sem fonte e sem a marca [NÃO VERIFICADO]:');
-    pend.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + ')'));
+    pend.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + ')' + (x.semTexto ? ' (o arquivo salvo não tinha texto legível — veja `julgados.js situacao`)' : '')));
     console.log('Rode /verificar-citacoes para marcar ou incluir a fonte. (Para exportar mesmo assim: --forcar)');
     process.exit(2);
   }
