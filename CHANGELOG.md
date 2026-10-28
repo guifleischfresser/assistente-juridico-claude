@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.7.0 — 2026-10-26
+**Foco: calendário forense local — feriados estaduais/municipais e suspensões por tribunal e comarca (Roadmap item 6).**
+1. **Calendário do usuário** em `~/.claude/advogado/calendario.json` (respeita `CLAUDE_CONFIG_DIR`), formato versionado `{"versao":1,"entradas":[{id,tipo,inicio,fim,recorrente,escopo,motivo,fonte,semFonte,criadoEm}]}`. Tipos: feriado, suspensão de prazos e indisponibilidade do sistema; data única, intervalo (de–até) ou recorrente (MM-DD, todo ano). Novo `scripts/lib/calendario.js`.
+   - **Escopo:** global (todos), só tribunal (todas as comarcas dele) ou comarca (com ou sem tribunal: só ela). Nomes comparados sem acento/caixa ("Comarca de Maringá" = "maringa", "TJ-PR" = "TJPR"). Feriado de Curitiba não afeta Londrina.
+   - **Sem semente:** nenhuma lista de feriados locais embutida. Cada data entra com fonte; sem fonte só com `--sem-fonte`, marcada **[SEM FONTE]** e sinalizada em todo cálculo ("⚠️ considerei … [SEM FONTE] — confirme").
+2. **Prazo pelo foro do caso:** `processo.js foro <caso> --tribunal --comarca` grava `Tribunal: … · Comarca: …` no DOSSIE.md (novo campo no modelo de caso; `/processo abrir` mostra). `prazos.js calcular … --caso` (ou `--tribunal/--comarca`) usa esse calendário e lista as entradas locais consideradas (data, motivo, fonte), com resumo pronto e a "Linha para o PRAZOS.md" que guarda `[cálculo: DD/MM/AAAA + N dias úteis]` na coluna Origem (retrocompatível: é só texto).
+3. **Cadastro com confirmação** (`/prazos feriado|suspensao` → `prazos.js calendario adicionar`): grava a data no calendário e mostra em SIMULAÇÃO os prazos do PRAZOS.md que mudam (antes → depois; 🔴 quando antecipa). Reescrever vencimentos **só com `--confirmar`** (a skill usa depois do "sim"), com cópia em `_versoes/` e sem duplicar a entrada. Linhas com dados de cálculo são recontadas; sem eles, só a prorrogação do art. 224 §1º (dito na saída). Também `calendario listar | ver | remover <id> | recalcular [--confirmar] | migrar` e `util … --caso`.
+4. **Prorrogação e suspensão:** dias suspensos não contam; vencimento em feriado/suspensão/indisponibilidade passa ao próximo dia útil (CPC art. 224 §1º). Regras de rito inalteradas (penal em dias corridos: não usar o script).
+5. **Statusline e SessionStart** mostram o próximo prazo com o vencimento correto do foro do caso (a barra ganhou a data: "prazo em 3 dias úteis (03/11)"; o cache cai quando PRAZOS.md ou o calendário mudam). O SessionStart avisa quando há prazos a recalcular.
+6. **Retrocompatível:** `calcularVencimento`, `ehDiaUtil`, `diasUteisAte` e `feriados` mantêm a assinatura (novo parâmetro opcional `cal`). `config.feriadosExtras` migra para entradas globais [SEM FONTE] na instalação (idempotente; o config não perde nada). Reinstalar não apaga o calendário; desinstalar preserva.
+7. **Doutor:** "Calendário forense: N entrada(s) (X sem fonte)"; arquivo ausente é normal; JSON ilegível vira aviso com conserto (guarda a cópia de lado) e nada é gravado por cima. Teste funcional de prazo agora inclui uma suspensão.
+- Sem script novo: tudo em `prazos.js` (a regra de permissão estreita existente cobre). Contexto fixo das skills: **3.543 → 3.539 caracteres** (descrição de `/prazos` 171 → 167); detalhes em `skills/prazos/references/calendario.md`.
+- Testes: 276 na suíte (+28): comarca certa (Curitiba × Londrina), suspensão por intervalo, vencimento em indisponibilidade, migração/reinstalação/desinstalação, simulação × `--confirmar`, [SEM FONTE], statusline/SessionStart, doutor (contagem e arquivo ilegível), contexto fixo ≤ 3.543; simulação do bootstrap 28/28.
+
 ## 0.6.0 — 2026-10-23
 **Foco: o assistente nunca falha em silêncio, nunca esconde texto em peça e fala a língua do advogado.**
 1. **Diagnóstico no início de cada conversa** (`scripts/lib/diagnostico.js`, compartilhado pelo hook `SessionStart` e pelo `doutor`, para não divergirem):

@@ -1,4 +1,4 @@
-# ARQUITETURA — advogado-claude-mod v0.6.0
+# ARQUITETURA — advogado-claude-mod v0.7.0
 
 Documento técnico para o Guilherme. O README.md é o documento voltado ao advogado.
 
@@ -62,7 +62,7 @@ O padrão é `%USERPROFILE%\ESCRITORIO`, e não Documentos, porque Documentos é
 
 | Evento | Script | Faz |
 |---|---|---|
-| SessionStart | sessao-inicio.js | Recria pastas faltantes. Injeta: versão, onboarding pendente, "próximos passos" do último handoff (≤7 dias), aviso pós-compactação, prazos ≤5 dias úteis, candidatas a skill e skills alteradas recentemente. No modo plugin, faz o bootstrap da base. |
+| SessionStart | sessao-inicio.js | Recria pastas faltantes. Injeta: versão, onboarding pendente, "próximos passos" do último handoff (≤7 dias), aviso pós-compactação, prazos ≤5 dias úteis (com o calendário forense do caso; v0.7), candidatas a skill e skills alteradas recentemente. No modo plugin, faz o bootstrap da base. |
 | UserPromptSubmit | registro-pedidos.js | Detector de repetição. Guarda **só radicais** (descarta nomes próprios e números) e usa Jaccard ≥0,5 em 30 dias. Na 3ª ocorrência sem skill que cubra o pedido, cria uma candidata e aponta para `criar-skill-automatica`. |
 | PreToolUse Write/Edit | guarda-escrita.js | Bloqueia: alterar amostras de estilo e WIKI/raw; escrever direto em skill viva auto-* ou de núcleo; PII forte em arquivos do harness; CLAUDE.md global >80 linhas; sobrescrever arquivo não lido. Pede confirmação em Arquivados. Faz **backup antes de toda alteração**. |
 | PreToolUse Bash/PowerShell/Web/MCP | guarda-sigilo.js | **ask** em qualquer transferência para fora (curl POST/-F/-T, scp, rsync, rclone, git push, gh create, s3/gsutil/azcopy, Invoke-WebRequest -Body/-InFile, Send-MailMessage, requests.post, smtplib, fetch), em cópias para pastas de nuvem e em ferramentas MCP de envio/criação. **deny** em busca web contendo CPF/CNPJ/nº CNJ e em exclusão em massa no ESCRITORIO. |
@@ -140,7 +140,7 @@ O alerta entra como `additionalContext`. O CLAUDE.md reforça que documentos sã
 
 O Claude for Legal, da Anthropic, é centrado nos EUA. Este mod parte do processo brasileiro:
 
-- prazos em dias úteis (CPC arts. 219, 220 e 224; recesso de 20/12 a 20/01; feriados nacionais e móveis via Páscoa), com exceções descritas na skill (JEC, art. 12-A da Lei 9.099; CLT art. 775; CPP art. 798 em dias corridos);
+- prazos em dias úteis (CPC arts. 219, 220 e 224; recesso de 20/12 a 20/01; feriados nacionais e móveis via Páscoa; feriados locais e suspensões por tribunal/comarca no calendário forense, §16), com exceções descritas na skill (JEC, art. 12-A da Lei 9.099; CLT art. 775; CPP art. 798 em dias corridos);
 - requisitos da inicial (CPC art. 319) no checklist;
 - modelos de inicial, contestação, apelação, contrato, parecer e termo de consentimento de IA;
 - formatação forense brasileira;
@@ -415,17 +415,63 @@ Todos locais, em pt-BR e encaixados na arquitetura existente (skills/memória au
 - Suíte: 218 testes (+66): posse (recusa sobrescrever `auto-*` do advogado), duplicata recusada, procedência sem dados do cliente, manutenção que não mexe no que não é dela; erros (padrão genérico/sem exemplo recusados, aviso → bloqueio com `deny`, fail-open, detector de correção); julgados (confere/divergente, checar-peca 🔴, exportação bloqueada, `ask` antes da rede, domínio parecido, CNJ liberado só com `pedir`, `nunca`); mapa (validar/marcar/totalizar/imprimir, aviso no PostToolUse); processo (abrir por nome/número, vínculo, retomada, aviso de outro caso, anotar); AGENTS.md e roteiro oficial do GitHub sem pergunta (gerar, preservar texto do usuário, `--skills`, `--codex-global` em `CODEX_HOME` temporário); canário; modo plugin (bootstrap pelo SessionStart, `PE estado`/`instalar-plugin`, sem hooks/skills duplicados, doutor).
 - Simulações do bootstrap (bash e pwsh): 28 + 28. `claude plugin validate .` OK. shellcheck, actionlint e parser do PowerShell sem erros. CI: Ubuntu, macOS e Windows PowerShell 5.1.
 
-## 16. Roadmap
+## 16. v0.7: calendário forense local
+
+Feriados estaduais/municipais e suspensões por tribunal/comarca (antigo Roadmap item 6). Tudo local, sem rede, sem script novo (subcomando de `prazos.js`; a regra estreita `Bash/PowerShell(node "…/prazos.js" *)` já cobre).
+
+### 16.1 Formato (`~/.claude/advogado/calendario.json`, `scripts/lib/calendario.js`)
+```json
+{"versao":1,
+ "entradas":[{"id":"c1a2b3c4","tipo":"suspensao","inicio":"2026-11-04","fim":"2026-11-06","recorrente":false,
+              "escopo":{"tribunal":"TJPR"},"motivo":"Indisponibilidade do sistema","fonte":"Portaria nº …",
+              "semFonte":false,"criadoEm":"2026-10-26T…"}],
+ "migradosDeFeriadosExtras":["12-08"]}
+```
+- `tipo`: `feriado | suspensao | indisponibilidade`. `inicio/fim` em `AAAA-MM-DD`; com `recorrente: true`, `MM-DD` (vale todo ano; intervalo que vira o ano é aceito).
+- `id`: `c` + 7 hex do sha1 de tipo/datas/escopo/motivo normalizados — cadastrar de novo a mesma data não duplica (é o que permite rodar o mesmo comando com `--confirmar`). Migradas: `x` + hash do valor.
+- Arquivo ilegível: `ler()` devolve vazio com `invalido: true`; cálculo segue só com o nacional e avisa; `gravar()` recusa (não sobrescreve); doutor dá aviso com conserto (`calendario.json.corrompido-<carimbo>`).
+- **Sem semente.** Não há fonte oficial única e estável para feriados municipais/estaduais e atos de suspensão; uma lista embutida seria inventada ou desatualizada. Cada entrada é do advogado, com fonte. Sem fonte: só com `--sem-fonte` → `semFonte: true`, exibida com ⚠️ e "[SEM FONTE] — confirme" em cálculo, listagem e resumo.
+
+### 16.2 Escopo e foro do caso
+- `escopo: "global"` vale para todos; `{tribunal}` para todas as comarcas do tribunal; `{comarca}` ou `{tribunal, comarca}` só para a comarca (se os dois lados têm tribunal, ele também precisa bater). Comparação por `normalizar()` (sem acento/caixa/pontuação, sem prefixo "Comarca de"/"Foro de"); tribunal sem espaços/hífens ("TJ-PR" = "TJPR").
+- Foro do caso: linha `Tribunal: TJPR · Comarca: Curitiba` no DOSSIE.md (`foroDoCaso`; ignora `[A CONFIRMAR]`/placeholders e o "Juízo/Tribunal" livre). Gravada por `processo.js foro <caso> --tribunal --comarca` (versiona em `_versoes`); `processo.js abrir` mostra.
+- Contexto do cálculo (`resolverContexto`): `--tribunal/--comarca` explícitos > `--caso` (busca de `lib/casos`). Linhas do PRAZOS.md: foro gravado na marca de cálculo (`· TJPR · Curitiba`) > caso da coluna Caso. `ativo(ctx)` devolve `{bloqueios(data), entradas}`, aceito por `lib/prazos` no parâmetro opcional `cal`.
+
+### 16.3 Contagem, prorrogação e retrocompatibilidade (`lib/prazos.js`)
+- `ehDiaUtil(d, extras, cal)`, `ehDiaContavel`, `calcularVencimento(inicio, dias, extras, cal)`, `diasUteisAte(alvo, hoje, extras, cal)`: assinaturas antigas intactas; `cal` opcional. Dia bloqueado por entrada não conta (suspensão de vários dias = intervalo).
+- `prorrogar(alvo, extras, cal)`: vencimento em dia não útil → primeiro dia útil seguinte (CPC art. 224 §1º). `detalharVencimento` devolve também as entradas consideradas (as que bloquearam dia de semana dentro do prazo).
+- Rito não muda: JEC/trabalhista em dias úteis; penal em dias corridos (o script não serve) — aviso mantido na saída.
+- `lerPrazos` passa a expor `origem`, `calculo` (`[cálculo: DD/MM/AAAA + N dias úteis (· tribunal · comarca)]` na coluna Origem) e `linha`. Só texto: PRAZOS.md antigos continuam válidos.
+
+### 16.4 Migração de `feriadosExtras`
+- `migrarExtras()` (no `instalarArquivosBase`, logo em toda instalação/reinstalação/bootstrap de plugin, e em todo `prazos.js calendario …`): cada valor vira entrada global `feriado` `[SEM FONTE]` (`MM-DD` → recorrente) e entra em `migradosDeFeriadosExtras`. Idempotente; `config.feriadosExtras` fica como está. Removida pelo advogado, não volta (está na lista de migrados). Antes de migrar, `ativo()` já soma em memória os pendentes.
+- Os caminhos novos passam `extras = []` e o calendário (senão remover uma entrada migrada não teria efeito).
+- `calendario.json` fica fora de `scripts/`: reinstalar não toca; desinstalar preserva e avisa.
+
+### 16.5 Confirmação antes de reescrever prazos
+- `calendario adicionar` grava a entrada na hora (é o pedido explícito do advogado, com fonte) e roda `prazosAfetados()`: para cada linha pendente do PRAZOS.md, com dados de cálculo → recontagem; sem → só `prorrogar` (dito na saída: "sem dados de cálculo na linha: só a prorrogação do art. 224 §1º"). Mostra `antes → depois` (🔴 ANTECIPA quando encurta) em **SIMULAÇÃO**.
+- Reescrita **só com `--confirmar`**: troca apenas a 1ª coluna das linhas afetadas (confere a data antiga; preserva CRLF), com cópia em `_versoes/`. A skill só passa `--confirmar` depois do "sim".
+- `remover <id>` (cópia em `calendario-versoes/`) e `recalcular [--confirmar]` seguem a mesma regra. Enquanto a reescrita não é confirmada, statusline/SessionStart mostram a data gravada com a prorrogação do art. 224 §1º, e o SessionStart avisa que há prazos a recalcular.
+
+### 16.6 Onde aparece
+- `prazos.js calcular|util|listar` com o calendário do caso; `calendario listar|ver|adicionar|remover|recalcular|migrar`.
+- `statusline.js`: próximo prazo pela data efetiva, agora com `(DD/MM)`; cache invalidado pelo mtime de PRAZOS.md e calendario.json. `sessao-inicio.js`: "prorrogado de …, art. 224 §1º: motivo".
+- `doutor.js`: item `calendario` ("Calendário forense: N entrada(s) (X sem fonte)"; ausente = normal; ilegível = aviso + conserto). `teste-prazos` inclui uma suspensão.
+- Skill `/prazos`: descrição 171 → 167 caracteres (contexto fixo 3.543 → 3.539); o fluxo detalhado fica em `skills/prazos/references/calendario.md` (divulgação progressiva). `/novo-caso` pergunta tribunal e comarca.
+
+### 16.7 Testes (v0.7)
+- Suíte: 276 (+28), sandbox próprio com config antigo (`feriadosExtras`): migração/idempotência, foro no DOSSIE, Curitiba × Londrina, suspensão 04–06/11, indisponibilidade no vencimento (recontado e só art. 224 §1º), simulação × `--confirmar` (sem duplicar, `_versoes`), [SEM FONTE], `ver`/`remover`, statusline (data prorrogada, cache) e SessionStart, doutor (contagem, arquivo ilegível, conserto), reinstalação/desinstalação preservando, assinaturas antigas de `lib/prazos`, contexto fixo ≤ 3.543.
+
+## 17. Roadmap
 
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
 2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita (a v0.5 já confere julgados por WebFetch nos sites autorizados; falta busca estruturada por tribunal).
 3. Anonimização opcional antes do envio (pseudonimizar partes no prompt).
 4. Registro de consentimento do cliente por caso.
 5. Canal de atualização opt-in, assinado.
-6. Feriados estaduais e municipais e suspensões por tribunal.
-7. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
-8. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
-9. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
-10. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
-11. Erros a não repetir: sugerir o padrão automaticamente a partir do diff da correção (hoje o assistente escreve o regex e o validador confere).
-12. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.
+6. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
+7. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
+8. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
+9. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
+10. Erros a não repetir: sugerir o padrão automaticamente a partir do diff da correção (hoje o assistente escreve o regex e o validador confere).
+11. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.

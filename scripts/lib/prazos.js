@@ -2,7 +2,9 @@
 /*
  * Prazos processuais: leitura do PRAZOS.md e contagem em dias uteis
  * (CPC art. 219: so dias uteis; art. 224: exclui o dia do comeco e inclui o do vencimento;
- *  art. 220: suspensao de 20/12 a 20/01). Feriados locais/estaduais: config.feriadosExtras.
+ *  art. 220: suspensao de 20/12 a 20/01). Feriados locais/estaduais e suspensoes: calendario forense
+ *  (lib/calendario.js, v0.7) passado no parametro opcional "cal"; config.feriadosExtras continua aceito.
+ * "cal" = { bloqueios(data) -> lista de entradas que tornam o dia nao util } (lib/calendario.ativo).
  * AVISO: auxilio de organizacao. O advogado sempre confere o prazo oficial.
  */
 const fs = require('fs');
@@ -27,31 +29,51 @@ function feriados(ano, extras) {
   return s;
 }
 function emRecesso(d) { const m = d.getMonth() + 1, dia = d.getDate(); return (m === 12 && dia >= 20) || (m === 1 && dia <= 20); }
-function ehDiaUtil(d, extras) {
+function ehDiaUtil(d, extras, cal) {
   const sem = d.getDay();
   if (sem === 0 || sem === 6) return false;
   if (feriados(d.getFullYear(), extras).has(iso(d))) return false;
+  if (cal && cal.bloqueios(d).length) return false;
   return true;
 }
-function ehDiaContavel(d, extras) { return ehDiaUtil(d, extras) && !emRecesso(d); }
+function ehDiaContavel(d, extras, cal) { return ehDiaUtil(d, extras, cal) && !emRecesso(d); }
 
 /** Data final de um prazo de N dias uteis a partir da intimacao/publicacao. */
-function calcularVencimento(inicio, dias, extras) {
+function calcularVencimento(inicio, dias, extras, cal) {
   let d = new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate());
   let contados = 0;
-  while (contados < dias) { d = somaDias(d, 1); if (ehDiaContavel(d, extras)) contados++; }
+  while (contados < dias) { d = somaDias(d, 1); if (ehDiaContavel(d, extras, cal)) contados++; }
   return d;
 }
+/** Vencimento em dia nao util (feriado, suspensao, indisponibilidade) prorroga para o 1o dia util seguinte (CPC art. 224, par. 1o). */
+function prorrogar(alvo, extras, cal) {
+  let a = new Date(alvo.getFullYear(), alvo.getMonth(), alvo.getDate());
+  for (let i = 0; i < 400 && !ehDiaUtil(a, extras, cal); i++) a = somaDias(a, 1);
+  return a;
+}
+/** Entradas do calendario local que bloquearam dias de semana entre de (inclusive) e ate (inclusive), sem repetir. */
+function entradasNoPeriodo(de, ate, cal) {
+  if (!cal) return [];
+  const vistas = new Map();
+  for (let d = new Date(de.getFullYear(), de.getMonth(), de.getDate()), i = 0; d <= ate && i < 2000; d = somaDias(d, 1), i++) {
+    if (d.getDay() === 0 || d.getDay() === 6) continue;
+    for (const e of cal.bloqueios(d)) if (!vistas.has(e.id)) vistas.set(e.id, e);
+  }
+  return Array.from(vistas.values());
+}
+/** Vencimento + entradas locais consideradas (as que caem em dia de semana dentro do prazo). */
+function detalharVencimento(inicio, dias, extras, cal) {
+  const vencimento = calcularVencimento(inicio, dias, extras, cal);
+  return { vencimento, consideradas: entradasNoPeriodo(somaDias(inicio, 1), vencimento, cal) };
+}
 /** Dias uteis entre hoje (exclusive) e a data (inclusive). Negativo = vencido. */
-function diasUteisAte(alvo, hoje, extras) {
+function diasUteisAte(alvo, hoje, extras, cal) {
   hoje = hoje || new Date();
   const h = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
-  let a = new Date(alvo.getFullYear(), alvo.getMonth(), alvo.getDate());
-  // vencimento em dia nao util prorroga para o primeiro dia util seguinte (CPC art. 224, par. 1o)
-  while (!ehDiaUtil(a, extras)) a = somaDias(a, 1);
+  const a = prorrogar(alvo, extras, cal);
   if (a.getTime() === h.getTime()) return 0;
   const passo = a > h ? 1 : -1; let d = h, n = 0;
-  while (d.getTime() !== a.getTime()) { d = somaDias(d, passo); if (ehDiaUtil(d, extras)) n += passo; }
+  while (d.getTime() !== a.getTime()) { d = somaDias(d, passo); if (ehDiaUtil(d, extras, cal)) n += passo; }
   return n;
 }
 function lerData(txt) {
@@ -63,21 +85,42 @@ function lerData(txt) {
   return null;
 }
 
-/** Le a tabela markdown do PRAZOS.md. Colunas: Vencimento | Caso | O que fazer | ... | Status */
+/**
+ * Dados de calculo guardados na coluna Origem (v0.7, retrocompativel: e so texto):
+ *   "intimação DJEN [cálculo: 05/10/2026 + 15 dias úteis]"  ou  "[cálculo: 05/10/2026 + 15 dias úteis · TJPR · Curitiba]"
+ */
+const RE_CALCULO = /\[c[áa]lculo:\s*(\d{1,2}\/\d{1,2}\/\d{4})\s*\+\s*(\d+)\s*dias?\s+[úu]teis([^\]]*)\]/i;
+function lerCalculo(origem) {
+  const m = String(origem || '').match(RE_CALCULO);
+  if (!m) return null;
+  const inicio = lerData(m[1]); const dias = parseInt(m[2], 10);
+  if (!inicio || !dias) return null;
+  const extra = m[3].split('·').map((x) => x.trim()).filter(Boolean);
+  return { inicio, dias, tribunal: extra[0] || '', comarca: extra[1] || '' };
+}
+function marcaCalculo(inicio, dias, tribunal, comarca) {
+  const z = (n) => String(n).padStart(2, '0');
+  return '[cálculo: ' + z(inicio.getDate()) + '/' + z(inicio.getMonth() + 1) + '/' + inicio.getFullYear() + ' + ' + dias + ' dias úteis' + (tribunal || comarca ? ' · ' + (tribunal || '') + (comarca ? ' · ' + comarca : '') : '') + ']';
+}
+
+/** Le a tabela markdown do PRAZOS.md. Colunas: Vencimento | Caso | O que fazer | Origem | Status */
 function lerPrazos(arquivo) {
   let texto = '';
   try { texto = fs.readFileSync(arquivo, 'utf8'); } catch (e) { return []; }
   const itens = [];
-  for (const linha of texto.split(/\r?\n/)) {
+  const linhas = texto.split(/\r?\n/);
+  for (let n = 0; n < linhas.length; n++) {
+    const linha = linhas[n];
     if (!/^\s*\|/.test(linha) || /^\s*\|\s*-/.test(linha)) continue;
     const cel = linha.split('|').slice(1, -1).map((c) => c.trim());
     const data = lerData(cel[0]);
     if (!data) continue;
     const status = (cel[cel.length - 1] || '').toLowerCase();
     if (/feito|cumprido|conclu|cancelad|ok\b/.test(status)) continue;
-    itens.push({ data, vencimento: iso(data), caso: cel[1] || '', tarefa: cel[2] || '', status });
+    const origem = cel.length >= 5 ? cel.slice(3, -1).join(' | ') : '';
+    itens.push({ data, vencimento: iso(data), caso: cel[1] || '', tarefa: cel[2] || '', status, origem, calculo: lerCalculo(origem), linha: n });
   }
   return itens.sort((a, b) => a.data - b.data);
 }
 
-module.exports = { pascoa, feriados, ehDiaUtil, ehDiaContavel, calcularVencimento, diasUteisAte, lerData, lerPrazos, iso, emRecesso };
+module.exports = { pascoa, feriados, ehDiaUtil, ehDiaContavel, calcularVencimento, diasUteisAte, lerData, lerPrazos, iso, emRecesso, somaDias, prorrogar, entradasNoPeriodo, detalharVencimento, lerCalculo, marcaCalculo, RE_CALCULO };

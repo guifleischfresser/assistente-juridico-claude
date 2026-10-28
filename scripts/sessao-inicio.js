@@ -84,12 +84,15 @@ c.rodarHook('sessao-inicio', (ent) => {
 
   // Prazos dos proximos 5 dias uteis
   try {
-    const itens = pz.lerPrazos(path.join(esc, 'PRAZOS.md'))
-      .map((i) => Object.assign(i, { uteis: pz.diasUteisAte(i.data, new Date(), cfg.feriadosExtras) }))
-      .filter((i) => i.uteis <= 5);
+    // v0.7: calendario forense do caso (tribunal/comarca) + prorrogacao do art. 224 par. 1o
+    const cl = require('./lib/calendario');
+    const todos = cl.avaliarPrazos(pz.lerPrazos(path.join(esc, 'PRAZOS.md')), { cfg });
+    const itens = todos.filter((i) => i.uteis <= 5).sort((a, b) => a.efetivo - b.efetivo);
     if (itens.length) {
-      partes.push('PRAZOS PRÓXIMOS (avise o usuário logo no início):\n' + itens.map((i) => '- ' + i.vencimento + ' (' + (i.uteis < 0 ? 'VENCIDO' : i.uteis + ' dia(s) útil(eis)') + '): ' + i.caso + ' — ' + i.tarefa).join('\n'));
+      partes.push('PRAZOS PRÓXIMOS (avise o usuário logo no início):\n' + itens.map((i) => '- ' + pz.iso(i.efetivo) + (i.efetivo.getTime() !== i.data.getTime() ? ' (prorrogado de ' + i.vencimento + ', art. 224 §1º' + (i.prorrogadoPor.length ? ': ' + i.prorrogadoPor.map((e) => e.motivo + (e.semFonte || !e.fonte ? ' [SEM FONTE]' : '')).join('; ') : '') + ')' : '') + ' (' + (i.uteis < 0 ? 'VENCIDO' : i.uteis + ' dia(s) útil(eis)') + '): ' + i.caso + ' — ' + i.tarefa).join('\n'));
     }
+    const mudam = todos.filter((i) => i.muda && !i.semDadosDeCalculo);
+    if (mudam.length) partes.push('CALENDÁRIO FORENSE: ' + mudam.length + ' prazo(s) do PRAZOS.md mudam de vencimento com o calendário atual. Mostre ao advogado com node "' + path.join(c.P.base, 'scripts', 'prazos.js') + '" calendario recalcular e só reescreva (--confirmar) depois do "sim".');
   } catch (e) { /* ignora */ }
 
   // Habilidades automaticas: candidatas e mudancas recentes

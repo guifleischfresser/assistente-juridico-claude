@@ -54,6 +54,9 @@ function instalarArquivosBase(raiz) {
   copiarDir(path.join(raiz, 'templates', 'escritorio'), path.join(c.P.base, 'modelo-escritorio'));
   for (const d of ['estado', 'logs', 'habilidades/rascunhos', 'habilidades/versoes', 'habilidades/_aposentadas']) if (!SIMULAR) c.garantirDir(path.join(c.P.base, d));
   if (!SIMULAR) c.gravarJSON(path.join(c.P.base, 'versao.json'), { versao: c.VERSAO, instaladoEm: new Date().toISOString(), origem: raiz });
+  // v0.7: calendario.json e dado do advogado (fica fora de scripts/: reinstalar nao apaga, desinstalar preserva).
+  // feriadosExtras antigos viram entradas globais [SEM FONTE]; idempotente e sem tirar nada do config.json.
+  if (!SIMULAR) { try { require('./lib/calendario').migrarExtras(c.config()); } catch (e) { c.log('erros', 'migrar feriadosExtras: ' + e.message); } }
 }
 
 /** Guarda uma copia do pacote em ~/.claude/advogado/pacote: o doutor (/consertar) reinstala sem internet. */
@@ -243,7 +246,7 @@ function desinstalar() {
     if ((reg.skills && reg.skills[n]) || n.startsWith('auto-')) { if (!SIMULAR) { c.garantirDir(guardar); fs.renameSync(path.join(c.P.skillsVivas, n), path.join(guardar, n)); } }
   }
   const os2 = path.join(c.P.claude, 'output-styles', 'advogado.md'); if (fs.existsSync(os2) && !SIMULAR) fs.unlinkSync(os2);
-  console.log('✅ Removido. Backup das configurações: ' + dirBk + '\n   Habilidades guardadas em: ' + guardar + '\n   Seu ESCRITORIO continua intacto.');
+  console.log('✅ Removido. Backup das configurações: ' + dirBk + '\n   Habilidades guardadas em: ' + guardar + '\n   Seu ESCRITORIO continua intacto' + (fs.existsSync(path.join(c.P.base, 'calendario.json')) ? ' e o calendário forense (feriados e suspensões que você cadastrou) foi preservado em ' + path.join(c.P.base, 'calendario.json') : '') + '.');
 }
 
 if (require.main === module) { if (args.includes('--desinstalar')) desinstalar(); else instalar(); }
