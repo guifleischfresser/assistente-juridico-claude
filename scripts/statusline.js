@@ -33,11 +33,11 @@ c.lerEntrada().then((e) => {
     }
 
     // v0.7: vencimento com o calendario forense do caso (tribunal/comarca) e a prorrogacao do art. 224 par. 1o.
-    // O cache cai sozinho quando PRAZOS.md ou calendario.json mudam.
+    // O cache cai sozinho quando PRAZOS.md ou calendario.json mudam, e na virada do dia LOCAL (nao UTC).
     const cache = path.join(c.P.estado, 'prazo-cache.json');
     const arqPz = path.join(cfg.escritorio, 'PRAZOS.md');
     const mt = (f) => { try { return fs.statSync(f).mtimeMs; } catch (er) { return 0; } };
-    const chave = mt(arqPz) + '|' + mt(require('./lib/calendario').arquivo());
+    const chave = mt(arqPz) + '|' + mt(require('./lib/calendario').arquivo()) + '|' + pz.iso(pz.hojeLocal());
     let prox = c.lerJSON(cache, null);
     if (!prox || Date.now() - prox.ts > 120000 || prox.chave !== chave) {
       const itens = require('./lib/calendario').avaliarPrazos(pz.lerPrazos(arqPz), { cfg }).sort((a, b) => a.efetivo - b.efetivo);
