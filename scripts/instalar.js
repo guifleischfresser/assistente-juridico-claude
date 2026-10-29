@@ -129,7 +129,7 @@ function mesclarSettings(esc, forcar, modoPlugin) {
 /** Regras de permissao ESTREITAS: so os scripts do proprio assistente, pelo caminho exato
  *  (sem curinga no nome do arquivo => nao cobre ../ nem outros .js). Valem no modo manual;
  *  no modo auto as regras estreitas continuam valendo e o resto passa pelo classificador. */
-const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos', 'julgados', 'processo', 'mapa-teses', 'erros', 'agentes', 'anonimizar'];
+const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos', 'julgados', 'processo', 'mapa-teses', 'erros', 'agentes', 'anonimizar', 'consentimento'];
 function regrasScripts() {
   const r = [];
   for (const s of SCRIPTS_CLI) for (const base of ['$HOME/.claude/advogado/scripts/', '~/.claude/advogado/scripts/']) for (const tool of ['Bash', 'PowerShell']) r.push(tool + '(node "' + base + s + '.js" *)');
