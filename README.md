@@ -84,7 +84,14 @@ Cada assistente vira, com o uso, **o assistente daquele advogado**. Sem pedir ap
 
 ## 3. O que o assistente faz
 
-**Novo (ainda não lançado) — anonimização opcional, por caso (`/anonimizar`):**
+**Novo (ainda não lançado) — consentimento do cliente, por caso (`/consentimento`):**
+- ✍️ Diga "registra que o cliente do caso X autorizou o uso de IA" e o assistente anota, **na pasta do caso**: a data, quem autorizou (o cliente ou o representante, pelo nome que já está no dossiê), o que foi autorizado (uso de IA, envio de documentos ao Claude, anonimização obrigatória ou não), a forma (por escrito, por e-mail ou verbal) e, se você quiser, o arquivo que comprova (por exemplo, o termo assinado guardado na pasta do caso).
+- 📄 `/consentimento modelo` gera o termo para o cliente assinar, já com o nome dele e as opções para marcar. `/consentimento revogar` anota a revogação; nada é apagado (o histórico fica todo guardado).
+- 🔔 Ao abrir um caso sem autorização registrada, ou com a autorização revogada, o assistente **avisa** (uma vez, sem travar o trabalho) e sugere a anonimização. Se o cliente exigiu anonimização e ela não está ligada no caso, ele avisa também.
+
+Exemplo: *"Anotei: o cliente do caso Silva x Banco autorizou o uso de IA em 29/10/2026, por escrito. O comprovante está na pasta do caso."*
+
+**Novidades da v0.8 — anonimização opcional, por caso (`/anonimizar`):**
 - 🕶️ Só quando você pedir, e só no caso que você escolher: antes de o Claude ler os documentos, os **nomes das partes, CPF/CNPJ, nº do processo, RG, e-mails, telefones e endereços** viram marcadores como `[PARTE_A]`, `[CPF_1]` e `[PROCESSO_1]`. O Claude trabalha e escreve a peça com esses marcadores.
 - ↩️ No fim, `/anonimizar reverter` devolve os dados reais no rascunho final (um arquivo `…-dados-reais.md`), no seu computador. Se sobrar marcador sem correspondência, ele avisa e não inventa nada; a exportação para Word também recusa peça com marcador.
 - 🗝️ A tabela que liga cada marcador ao dado real fica **só na pasta do caso** (`_anonimizacao/`): o Claude não consegue lê-la nem copiá-la para a memória ou para as instruções. Se ele for abrir o documento original de um caso anonimizado, o Claude Code **pergunta antes**.
@@ -140,6 +147,7 @@ Digite a barra `/` e o nome do comando:
 | `/verificar-citacoes` | Confere se os julgados existem e se o trecho citado bate com o original; marca [NÃO VERIFICADO] onde não deu |
 | `/erros` | Mostra os erros que você já corrigiu e que o assistente não pode repetir |
 | `/anonimizar` | Só se você pedir, por caso: troca nomes, CPF/CNPJ, nº do processo e contatos por marcadores antes de o Claude ler, e devolve os dados reais na peça final (`/anonimizar reverter`) |
+| `/consentimento` | Anota que o cliente autorizou (ou revogou) o uso de IA no caso, gera o termo para ele assinar e mostra a situação de cada caso |
 | `/formatar-peca` | Formata e exporta para Word (.docx) |
 | `/prazos` | Mostra os prazos, calcula vencimentos em dias úteis e cadastra feriados locais e suspensões do tribunal |
 | `/aprender-meu-estilo` | Aprende (ou reaprende) o seu jeito de escrever |
@@ -200,8 +208,9 @@ Tudo são arquivos comuns no seu computador. Você pode abrir no Word, no Bloco 
 - **Suas pastas originais** (petições, modelos, casos) são só **lidas**. Se o assistente precisar gravar numa delas, ele pede confirmação; o normal é salvar no ESCRITORIO.
 - **Histórico de conversas por 14 dias:** depois disso, o Claude Code apaga as conversas antigas do seu computador, porque elas podem conter trechos de documentos.
 - **Anonimização opcional** (`/anonimizar`): num caso mais sensível, você pode pedir que o Claude só veja cópias com marcadores (`[PARTE_A]`, `[CPF_1]`) no lugar dos dados reais. A tabela de correspondência fica só na pasta do caso, e os dados voltam na peça final no seu computador. Não é perfeita para nomes: confira as cópias.
+- **Consentimento do cliente** (`/consentimento`): a autorização de uso de IA de cada cliente fica registrada na pasta do próprio caso (nunca num arquivo geral nem na nuvem), com histórico. Caso sem autorização ou com autorização revogada gera um aviso, sem travar o trabalho.
 - **Não apaga nada:** antes de alterar um arquivo, ele guarda uma cópia em `ESCRITORIO/_versoes`.
-- **Importante:** o texto da conversa é processado pelos servidores da Anthropic, porque é assim que o Claude funciona. Avalie, com base no Código de Ética da OAB e na Recomendação CFOAB nº 001/2024, o que é adequado compartilhar, e considere obter o consentimento do cliente (há um modelo em `PECAS/modelos/termo-consentimento-ia.md`).
+- **Importante:** o texto da conversa é processado pelos servidores da Anthropic, porque é assim que o Claude funciona. Avalie, com base no Código de Ética da OAB e na Recomendação CFOAB nº 001/2024, o que é adequado compartilhar, e considere obter o consentimento do cliente (`/consentimento modelo` gera o termo do caso; há também um modelo geral em `PECAS/modelos/termo-consentimento-ia.md`).
 - **Evite** colocar a pasta ESCRITORIO dentro do OneDrive, Google Drive ou Dropbox, a menos que o seu escritório já use esses serviços de forma adequada para dados de clientes.
 
 ---
@@ -259,6 +268,9 @@ Cada habilidade deixa uma descrição curta carregada em toda conversa, para o C
 
 **Dá para o Claude não ver o nome do meu cliente?**
 Em boa parte, sim: peça `/anonimizar` no caso. Ele cria cópias dos documentos com marcadores no lugar de nomes, CPF/CNPJ, número do processo, e-mails, telefones e endereços, e trabalha só com elas. No fim, `/anonimizar reverter` coloca os dados reais de volta no rascunho, sem passar pela conversa. Limites honestos: nomes soltos ou apelidos podem escapar da detecção (confira as cópias), o nome da pasta do caso continua aparecendo e o que você mesmo escrever na conversa vai para o Claude como sempre.
+
+**Como registro que o cliente autorizou o uso de IA?**
+Diga, por exemplo, "registra que o cliente do caso Silva autorizou o uso de IA, por escrito; o termo assinado está em documentos". O assistente pergunta só o que faltar (por exemplo, se o cliente exigiu anonimização) e anota na pasta do caso. Se ainda não tem o termo, peça `/consentimento modelo`. Se o cliente mudar de ideia, `/consentimento revogar`: a partir daí, ao abrir o caso, o assistente avisa que a autorização foi revogada e sugere a anonimização. Os avisos nunca travam o trabalho: quem decide é você.
 
 **A memória chegou a 75%. E agora?**
 O assistente salva um resumo sozinho. Feche e abra uma conversa nova (ou digite `/clear`). Ele continua de onde parou.
