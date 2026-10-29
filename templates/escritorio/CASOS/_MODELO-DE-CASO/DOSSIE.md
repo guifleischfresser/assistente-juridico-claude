@@ -31,5 +31,6 @@
 - [DATA] —
 
 ## Uso de IA neste caso (transparência — Recomendação CFOAB nº 001/2024)
-- Cliente informado sobre o uso de IA e consentimento registrado? [sim/não — data]
+- Consentimento do cliente: registrado com /consentimento (fica em `_consentimento/` desta pasta, com histórico; /processo mostra o estado)
+- Representante: [só se outra pessoa autoriza pelo cliente]
 - Registro: peças com apoio de IA, sempre revisadas pelo(a) advogado(a) responsável.
