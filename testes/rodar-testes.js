@@ -1348,6 +1348,66 @@ console.log('\n12h. Consentimento do cliente por caso (LGPD; registro só na pas
   t('lib: datas em DD/MM/AAAA e ISO, inválidas recusadas, "hoje" = dia local', LC.lerData('29/10/2026') === '2026-10-29' && LC.lerData('2026-10-29') === '2026-10-29' && LC.lerData('31/02/2026') === null && LC.lerData('hoje') === dl.getFullYear() + '-' + z2(dl.getMonth() + 1) + '-' + z2(dl.getDate()) && LC.dataBR('2026-10-29') === '29/10/2026' && LC.dataExtenso('2026-03-01') === '1 de março de 2026');
 }
 
+console.log('\n12i. Erros a não repetir: /erros sugere o padrão a partir da correção');
+{
+  const R9 = path.join(TMP, 'sugerir'); const CL9 = path.join(R9, '.claude'); const ESC9 = path.join(R9, 'ESCRITORIO');
+  const B9 = path.join(CL9, 'advogado'); const ER9 = path.join(B9, 'scripts', 'erros.js');
+  const env9 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL9 });
+  const run9 = (args) => { const x = spawnSync(process.execPath, [ER9].concat(args), { env: env9, encoding: 'utf8', cwd: R9 }); let o = null; try { o = JSON.parse(x.stdout); } catch (e) { /* */ } return { code: x.status, out: x.stdout || '', err: x.stderr || '', j: o || {} }; };
+  const sug = (antes, depois, extra) => run9(['sugerir', '--antes', antes, '--depois', depois].concat(extra || []));
+  fs.mkdirSync(R9, { recursive: true });
+  r = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC9, '--nome', 'Dra. Nove'], { env: env9, encoding: 'utf8' });
+  t('sugerir: instalação do sandbox; a regra estreita do erros.js já cobre o subcomando', r.status === 0 && JSON.parse(fs.readFileSync(path.join(CL9, 'settings.json'), 'utf8')).permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/erros.js" *)'), r.stderr || r.stdout);
+  const caso9 = path.join(ESC9, 'CASOS', 'Ativos', '2026-caso-nove'); fs.mkdirSync(caso9, { recursive: true });
+  fs.writeFileSync(path.join(caso9, 'DOSSIE.md'), '# DOSSIÊ\n\n- Cliente: Joaquina Prudente Albuquerque · Parte contrária: Metalúrgica Fictícia Ltda.\n');
+  const arqE = path.join(ESC9, 'MEMORIA', 'erros-a-nao-repetir.json');
+  const lerE = () => { try { return JSON.parse(fs.readFileSync(arqE, 'utf8')).checks; } catch (e) { return []; } };
+  const acusa = (p, txt) => new RegExp(p, 'iu').test(txt);
+
+  r = sug('Ajuizada perante o TRT da 15ª Região, a reclamação', 'Ajuizada perante o TRT da 2ª Região, a reclamação');
+  t('15ª → 2ª: menor trecho com contexto ("TRT da 15ª Região"), tolerante a acento/º/ª/caixa/espaços, mensagem simples', r.code === 0 && r.j.ok && r.j.exemplo === 'TRT da 15ª Região' && r.j.certo === 'TRT da 2ª Região' && /^Entendi o erro: escrevi "TRT da 15ª Região", o certo é "TRT da 2ª Região"\. Vou passar a avisar sempre que aparecer "TRT da 15ª Região" em peças\. Confirma\?$/.test(r.j.mensagem) && r.j.padrao.length <= 200 && acusa(r.j.padrao, 'trt  da 15a regiao') && acusa(r.j.padrao, 'TRT DA 15ª REGIÃO') && !acusa(r.j.padrao, 'TRT da 115ª Região') && !acusa(r.j.padrao, 'TRT da 2ª Região') && /TRT da 2ª Região/.test(r.j.licao) && lerE().length === 0, r.out + r.err);
+  r = sug('acolher a preliminar de inépcia', 'acolher a preliminar de inépcia da inicial');
+  t('palavra acrescentada ("inépcia" → "inépcia da inicial"): avisa "inépcia" sem "da inicial"', r.code === 0 && r.j.exemplo === 'inépcia' && /sem "da inicial"/.test(r.j.mensagem) && acusa(r.j.padrao, 'a inepcia evidente') && !acusa(r.j.padrao, 'a inépcia  da inicial'), r.out);
+  r = sug('ficou caracterizada a inepcia da petição', 'ficou caracterizada a inépcia da petição');
+  t('diferença só de acento: padrão exato no acento (não acusa a forma certa)', r.code === 0 && r.j.exemplo === 'inepcia' && !r.j.tolerancia.includes('acentos') && acusa(r.j.padrao, 'INEPCIA') && !acusa(r.j.padrao, 'inépcia') && !acusa(r.j.padrao, 'inépcia'), r.out);
+  r = sug('o autor, CPF 123.456.789-09, ajuizou a ação no TRT da 15ª Região', 'o autor, CPF 123.456.789-09, ajuizou a ação no TRT da 2ª Região');
+  t('CPF fictício no contexto: fica de fora do padrão, da lição e do exemplo (e a mensagem explica)', r.code === 0 && r.j.omitidos.includes('CPF') && !/\d{3}\.?\d{3}/.test(r.j.padrao + r.j.exemplo + r.j.certo + r.j.licao) && /Deixei de fora do aviso o CPF/.test(r.j.mensagem), r.out);
+  r = sug('inscrito no CPF 123.456.789-09', 'inscrito no CPF 123.456.789-10');
+  t('correção no próprio CPF: recusa em linguagem simples (código 4, sem eco do número)', r.code === 4 && r.j.motivo === 'sigilo' && /dado do cliente \(CPF\)/.test(r.j.mensagem) && !/789/.test(r.out) && !r.j.manual, r.out);
+  r = sug('nos autos 0001234-56.2024.5.02.0001, perante a 3ª Vara Civel', 'nos autos 0001234-56.2024.5.02.0001, perante a 3ª Vara Cível');
+  t('número de processo CNJ no trecho: não vai para o padrão', r.code === 0 && r.j.omitidos.includes('número de processo') && !/0001234|2024/.test(JSON.stringify(r.j)), r.out);
+  r = sug('processo 0001234-56.2024.5.02.0001', 'processo 0001234-56.2024.5.02.0009');
+  t('correção no próprio número de processo: recusa', r.code === 4 && r.j.motivo === 'sigilo' && !/0001234/.test(r.out), r.out);
+  r = sug('A cliente Joaquina Prudente Albuquerque propôs a ação', 'A cliente Joaquina Prudente Albuquerque ajuizou a ação');
+  t('nome da cliente (do DOSSIÊ) no trecho: fica de fora; troca no próprio nome é recusada', r.code === 0 && !/joaquina|albuquerque/i.test(JSON.stringify(r.j)) && sug('Joaquina Prudente Albuquerque', 'Joaquina Prudente de Albuquerque').j.motivo === 'sigilo', r.out);
+  r = sug('O réu não contestou a ação no prazo legal e deve ser declarado revel.', 'A parte requerida deixou transcorrer in albis o prazo para defesa, operando-se a revelia.');
+  t('reescrita grande: sem sugestão, código 4 e caminho manual', r.code === 4 && r.j.motivo === 'reescrita' && /registrar/.test(r.j.manual), r.out);
+  const pont = sug('Diante do exposto, requer', 'Diante do exposto; requer'); const vaz = sug('Diante do exposto', 'Diante  do   exposto'); const cx = sug('o stj decidiu', 'o STJ decidiu');
+  t('só pontuação, diff vazio e só maiúsculas: sem sugestão (código 4) com motivo claro', pont.code === 4 && pont.j.motivo === 'pontuacao' && vaz.code === 4 && vaz.j.motivo === 'vazio' && cx.code === 4 && cx.j.motivo === 'caixa', pont.out + vaz.out + cx.out);
+  t('sem --antes/--depois: uso (código 1)', run9(['sugerir', '--antes', 'x']).code === 1);
+  const casos = [['TRT da 15ª Região', 'TRT da 2ª Região'], ['art. 5o da CF', 'art. 5º da CF'], ['nos termos do do art. 5º', 'nos termos do art. 5º'], ['Súmula 331 do TST', 'Súmula 331 do STJ'], ['a reclamada', 'a reclamante'], ['dano moral', 'danos morais'], ['Excelentíssimo Senhor Doutor Juiz', 'Excelentíssimo Senhor Juiz'], ['in verbis', 'in litteris'], ['prazo de 15 dias', 'prazo de 15 dias úteis'], ['data venia', 'data vênia'], ['Código de Processo Civil de 1973', 'Código de Processo Civil de 2015'], ['ação de cobrança', 'ação monitória'], ['3ª Turma', '3º Turma'], ['Vara do Trabalho de Campinas', 'Vara do Trabalho de Jundiaí'], ['o recurso de revista', 'o agravo de instrumento em recurso de revista']];
+  const ruins = []; let sugeridos = 0;
+  for (const [a0, d0] of casos) {
+    const x = require(path.join(RAIZ, 'scripts', 'lib', 'erros.js')).sugerirPadrao(a0, d0, { nomes: [] });
+    if (!x.ok) continue; sugeridos++;
+    const re = new RegExp(x.padrao, 'giu');
+    if (re.test(d0) || !new RegExp(x.padrao, 'iu').test(a0) || x.padrao.length > 200 || /\((?:[^()\\]|\\.)*[+*}](?:[^()\\]|\\.)*\)\s*[+*{]/.test(x.padrao)) ruins.push(a0 + ' → ' + d0 + ' :: ' + x.padrao);
+    for (const ctxT of ['Texto antes, ' + d0 + ', texto depois.', d0.toUpperCase(), d0.normalize('NFD')]) if (new RegExp(x.padrao, 'iu').test(ctxT)) ruins.push('acusa o certo em contexto: ' + ctxT);
+  }
+  t('garantia: em ' + casos.length + ' correções, a regex sugerida acha o erro e nunca acusa o "depois" (também em maiúsculas, NFD e no meio da frase); ≤ 200, sem quantificador aninhado', !ruins.length && sugeridos >= 12, ruins.join(' | ') + ' sugeridos=' + sugeridos);
+
+  r = sug('Ajuizada perante o TRT da 15ª Região, a reclamação', 'Ajuizada perante o TRT da 2ª Região, a reclamação', ['--registrar']);
+  const c1 = lerE();
+  t('--registrar grava como aviso (lição sem dado do cliente) via registrar()', r.code === 0 && r.j.registro && r.j.registro.nivel === 'aviso' && !r.j.registro.repetido && c1.length === 1 && c1[0].padrao === r.j.padrao && c1[0].certo === 'TRT da 2ª Região' && /Anotado/.test(r.j.mensagem), r.out);
+  const pecaT = path.join(caso9, 'peca.md'); fs.writeFileSync(pecaT, 'Ao Juízo da Vara do Trabalho, TRT  da 15a REGIAO.\n');
+  t('erros.js testar acha o erro com outra grafia (espaço duplo, 15a, sem acento, maiúsculas)', /⚠️/.test(run9(['testar', pecaT]).out));
+  r = sug('no TRT da 15ª Região, ', 'no TRT da 2ª Região, ', ['--registrar']);
+  const c2 = lerE();
+  t('a mesma correção de novo => vira BLOQUEIO (sem duplicar) e testar sai com código 3', r.code === 0 && r.j.registro.repetido && r.j.registro.nivel === 'bloqueio' && c2.length === 1 && /não é gravada/.test(r.j.mensagem) && run9(['testar', pecaT]).code === 3, r.out);
+  const tudo = fs.readFileSync(arqE, 'utf8');
+  t('arquivo de erros sem dado real (CPF, CNJ, nome do DOSSIÊ)', !/123\.456|0001234|Joaquina/i.test(tudo));
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));

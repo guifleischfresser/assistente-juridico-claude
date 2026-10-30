@@ -61,7 +61,7 @@ const CORRECAO = /\b(t[aá] errad[oa]|est[aá] errad[oa]|errou|err[oa]do de novo
 function dicaCorrecao(prompt) {
   if (!CORRECAO.test(prompt)) return null;
   const s = '"' + require('path').join(c.P.base, 'scripts', 'erros.js') + '"';
-  return 'O advogado parece estar CORRIGINDO um erro seu. Depois de corrigir: (1) se for um erro que dá para reconhecer no texto (forma, tribunal, expressão, formatação), registre-o para não repetir: node ' + s + ' registrar --licao "<o que é o certo, sem dados do cliente>" --padrao "<regex curta do ERRO>" --exemplo "<trecho exato errado>" --certo "<forma certa>" (se ele disser que já corrigiu antes, acrescente --bloquear; registrar de novo o mesmo erro faz ele passar a ser BLOQUEADO). Antes, veja os já registrados: node ' + s + ' listar. (2) Se for preferência de estilo geral sem padrão de texto, anote na memória de estilo. Diga ao advogado, em uma linha, o que ficou registrado.';
+  return 'O advogado parece estar CORRIGINDO um erro seu. Depois de corrigir: (1) se for um erro que dá para reconhecer no texto (forma, tribunal, expressão, formatação), monte o aviso com node ' + s + ' sugerir --antes "<trecho exato errado>" --depois "<trecho corrigido>", mostre a "mensagem" ao advogado e, se ele confirmar, rode o mesmo comando com --registrar (registrar de novo o mesmo erro faz ele passar a ser BLOQUEADO). Se vier código 4 (sem padrão seguro), use registrar --licao … --padrao "<regex curta do ERRO>" --exemplo … --certo …. Antes, veja os já registrados: node ' + s + ' listar. (2) Se for preferência de estilo geral sem padrão de texto, anote na memória de estilo. Diga ao advogado, em uma linha, o que ficou registrado.';
 }
 
 function principal() { c.rodarHook('registro-pedidos', (ent) => {
