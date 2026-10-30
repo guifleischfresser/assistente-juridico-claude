@@ -72,6 +72,12 @@ c.rodarHook('sessao-inicio', (ent) => {
     if (rel) {
       const pasta = path.join(esc, 'CASOS', rel);
       const s = c.lerSessao(ent.session_id); if (s.casoAtivoRel !== rel) { s.casoAtivo = pasta; s.casoAtivoRel = rel; c.gravarSessao(ent.session_id, s); }
+      // consentimento do cliente: avisa UMA vez por conversa e situacao (sem registro, revogado, anonimizacao exigida e desligada)
+      try {
+        const cs = require('./lib/consentimento'); const stc = cs.situacao(pasta); const av = cs.avisos(pasta, { st: stc });
+        const marca = rel + '|' + stc.situacao + '|' + av.length;
+        if (av.length && s.avisoConsentimento !== marca) { partes.splice(1, 0, 'CONSENTIMENTO DO CLIENTE (diga ao advogado uma vez, em uma linha; não trave o trabalho): ' + av.join(' ')); s.avisoConsentimento = marca; c.gravarSessao(ent.session_id, s); }
+      } catch (e) { c.log('erros', 'consentimento sessao: ' + e.message); }
       partes.splice(1, 0, '📁 ESTA CONVERSA É DO PROCESSO "' + rel + '" (' + pasta + '). Trabalhe só nele: leia DOSSIE.md e HANDOFF.md desse caso quando precisar (ou rode node "' + path.join(c.P.base, 'scripts', 'processo.js') + '" abrir "' + rel.split('/')[1] + '"). Não leia nem use outros casos sem o advogado pedir; dados do cliente ficam só na pasta do caso, nunca em MEMORIA/.');
     } else if (cfg.onboardingConcluido && ent.source === 'startup') {
       partes.push('Dica de organização: uma conversa por processo. Se o advogado falar de um caso específico, abra com a skill processo (/processo <nome ou número>) — ela carrega só o dossiê e o handoff daquele caso.');

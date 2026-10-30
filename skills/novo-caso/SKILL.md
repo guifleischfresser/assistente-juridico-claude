@@ -10,7 +10,7 @@ argument-hint: "[nome do cliente ou assunto]"
 2. Nome da pasta: `AAAA-<cliente-curto>-<assunto>` em minúsculas, sem acentos, com hífens (ex.: `2026-silva-revisional-banco`). Confira se já existe caso parecido em `CASOS/*/` antes (Glob) e pergunte se é o mesmo.
 3. Copie `CASOS/_MODELO-DE-CASO/` para `CASOS/<fase>/<pasta>/` (use o shell: `Copy-Item -Recurse` no PowerShell ou `cp -r` no bash; se não houver shell disponível, crie os arquivos com Write).
 4. Preencha o `DOSSIE.md` com o que foi informado. Campos desconhecidos ficam como `[A CONFIRMAR]`. Tribunal e comarca vão na linha `Tribunal: … · Comarca: …` (o `/prazos` usa esse foro para os feriados locais e suspensões).
-5. Pergunte se o cliente já foi informado sobre o uso de IA (Recomendação CFOAB nº 001/2024). Se não, ofereça o modelo `PECAS/modelos/termo-consentimento-ia.md` e registre a resposta na seção "Uso de IA" do dossiê.
+5. Pergunte se o cliente já autorizou o uso de IA (Recomendação CFOAB nº 001/2024). Se sim, registre com `/consentimento` (forma, o que autorizou, comprovante); se não, ofereça o termo do caso (`/consentimento modelo <caso>`).
 6. Prazos informados → acrescente linhas em `PRAZOS.md` (use `/prazos calcular` se o usuário der só a data da intimação).
 7. Peça que o usuário coloque os documentos recebidos em `documentos/` da pasta do caso. Quando houver PDFs, ofereça `/preparar-autos`.
 8. Termine com um resumo de 4 linhas e o próximo passo sugerido.
