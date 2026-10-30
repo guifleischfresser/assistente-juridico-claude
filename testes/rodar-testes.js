@@ -41,7 +41,7 @@ t('regras de permissão estreitas (script exato, sem curinga no caminho) para Ba
 t('valores anteriores guardados para a desinstalação restaurar', JSON.parse(fs.readFileSync(path.join(BASE, 'config.json'), 'utf8')).configAnterior.model === null);
 t('statusLine aponta para statusline.js', /statusline\.js/.test(st.statusLine.command));
 t('outputStyle Advogado e idioma pt-BR', st.outputStyle === 'Advogado' && /portugu/.test(st.language));
-t('25 skills do núcleo instaladas (inclui manutencao, mapa-de-teses, processo, cliente, erros, anonimizar)', fs.readdirSync(path.join(CL, 'skills')).length === 25);
+t('26 skills do núcleo instaladas (inclui manutencao, mapa-de-teses, processo, cliente, erros, anonimizar, consentimento)', fs.readdirSync(path.join(CL, 'skills')).length === 26);
 t('retenção de conversas = 14 dias (cleanupPeriodDays) quando ausente', st.cleanupPeriodDays === 14);
 t('cópia local do pacote para reparo', fs.existsSync(path.join(BASE, 'pacote', 'scripts', 'instalar.js')) && fs.existsSync(path.join(BASE, 'pacote', 'skills', 'consertar', 'SKILL.md')));
 t('pasta "Em análise" criada com acento', fs.existsSync(path.join(ESC, 'CASOS', 'Em análise')));
@@ -502,10 +502,10 @@ console.log('\n12c. Manutenção das habilidades a cada 15 dias (v0.4)');
   const rd = rodar(MAN, ['desfazer'], null, envEm(29));
   t('desfazer restaura tudo: skills aposentadas/mescladas, descrição, MEMORY.md (e remove o arquivo criado)', rd.code === 0 && fs.existsSync(path.join(SK, 'auto-procuracao-velha', 'SKILL.md')) && fs.existsSync(path.join(SK, 'auto-alimentos-peticao', 'SKILL.md')) && fs.readFileSync(pa + '/SKILL.md', 'utf8').includes('revisional de alimentos') && !fs.existsSync(path.join(pa, 'references')) && fs.readFileSync(path.join(memDir, 'MEMORY.md'), 'utf8').split('\n').length === 260 && !fs.readdirSync(memDir).some((n) => /^arquivo-/.test(n)) && !fs.readdirSync(path.join(BASE, 'habilidades', '_aposentadas')).some((n) => n.startsWith('auto-procuracao-velha__')), rd.out + rd.err);
   t('regra de permissão estreita para manutencao.js; doutor conhece o script', st.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/manutencao.js" *)') && /manutencao\.js/.test(fs.readFileSync(path.join(BASE, 'scripts', 'doutor.js'), 'utf8')));
-  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 25 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
+  t('skill /manutencao instalada, no núcleo e fora do contexto fixo (disable-model-invocation)', fs.existsSync(path.join(SK, 'manutencao', 'SKILL.md')) && vM.NUCLEO.includes('manutencao') && vM.NUCLEO.length === 26 && depoisM.skills.every((s) => s.nome !== 'manutencao' || !s.listada));
   // pacote: descricoes do nucleo ja enxutas na origem
   const mp = JSON.parse(rodar(MAN, ['medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out);
-  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3710 (era 5853 na v0.3; 3539 na v0.7 + 171 da /anonimizar); /prazos ≤ 171', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3710 && mp.skills.find((s) => s.nome === 'prazos').descricao <= 171, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
+  t('pacote: todas as descrições listadas ≤ 200 caracteres e contexto fixo ≤ 3869 (era 5853 na v0.3; 3539 na v0.7 + 171 da /anonimizar + 159 da /consentimento); /prazos ≤ 171', mp.skills.every((s) => !s.listada || s.descricao <= 200) && mp.fixo <= 3869 && mp.skills.find((s) => s.nome === 'prazos').descricao <= 171, JSON.stringify(mp.skills.filter((s) => s.descricao > 200).map((s) => s.nome)) + ' ' + mp.fixo);
   const pe = mp.skills.find((s) => s.nome === 'primeira-execucao');
   t('primeira-execucao com divulgação progressiva (SKILL.md < 8000; etapas em references/, sincronizadas)', pe.corpo < 8000 && pe.refs > 10000 && rodar(path.join(RAIZ, 'ferramentas', 'sincronizar-bootstrap.js'), ['--verificar']).code === 0, JSON.stringify(pe));
   // limpa a fixture para nao afetar as secoes seguintes
@@ -1218,7 +1218,137 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   t('detecção: CPF sem pontos só com dígito verificador válido; CNPJ/CNJ só dígitos; telefone ≠ CPF', tipos('12345678909') === 'cpf' && tipos('12345678900') === '' && tipos('11222333000181') === 'cnpj' && tipos('00012345620248160001') === 'cnj' && tipos('ligue (11) 3333-4444') === 'telefone' && tipos('R$ 1.234,56 em 12/10/2026') === '');
 }
 
-console.log('\n12h. Erros a não repetir: /erros sugere o padrão a partir da correção');
+console.log('\n12h. Consentimento do cliente por caso (LGPD; registro só na pasta do caso)');
+{
+  const R9 = path.join(TMP, 'consent'); const CL9 = path.join(R9, '.claude'); const ESC9 = path.join(R9, 'ESCRITORIO');
+  const B9 = path.join(CL9, 'advogado'); const SC9 = (n) => path.join(B9, 'scripts', n);
+  const env9 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL9 });
+  const run9 = (args, entrada) => { const x = spawnSync(process.execPath, args, { env: env9, encoding: 'utf8', cwd: R9, input: entrada == null ? '' : (typeof entrada === 'string' ? entrada : JSON.stringify(entrada)) }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  const hook9 = (n, e) => { const x = run9([SC9(n)], e); let o = {}; try { o = x.out ? JSON.parse(x.out) : {}; } catch (er) { o = { _bruto: x.out }; } return Object.assign(o, { _r: x }); };
+  const dec9 = (o) => o.hookSpecificOutput && o.hookSpecificOutput.permissionDecision;
+  const ctx9 = (o) => (o.hookSpecificOutput && (o.hookSpecificOutput.additionalContext || o.hookSpecificOutput.permissionDecisionReason)) || '';
+  fs.mkdirSync(R9, { recursive: true });
+  r = run9([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC9, '--nome', 'Dra. Nove']);
+  t('consentimento: instalação do sandbox', r.code === 0, r.err || r.out);
+  const st9 = JSON.parse(fs.readFileSync(path.join(CL9, 'settings.json'), 'utf8'));
+  const CS = SC9('consentimento.js'); const PR9 = SC9('processo.js');
+  t('inventário: consentimento.js e lib instalados, regra estreita Bash/PowerShell (sem curinga), skill /consentimento no núcleo, doutor sem falta de ferramenta', fs.existsSync(CS) && fs.existsSync(SC9('lib/consentimento.js')) && st9.permissions.allow.includes('Bash(node "$HOME/.claude/advogado/scripts/consentimento.js" *)') && st9.permissions.allow.includes('PowerShell(node "~/.claude/advogado/scripts/consentimento.js" *)') && st9.permissions.allow.includes('Bash(node "~/.claude/advogado/scripts/consentimento.js" *)') && require(path.join(RAIZ, 'scripts', 'lib', 'validar.js')).NUCLEO.includes('consentimento') && fs.existsSync(path.join(CL9, 'skills', 'consentimento', 'SKILL.md')) && fs.existsSync(path.join(CL9, 'skills', 'consentimento', 'references', 'detalhes.md')) && (() => { const d = JSON.parse(run9([SC9('doutor.js'), '--json', '--rapido']).out); return d.itens.find((i) => i.id === 'ferramentas').ok; })());
+
+  const z2 = (n) => String(n).padStart(2, '0'); const dl = new Date();
+  const HOJE = z2(dl.getDate()) + '/' + z2(dl.getMonth() + 1) + '/' + dl.getFullYear(); // dia LOCAL (relógio falso + TZ no job de fuso)
+  const casoA = path.join(ESC9, 'CASOS', 'Ativos', '2026-silva-banco'); const casoB = path.join(ESC9, 'CASOS', 'Ativos', '2026-souza-plano'); const casoC = path.join(ESC9, 'CASOS', 'Em análise', '2026-consulta-sem-nome');
+  for (const k of [casoA, casoB, casoC]) { fs.mkdirSync(path.join(k, 'documentos'), { recursive: true }); fs.mkdirSync(path.join(k, 'pecas'), { recursive: true }); }
+  fs.writeFileSync(path.join(casoA, 'DOSSIE.md'), '# DOSSIÊ — 2026-silva-banco\n\n## Identificação\n- Cliente: Marta Lúcia da Silva · Parte contrária: Banco Nove S.A.\n- Tribunal: TJPR · Comarca: Curitiba\n');
+  fs.writeFileSync(path.join(casoB, 'DOSSIE.md'), '# DOSSIÊ\n- Cliente: Rui Souza Prado · Parte contrária: Plano Saúde Ltda.\n- Representante: Helena Souza Prado\n');
+  fs.writeFileSync(path.join(casoC, 'DOSSIE.md'), '# DOSSIÊ\n- Cliente: [CLIENTE] · Parte contrária: [PARTE CONTRÁRIA]\n');
+  fs.writeFileSync(path.join(casoA, 'documentos', 'termo-assinado.pdf'), '%PDF-1.4 termo');
+  fs.writeFileSync(path.join(R9, 'fora-do-caso.pdf'), '%PDF-1.4 fora');
+  const regA = path.join(casoA, '_consentimento', 'registro.json');
+  const lerReg = (k) => JSON.parse(fs.readFileSync(path.join(k, '_consentimento', 'registro.json'), 'utf8'));
+
+  // sem registro: estado, /processo abrir e SessionStart avisam, sem travar
+  r = run9([CS, 'estado', 'silva']);
+  t('estado sem registro: diz que não há consentimento e como anotar (código 0)', r.code === 0 && /sem registro de consentimento/.test(r.out) && /não tem consentimento do cliente para uso de IA registrado/.test(r.out) && !fs.existsSync(regA), r.out);
+  r = run9([PR9, 'abrir', 'silva']);
+  t('/processo abrir em caso sem consentimento: mostra o estado e avisa (sem travar)', r.code === 0 && /Consentimento do cliente para uso de IA: sem registro/.test(r.out) && /não tem consentimento do cliente para uso de IA registrado/.test(r.out) && /CASO_ATIVO=/.test(r.out), r.out.slice(-900));
+  const S9 = 'sess-consent';
+  hook9('pos-ferramenta.js', { session_id: S9, tool_name: 'Bash', tool_input: { command: 'node "' + PR9 + '" abrir silva' }, tool_response: { stdout: r.out } });
+  let j9 = hook9('sessao-inicio.js', { session_id: S9, source: 'resume', hook_event_name: 'SessionStart' });
+  t('SessionStart (conversa do caso): avisa uma vez que o caso não tem consentimento registrado', /CONSENTIMENTO DO CLIENTE/.test(ctx9(j9)) && /não tem consentimento do cliente/.test(ctx9(j9)) && /ESTA CONVERSA É DO PROCESSO "Ativos\/2026-silva-banco"/.test(ctx9(j9)), ctx9(j9).slice(0, 900));
+  j9 = hook9('sessao-inicio.js', { session_id: S9, source: 'compact', hook_event_name: 'SessionStart' });
+  t('SessionStart: o mesmo aviso não se repete na mesma conversa', !/CONSENTIMENTO DO CLIENTE/.test(ctx9(j9)) && /ESTA CONVERSA É DO PROCESSO/.test(ctx9(j9)), ctx9(j9).slice(0, 600));
+
+  // registrar
+  r = run9([CS, 'registrar', 'silva']);
+  t('registrar sem a forma: pergunta (código 1) e não grava nada', r.code === 1 && /por escrito .*e-mail .*verbalmente/.test(r.out) && !fs.existsSync(regA), r.out);
+  r = run9([CS, 'registrar', 'silva', '--forma', 'escrito', '--comprovante', path.join(R9, 'fora-do-caso.pdf')]);
+  t('comprovante fora da pasta do caso => recusa (código 2), nada gravado', r.code === 2 && /precisa estar na pasta do caso/.test(r.out) && !fs.existsSync(regA), r.out);
+  r = run9([CS, 'registrar', 'silva', '--forma', 'escrito', '--data', '31/12/2099']);
+  t('data futura => recusa (código 1)', r.code === 1 && /ainda não chegou/.test(r.out) && !fs.existsSync(regA), r.out);
+  r = run9([CS, 'registrar', 'silva', '--forma', 'por escrito', '--comprovante', 'documentos/termo-assinado.pdf']);
+  const evA = fs.existsSync(regA) ? lerReg(casoA).eventos : [];
+  t('registrar: "Anotei: o cliente do caso X autorizou o uso de IA em <hoje local>, por escrito. O comprovante está na pasta do caso"', r.code === 0 && r.out.includes('Anotei: o cliente do caso 2026-silva-banco autorizou o uso de IA em ' + HOJE + ', por escrito. O comprovante está na pasta do caso (documentos/termo-assinado.pdf).'), r.out + ' esperado ' + HOJE);
+  t('registro na pasta do caso: data local, quem (nome do DOSSIE), o que foi autorizado, forma e comprovante relativo', evA.length === 1 && evA[0].evento === 'registro' && evA[0].data === dl.getFullYear() + '-' + z2(dl.getMonth() + 1) + '-' + z2(dl.getDate()) && evA[0].quem === 'cliente' && evA[0].nome === 'Marta Lúcia da Silva' && evA[0].autorizou.usoIA === true && evA[0].autorizou.envioDocumentos === true && evA[0].autorizou.anonimizacaoObrigatoria === false && evA[0].forma === 'escrito' && evA[0].comprovante === 'documentos/termo-assinado.pdf' && lerReg(casoA).tipo === 'registro-consentimento', JSON.stringify(evA));
+  t('saída do registrar: só o nome que já está no DOSSIE (nenhum outro dado), sem pedir anonimização', /Quem autorizou: Marta Lúcia da Silva \(como está no dossiê\)/.test(r.out) && !/Banco Nove|TJPR/.test(r.out) && !/desligada/.test(r.out), r.out);
+  r = run9([CS, 'estado', 'silva']);
+  t('estado: autorizado, com data, forma, o que foi autorizado e histórico', /autorizado em \d\d\/\d\d\/\d{4}, por escrito \(uso de IA; envio de documentos ao Claude\); comprovante: documentos\/termo-assinado\.pdf/.test(r.out) && /Histórico \(1\)/.test(r.out) && !/não tem consentimento/.test(r.out), r.out);
+  r = run9([PR9, 'abrir', 'silva']);
+  t('/processo abrir em caso autorizado: estado sem aviso', /Consentimento do cliente para uso de IA: autorizado em/.test(r.out) && !/revogou|não tem consentimento|desligada/.test(r.out), r.out.slice(-700));
+
+  // modelo de termo
+  r = run9([CS, 'modelo', 'silva']);
+  const termos = fs.existsSync(path.join(casoA, '_consentimento')) ? fs.readdirSync(path.join(casoA, '_consentimento')).filter((n) => /^termo-consentimento-ia-\d{4}-\d\d-\d\d\.md$/.test(n)) : [];
+  const termoTxt = termos.length ? fs.readFileSync(path.join(casoA, '_consentimento', termos[0]), 'utf8') : '';
+  const MESES9 = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  t('modelo: termo .md na pasta do caso, com o nome do cliente, o advogado, as 3 opções (IA, envio ao Claude, anonimização), revogação e a data local por extenso', r.code === 0 && termos.length === 1 && /Eu, Marta Lúcia da Silva/.test(termoTxt) && /Dra\. Nove/.test(termoTxt) && /envio de documentos do caso ao assistente de IA/.test(termoTxt) && /anonimização/.test(termoTxt) && /revogar este consentimento/.test(termoTxt) && termoTxt.includes('Curitiba, ' + dl.getDate() + ' de ' + MESES9[dl.getMonth()] + ' de ' + dl.getFullYear() + '.') && /na pasta do caso/.test(r.out) && !require(path.join(RAIZ, 'scripts', 'lib', 'injecao')).ocultoNoTexto(termoTxt).length, r.out + termoTxt.slice(0, 400));
+  t('modelo: entra no histórico sem mudar a situação (continua autorizado)', lerReg(casoA).eventos.length === 2 && lerReg(casoA).eventos[1].evento === 'modelo' && /autorizado em/.test(run9([CS, 'estado', 'silva']).out));
+
+  // revogar: acrescenta, nao apaga
+  const antesRev = JSON.stringify(lerReg(casoA).eventos[0]);
+  r = run9([CS, 'revogar', 'silva', '--forma', 'email']);
+  const evR = lerReg(casoA).eventos;
+  t('revogar: "o cliente do caso X revogou a autorização de uso de IA em <hoje>, por e-mail", sugere /anonimizar', r.code === 0 && r.out.includes('o cliente do caso 2026-silva-banco revogou a autorização de uso de IA em ' + HOJE + ', por e-mail.') && /\/anonimizar 2026-silva-banco/.test(r.out), r.out);
+  t('revogar acrescenta evento: histórico preservado (registro original idêntico)', evR.length === 3 && evR[2].evento === 'revogacao' && JSON.stringify(evR[0]) === antesRev && evR.map((e) => e.n).join() === '1,2,3', JSON.stringify(evR));
+  r = run9([CS, 'estado', 'silva']);
+  t('estado revogado: REVOGADO, histórico com as 3 entradas e o aviso claro', /REVOGADO em \d\d\/\d\d\/\d{4} \(por e-mail\)/.test(r.out) && /Histórico \(3\)/.test(r.out) && /o cliente revogou a autorização de uso de IA neste caso/i.test(r.out), r.out);
+  r = run9([PR9, 'abrir', 'silva']);
+  t('/processo abrir em caso revogado: aviso "o cliente revogou a autorização de uso de IA neste caso" + sugestão de /anonimizar, sem travar (código 0)', r.code === 0 && /O cliente revogou a autorização de uso de IA neste caso/.test(r.out) && /\/anonimizar 2026-silva-banco/.test(r.out) && /=== DOSSIE\.md ===/.test(r.out), r.out.slice(-900));
+  j9 = hook9('sessao-inicio.js', { session_id: S9, source: 'resume', hook_event_name: 'SessionStart' });
+  t('SessionStart: a situação mudou (revogado) => avisa de novo, uma vez', /CONSENTIMENTO DO CLIENTE/.test(ctx9(j9)) && /revogou a autorização de uso de IA/.test(ctx9(j9)) && !/CONSENTIMENTO DO CLIENTE/.test(ctx9(hook9('sessao-inicio.js', { session_id: S9, source: 'resume', hook_event_name: 'SessionStart' }))), ctx9(j9).slice(0, 700));
+  const pecaA9 = path.join(casoA, 'pecas', '2026-10-29_manifestacao_v1.md');
+  fs.writeFileSync(pecaA9, '# MANIFESTAÇÃO\n\nTexto simples da manifestação.\n');
+  r = run9([SC9('checar-peca.js'), pecaA9]);
+  t('checar-peca em peça de caso revogado: seção "Consentimento do cliente" com o aviso', /## Consentimento do cliente/.test(r.out) && /revogou a autorização/.test(r.out), r.out);
+  fs.writeFileSync(path.join(R9, 'avulsa.md'), '# PARECER\n\nTexto simples.\n');
+  r = run9([SC9('checar-peca.js'), path.join(R9, 'avulsa.md')]);
+  t('checar-peca fora de caso: sem seção de consentimento', r.code === 0 && /Checagem automática/.test(r.out) && !/Consentimento do cliente/.test(r.out), r.out);
+
+  // anonimizacao obrigatoria (representante, do DOSSIE) e nao ligada
+  r = run9([CS, 'registrar', 'souza', '--forma', 'verbal', '--quem', 'representante', '--anonimizacao', 'obrigatoria', '--documentos', 'sim']);
+  const evB = lerReg(casoB).eventos[0] || {};
+  t('registrar por representante (nome do DOSSIE), verbal, com anonimização obrigatória', r.code === 0 && /Anotei: o representante do cliente do caso 2026-souza-plano autorizou o uso de IA em \d\d\/\d\d\/\d{4}, verbalmente\./.test(r.out) && evB.quem === 'representante' && evB.nome === 'Helena Souza Prado' && evB.autorizou.anonimizacaoObrigatoria === true && /anonimização OBRIGATÓRIA/.test(r.out), r.out + JSON.stringify(evB));
+  t('aviso: anonimização obrigatória e o caso não está com /anonimizar ligada', /só autorizou o uso de IA com anonimização, e ela está desligada/.test(r.out) && /\/anonimizar 2026-souza-plano/.test(r.out), r.out);
+  r = run9([PR9, 'abrir', 'souza']);
+  t('/processo abrir: avisa que a anonimização exigida está desligada (sem travar)', r.code === 0 && /anonimização OBRIGATÓRIA/.test(r.out) && /ela está desligada neste caso/.test(r.out), r.out.slice(-700));
+  t('estado geral: conta por situação e marca a anonimização exigida desligada (sem nome de cliente)', (() => { const x = run9([CS, 'estado']); return /3 caso\(s\): 1 autorizado\(s\), 1 revogado\(s\), 1 sem registro/.test(x.out) && /2026-souza-plano: .*⚠️ anonimização exigida e desligada/.test(x.out) && !/Marta|Helena|Rui/.test(x.out) && !/_MODELO/.test(x.out); })(), run9([CS, 'estado']).out);
+  run9([SC9('anonimizar.js'), 'preparar', 'souza']);
+  r = run9([PR9, 'abrir', 'souza']);
+  t('com a anonimização ligada, o aviso some; e o nome não aparece no estado (caso anonimizado)', !/desligada/.test(r.out) && /Consentimento do cliente para uso de IA: autorizado/.test(r.out) && !/Helena/.test(run9([CS, 'estado', 'souza']).out), r.out.slice(-600));
+
+  // sem nome no DOSSIE; nao autorizado
+  r = run9([CS, 'registrar', 'consulta sem nome', '--forma', 'email']);
+  t('DOSSIE sem o nome do cliente: pede para preencher (código 2), nada gravado', r.code === 2 && /não tem o nome do cliente/.test(r.out) && !fs.existsSync(path.join(casoC, '_consentimento', 'registro.json')), r.out);
+  r = run9([CS, 'registrar', 'consulta sem nome', '--forma', 'email', '--nome', 'Paulo Teste Lima', '--ia', 'nao']);
+  t('cliente que NÃO autorizou: registrado e avisado como restrição', r.code === 0 && /NÃO autorizou o uso de IA/.test(r.out) && /não autorizou o uso de IA neste caso/.test(run9([PR9, 'abrir', 'consulta sem nome']).out), r.out);
+
+  // guarda de escrita: registro so pelo script e so dentro do caso
+  j9 = hook9('guarda-escrita.js', { session_id: S9, tool_name: 'Edit', tool_input: { file_path: regA, old_string: 'revogacao', new_string: 'registro' } });
+  let j9b = hook9('guarda-escrita.js', { session_id: S9, tool_name: 'Write', tool_input: { file_path: path.join(ESC9, 'MEMORIA', 'consentimentos.json'), content: fs.readFileSync(regA, 'utf8') } });
+  let j9c = hook9('guarda-escrita.js', { session_id: S9, tool_name: 'Write', tool_input: { file_path: path.join(CL9, 'projects', 'p', 'memory', 'c.md'), content: fs.readFileSync(regA, 'utf8') } });
+  let j9d = hook9('guarda-escrita.js', { session_id: S9, tool_name: 'Write', tool_input: { file_path: path.join(casoA, 'pecas', 'nova.md'), content: '# Peça\n\nTexto.' } });
+  t('guarda-escrita: editar o registro à mão e copiar o registro para MEMORIA/ ou memória automática => negados; peça do caso => livre', dec9(j9) === 'deny' && /consentimento\.js/.test(ctx9(j9)) && dec9(j9b) === 'deny' && dec9(j9c) === 'deny' && !dec9(j9d), JSON.stringify([j9, j9b, j9c, j9d]).slice(0, 700));
+  t('guarda-escrita continua barrando CPF na memória', dec9(hook9('guarda-escrita.js', { session_id: S9, tool_name: 'Write', tool_input: { file_path: path.join(ESC9, 'MEMORIA', 'x.md'), content: 'cliente CPF 123.456.789-09' } })) === 'deny');
+
+  // nada de dado de cliente fora da pasta do caso
+  const acha = (dir, re, out) => { let ns = []; try { ns = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) { return out; } for (const n of ns) { const p = path.join(dir, n.name); if (n.isDirectory()) acha(p, re, out); else if (n.isFile() && fs.statSync(p).size < 2e6 && re.test(fs.readFileSync(p, 'utf8'))) out.push(p); } return out; };
+  const comDado = acha(R9, /"tipo": "registro-consentimento"|Marta Lúcia|Helena Souza|Paulo Teste Lima/, []).filter((p) => ![casoA, casoB, casoC].some((k) => c9dentro(p, k)) && !/[\\/]_versoes[\\/]CASOS[\\/]/.test(p));
+  function c9dentro(p, k) { return path.resolve(p).startsWith(path.resolve(k) + path.sep); }
+  t('nada de dado do cliente nem do registro fora da pasta do caso (escritório, ~/.claude, estado, logs)', comDado.length === 0, comDado.join(' | '));
+
+  // fail-open: registro ilegivel
+  fs.writeFileSync(path.join(casoB, '_consentimento', 'registro.json'), '{ estragado');
+  r = run9([CS, 'revogar', 'souza']);
+  const r2 = run9([PR9, 'abrir', 'souza']);
+  t('registro ilegível: não grava por cima (código 2) e /processo abre normalmente com aviso', r.code === 2 && /ilegível/.test(r.out) && fs.readFileSync(path.join(casoB, '_consentimento', 'registro.json'), 'utf8') === '{ estragado' && r2.code === 0 && /ficou ilegível/.test(r2.out), r.out + r2.out.slice(-300));
+  const d9 = JSON.parse(run9([SC9('doutor.js'), '--json', '--rapido']).out).itens.find((i) => i.id === 'consentimento');
+  t('doutor: cita o estado dos consentimentos (só contagens, sem nome)', d9 && d9.ok && /0 autorizado\(s\), 0 sem registro, 2 revogado\(s\) ou não autorizado\(s\), 1 registro\(s\) ilegível/.test(d9.msg) && !/Marta|Helena|Paulo/.test(d9.msg), JSON.stringify(d9));
+
+  // lib: datas locais
+  const LC = require(path.join(RAIZ, 'scripts', 'lib', 'consentimento.js'));
+  t('lib: datas em DD/MM/AAAA e ISO, inválidas recusadas, "hoje" = dia local', LC.lerData('29/10/2026') === '2026-10-29' && LC.lerData('2026-10-29') === '2026-10-29' && LC.lerData('31/02/2026') === null && LC.lerData('hoje') === dl.getFullYear() + '-' + z2(dl.getMonth() + 1) + '-' + z2(dl.getDate()) && LC.dataBR('2026-10-29') === '29/10/2026' && LC.dataExtenso('2026-03-01') === '1 de março de 2026');
+}
+
+console.log('\n12i. Erros a não repetir: /erros sugere o padrão a partir da correção');
 {
   const R9 = path.join(TMP, 'sugerir'); const CL9 = path.join(R9, '.claude'); const ESC9 = path.join(R9, 'ESCRITORIO');
   const B9 = path.join(CL9, 'advogado'); const ER9 = path.join(B9, 'scripts', 'erros.js');

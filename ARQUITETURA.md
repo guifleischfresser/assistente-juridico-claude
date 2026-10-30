@@ -62,9 +62,9 @@ O padrão é `%USERPROFILE%\ESCRITORIO`, e não Documentos, porque Documentos é
 
 | Evento | Script | Faz |
 |---|---|---|
-| SessionStart | sessao-inicio.js | Recria pastas faltantes. Injeta: versão, onboarding pendente, "próximos passos" do último handoff (≤7 dias), aviso pós-compactação, prazos ≤5 dias úteis (com o calendário forense do caso; v0.7), candidatas a skill e skills alteradas recentemente. No modo plugin, faz o bootstrap da base. |
+| SessionStart | sessao-inicio.js | Recria pastas faltantes. Injeta: versão, onboarding pendente, "próximos passos" do último handoff (≤7 dias), aviso pós-compactação, prazos ≤5 dias úteis (com o calendário forense do caso; v0.7), candidatas a skill e skills alteradas recentemente. Conversa vinculada a caso sem consentimento/revogado: aviso uma vez (§18). No modo plugin, faz o bootstrap da base. |
 | UserPromptSubmit | registro-pedidos.js | Detector de repetição. Guarda **só radicais** (descarta nomes próprios e números) e usa Jaccard ≥0,5 em 30 dias. Na 3ª ocorrência sem skill que cubra o pedido, cria uma candidata e aponta para `criar-skill-automatica`. |
-| PreToolUse Write/Edit | guarda-escrita.js | Bloqueia: alterar amostras de estilo e WIKI/raw; escrever direto em skill viva auto-* ou de núcleo; PII forte em arquivos do harness; CLAUDE.md global >80 linhas; sobrescrever arquivo não lido; tabela de anonimização fora da pasta do caso e dado real de caso anonimizado no harness (§17). Pede confirmação em Arquivados. Faz **backup antes de toda alteração**. |
+| PreToolUse Write/Edit | guarda-escrita.js | Bloqueia: alterar amostras de estilo e WIKI/raw; escrever direto em skill viva auto-* ou de núcleo; PII forte em arquivos do harness; CLAUDE.md global >80 linhas; sobrescrever arquivo não lido; tabela de anonimização fora da pasta do caso e dado real de caso anonimizado no harness (§17); editar à mão ou copiar para fora o registro de consentimento (§18). Pede confirmação em Arquivados. Faz **backup antes de toda alteração**. |
 | PreToolUse Bash/PowerShell/Web/MCP/Read/Grep | guarda-sigilo.js | **ask** em qualquer transferência para fora (curl POST/-F/-T, scp, rsync, rclone, git push, gh create, s3/gsutil/azcopy, Invoke-WebRequest -Body/-InFile, Send-MailMessage, requests.post, smtplib, fetch), em cópias para pastas de nuvem e em ferramentas MCP de envio/criação. **deny** em busca web contendo CPF/CNPJ/nº CNJ e em exclusão em massa no ESCRITORIO. Anonimização (§17): **ask** ao ler o original de caso anonimizado; **deny** na tabela (Read/Grep/terminal). |
 | PostToolUse * | pos-ferramenta.js | Scanner de injeção em Read/WebFetch; checagem de citações a cada escrita de peça; validação automática de rascunho de skill; contador de uso; aviso único entre 65% e 75% de contexto. |
 | Stop | gatilho-handoff.js | ≥ limite → `block` + "⚠️ HANDOFF AUTOMÁTICO…". Respeita `stop_hook_active` e só dispara de novo após mais 10 pontos. |
@@ -133,9 +133,10 @@ O alerta entra como `additionalContext`. O CLAUDE.md reforça que documentos sã
 - Nenhuma chamada externa por padrão: WebFetch/WebSearch ficam em `ask`, e as saídas de dados passam pelo guard.
 - Os dados do caso ficam somente no disco local.
 - O detector de repetição não guarda o texto dos pedidos.
-- O DOSSIE tem uma seção "Uso de IA (Recomendação CFOAB nº 001/2024)", e há um modelo de termo de consentimento.
+- O DOSSIE tem uma seção "Uso de IA (Recomendação CFOAB nº 001/2024)", e há um modelo de termo de consentimento (geral em `PECAS/modelos/` e por caso via `/consentimento modelo`).
 - **Limitação conhecida:** o conteúdo da conversa vai para a API da Anthropic (inerente ao Claude Code), e os transcripts ficam em `~/.claude/projects` por `cleanupPeriodDays`. Ver as questões em aberto.
 - **Anonimização opcional por caso** (`/anonimizar`, §17): reduz o que vai para a API trocando partes e documentos por marcadores antes da leitura; a tabela fica só na pasta do caso.
+- **Consentimento do cliente por caso** (`/consentimento`, §18): registro local, com histórico, de quem autorizou o uso de IA, o quê e como; avisos (sem bloquear) quando falta, foi revogado ou exige anonimização desligada.
 
 ## 9. Brasil-nativo
 
@@ -513,15 +514,56 @@ Pseudonimização **reversível, por caso e opt-in**: o assistente lê cópias c
 - `/anonimizar` é listada (descrição de 157 caracteres) para o Claude reconhecer o pedido em linguagem natural; corpo de ~2,4 mil caracteres e detalhes em `references/detalhes.md`. Contexto fixo **3.539 → 3.710** (25 skills); o teste de limite foi ajustado para ≤ 3.710 por esse motivo (CHANGELOG). Alternativa considerada: `disable-model-invocation: true` (custo zero), descartada porque o advogado costuma pedir sem o `/`.
 - Suíte 12g (+31): instalação/inventário, opt-in, cópias sem dado real, todos os tipos com e sem formatação, acento/maiúsculas/NFD, estabilidade entre documentos, casos separados, ida e volta idêntica, órfão, exportação barrada/`--forcar`, `checar-peca`, perguntas e negativas do hook, PostToolUse, guarda-escrita (tabela fora do caso, dado real na memória), `/processo`, `estado`, `desligar`.
 
-## 18. Roadmap
+## 18. Registro de consentimento do cliente por caso (antigo Roadmap item 3; não lançado)
+
+Complementa a `/anonimizar` (§17): a anonimização reduz **o que** vai para a API; o consentimento registra **se o cliente autorizou** e em que termos (Recomendação CFOAB nº 001/2024; LGPD). Tudo local, por caso, sem rede, Node puro.
+
+### 18.1 Onde fica e por quê (`<caso>/_consentimento/registro.json`)
+```json
+{"tipo":"registro-consentimento","versao":1,"caso":"Ativos/2026-silva-banco",
+ "eventos":[{"n":1,"evento":"registro","data":"2026-10-29","registradoEm":"…Z","quem":"cliente","nome":"<do DOSSIE>",
+             "autorizou":{"usoIA":true,"envioDocumentos":true,"anonimizacaoObrigatoria":false},
+             "forma":"escrito","comprovante":"documentos/termo-assinado.pdf"},
+            {"n":2,"evento":"modelo","data":"2026-10-29","arquivo":"_consentimento/termo-consentimento-ia-2026-10-29.md"},
+            {"n":3,"evento":"revogacao","data":"2026-11-03","forma":"email","comprovante":null}]}
+```
+- **Arquivo próprio, não uma linha `Consentimento:` no DOSSIE.md.** O histórico precisa ser só de acréscimo e intocável: o DOSSIE é texto livre editado pelo advogado e pelo assistente o tempo todo (`processo.js anotar`, `foro`, reflexão), e num caso anonimizado chega à conversa já com marcadores. Um JSON separado, gravado só pelo script, dá eventos com número, data local e forma, e permite que hooks leiam a situação sem interpretar prosa. O DOSSIE (modelo de caso) só aponta para `/consentimento` e ganhou a linha opcional `Representante:`.
+- **Pasta do caso, nunca global:** o registro tem o nome de quem autorizou (dado do cliente); por isso fica ao lado do DOSSIE e vai junto quando o caso é arquivado/copiado. Pasta com `_` (como `_anonimizacao`, `_versoes`): fica fora das cópias da anonimização e da listagem de documentos.
+- **Histórico:** `registrar`, `revogar` e `modelo` acrescentam eventos (`n` sequencial); nada é reescrito. A situação é o último `registro`/`revogacao`: `autorizado`, `nao-autorizado` (`--ia nao`), `revogado`, `sem-registro` ou `ilegivel` (JSON estragado: o script recusa gravar por cima, código 2, e os avisos dizem isso; nada trava).
+- **Datas** em dia local: `lib/prazos.agora()` (respeita `ADVOGADO_AGORA` e o relógio falso dos testes) + `c.hojeISO` (getters locais). `registradoEm` é o instante ISO (só para auditoria; nunca mostrado como data). Data futura é recusada.
+
+### 18.2 Comandos (`scripts/consentimento.js`, `scripts/lib/consentimento.js`, skill `/consentimento`)
+- `registrar <caso> --forma escrito|email|verbal [--data] [--quem cliente|representante] [--nome] [--ia sim|nao] [--documentos sim|nao] [--anonimizacao obrigatoria|opcional] [--comprovante <arq>] [--obs]`. Nome vem do DOSSIE (`Cliente:`/`Representante:`, ignorando placeholders); `--nome` só se faltar (senão código 2). Comprovante precisa existir **dentro da pasta do caso** (guardado relativo; fora → código 2: "copie para a pasta do caso"). Mensagem: "Anotei: o cliente do caso X autorizou o uso de IA em 29/10/2026, por escrito. O comprovante está na pasta do caso (…)".
+- `modelo <caso> [--representante]`: termo `.md` em `<caso>/_consentimento/termo-consentimento-ia-AAAA-MM-DD.md` (o mesmo dia é versionado em `_versoes/`), com nome do cliente, advogado (`config.nome`/`oab`), cidade da comarca do caso, data local por extenso e as opções para marcar (uso de IA, envio ao Claude, anonimização obrigatória, recusa). Exportável com `/formatar-peca`.
+- `revogar <caso> [--forma] [--data] [--comprovante] [--obs]` e `estado [<caso>]` (sem caso: contagem e uma linha por caso, sem nomes; `_MODELO-DE-CASO` fora).
+- Saída: nenhum dado do cliente além do nome que já está no DOSSIE — e nem ele quando o caso está anonimizado. Códigos 0/1/2/3 como os outros scripts.
+- Regra estreita `Bash/PowerShell(node "…/consentimento.js" *)` (`SCRIPTS_CLI`: instalador e modo plugin; o desinstalador remove pelo filtro `advogado/scripts` e nunca toca os registros, que ficam no ESCRITORIO). `doutor` confere o script (FERRAMENTAS).
+
+### 18.3 Avisos (todos fail-open; nunca bloqueiam)
+| Situação | Aviso |
+|---|---|
+| sem registro | "O caso X não tem consentimento do cliente para uso de IA registrado…" (registrar ou gerar o termo) |
+| revogado / não autorizado | "O cliente revogou (não autorizou) a autorização de uso de IA neste caso…" + parar de enviar documentos ou ligar `/anonimizar` |
+| `anonimizacaoObrigatoria` e `lib/anonimizar.ativa()` falso | "O cliente só autorizou … com anonimização, e ela está desligada…" |
+| `envioDocumentos: false` | trabalhar só com o que o advogado escrever |
+- `processo.js abrir`: linha "Consentimento do cliente para uso de IA: …" sempre, mais os avisos.
+- `sessao-inicio.js` (conversa já vinculada ao caso): "CONSENTIMENTO DO CLIENTE (…)" **uma vez por conversa e situação** (`estado/sessao-<id>.json → avisoConsentimento`); muda a situação (ex.: revogado), avisa de novo uma vez.
+- `checar-peca.js`: seção "Consentimento do cliente" quando a peça está num caso com aviso. `doutor.js`: item informativo com contagens (casos em andamento; nunca nomes).
+- `guarda-escrita.js` (0b, antes de tudo): Write/Edit no `registro.json` → deny (só o script grava; histórico intocável); texto com a assinatura `"registro-consentimento"` em qualquer outro arquivo → deny (o registro não sai da pasta do caso). As guardas de dado de cliente em memória/skills seguem iguais.
+- Instruções: linha no CLAUDE.md global, no AGENTS.md gerado (Codex/Cursor, sem hooks: `consentimento.js estado`), `/processo`, `/novo-caso` (passo 5), `/ajuda` e README. A `/anonimizar` passou a tratar `Representante:` do DOSSIE como parte.
+
+### 18.4 Contexto fixo e testes
+- `/consentimento` é listada (descrição de 142 caracteres) para o Claude reconhecer "o cliente autorizou o uso de IA" dito sem `/`; corpo ~2,2 mil caracteres e detalhes em `references/detalhes.md`. Contexto fixo **3.710 → 3.869** (+159; 26 skills); teste de limite ajustado para ≤ 3.869 (CHANGELOG). Alternativa `disable-model-invocation: true` descartada pelo mesmo motivo da `/anonimizar`.
+- Suíte 12h (+36), sandbox próprio: inventário/regras, estado/processo/SessionStart sem registro (aviso uma vez), registrar (forma obrigatória, comprovante fora do caso, data futura, data local, mensagem), modelo, revogar (histórico preservado), avisos de revogado e de anonimização obrigatória desligada (e o aviso some ao ligar), representante, DOSSIE sem nome, não autorizado, guarda-escrita, nenhum dado fora da pasta do caso, registro ilegível (fail-open), doutor, datas. Também roda no job `testes-fuso` (23h30 de 27/10 em São Paulo = 28/10 UTC: o registro sai 27/10).
+
+## 19. Roadmap
 
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
 2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita (a v0.5 já confere julgados por WebFetch nos sites autorizados; falta busca estruturada por tribunal).
-3. Registro de consentimento do cliente por caso.
-4. Canal de atualização opt-in, assinado.
-5. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
-6. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
-7. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
-8. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
-9. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.
-10. Anonimização: reconhecimento de nomes com dicionário local de prenomes/sobrenomes (menos falso negativo) e cópia anonimizada direto em `.docx`.
+3. Canal de atualização opt-in, assinado.
+4. Integração com o PJe (consulta de intimações) e opt-in para a nuvem do escritório.
+5. Agendador do sistema opcional (Agendador de Tarefas do Windows / launchd) para a manutenção quinzenal rodar mesmo sem abrir o Claude Code — hoje desnecessário, pois ela só importa quando o Claude Code roda.
+6. Manutenção usando `/skill-doctor` e o tamanho real da listagem reportado por `/context` quando houver saída legível por script.
+7. Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa) e exportar para .docx com tabela.
+8. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.
+9. Anonimização: reconhecimento de nomes com dicionário local de prenomes/sobrenomes (menos falso negativo) e cópia anonimizada direto em `.docx`.

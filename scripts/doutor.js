@@ -27,7 +27,7 @@ if (args.includes('--canario')) {
   process.exit(m ? 0 : 2);
 }
 const ID_PLUGIN = 'advogado-claude@advogado-claude-mod';
-const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'anonimizar.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
+const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'anonimizar.js', 'consentimento.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
 const ROTEIROS = ['sessao-inicio.js', 'registro-pedidos.js', 'guarda-escrita.js', 'guarda-sigilo.js', 'pos-ferramenta.js', 'gatilho-handoff.js', 'gatilho-handoff-passos.js', 'memoria.js', 'manutencao.js', 'statusline.js'];
 
 /** Pasta do plugin (gravada pelo hook de inicio em modo plugin; o Bash nao recebe CLAUDE_PLUGIN_ROOT). */
@@ -162,6 +162,15 @@ function diagnosticar() {
       add('calendario', true, n ? 'Calendário forense: ' + n + ' entrada(s)' + (sem ? ' (' + sem + ' sem fonte — vale conferir)' : '') : 'Calendário forense: nenhuma data local cadastrada ainda (uso os feriados nacionais e o recesso)', 'info');
     }
   } catch (e) { add('calendario', false, 'Não consegui ler o calendário forense — ' + CONS + '.', 'aviso', 'reinstalar', e.message); }
+
+  // 5c. consentimento dos clientes (LGPD): informativo, nunca erro; so contagens (sem nome de cliente)
+  try {
+    const cs = require('./lib/consentimento');
+    const casos = require('./lib/casos').listar(esc).filter((x) => !/^[_.]/.test(x.fase) && x.fase !== 'Arquivados');
+    const n = { autorizado: 0, 'sem-registro': 0, revogado: 0, 'nao-autorizado': 0, ilegivel: 0 }; let anonFalta = 0;
+    for (const x of casos) { const st = cs.situacao(x.pasta); n[st.situacao]++; if (cs.avisos(x.pasta, { st }).some((a) => /desligada/.test(a))) anonFalta++; }
+    if (casos.length) add('consentimento', true, 'Consentimento dos clientes para uso de IA (casos em andamento): ' + n.autorizado + ' autorizado(s), ' + n['sem-registro'] + ' sem registro' + (n.revogado + n['nao-autorizado'] ? ', ' + (n.revogado + n['nao-autorizado']) + ' revogado(s) ou não autorizado(s)' : '') + (anonFalta ? ', ' + anonFalta + ' pedem anonimização que está desligada' : '') + (n.ilegivel ? ', ' + n.ilegivel + ' registro(s) ilegível(is)' : '') + ' — veja com /consentimento estado', 'info');
+  } catch (e) { /* informativo */ }
 
   // 6. testes funcionais rapidos (sem rede)
   if (!RAPIDO && fs.existsSync(path.join(c.P.base, 'scripts', 'guarda-sigilo.js'))) {

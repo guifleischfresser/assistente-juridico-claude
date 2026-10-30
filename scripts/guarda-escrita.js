@@ -11,6 +11,8 @@
 //  6. Caso arquivado => pede confirmacao. 7. Versiona (backup) antes de alterar arquivo existente.
 //  0. Anonimizacao: a tabela (dados reais) so e gravada pelo anonimizar.js, nunca sai da pasta do caso
 //     e nada dela vai para CLAUDE.md, skills, memoria ou perfil de estilo.
+//  0b. Consentimento: o registro (<caso>/_consentimento/registro.json) so e gravado pelo consentimento.js
+//      (historico nunca apagado) e o conteudo dele nao e copiado para nenhum outro arquivo.
 const fs = require('fs');
 const path = require('path');
 const c = require('./lib/comum');
@@ -32,6 +34,9 @@ c.rodarHook('guarda-escrita', (ent) => {
   const ehHarness = /CLAUDE\.md$/i.test(arq) || c.dentroDe(arq, path.join(esc, 'MEMORIA')) || c.dentroDe(arq, c.P.hab) || c.dentroDe(arq, c.P.skillsVivas) || /[\\/]memory[\\/]/.test(arq) || /[\\/]ESTILO[\\/]perfil-de-escrita\.md$/i.test(arq);
   const an = require('./lib/anonimizar').avaliarGravacao(arq, novoTexto, ehHarness, esc);
   if (an) { c.log('guardas', 'anonimizacao: gravacao negada em ' + path.basename(arq)); return deny(an.motivo); }
+  // 0b. Registro de consentimento: so o consentimento.js grava, dentro da pasta do caso; nunca copiado para fora
+  const cs = require('./lib/consentimento').avaliarGravacao(arq, novoTexto);
+  if (cs) { c.log('guardas', 'consentimento: gravacao negada em ' + path.basename(arq)); return deny(cs.motivo); }
 
   // 1. Fontes brutas
   for (const bruto of ['ESTILO/amostras', 'WIKI/raw']) {

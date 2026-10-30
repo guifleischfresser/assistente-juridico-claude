@@ -9,7 +9,7 @@ argument-hint: "<nome do caso, cliente ou número do processo>"
 Caso: $ARGUMENTS. `S="$HOME/.claude/advogado/scripts"`.
 
 1. `node "$S/processo.js" abrir "<o que o advogado disse>"`. Se aparecer mais de um, pergunte qual; se nenhum, ofereça `/novo-caso`.
-2. Resuma em até 5 linhas: partes, fase, onde paramos (HANDOFF), próximos prazos e pendências. Pergunte por onde seguir.
+2. Resuma em até 5 linhas: partes, fase, onde paramos (HANDOFF), próximos prazos e pendências. Se a saída trouxer aviso de consentimento do cliente (sem registro, revogado, anonimização exigida e desligada), diga em uma linha e siga (não trava; `/consentimento`). Pergunte por onde seguir.
 3. Daqui em diante **esta conversa é deste processo**: o sistema lembra disso ao retomar a conversa e avisa se você mexer em outro caso.
    - Não leia nem cite outros casos sem o advogado pedir. Outro caso → sugira abrir outra conversa (`/clear` ou nova janela) e `/processo <outro>`.
    - Fatos, decisões e preferências deste cliente: `node "$S/processo.js" anotar "<caso>" "<texto>"` (vai para o DOSSIE.md do caso). **Nunca** em `MEMORIA/` (memória global é só de estilo e método, sem dados de clientes).

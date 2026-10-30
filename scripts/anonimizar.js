@@ -24,7 +24,7 @@ const k = require('./lib/casos');
 const A = require('./lib/anonimizar');
 
 const esc = () => c.config().escritorio;
-const ROTULOS_DOSSIE = /^(Cliente|Clientes|Parte contrária|Partes contrárias|Partes|Autora?|Réu|Ré|Requerente|Requerid[oa]|Reclamante|Reclamad[oa]|Exequente|Executad[oa]|Anonimizar também)$/i;
+const ROTULOS_DOSSIE = /^(Cliente|Clientes|Parte contrária|Partes contrárias|Partes|Autora?|Réu|Ré|Requerente|Requerid[oa]|Reclamante|Reclamad[oa]|Exequente|Executad[oa]|Representante(?: legal)?|Anonimizar também)$/i;
 
 function unico(termo) {
   const r = k.buscar(termo, esc());
