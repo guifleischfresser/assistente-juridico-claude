@@ -110,7 +110,7 @@ Exemplo: *"Anonimizei 3 documentos do caso Silva x Banco: 4 nomes e 1 CPF virara
 - 🧹 **Atalhos parecidos**: a arrumação de 15 dias só junta atalhos que o próprio assistente criou. Se um atalho seu ou do núcleo parecer com outro, ele só anota no relatório e não mexe.
 
 **Novidades da v0.5:**
-- 🗺️ **Mapa de teses da defesa** (`/mapa-de-teses`): lê a petição inicial e monta um quadro por pedido, com valor, risco (alto/médio/baixo, no padrão provável/possível/remota), teses de defesa e precedentes. Soma a exposição por risco e gera uma versão para imprimir. Todo precedente sai marcado **[A VERIFICAR]** até ser conferido.
+- 🗺️ **Mapa de teses da defesa** (`/mapa-de-teses`): lê a petição inicial e monta um quadro por pedido, com valor, risco (alto/médio/baixo, no padrão provável/possível/remota), teses de defesa e precedentes. Soma a exposição por risco, gera uma versão para imprimir e exporta para Word ("exporta o mapa de teses do caso X pra Word"): o quadro vira tabela de verdade, com cabeçalho repetido em cada página, e os totais por risco vêm no fim. Precedente divergente trava a exportação. Todo precedente sai marcado **[A VERIFICAR]** até ser conferido.
 - 🔍 **Conferência de julgados**: verifica se o julgado existe e se o trecho entre aspas bate **palavra por palavra** com o original (mostra o que diverge). Antes de ir à internet ele **pergunta**; você pode autorizar só os sites oficiais dos tribunais e o JusBrasil. Sem permissão, fica **[NÃO VERIFICADO]**. Julgado divergente trava a exportação para Word.
 - 📁 **Uma conversa por processo** (`/processo <nome ou número>`, ou `/cliente`): abre só o dossiê e o "onde paramos" daquele caso, lembra disso ao retomar a conversa e avisa se você mexer em outro caso na mesma conversa.
 - 🛑 **Não repete o erro que você já corrigiu** (`/erros`): quando você corrige algo reconhecível no texto (tribunal errado, expressão, formatação), ele registra. Na segunda correção, a peça com aquele erro **não é gravada** até ser corrigida.
@@ -119,7 +119,7 @@ Exemplo: *"Anonimizei 3 documentos do caso Silva x Banco: 4 nomes e 1 CPF virara
 
 - 📁 **Organiza seus casos**, cada um com um **dossiê** (resumo, partes, fatos, prazos, histórico). Casos que já existem no seu computador ganham dossiê **apontando para a pasta original**.
 - ✍️ **Aprende o seu jeito de escrever**, para que o texto não fique com "cara de robô".
-- 📄 **Redige e formata peças** e exporta para Word (.docx) no padrão forense: A4, margens 3/2 cm, Times 12, espaçamento 1,5.
+- 📄 **Redige e formata peças** e exporta para Word (.docx) no padrão forense: A4, margens 3/2 cm, Times 12, espaçamento 1,5. Tabelas em Markdown viram tabelas do Word.
 - 🔎 **Não inventa jurisprudência.** Citação sem fonte fica marcada como **[NÃO VERIFICADO]**, e a exportação trava até você conferir.
 - 😈 Tem um **advogado do diabo**, que ataca a sua peça antes da parte contrária.
 - 📚 **Lê os autos em PDF uma vez só**, transforma em texto e tira as repetições, o que economiza o seu limite de uso.
