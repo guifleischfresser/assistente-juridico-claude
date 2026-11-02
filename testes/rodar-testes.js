@@ -1408,6 +1408,139 @@ console.log('\n12i. Erros a não repetir: /erros sugere o padrão a partir da co
   t('arquivo de erros sem dado real (CPF, CNJ, nome do DOSSIÊ)', !/123\.456|0001234|Joaquina/i.test(tudo));
 }
 
+console.log('\n12j. Tabelas no Word e mapa de teses → .docx (Roadmap item 7)');
+{
+  const R10 = path.join(TMP, 'mapa-docx'); const CL10 = path.join(R10, '.claude'); const ESC10 = path.join(R10, 'ESCRITORIO');
+  const SC10 = (n) => path.join(CL10, 'advogado', 'scripts', n);
+  const env10 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL10 });
+  const run10 = (args) => { const x = spawnSync(process.execPath, args, { env: env10, encoding: 'utf8', cwd: R10 }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  fs.mkdirSync(R10, { recursive: true });
+  r = run10([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC10, '--nome', 'Dra. Dez']);
+  const regras = (arq) => JSON.parse(fs.readFileSync(arq, 'utf8')).permissions.allow;
+  const cobre = (allow) => ['Bash(node "$HOME/.claude/advogado/scripts/mapa-teses.js" *)', 'PowerShell(node "~/.claude/advogado/scripts/mapa-teses.js" *)'].every((x) => allow.includes(x));
+  const CLp = path.join(R10, 'plugin', '.claude');
+  const rp = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', path.join(R10, 'plugin', 'ESCRITORIO'), '--modo-plugin'], { env: Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CLp }), encoding: 'utf8' });
+  t('docx: instalação do sandbox; a regra estreita mapa-teses.js * cobre "exportar" no instalador e no modo plugin', r.code === 0 && rp.status === 0 && cobre(regras(path.join(CL10, 'settings.json'))) && cobre(regras(path.join(CLp, 'settings.json'))), r.out + r.err + rp.stdout + rp.stderr);
+
+  const { lerZip, crc32 } = require(path.join(RAIZ, 'scripts', 'lib', 'zip.js'));
+  // XML bem formado sem dependencias: tags equilibradas + parser do python quando houver (no Windows, "python3" pode ser so o atalho da loja)
+  const temPy = (() => { const p = spawnSync('python3', ['-I', '-c', 'import xml.dom.minidom, zipfile']); return !p.error && p.status === 0; })();
+  const xmlOk = (xml) => {
+    const pilha = []; const re = /<(\/?)([A-Za-z_][\w:.-]*)[^>]*?(\/?)>/g; let m;
+    const sem = xml.replace(/<\?[^>]*\?>/g, '');
+    while ((m = re.exec(sem))) { if (m[3]) continue; if (m[1]) { if (pilha.pop() !== m[2]) return false; } else pilha.push(m[2]); }
+    if (pilha.length) return false;
+    const py = temPy ? spawnSync('python3', ['-I', '-c', 'import sys,xml.dom.minidom as m;m.parseString(sys.stdin.buffer.read())'], { input: xml }) : null;
+    return !temPy || py.status === 0;
+  };
+  // zip valido: le pelo diretorio central e confere o CRC de cada entrada (+ zipfile do python quando houver)
+  const zipOk = (arq) => {
+    const buf = fs.readFileSync(arq); const z = lerZip(buf); let p = buf.readUInt32LE(buf.length - 22 + 16);
+    for (let n = 0; n < z.size; n++) { const nome = buf.slice(p + 46, p + 46 + buf.readUInt16LE(p + 28)).toString('utf8'); if (crc32(z.get(nome)) !== buf.readUInt32LE(p + 16)) return false; p += 46 + buf.readUInt16LE(p + 28) + buf.readUInt16LE(p + 30) + buf.readUInt16LE(p + 32); }
+    const py = temPy ? spawnSync('python3', ['-I', '-c', 'import sys,zipfile;sys.exit(1 if zipfile.ZipFile(sys.argv[1]).testzip() else 0)', arq]) : null;
+    return z.has('word/document.xml') && (!temPy || py.status === 0);
+  };
+  const docXml = (arq) => lerZip(arq).get('word/document.xml').toString('utf8');
+  const tabelas = (xml) => xml.match(/<w:tbl>[\s\S]*?<\/w:tbl>/g) || [];
+  const linhasT = (tb) => (tb.match(/<w:tr>[\s\S]*?<\/w:tr>/g) || []).map((tr) => (tr.match(/<w:tc>[\s\S]*?<\/w:tc>/g) || []));
+  const textoC = (tc) => (tc.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((x) => x.replace(/<[^>]+>/g, '')).join('').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  const jcC = (tc) => (tc.match(/<w:jc w:val="(\w+)"/) || [])[1];
+  const grid = (tb) => (tb.match(/<w:gridCol w:w="(\d+)"/g) || []).map((x) => +x.match(/\d+/)[0]);
+  const PD = path.join(R10, 'pecas-teste'); fs.mkdirSync(PD, { recursive: true });
+  const exportar = (nome, md, extra) => { const e = path.join(PD, nome + '.md'), s = path.join(PD, nome + '.docx'); fs.writeFileSync(e, md); const x = run10([SC10('exportar-docx.js'), e, s].concat(extra || [])); return Object.assign(x, { docx: s, xml: fs.existsSync(s) ? docXml(s) : '' }); };
+
+  // 1. tabela simples
+  let x = exportar('simples', '# Quadro\n\n| Pedido | Risco | Obs |\n|---|---|---|\n| Horas extras | alto | ponto |\n| Dano moral | baixo | — |\n\nTexto depois.\n');
+  let tb = tabelas(x.xml);
+  t('tabela simples vira w:tbl válido: bordas, cabeçalho repetido (w:tblHeader) em negrito, 3 colunas × 3 linhas, XML e zip válidos', x.code === 0 && tb.length === 1 && /<w:tblBorders>.*<w:insideH w:val="single"/.test(tb[0]) && /<w:tblHeader\/>/.test(linhasT(tb[0])[0].join('') + tb[0]) && (tb[0].match(/<w:tblHeader\/>/g) || []).length === 1 && linhasT(tb[0]).length === 3 && linhasT(tb[0]).every((l) => l.length === 3) && linhasT(tb[0])[0].every((tc) => /<w:b\/>/.test(tc)) && textoC(linhasT(tb[0])[1][0]) === 'Horas extras' && xmlOk(x.xml) && zipOk(x.docx) && /Texto depois/.test(x.xml.split('</w:tbl>')[1]), x.out + x.err + x.xml.slice(0, 300));
+  // 2. alinhamento
+  x = exportar('alinhamento', '| Esquerda | Centro | Direita | Valor |\n|:---|:---:|---:|---|\n| a | b | c | R$ 1.234,56 |\n| d | e | f | ilíquido |\n');
+  const la = linhasT(tabelas(x.xml)[0] || '');
+  t('alinhamento: ":---" à esquerda, ":--:" centralizado, "--:" à direita; valor em R$ à direita sem alinhamento definido', x.code === 0 && la.length === 3 && la.slice(1).every((l) => jcC(l[0]) === 'left' && jcC(l[1]) === 'center' && jcC(l[2]) === 'right') && jcC(la[1][3]) === 'right' && jcC(la[2][3]) === 'left' && jcC(la[0][1]) === 'center', JSON.stringify(la.map((l) => l.map(jcC))));
+  // 3. \| escapado
+  x = exportar('escapado', '| Tese | Fonte |\n|---|---|\n| prescrição \\| decadência | art. 7º, XXIX \\| CF |\n');
+  const le = linhasT(tabelas(x.xml)[0] || '');
+  t('"\\|" escapado fica dentro da célula (2 colunas, texto "prescrição | decadência")', x.code === 0 && le.length === 2 && le[1].length === 2 && textoC(le[1][0]) === 'prescrição | decadência' && textoC(le[1][1]) === 'art. 7º, XXIX | CF', JSON.stringify(le.map((l) => l.map(textoC))));
+  // 4. negrito + marca grifada na celula
+  x = exportar('inline', '| Pedido | Precedentes |\n|---|---|\n| **Horas extras** e *reflexos* | Súmula 338 do TST [NÃO VERIFICADO] [PREENCHER: data] |\n');
+  const li = linhasT(tabelas(x.xml)[0] || '');
+  const c1 = (li[1] || [])[0] || '', c2 = (li[1] || [])[1] || '';
+  t('célula com negrito/itálico e marca grifada ([NÃO VERIFICADO], [PREENCHER…]) usa o mesmo inline do resto da peça', x.code === 0 && /<w:rPr><w:b\/><w:sz w:val="20"\/><w:szCs w:val="20"\/><\/w:rPr><w:t xml:space="preserve">Horas extras<\/w:t>/.test(c1) && /<w:i\/>[^]*?>reflexos</.test(c1) && /<w:highlight w:val="yellow"\/><\/w:rPr><w:t xml:space="preserve">\[NÃO VERIFICADO\]/.test(c2) && /<w:highlight w:val="yellow"\/><\/w:rPr><w:t xml:space="preserve">\[PREENCHER: data\]/.test(c2) && !/\*\*/.test(c1), c1 + '\n' + c2);
+  // 5. tabela larga
+  const LU = require(path.join(RAIZ, 'scripts', 'exportar-docx.js')).LARGURA_UTIL;
+  const longo = 'texto bem comprido para forçar a tabela a ficar larga demais na página ';
+  x = exportar('larga', '| ' + Array.from({ length: 9 }, (_, i) => 'Coluna' + i).join(' | ') + ' |\n|' + '---|'.repeat(9) + '\n| ' + Array.from({ length: 9 }, () => longo + longo).join(' | ') + ' |\n| ' + Array.from({ length: 9 }, (_, i) => 'x' + i).join(' | ') + ' |\n');
+  tb = tabelas(x.xml)[0] || ''; const g = grid(tb); const soma = g.reduce((a, b) => a + b, 0);
+  t('tabela larga (9 colunas de texto longo): soma das larguras ≤ largura útil (' + LU + ' twips), w:tblW = soma, cada célula com a largura da coluna', x.code === 0 && LU === 11906 - 1701 - 1134 && g.length === 9 && soma <= LU && soma > LU * 0.95 && new RegExp('<w:tblW w:w="' + soma + '"').test(tb) && linhasT(tb).every((l) => l.every((tc, i) => new RegExp('<w:tcW w:w="' + g[i] + '"').test(tc))), soma + ' ' + g);
+  x = exportar('proporcional', '| # | Pedido com descrição longa |\n|---|---|\n| 1 | ' + longo + ' |\n');
+  const g2 = grid(tabelas(x.xml)[0] || '');
+  t('larguras proporcionais ao conteúdo (coluna "#" estreita, texto longo largo)', g2.length === 2 && g2[0] < g2[1] / 3 && g2[0] + g2[1] <= LU, String(g2));
+  // 6. golden: peca sem tabela => document.xml identico ao do codigo antigo (main)
+  const fx = path.join(RAIZ, 'testes', 'fixtures');
+  x = exportar('golden', fs.readFileSync(path.join(fx, 'peca-sem-tabela.md'), 'utf8'), ['--forcar']);
+  t('peça sem tabela gera document.xml idêntico byte a byte ao do código antigo (golden de main em testes/fixtures)', x.code === 0 && x.xml === fs.readFileSync(path.join(fx, 'peca-sem-tabela.document.xml'), 'utf8') && !/<w:tbl>/.test(x.xml), x.out);
+  t('linha com "|" sem a linha separadora continua parágrafo (não vira tabela)', /\| não é tabela porque falta a linha separadora \|/.test(x.xml) && /A \| B sem ser tabela/.test(x.xml));
+
+  // --- mapa-teses exportar
+  const MT10 = SC10('mapa-teses.js');
+  const caso10 = path.join(ESC10, 'CASOS', 'Ativos', 'pereira-x-transportes'); fs.mkdirSync(caso10, { recursive: true });
+  fs.writeFileSync(path.join(caso10, 'DOSSIE.md'), '# DOSSIÊ\n\n- Cliente: Transportes Fictícios Ltda.\n');
+  r = run10([MT10, 'modelo', caso10, '--titulo', 'Reclamação trabalhista']);
+  const mapa10 = (r.out.match(/Mapa criado: (.+)$/m) || [])[1];
+  const QUADRO = '| 1 | Horas extras | R$ 25.000,00 | alto | cartões de ponto; ônus da prova | Súmula 338 do TST [A VERIFICAR] |\n| 2 | Dano moral | 10.000,00 | baixo | ausência de prova do abalo | REsp 1.111.222/SP [A VERIFICAR] |\n| 3 | Reflexos | ilíquido | médio | acessório segue o principal | — |\n| 4 | Multa do art. 477 | 3.300,50 | médio | pagamento no prazo | — |\n';
+  const base10 = fs.readFileSync(mapa10, 'utf8').replace(/\| 1 \| \[PREENCHER\].*\|\n/, QUADRO);
+  fs.writeFileSync(mapa10, base10);
+  const docx10 = mapa10.replace(/\.md$/, '.docx');
+  r = run10([MT10, 'exportar', 'pereira']);
+  const xml10 = fs.existsSync(docx10) ? docXml(docx10) : '';
+  const tbs = tabelas(xml10);
+  t('mapa-teses exportar <caso>: valida, gera .docx ao lado do mapa e responde em linguagem simples', r.code === 0 && fs.existsSync(docx10) && /^✅ Exportei o mapa de teses do caso pereira-x-transportes para Word: 4 pedido\(s\), total provável R\$ 25\.000,00\. Arquivo: pecas\/mapa-de-teses-\d{4}-\d\d-\d\d\.docx\.$/m.test(r.out) && /2 precedente\(s\) ainda \[A VERIFICAR\]/.test(r.out) && xmlOk(xml10) && zipOk(docx10), r.out + r.err);
+  const q10 = linhasT(tbs[0] || '');
+  t('quadro | # | Pedido | Valor (R$) | Risco | Teses | Precedentes | como tabela real (cabeçalho repetido, R$ à direita, [A VERIFICAR] grifado)', tbs.length === 2 && q10.length === 5 && q10[0].map(textoC).join('|') === '#|Pedido|Valor (R$)|Risco|Teses de defesa|Precedentes' && /<w:tblHeader\/>/.test(tbs[0]) && jcC(q10[1][2]) === 'right' && textoC(q10[1][2]) === 'R$ 25.000,00' && /<w:highlight w:val="yellow"\/><\/w:rPr><w:t xml:space="preserve">\[A VERIFICAR\]/.test(q10[1][5]), JSON.stringify(q10.map((l) => l.map(textoC))));
+  // totais = totalizar (rodado numa copia, para nao mexer no mapa)
+  const copia = path.join(R10, 'copia-mapa.md'); fs.writeFileSync(copia, base10);
+  const tz = run10([MT10, 'totalizar', copia]);
+  const tot = linhasT(tbs[1] || '').map((l) => l.map(textoC));
+  const brlDe = (rot) => (tz.out.match(new RegExp(rot + ' (R\\$ [\\d.,]+)')) || [])[1];
+  t('tabela de totais igual ao totalizar (provável/possível/remota/total; ilíquidos à parte)', tz.code === 0 && tot.length === 6 && tot[1][2] === brlDe('Alto \\(provável\\)') && tot[2][2] === brlDe('Médio \\(possível\\)') && tot[3][2] === brlDe('Baixo \\(remota\\)') && tot[4][2] === brlDe('Total') && tot[2][2] === 'R$ 3.300,50' && tot[4][2] === 'R$ 38.300,50' && /1 ilíquido/.test(tz.out) && tot[5][0] === 'Ilíquidos (fora da soma)' && tot[5][2] === '1 pedido(s)', JSON.stringify(tot) + ' :: ' + tz.out);
+  t('detalhe por pedido abaixo do quadro e totais antes das Observações; o .md do mapa não muda', xml10.indexOf('Detalhe por pedido') > xml10.indexOf('</w:tbl>') && xml10.indexOf('Totais por risco') > xml10.indexOf('Detalhe por pedido') && xml10.indexOf('Observações') > xml10.lastIndexOf('</w:tbl>') && fs.readFileSync(mapa10, 'utf8') === base10);
+  // versao anterior vai para _versoes
+  fs.appendFileSync(docx10, ''); const antes10 = fs.readFileSync(docx10);
+  r = run10([MT10, 'exportar', mapa10]);
+  const vers = path.join(ESC10, '_versoes', 'CASOS', 'Ativos', 'pereira-x-transportes', 'pecas');
+  const guardadas = fs.existsSync(vers) ? fs.readdirSync(vers).filter((f) => /mapa-de-teses.*\.docx$/.test(f)) : [];
+  t('exportar de novo: a versão anterior do Word vai para _versoes (idêntica) antes de ser substituída; sem sobra de temporário', r.code === 0 && /versão anterior do Word foi guardada em _versoes/.test(r.out) && guardadas.length === 1 && fs.readFileSync(path.join(vers, guardadas[0])).equals(antes10) && fs.existsSync(docx10) && !fs.readdirSync(path.dirname(docx10)).some((f) => /\.tmp-\d+$/.test(f)), r.out + JSON.stringify(guardadas));
+  const saidaX = path.join(R10, 'outra pasta', 'mapa final.docx');
+  r = run10([MT10, 'exportar', mapa10, '--saida', saidaX]);
+  t('--saida grava onde o advogado pediu (pasta com espaço)', r.code === 0 && fs.existsSync(saidaX) && tabelas(docXml(saidaX)).length === 2, r.out);
+  t('caso inexistente: código 1 e mensagem simples', run10([MT10, 'exportar', 'caso-que-nao-existe-xyz']).code === 1);
+  // precedente divergente: recusa (codigo 2); --forcar exporta com marca grifada em vermelho
+  const livro = path.join(ESC10, 'WIKI', 'julgados-verificados.json'); fs.mkdirSync(path.dirname(livro), { recursive: true });
+  fs.writeFileSync(livro, JSON.stringify({ itens: { RESP1111222SP: { status: 'divergente', fonte: 'https://www.stj.jus.br/div', citacao: 'REsp 1.111.222/SP' } } }));
+  const mtime0 = fs.statSync(docx10).mtimeMs; const bytes0 = fs.readFileSync(docx10);
+  r = run10([MT10, 'exportar', mapa10]);
+  t('precedente divergente no livro de julgados: recusa com código 2 (como o exportar-docx), sem tocar no Word anterior', r.code === 2 && /REsp 1\.111\.222\/SP/.test(r.out) && /DIVERGENTE/.test(r.out) && /--forcar/.test(r.out) && fs.readFileSync(docx10).equals(bytes0) && fs.statSync(docx10).mtimeMs === mtime0, r.out);
+  r = run10([MT10, 'exportar', mapa10, '--forcar']);
+  const xf = fs.existsSync(docx10) ? docXml(docx10) : '';
+  t('--forcar exporta com a marca do divergente grifada em vermelho e avisa', r.code === 0 && /<w:highlight w:val="red"\/><\/w:rPr><w:t xml:space="preserve">\[🔴 DIVERGENTE: https:\/\/www\.stj\.jus\.br\/div\]/.test(xf) && !/REsp 1\.111\.222\/SP \[A VERIFICAR\]/.test(xf) && /--forcar apesar de 1 problema/.test(r.out) && fs.readFileSync(mapa10, 'utf8') === base10, r.out);
+  fs.writeFileSync(livro, JSON.stringify({ itens: { RESP1111222SP: { status: 'inexistente', fonte: 'https://www.stj.jus.br/nada', citacao: 'REsp 1.111.222/SP' } } }));
+  r = run10([MT10, 'exportar', mapa10]);
+  t('precedente inexistente: também recusa com código 2', r.code === 2 && /NÃO EXISTE/.test(r.out), r.out);
+  fs.rmSync(livro);
+  // marcador de anonimizacao nao revertido
+  const mapaA = path.join(caso10, 'pecas', 'mapa-de-teses-anonimizado.md');
+  fs.writeFileSync(mapaA, base10.replace('Horas extras', 'Horas extras de [PARTE_A]'));
+  r = run10([MT10, 'exportar', mapaA]);
+  t('marcador de anonimização não revertido: recusa (código 2), aponta o reverter e não gera o Word', r.code === 2 && /marcador\(es\) de anonimização/.test(r.out) && /reverter/.test(r.out) && !fs.existsSync(mapaA.replace(/\.md$/, '.docx')), r.out);
+  // erros a nao repetir continuam valendo
+  const ER10 = SC10('erros.js');
+  run10([ER10, 'registrar', '--licao', 'Use "Reclamação trabalhista", não "Reclamatória"', '--padrao', 'Reclamat[oó]ria\\s+trabalhista', '--exemplo', 'Reclamatória trabalhista', '--certo', 'Reclamação trabalhista', '--bloquear']);
+  const er2 = run10([ER10, 'registrar', '--licao', 'Use "Reclamação trabalhista", não "Reclamatória"', '--padrao', 'Reclamat[oó]ria\\s+trabalhista', '--exemplo', 'Reclamatória trabalhista', '--certo', 'Reclamação trabalhista', '--bloquear']);
+  const mapaE = path.join(caso10, 'pecas', 'mapa-de-teses-erro.md'); fs.writeFileSync(mapaE, base10.replace('Reclamação trabalhista', 'Reclamatória trabalhista'));
+  r = run10([MT10, 'exportar', mapaE, '--forcar']);
+  t('erro já corrigido duas vezes (/erros, bloqueio) trava a exportação do mapa, nem com --forcar', /BLOQUEIO/.test(er2.out) && r.code === 3 && /já corrigiu/.test(r.out) && !fs.existsSync(mapaE.replace(/\.md$/, '.docx')), er2.out + r.out);
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));

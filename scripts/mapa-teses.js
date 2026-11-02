@@ -7,6 +7,9 @@
  *      node mapa-teses.js marcar <mapa.md>       (põe [A VERIFICAR] onde falta; troca por CONFERIDO/DIVERGENTE conforme julgados.js)
  *      node mapa-teses.js totalizar <mapa.md>    (soma os valores por risco: provável/possível/remota)
  *      node mapa-teses.js imprimir <mapa.md>     (gera .html pronto para imprimir/salvar em PDF)
+ *      node mapa-teses.js exportar <caso|mapa.md> [--saida x.docx] [--forcar]
+ *                                                (.docx com tabela do Word + totais por risco; valida antes:
+ *                                                 problema => recusa código 2, salvo --forcar; versão anterior em _versoes)
  * Nunca inventa precedente: este script não cria citações, só confere e marca as que existem no arquivo.
  */
 const fs = require('fs');
@@ -102,20 +105,105 @@ function marcar(arq) {
   return n;
 }
 
-function totalizar(arq) {
-  const t = fs.readFileSync(arq, 'utf8');
-  const q = quadro(t);
+/** Soma por risco (sem gravar nada): { soma: {alto, médio, baixo}, total, iliquidos, pedidos }. */
+function somar(texto) {
+  const q = quadro(texto);
   const soma = { alto: 0, 'médio': 0, baixo: 0 }; let iliquidos = 0;
   for (const p of q) { const r = p.risco.replace(/[^a-zéê]/g, '').replace('medio', 'médio'); if (p.valor == null) iliquidos++; else if (soma[r] != null) soma[r] += p.valor; }
-  const total = soma.alto + soma['médio'] + soma.baixo;
-  const bloco = [MARCA_RES_INI, '**Resumo do risco** (valores da inicial; ' + q.length + ' pedido(s)' + (iliquidos ? ', ' + iliquidos + ' ilíquido(s) fora da soma' : '') + '):', '',
-    '| Risco | Classificação (CPC 25) | Soma (R$) |', '|---|---|---|',
-    '| Alto | provável | ' + brl(soma.alto) + ' |', '| Médio | possível | ' + brl(soma['médio']) + ' |', '| Baixo | remota | ' + brl(soma.baixo) + ' |', '| **Total pedido** | | **' + brl(total) + '** |', MARCA_RES_FIM].join('\n');
+  return { soma, total: soma.alto + soma['médio'] + soma.baixo, iliquidos, pedidos: q.length };
+}
+const linhasTotais = (r) => ['| Risco | Classificação (CPC 25) | Soma (R$) |', '|---|---|---|',
+  '| Alto | provável | ' + brl(r.soma.alto) + ' |', '| Médio | possível | ' + brl(r.soma['médio']) + ' |', '| Baixo | remota | ' + brl(r.soma.baixo) + ' |', '| **Total pedido** | | **' + brl(r.total) + '** |'];
+function totalizar(arq) {
+  const t = fs.readFileSync(arq, 'utf8');
+  const r = somar(t);
+  const bloco = [MARCA_RES_INI, '**Resumo do risco** (valores da inicial; ' + r.pedidos + ' pedido(s)' + (r.iliquidos ? ', ' + r.iliquidos + ' ilíquido(s) fora da soma' : '') + '):', ''].concat(linhasTotais(r), [MARCA_RES_FIM]).join('\n');
   const re = new RegExp(MARCA_RES_INI + '[\\s\\S]*?' + MARCA_RES_FIM);
   const novo = re.test(t) ? t.replace(re, bloco) : t.trimEnd() + '\n\n' + bloco + '\n';
   const esc = c.config().escritorio; if (c.dentroDe(arq, esc)) c.versionar(arq, path.join(esc, '_versoes'), esc);
   fs.writeFileSync(arq, novo, 'utf8');
-  return { soma, total, iliquidos, pedidos: q.length };
+  return r;
+}
+
+// --- exportar para Word (.docx com tabela de verdade), reaproveitando as regras do exportar-docx.js
+/** Mapa a exportar: arquivo .md, pasta do caso ou nome do caso (o mapa mais recente em <caso>/pecas). */
+function acharMapa(alvo) {
+  let pasta = null;
+  if (alvo && fs.existsSync(alvo)) { if (fs.statSync(alvo).isFile()) return { arq: path.resolve(alvo) }; pasta = path.resolve(alvo); }
+  else {
+    const achados = require('./lib/casos').buscar(alvo || '');
+    if (achados.length !== 1) return { erro: achados.length ? 'Mais de um caso combina com "' + alvo + '": ' + achados.map((k) => k.nome).join(', ') + '. Diga qual.' : 'Não achei o caso nem o arquivo "' + (alvo || '') + '".' };
+    pasta = achados[0].pasta;
+  }
+  const dir = path.join(pasta, 'pecas');
+  let mapas = []; try { mapas = fs.readdirSync(dir).filter((f) => /^mapa-de-teses.*\.md$/i.test(f)).map((f) => path.join(dir, f)); } catch (e) { /* sem pecas/ */ }
+  if (!mapas.length) return { erro: 'O caso "' + path.basename(pasta) + '" ainda não tem mapa de teses (crie com: mapa-teses.js modelo).' };
+  mapas.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs || (a < b ? 1 : -1));
+  return { arq: mapas[0] };
+}
+/** Com --forcar: poe "[🔴 NÃO EXISTE/DIVERGENTE: fonte]" (grifado em vermelho no Word) no lugar da marca dos precedentes com problema. So na copia exportada. */
+function marcarProblemas(texto, dir) {
+  const cits = analisarCitacoes(texto, dir, c.config().escritorio).filter((x) => x.tipo === 'jurisprudencia' && x.problema).sort((a, b) => b.fim - a.fim);
+  for (const x of cits) {
+    const m = texto.slice(x.fim, x.fim + 160).match(/^\s*\[(A VERIFICAR|CONFERIDO[^\]]*|🔴[^\]]*|N[ÃA]O VERIFICAD[OA])\]/i);
+    const marca = ' [🔴 ' + (x.problema === 'inexistente' ? 'NÃO EXISTE' : 'DIVERGENTE') + ': ' + (x.fonteRegistro || '?') + ']';
+    texto = texto.slice(0, x.fim) + marca + texto.slice(x.fim + (m ? m[0].length : 0));
+  }
+  return texto;
+}
+/** Markdown que vai para o Word: sem o bloco de resumo (desatualiza) e com a tabela de totais recalculada antes das Observações. */
+function textoExportado(texto, r) {
+  const re = new RegExp('\\n*' + MARCA_RES_INI + '[\\s\\S]*?' + MARCA_RES_FIM + '\\n*');
+  texto = texto.replace(re, '\n\n');
+  const tot = ['## Totais por risco', '', 'Valores da inicial; ' + r.pedidos + ' pedido(s)' + (r.iliquidos ? ', ' + r.iliquidos + ' ilíquido(s) fora da soma' : '') + '.', ''].concat(linhasTotais(r));
+  if (r.iliquidos) tot.push('| Ilíquidos (fora da soma) | — | ' + r.iliquidos + ' pedido(s) |');
+  const bloco = tot.join('\n') + '\n\n';
+  const obs = texto.search(/^## Observa/m);
+  return obs >= 0 ? texto.slice(0, obs) + bloco + texto.slice(obs) : texto.trimEnd() + '\n\n' + bloco;
+}
+/** Retorna { codigo, linhas[], saida? }. Codigos: 0 ok; 1 uso; 2 recusa (salvo --forcar); 3 recusa sem --forcar. */
+function exportar(alvo, opts) {
+  opts = opts || {}; const forcar = !!opts.forcar;
+  const ex = require('./exportar-docx');
+  const achado = acharMapa(alvo);
+  if (achado.erro) return { codigo: 1, linhas: [achado.erro] };
+  const arq = achado.arq; const md = fs.readFileSync(arq, 'utf8');
+  const oculto = ex.recusaOculto(md, 'no mapa de teses');
+  if (oculto) return { codigo: 3, linhas: [oculto] };
+  // erros ja corrigidos pelo advogado (/erros): bloqueio trava (nem --forcar libera, como na guarda de escrita); aviso so avisa
+  let hits = []; try { hits = require('./lib/erros').verificar(md, { ehPeca: true }); } catch (e) { /* fail-open */ }
+  const er = require('./lib/erros');
+  if (hits.some((h) => h.nivel === 'bloqueio')) return { codigo: 3, linhas: ['❌ Exportação interrompida: o mapa repete um erro que você já corrigiu duas vezes:'].concat(hits.filter((h) => h.nivel === 'bloqueio').map((h) => '  - ' + er.texto(h)), ['Corrija o mapa e exporte de novo (--forcar não libera isto).']) };
+  const anon = ex.checarAnonimizacao(md, arq, forcar, 'o mapa de teses');
+  if (anon.recusa) return { codigo: 2, linhas: anon.recusa };
+  const v = validar(arq);
+  if (!v.ok && !forcar) return { codigo: 2, linhas: ['❌ Exportação interrompida: o mapa de teses tem ' + v.erros.length + ' problema(s):'].concat(v.erros.map((e) => '  - ' + e), ['Corrija (precedente divergente/inexistente: remova ou corrija; sem marca: mapa-teses.js marcar) e exporte de novo. (Para exportar mesmo assim, com as marcas grifadas: --forcar)']) };
+  const r = somar(md);
+  const texto = textoExportado(forcar ? marcarProblemas(md, path.dirname(arq)) : md, r);
+  const saida = path.resolve(opts.saida || arq.replace(/\.md$/i, '') + '.docx');
+  c.garantirDir(path.dirname(saida));
+  const tmp = saida + '.tmp-' + process.pid;
+  const recusa = ex.gravarDocx(texto, tmp, { grifarDivergentes: true });
+  if (recusa) { try { fs.unlinkSync(tmp); } catch (e) { /* */ } return { codigo: 3, linhas: [recusa] }; }
+  // versao anterior do .docx (talvez editada no Word) vai para _versoes antes de ser substituida
+  let anterior = null;
+  if (fs.existsSync(saida)) {
+    const esc = c.config().escritorio;
+    anterior = c.dentroDe(saida, esc) ? c.versionar(saida, path.join(esc, '_versoes'), esc) : c.versionar(saida, path.join(path.dirname(saida), '_versoes'));
+    if (!anterior) { fs.unlinkSync(tmp); return { codigo: 3, linhas: ['❌ Não consegui guardar a versão anterior de ' + saida + ' em _versoes; não substituí o arquivo.'] }; }
+    fs.unlinkSync(saida);
+  }
+  fs.renameSync(tmp, saida);
+  const pecas = path.dirname(arq); const pastaCaso = path.basename(pecas).toLowerCase() === 'pecas' ? path.dirname(pecas) : pecas;
+  const rel = c.dentroDe(saida, pastaCaso) ? path.relative(pastaCaso, saida).split(path.sep).join('/') : saida;
+  const linhas = ['✅ Exportei o mapa de teses do caso ' + path.basename(pastaCaso) + ' para Word: ' + r.pedidos + ' pedido(s), total provável ' + brl(r.soma.alto) + '. Arquivo: ' + rel + '.'];
+  if (anterior) linhas.push('A versão anterior do Word foi guardada em _versoes.');
+  const aVerificar = v.precedentes - v.conferidos;
+  if (!v.ok) linhas.push('⚠️ Exportado com --forcar apesar de ' + v.erros.length + ' problema(s) (precedente divergente/inexistente sai grifado em vermelho). Não use o mapa assim sem corrigir.');
+  if (aVerificar > 0) linhas.push('⚠️ ' + aVerificar + ' precedente(s) ainda [A VERIFICAR] (grifados em amarelo). Confira antes de usar na peça.');
+  if (anon.restantes.length) linhas.push(ex.avisoMarcadoresForcados(anon.restantes.length));
+  hits.forEach((h) => linhas.push('⚠️ Erro já corrigido antes: ' + er.texto(h)));
+  return { codigo: 0, linhas, saida, totais: r, versaoAnterior: anterior };
 }
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -155,6 +243,7 @@ if (require.main === module) {
   else if (cmd === 'marcar') { exige(); const n = marcar(a[1]); console.log('🖍️ Precedentes: ' + n.aVerificar + ' [A VERIFICAR], ' + n.conferidos + ' conferido(s), ' + n.divergentes + ' divergente(s)/inexistente(s). Backup em _versoes.'); }
   else if (cmd === 'totalizar') { exige(); const r = totalizar(a[1]); console.log('Σ Alto (provável) ' + brl(r.soma.alto) + ' · Médio (possível) ' + brl(r.soma['médio']) + ' · Baixo (remota) ' + brl(r.soma.baixo) + ' · Total ' + brl(r.total) + (r.iliquidos ? ' · ' + r.iliquidos + ' ilíquido(s)' : '')); }
   else if (cmd === 'imprimir') { exige(); console.log('🖨️ Versão para imprimir: ' + imprimir(a[1]) + ' (abra no navegador e use Imprimir → Salvar como PDF)'); }
-  else { console.log('Uso: mapa-teses.js modelo <pasta-do-caso> | validar|marcar|totalizar|imprimir <mapa.md>'); process.exit(1); }
+  else if (cmd === 'exportar') { const x = exportar(a[1] && !a[1].startsWith('--') ? a[1] : '', { saida: opt('--saida'), forcar: a.includes('--forcar') }); console.log(x.linhas.join('\n')); process.exit(x.codigo); }
+  else { console.log('Uso: mapa-teses.js modelo <pasta-do-caso> | validar|marcar|totalizar|imprimir <mapa.md> | exportar <caso|mapa.md> [--saida x.docx] [--forcar]'); process.exit(1); }
 }
-module.exports = { modelo, quadro, validar, marcar, totalizar, imprimir, valorDe };
+module.exports = { modelo, quadro, validar, marcar, totalizar, somar, imprimir, exportar, valorDe };
