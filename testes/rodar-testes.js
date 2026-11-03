@@ -1541,6 +1541,137 @@ console.log('\n12j. Tabelas no Word e mapa de teses → .docx (Roadmap item 7)')
   t('erro já corrigido duas vezes (/erros, bloqueio) trava a exportação do mapa, nem com --forcar', /BLOQUEIO/.test(er2.out) && r.code === 3 && /já corrigiu/.test(r.out) && !fs.existsSync(mapaE.replace(/\.md$/, '.docx')), er2.out + r.out);
 }
 
+console.log('\n12k. Mapa de teses: importar valores da planilha de cálculo da inicial (Roadmap item 7)');
+{
+  const R11 = path.join(TMP, 'mapa-planilha'); const CL11 = path.join(R11, '.claude'); const ESC11 = path.join(R11, 'ESCRITORIO');
+  const SC11 = (n) => path.join(CL11, 'advogado', 'scripts', n);
+  const env11 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL11 });
+  const run11 = (args) => { const x = spawnSync(process.execPath, args, { env: env11, encoding: 'utf8', cwd: R11 }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  fs.mkdirSync(R11, { recursive: true });
+  r = run11([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC11, '--nome', 'Dra. Onze']);
+  const CLp = path.join(R11, 'plugin', '.claude');
+  const rp = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', path.join(R11, 'plugin', 'ESCRITORIO'), '--modo-plugin'], { env: Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CLp }), encoding: 'utf8' });
+  // a regra "Bash(node "<script>" *)" casa qualquer argumento: o comando do subcomando começa pelo prefixo da regra
+  const cobre = (arq) => { const allow = JSON.parse(fs.readFileSync(arq, 'utf8')).permissions.allow; return ['Bash(node "$HOME/.claude/advogado/scripts/mapa-teses.js" *)', 'PowerShell(node "~/.claude/advogado/scripts/mapa-teses.js" *)'].every((x) => allow.includes(x) && (x.replace(/^\w+\(/, '').replace(/\*\)$/, '') + 'importar-valores silva --planilha "calculo.xlsx" --simular').startsWith(x.replace(/^\w+\(/, '').replace(/\*\)$/, ''))) && !allow.some((x) => /mapa-teses\.js" importar/.test(x)); };
+  t('planilha: instalação do sandbox; a regra estreita mapa-teses.js * cobre "importar-valores" no instalador e no modo plugin', r.code === 0 && rp.status === 0 && cobre(path.join(CL11, 'settings.json')) && cobre(path.join(CLp, 'settings.json')), r.out + r.err + rp.stdout + rp.stderr);
+
+  const PLm = require(path.join(RAIZ, 'scripts', 'lib', 'planilha.js'));
+  const nums = [['R$ 1.234,56', 1234.56], ['1234,56', 1234.56], ['1.234', 1234], ['1.234.567,8', 1234567.8], ['1234.56', 1234.56], ['22.500,00', 22500], ['15000', 15000], ['(100,00)', -100], ['a apurar', null], ['1,234,5', null], ['', null]];
+  t('números no padrão brasileiro: 1.234,56 / 1.234 (milhar) / 1234.56; texto não vira número', nums.every(([s, v]) => PLm.numeroBR(s) === v), JSON.stringify(nums.map(([s]) => [s, PLm.numeroBR(s)])));
+
+  const MT = SC11('mapa-teses.js');
+  const caso = path.join(ESC11, 'CASOS', 'Ativos', 'silva-x-metalurgica'); const docs = path.join(caso, 'documentos'); fs.mkdirSync(docs, { recursive: true });
+  fs.writeFileSync(path.join(caso, 'DOSSIE.md'), '# DOSSIÊ\n\n- Cliente: Metalúrgica Fictícia Ltda.\n- Parte contrária: João da Silva Fictício\n');
+  r = run11([MT, 'modelo', caso, '--titulo', 'Reclamação trabalhista']);
+  const mapa = (r.out.match(/Mapa criado: (.+)$/m) || [])[1];
+  const QUADRO = '| 1 | Horas extras | R$ 20.000,00 | alto | cartões de ponto; ônus da prova | Súmula 338 do TST [A VERIFICAR] |\n| 2 | Danos morais | 10.000,00 | baixo | ausência de prova do abalo | REsp 1.111.222/SP [A VERIFICAR] |\n| 3 | Reflexos em férias | ilíquido | médio | acessório segue o principal | — |\n| 4 | Multa do art. 477 | 3.000,00 | médio | pagamento no prazo | Tema 1046 do STF [CONFERIDO: https://portal.stf.jus.br/t1046] |\n| 5 | Adicional de insalubridade | ilíquido | alto | laudo | — |\n| 6 | FGTS | ilíquido | alto | depósitos regulares | — |\n';
+  const base = fs.readFileSync(mapa, 'utf8').replace(/\| 1 \| \[PREENCHER\].*\|\n/, QUADRO);
+  fs.writeFileSync(mapa, base);
+  // CSV com ";" e decimal brasileiro (como o Excel em pt-BR salva), com dado do cliente no topo
+  fs.writeFileSync(path.join(docs, 'calculo-inicial.csv'), 'Reclamante: João da Silva Fictício;CPF 123.456.789-09;;;\n;;;;\nItem;Verba;Valor principal;Juros;Total\n1;Horas extras;20.000,00;2.500,00;"22.500,00"\n2;Reflexos em férias;1.000,00;234,56;1.234,56\n3;Multa do art. 477 da CLT;3.000,00;0,00;3.000,00\n4;Adicional de insalubridade;;;\n5;FGTS + 40%;5.000,00;;a apurar\n6;Danos materiais;800,00;;800,00\n;Total geral;;;27.534,56\n');
+  const VERS = path.join(ESC11, '_versoes', 'CASOS', 'Ativos', 'silva-x-metalurgica', 'pecas');
+  const versoes = () => (fs.existsSync(VERS) ? fs.readdirSync(VERS) : []);
+  const mt0 = fs.statSync(mapa).mtimeMs;
+  r = run11([MT, 'importar-valores', 'silva', '--planilha', 'documentos/calculo-inicial.csv', '--simular']);
+  t('--simular mostra a tabela antes → depois e não grava (mapa idêntico, nada em _versoes)', r.code === 0 && /^🔎 Simulação \(nada foi gravado\): eu pegaria 3 valores da planilha calculo-inicial\.csv/.test(r.out) && /\| 1 \| Horas extras \| R\$ 20\.000,00 \| R\$ 22\.500,00 \| linha 4 \|/.test(r.out) && /Total provável ficaria: R\$ 22\.500,00\./.test(r.out) && /Nada foi gravado/.test(r.out) && fs.readFileSync(mapa, 'utf8') === base && fs.statSync(mapa).mtimeMs === mt0 && !versoes().length, r.out + r.err);
+
+  r = run11([MT, 'importar-valores', 'silva', '--planilha', 'documentos/calculo-inicial.csv']);
+  const depois = fs.readFileSync(mapa, 'utf8');
+  t('CSV com ";" e decimal BR: mensagem simples (valores pegos, pedido sem casamento, ilíquidos, total provável)', r.code === 0 && r.out.split('\n')[0] === '✅ Peguei 3 valores da planilha calculo-inicial.csv e coloquei no mapa de teses do caso silva-x-metalurgica (1 já estava igual). 1 pedido não achei na planilha (Danos morais) e ficou como estava. 2 pedidos estão sem valor na planilha (Adicional de insalubridade: vazio, linha 7; FGTS: texto, linha 8); tratei como ilíquido e não mexi. Total provável agora: R$ 22.500,00.' && /separador ;/.test(r.out) && /coluna B \("Verba"\), valor na coluna E \("Total"\)/.test(r.out), r.out + r.err);
+  const semValor = (txt) => txt.replace(/<!-- resumo-risco:inicio -->[\s\S]*?<!-- resumo-risco:fim -->/, '').split('\n').map((l) => (/^\| \d+ \|/.test(l) ? l.split('|').filter((_, i) => i !== 3).join('|') : l)).join('\n');
+  t('só a coluna Valor muda: 22.500,00 em Horas extras e 1.234,56 em Reflexos; Danos morais, Multa (igual) e ilíquidos intactos', /\| 1 \| Horas extras \| R\$ 22\.500,00 \| alto \|/.test(depois) && /\| 3 \| Reflexos em férias \| R\$ 1\.234,56 \| médio \|/.test(depois) && /\| 2 \| Danos morais \| 10\.000,00 \|/.test(depois) && /\| 4 \| Multa do art\. 477 \| 3\.000,00 \|/.test(depois) && /\| 5 \| Adicional de insalubridade \| ilíquido \|/.test(depois) && /\| 6 \| FGTS \| ilíquido \|/.test(depois), depois.slice(0, 1500));
+  t('teses, precedentes e marcas [A VERIFICAR]/[CONFERIDO] preservados byte a byte (fora do Valor e do resumo)', semValor(depois) === semValor(base) && /Súmula 338 do TST \[A VERIFICAR\] \|/.test(depois) && /\[CONFERIDO: https:\/\/portal\.stf\.jus\.br\/t1046\]/.test(depois), semValor(depois).slice(0, 800));
+  const guardadas = versoes().filter((f) => /mapa-de-teses.*\.md$/.test(f));
+  t('backup da versão anterior em _versoes (idêntico ao mapa antes da importação), como o marcar', guardadas.length === 1 && fs.readFileSync(path.join(VERS, guardadas[0]), 'utf8') === base && /versão anterior do mapa ficou em _versoes/.test(r.out), JSON.stringify(versoes()));
+  const copia = path.join(R11, 'copia-totalizar.md'); fs.writeFileSync(copia, depois);
+  const tz = run11([MT, 'totalizar', copia]);
+  const res = (depois.match(/<!-- resumo-risco:inicio -->[\s\S]*?<!-- resumo-risco:fim -->/) || [''])[0];
+  const resT = (fs.readFileSync(copia, 'utf8').match(/<!-- resumo-risco:inicio -->[\s\S]*?<!-- resumo-risco:fim -->/) || [''])[0];
+  const tabela = (s) => s.split('\n').filter((l) => /^\|/.test(l)).join('\n');
+  const hojeBR = (() => { const d = new Date(); return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear(); })();
+  t('resumo-risco recalculado com a mesma conta do totalizar (provável 22.500,00; possível 4.234,56; total 36.734,56) e data local da importação', tz.code === 0 && tabela(res) === tabela(resT) && /\| Médio \| possível \| R\$ 4\.234,56 \|/.test(res) && /\*\*R\$ 36\.734,56\*\*/.test(res) && /2 ilíquido\(s\) fora da soma/.test(res) && res.includes('planilha calculo-inicial.csv, importados em ' + hojeBR) && /Σ Alto \(provável\) R\$ 22\.500,00/.test(tz.out), res + ' :: ' + tz.out);
+  t('nenhum dado de cliente da planilha (nome, CPF) vai para a saída nem para o mapa; nada gravado fora da pasta do caso', !/João|Fictício|123\.456|Danos materiais|Total geral/.test(r.out) && !/João|123\.456|Danos materiais/.test(depois) && !fs.readdirSync(path.join(CL11, 'advogado')).some((f) => /planilha|calculo/i.test(f)), r.out);
+
+  // CSV com vírgula: casamento ambíguo, valor vazio e zero
+  const mapa2 = path.join(caso, 'pecas', 'mapa-de-teses-virgula.md'); fs.writeFileSync(mapa2, base);
+  fs.writeFileSync(path.join(docs, 'calculo-virgula.csv'), 'Pedido,Valor\nHoras extras 50%,"10.000,00"\nHoras extras 100%,"5.000,00"\nDanos morais,15000\nReflexos em férias,\nMulta do art. 477,0\n');
+  r = run11([MT, 'importar-valores', mapa2, '--planilha', path.join(docs, 'calculo-virgula.csv')]);
+  const d2 = fs.readFileSync(mapa2, 'utf8');
+  t('CSV com ",": Danos morais 15000 → R$ 15.000,00', r.code === 0 && /separador ,/.test(r.out) && /\| 2 \| Danos morais \| R\$ 15\.000,00 \| baixo \|/.test(d2), r.out);
+  t('casamento ambíguo (Horas extras 50% e 100%): não altera e lista as linhas no relatório', /\| 1 \| Horas extras \| R\$ 20\.000,00 \|/.test(d2) && /casamento com a planilha é ambíguo \(Horas extras: linhas 2 e 3\)/.test(r.out) && /\| 1 \| Horas extras \| R\$ 20\.000,00 \| \(sem mudança: ambíguo\) \| linhas 2 e 3 \|/.test(r.out), r.out);
+  t('valor vazio e zero na planilha = ilíquido: não altera (Multa continua 3.000,00) e avisa', /\| 4 \| Multa do art\. 477 \| 3\.000,00 \|/.test(d2) && /\| 3 \| Reflexos em férias \| ilíquido \|/.test(d2) && /Reflexos em férias: vazio, linha 5; Multa do art\. 477: zero, linha 6/.test(r.out), r.out);
+
+  // .xlsx real (zip deflate): sharedStrings com rich text, inlineStr, número de fórmula em cache, fórmula de texto, fórmula sem cache; 2 abas
+  const { criarZip } = require(path.join(RAIZ, 'scripts', 'lib', 'zip.js'));
+  const xe = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const NS = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"';
+  const folha = (linhas) => '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<worksheet ' + NS + '><sheetData>' + linhas.join('') + '</sheetData></worksheet>';
+  const xlsx = (arq, abas, strings) => fs.writeFileSync(arq, criarZip([
+    { nome: '[Content_Types].xml', dados: '<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' + abas.map((_, i) => '<Override PartName="/xl/worksheets/sheet' + (i + 1) + '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('') + '<Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/></Types>' },
+    { nome: '_rels/.rels', dados: '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>' },
+    { nome: 'xl/workbook.xml', dados: '<?xml version="1.0" encoding="UTF-8"?><workbook ' + NS + '><sheets>' + abas.map((a, i) => '<sheet name="' + xe(a.nome) + '" sheetId="' + (i + 1) + '" r:id="rId' + (i + 1) + '"/>').join('') + '</sheets></workbook>' },
+    { nome: 'xl/_rels/workbook.xml.rels', dados: '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + abas.map((_, i) => '<Relationship Id="rId' + (i + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' + (i + 1) + '.xml"/>').join('') + '<Relationship Id="rId99" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>' },
+    { nome: 'xl/sharedStrings.xml', dados: '<?xml version="1.0" encoding="UTF-8"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="' + strings.length + '" uniqueCount="' + strings.length + '">' + strings.join('') + '</sst>' },
+  ].concat(abas.map((a, i) => ({ nome: 'xl/worksheets/sheet' + (i + 1) + '.xml', dados: folha(a.linhas) })))));
+  const SS = ['<si><t>Cálculo da inicial — Reclamante João da Silva Fictício, CPF 123.456.789-09</t></si>', '<si><t>Pedido</t></si>', '<si><t>Valor (R$)</t></si>', '<si><r><rPr><b/></rPr><t xml:space="preserve">Horas </t></r><r><t>extras</t></r></si>', '<si><t>Reflexos em férias</t></si>', '<si><t>Multa do art. 477</t></si>', '<si><t>FGTS</t></si>', '<si><t>Total</t></si>'];
+  const s = (ref, i) => '<c r="' + ref + '" t="s"><v>' + i + '</v></c>';
+  const ABA1 = ['<row r="1">' + s('A1', 0) + '</row>', '<row r="3">' + s('A3', 1) + s('B3', 2) + '</row>',
+    '<row r="4">' + s('A4', 3) + '<c r="B4" s="1"><f>20000*1.25</f><v>25000</v></c></row>',
+    '<row r="5"><c r="A5" t="inlineStr"><is><t>Danos morais</t></is></c><c r="B5"><v>12345.6</v></c></row>',
+    '<row r="6">' + s('A6', 4) + '<c r="B6" t="str"><f>IF(C6="","a apurar",C6)</f><v>a apurar</v></c></row>',
+    '<row r="7">' + s('A7', 5) + '<c r="B7"><f>SUM(C7:D7)</f><v>3300.4999999999995</v></c></row>',
+    '<row r="8">' + s('A8', 6) + '<c r="B8"><f>B4*0.08</f></c></row>',
+    '<row r="9">' + s('A9', 7) + '<c r="B9"><f>SUM(B4:B8)</f><v>40645.1</v></c></row>'];
+  const ABA2 = ['<row r="1">' + s('A1', 1) + s('B1', 7) + '</row>', '<row r="2">' + s('A2', 3) + '<c r="B2"><v>26000</v></c></row>'];
+  const XL = path.join(docs, 'calculo-inicial.xlsx'); xlsx(XL, [{ nome: 'Cálculo', linhas: ABA1 }, { nome: 'Atualizado', linhas: ABA2 }], SS);
+  const lx = PLm.lerPlanilha(XL);
+  t('.xlsx do fixture: lê sharedStrings (rich text), inlineStr, número de fórmula em cache e fórmula de texto; aba 1 por padrão', lx.tipo === 'xlsx' && lx.aba === 'Cálculo' && lx.linhas[3][0] === 'Horas extras' && lx.linhas[3][1] === 25000 && lx.linhas[4][0] === 'Danos morais' && lx.linhas[5][1] === 'a apurar' && lx.linhas[6][1] === 3300.4999999999995 && lx.linhas[7][1] == null && lx.linhas[8][1] === 40645.1, JSON.stringify(lx).slice(0, 600));
+  const mapa3 = path.join(caso, 'pecas', 'mapa-de-teses-xlsx.md'); fs.writeFileSync(mapa3, base);
+  r = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/calculo-inicial.xlsx']);
+  const d3 = fs.readFileSync(mapa3, 'utf8');
+  t('importar do .xlsx: fórmula em cache (25.000,00; 3.300,50 arredondado), número (12.345,60); fórmula de texto e sem cache = ilíquido', r.code === 0 && /\| 1 \| Horas extras \| R\$ 25\.000,00 \|/.test(d3) && /\| 2 \| Danos morais \| R\$ 12\.345,60 \|/.test(d3) && /\| 4 \| Multa do art\. 477 \| R\$ 3\.300,50 \|/.test(d3) && /\| 3 \| Reflexos em férias \| ilíquido \|/.test(d3) && /\| 6 \| FGTS \| ilíquido \|/.test(d3) && /Reflexos em férias: texto, linha 6; FGTS: vazio, linha 8/.test(r.out) && /aba "Cálculo"/.test(r.out) && /Adicional de insalubridade\) e ficou como estava/.test(r.out) && !/João|123\.456/.test(r.out + d3), r.out + r.err);
+  fs.writeFileSync(mapa3, base);
+  r = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/calculo-inicial.xlsx', '--aba', 'atualizado', '--simular']);
+  t('--aba escolhe outra aba (sem acento/caixa) e --simular não grava', r.code === 0 && /\| R\$ 20\.000,00 \| R\$ 26\.000,00 \| linha 2 \|/.test(r.out) && /aba "Atualizado"/.test(r.out) && fs.readFileSync(mapa3, 'utf8') === base, r.out);
+
+  // colunas: várias de valor => pede escolha; --coluna-valor resolve; sem cabeçalho => pede as colunas
+  fs.writeFileSync(path.join(docs, 'duas-colunas.csv'), 'Pedido;Valor corrigido;Valor atualizado\nHoras extras;21.000,00;23.000,00\n');
+  r = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/duas-colunas.csv', '--simular']);
+  let r2 = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/duas-colunas.csv', '--simular', '--coluna-valor', 'C']);
+  const r3 = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/duas-colunas.csv', '--simular', '--coluna-pedido', 'Pedido', '--coluna-valor', 'valor corrigido']);
+  t('mais de uma coluna de valor: recusa (código 2) sem escolher; --coluna-valor C (letra) ou pelo nome do cabeçalho resolve', r.code === 2 && /mais de uma coluna de valor \(B "Valor corrigido", C "Valor atualizado"\)/.test(r.out) && r2.code === 0 && /R\$ 23\.000,00 \| linha 2/.test(r2.out) && r3.code === 0 && /R\$ 21\.000,00 \| linha 2/.test(r3.out) && fs.readFileSync(mapa3, 'utf8') === base, r.out + r2.out + r3.out);
+  fs.writeFileSync(path.join(docs, 'sem-cabecalho.csv'), 'Horas extras;21.000,00\nDanos morais;5.000,00\n');
+  r = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/sem-cabecalho.csv']);
+  r2 = run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/sem-cabecalho.csv', '--coluna-pedido', 'A', '--coluna-valor', 'B', '--simular']);
+  t('sem cabeçalho: código 2 pedindo --coluna-pedido/--coluna-valor; com as letras, importa', r.code === 2 && /--coluna-pedido <letra> --coluna-valor <letra>/.test(r.out) && r2.code === 0 && /eu pegaria 2 valores/.test(r2.out), r.out + r2.out);
+
+  // planilha fora da pasta do caso, formatos recusados
+  fs.writeFileSync(path.join(R11, 'fora.csv'), 'Pedido;Valor\nHoras extras;99.000,00\n');
+  const outroCaso = path.join(ESC11, 'CASOS', 'Ativos', 'outro-caso'); fs.mkdirSync(outroCaso, { recursive: true }); fs.writeFileSync(path.join(outroCaso, 'calc.csv'), 'Pedido;Valor\nHoras extras;99.000,00\n');
+  const fora = [path.join(R11, 'fora.csv'), path.join(outroCaso, 'calc.csv'), '../outro-caso/calc.csv'].map((p) => run11([MT, 'importar-valores', mapa3, '--planilha', p]));
+  let link = null; try { link = path.join(docs, 'atalho.csv'); fs.symlinkSync(path.join(R11, 'fora.csv'), link); } catch (e) { link = null; }
+  const rl = link ? run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/atalho.csv']) : { code: 2, out: 'precisa estar na pasta do caso' };
+  t('planilha fora da pasta do caso (outra pasta, outro caso, ../ e atalho/symlink) é recusada com código 2 e o mapa não muda', fora.concat([rl]).every((x) => x.code === 2 && /precisa estar na pasta do caso/.test(x.out)) && fs.readFileSync(mapa3, 'utf8') === base, fora.concat([rl]).map((x) => x.code + ' ' + x.out).join(' | '));
+  const ole = Buffer.concat([Buffer.from('d0cf11e0a1b11ae1', 'hex'), Buffer.alloc(504)]);
+  fs.writeFileSync(path.join(docs, 'antigo.xls'), ole); fs.writeFileSync(path.join(docs, 'disfarcado.xlsx'), ole);
+  fs.writeFileSync(path.join(docs, 'libre.ods'), criarZip([{ nome: 'mimetype', dados: 'application/vnd.oasis.opendocument.spreadsheet' }, { nome: 'content.xml', dados: '<x/>' }], { semCompressao: true }));
+  const fmts = ['antigo.xls', 'libre.ods', 'disfarcado.xlsx'].map((f) => run11([MT, 'importar-valores', mapa3, '--planilha', 'documentos/' + f]));
+  t('.xls antigo, .ods (e .xls com extensão trocada) recusados com mensagem clara pedindo .xlsx ou .csv', fmts.every((x) => x.code === 2 && /Salvar como/.test(x.out) && /\.xlsx/.test(x.out) && /\.csv/.test(x.out)) && /formato \.xls\b/.test(fmts[0].out) && /formato \.ods/.test(fmts[1].out) && fs.readFileSync(mapa3, 'utf8') === base, fmts.map((x) => x.code + ' ' + x.out).join(' | '));
+  r = run11([MT, 'importar-valores', mapa3]);
+  t('sem --planilha ou planilha inexistente: código 1 e mensagem simples', r.code === 1 && /--planilha/.test(r.out) && run11([MT, 'importar-valores', mapa3, '--planilha', 'nao-existe.csv']).code === 1, r.out);
+
+  // caso anonimizado: só números entram; pedidos na saída com marcadores; aviso
+  const casoA = path.join(ESC11, 'CASOS', 'Ativos', 'caso-anonimo'); fs.mkdirSync(path.join(casoA, 'documentos'), { recursive: true });
+  fs.writeFileSync(path.join(casoA, 'DOSSIE.md'), '# DOSSIÊ\n\n- Cliente: Empresa Fictícia Ltda.\n- Parte contrária: Maria Aparecida Fictícia\n');
+  const ra = run11([SC11('anonimizar.js'), 'preparar', 'caso-anonimo']);
+  r = run11([MT, 'modelo', casoA]);
+  const mapaA = (r.out.match(/Mapa criado: (.+)$/m) || [])[1];
+  fs.writeFileSync(mapaA, fs.readFileSync(mapaA, 'utf8').replace(/\| 1 \| \[PREENCHER\].*\|\n/, '| 1 | Danos morais de Maria Aparecida Fictícia | ilíquido | médio | sem prova | — |\n'));
+  fs.writeFileSync(path.join(casoA, 'documentos', 'calc.csv'), 'Pedido;Valor\nDanos morais de Maria Aparecida Fictícia;7.000,00\n');
+  r = run11([MT, 'importar-valores', mapaA, '--planilha', 'documentos/calc.csv']);
+  t('caso anonimizado: importa só o número, mostra o pedido com marcador ([PARTE_…]) e avisa; nenhum nome real na saída', ra.code === 0 && r.code === 0 && /R\$ 7\.000,00/.test(fs.readFileSync(mapaA, 'utf8')) && /\[PARTE_[A-Z]\]/.test(r.out) && !/Maria|Aparecida/.test(r.out) && /está anonimizado/.test(r.out), ra.out + r.out);
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));
