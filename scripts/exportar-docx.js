@@ -19,6 +19,9 @@
  *       caracteres de largura zero, CSS que esconde (lib/injecao.js).
  * Anonimizacao: recusa (codigo 2, salvo --forcar) peca com marcador nao revertido ([PARTE_A], [CPF_1]...);
  *       com --forcar, os marcadores saem grifados.
+ * Sumulas (lib/sumulas.js, lista local): cancelada, com tribunal identificado e nao citada como historico =>
+ *       recusa (codigo 2, salvo --forcar); com --forcar sai "[⚠️ SÚMULA CANCELADA]" grifado em vermelho.
+ *       Superada, sem tribunal ou historica: so aviso. Peca sem sumula da lista gera o mesmo document.xml.
  */
 const fs = require('fs');
 const path = require('path');
@@ -33,19 +36,25 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const RE_INLINE = /(\*\*[^*]+\*\*|\*[^*]+\*|_[^_]+_|\[N[ÃA]O VERIFICADO[^\]]*\]|\[PREENCHER[^\]]*\]|\[[A-ZÇÃÉÍÓÚ ]{3,}\]|\[(?:PARTE|CPF|CNPJ|PROCESSO|RG|EMAIL|TELEFONE|ENDERECO|CEP)_[A-Z0-9]{1,4}(?:#\d{1,3})?\])/g;
 // opcional (mapa de teses exportado com --forcar): "[🔴 DIVERGENTE: fonte]" sai grifado em vermelho
 const RE_INLINE_DIV = new RegExp(RE_INLINE.source.slice(0, -1) + '|\\[🔴[^\\]]*\\])', 'g');
+// opcional (peca/mapa exportado com --forcar apesar de sumula cancelada): "[⚠️ SÚMULA CANCELADA]" sai grifado em vermelho
+const SUMULA_CANCELADA = '[⚠️ SÚMULA CANCELADA]';
+const reInline = (op) => {
+  const base = op && op.grifarDivergentes ? RE_INLINE_DIV : RE_INLINE;
+  return op && op.grifarSumulas ? new RegExp(base.source.slice(0, -1) + '|\\[⚠️ SÚMULA CANCELADA[^\\]]*\\])', 'g') : base;
+};
 
 function runs(texto, base, op) {
   base = base || {};
   texto = texto.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '$1 ($2)').replace(/`([^`]+)`/g, '$1');
   const out = [];
-  const re = new RegExp((op && op.grifarDivergentes ? RE_INLINE_DIV : RE_INLINE).source, 'g');
+  const re = new RegExp(reInline(op).source, 'g');
   let ult = 0, m;
   while ((m = re.exec(texto))) {
     if (m.index > ult) out.push(run(texto.slice(ult, m.index), base));
     const t = m[0];
     if (t.startsWith('**')) out.push(run(t.slice(2, -2), Object.assign({}, base, { b: true })));
     else if (t.startsWith('*') || t.startsWith('_')) out.push(run(t.slice(1, -1), Object.assign({}, base, { i: true })));
-    else if (t.startsWith('[🔴')) out.push(run(t, Object.assign({}, base, { grifo: 'red', b: true })));
+    else if (t.startsWith('[🔴') || t.startsWith('[⚠️ SÚMULA')) out.push(run(t, Object.assign({}, base, { grifo: 'red', b: true })));
     else out.push(run(t, Object.assign({}, base, { grifo: true, b: true })));
     ult = m.index + t.length;
   }
@@ -226,6 +235,33 @@ function checarAnonimizacao(md, entrada, forcar, oQue) {
     'Devolva os dados reais antes: node "' + path.join(__dirname, 'anonimizar.js') + '" reverter "' + entrada + '" e exporte o arquivo -dados-reais. (Para exportar mesmo assim, com os marcadores grifados: --forcar)'] };
 }
 const avisoMarcadoresForcados = (n) => '⚠️ ' + n + ' marcador(es) de anonimização foram para o Word (grifados em amarelo) porque você usou --forcar. Troque pelos dados reais antes de protocolar.';
+/**
+ * Sumulas canceladas/superadas (lib/sumulas.js; lista local + ajuste do escritorio). Fail-open.
+ * Retorna { avaliadas, bloqueio[], recusa (linhas, codigo 2, salvo --forcar) | null, avisos[] (linhas para depois de exportar) }.
+ * So 'cancelada' + tribunal identificado + citacao nao consciente bloqueia; superada, sem tribunal e historica so avisam.
+ */
+function checarSumulas(md, cits, forcar, oQue) {
+  let av = []; try { av = require('./lib/sumulas').avaliarSumulas(md, cits, { escritorio: cfg.escritorio }); } catch (e) { av = []; }
+  const bloqueio = av.filter((x) => x.sumula.nivel === 'bloqueio');
+  const recusa = bloqueio.length && !forcar ? ['❌ Exportação interrompida: ' + (oQue || 'a peça') + ' cita ' + bloqueio.length + ' súmula(s) cancelada(s) como se ainda valessem:']
+    .concat(bloqueio.slice(0, 15).map((x) => '  - linha ' + x.linha + ': ' + x.sumula.mensagem),
+      ['Troque a súmula (ou a tese). Se a citação é de propósito, como histórico, escreva isso na frase ou ponha [CITADA COMO HISTÓRICO] logo depois. Se a lista estiver errada, confira no site do tribunal e registre: julgados.js sumula marcar "<súmula>" --vigente --fonte <link>. (Para exportar mesmo assim, com ' + SUMULA_CANCELADA + ' grifado em vermelho: --forcar)']) : null;
+  const avisos = [];
+  if (bloqueio.length && forcar) avisos.push('⚠️ Exportado com --forcar apesar de ' + bloqueio.length + ' súmula(s) cancelada(s) (saem com ' + SUMULA_CANCELADA + ' grifado em vermelho). Não protocole assim sem conferir.');
+  av.filter((x) => x.sumula.nivel !== 'bloqueio').forEach((x) => avisos.push((x.sumula.nivel === 'info' ? 'ℹ️ ' : '⚠️ ') + 'Linha ' + x.linha + ': ' + x.sumula.mensagem));
+  return { avaliadas: av, bloqueio, recusa, avisos };
+}
+/** So na copia exportada: poe " [⚠️ SÚMULA CANCELADA]" depois de cada sumula cancelada que bloquearia (reanalisa o texto dado). */
+function marcarSumulasCanceladas(texto, dir) {
+  const cits = require('./lib/citacoes').analisarCitacoes(texto, dir, cfg.escritorio);
+  const { bloqueio } = checarSumulas(texto, cits, true);
+  for (const x of bloqueio.slice().sort((a, b) => b.sumula.fimTribunal - a.sumula.fimTribunal)) {
+    const fim = x.sumula.fimTribunal;
+    if (texto.slice(fim, fim + 40).includes(SUMULA_CANCELADA)) continue;
+    texto = texto.slice(0, fim) + ' ' + SUMULA_CANCELADA + texto.slice(fim);
+  }
+  return { texto, n: bloqueio.length };
+}
 /** Converte e grava o .docx. Retorna null ou a mensagem de recusa (codigo 3) se o Word gerado tiver run invisivel. */
 function gravarDocx(md, saida, op) {
   const inj = require('./lib/injecao');
@@ -258,6 +294,9 @@ if (require.main === module) {
     console.log('Corrija o trecho ou remova a citação (/verificar-citacoes). (Para exportar mesmo assim: --forcar)');
     process.exit(2);
   }
+  // sumula cancelada citada como se valesse: recusa (codigo 2), salvo --forcar (sai grifada em vermelho)
+  const sum = checarSumulas(md, todas, forcar);
+  if (sum.recusa) { sum.recusa.forEach((l) => console.log(l)); process.exit(2); }
   const pend = todas.filter((x) => !x.verificada && !x.marcada && !x.problema && x.tipo === 'jurisprudencia');
   const leis = todas.filter((x) => !x.verificada && !x.marcada && x.tipo === 'legislacao');
   if (pend.length && !forcar) {
@@ -270,12 +309,14 @@ if (require.main === module) {
   // memoria de estilo: aprende com o que o advogado mudou no .docx anterior e fotografa o novo rascunho
   let mem = null; try { mem = require('./memoria'); if (!(mem.ehPeca(saida) || mem.ehPeca(args[0]))) mem = null; } catch (e) { mem = null; }
   if (mem && fs.existsSync(saida)) { try { mem.aprenderEdicoes(saida); } catch (e) { /* */ } }
-  const recusa = gravarDocx(md, saida);
+  const comMarca = sum.bloqueio.length ? marcarSumulasCanceladas(md, path.dirname(args[0])).texto : md;
+  const recusa = gravarDocx(comMarca, saida, sum.bloqueio.length ? { grifarSumulas: true } : undefined);
   if (recusa) { console.log(recusa); process.exit(3); }
   if (mem) { try { mem.registrarRascunho(saida); } catch (e) { /* */ } }
   const marcadas = todas.filter((x) => x.marcada).length;
   if (leis.length) console.log('ℹ️ ' + leis.length + ' dispositivo(s) legal(is) citados sem fonte (ex.: ' + leis[0].texto + '). Confira a redação vigente no Planalto.');
   if (restantes.length) console.log(avisoMarcadoresForcados(restantes.length));
+  sum.avisos.forEach((l) => console.log(l));
   console.log('✅ Documento gerado: ' + saida + (marcadas ? '\n⚠️ Atenção: ' + marcadas + ' citação(ões) marcadas [NÃO VERIFICADO] (grifadas em amarelo). Confira antes de protocolar.' : ''));
 }
-module.exports = { converter, montarDocx, celulas, larguras, LARGURA_UTIL, recusaOculto, checarAnonimizacao, avisoMarcadoresForcados, gravarDocx };
+module.exports = { converter, montarDocx, celulas, larguras, LARGURA_UTIL, recusaOculto, checarAnonimizacao, avisoMarcadoresForcados, gravarDocx, checarSumulas, marcarSumulasCanceladas, SUMULA_CANCELADA };
