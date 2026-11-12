@@ -9,7 +9,8 @@
  *      node mapa-teses.js imprimir <mapa.md>     (gera .html pronto para imprimir/salvar em PDF)
  *      node mapa-teses.js exportar <caso|mapa.md> [--saida x.docx] [--forcar]
  *                                                (.docx com tabela do Word + totais por risco; valida antes:
- *                                                 problema => recusa código 2, salvo --forcar; versão anterior em _versoes)
+ *                                                 problema => recusa código 2, salvo --forcar; versão anterior em _versoes;
+ *                                                 súmula cancelada da lista local => idem, como no exportar-docx)
  *      node mapa-teses.js importar-valores <caso|mapa.md> --planilha <arquivo.xlsx|.csv> [--simular]
  *                                         [--coluna-pedido X --coluna-valor Y] [--aba nome|nº]
  *                                                (valores do cálculo da inicial; planilha só da pasta do caso; só a
@@ -187,12 +188,16 @@ function exportar(alvo, opts) {
   if (anon.recusa) return { codigo: 2, linhas: anon.recusa };
   const v = validar(arq);
   if (!v.ok && !forcar) return { codigo: 2, linhas: ['❌ Exportação interrompida: o mapa de teses tem ' + v.erros.length + ' problema(s):'].concat(v.erros.map((e) => '  - ' + e), ['Corrija (precedente divergente/inexistente: remova ou corrija; sem marca: mapa-teses.js marcar) e exporte de novo. (Para exportar mesmo assim, com as marcas grifadas: --forcar)']) };
+  // sumula cancelada citada como se valesse: mesma regra do exportar-docx (codigo 2, salvo --forcar)
+  const sum = ex.checarSumulas(md, analisarCitacoes(md, path.dirname(arq), c.config().escritorio), forcar, 'o mapa de teses');
+  if (sum.recusa) return { codigo: 2, linhas: sum.recusa };
   const r = somar(md);
-  const texto = textoExportado(forcar ? marcarProblemas(md, path.dirname(arq)) : md, r);
+  let texto = textoExportado(forcar ? marcarProblemas(md, path.dirname(arq)) : md, r);
+  if (sum.bloqueio.length) texto = ex.marcarSumulasCanceladas(texto, path.dirname(arq)).texto;
   const saida = path.resolve(opts.saida || arq.replace(/\.md$/i, '') + '.docx');
   c.garantirDir(path.dirname(saida));
   const tmp = saida + '.tmp-' + process.pid;
-  const recusa = ex.gravarDocx(texto, tmp, { grifarDivergentes: true });
+  const recusa = ex.gravarDocx(texto, tmp, sum.bloqueio.length ? { grifarDivergentes: true, grifarSumulas: true } : { grifarDivergentes: true });
   if (recusa) { try { fs.unlinkSync(tmp); } catch (e) { /* */ } return { codigo: 3, linhas: [recusa] }; }
   // versao anterior do .docx (talvez editada no Word) vai para _versoes antes de ser substituida
   let anterior = null;
@@ -212,6 +217,7 @@ function exportar(alvo, opts) {
   if (aVerificar > 0) linhas.push('⚠️ ' + aVerificar + ' precedente(s) ainda [A VERIFICAR] (grifados em amarelo). Confira antes de usar na peça.');
   if (anon.restantes.length) linhas.push(ex.avisoMarcadoresForcados(anon.restantes.length));
   hits.forEach((h) => linhas.push('⚠️ Erro já corrigido antes: ' + er.texto(h)));
+  sum.avisos.forEach((l) => linhas.push(l));
   return { codigo: 0, linhas, saida, totais: r, versaoAnterior: anterior };
 }
 

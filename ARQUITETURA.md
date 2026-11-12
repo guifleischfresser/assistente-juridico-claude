@@ -107,6 +107,14 @@ Edições no CLAUDE.md, na memória e no perfil de escrita recebem backup em `ve
 - O checklist "cara de IA" procura expressões típicas, emojis, resíduos de markdown, placeholders e parágrafos longos demais em relação ao perfil.
 - `estilo.js` extrai métricas reais das amostras para o `perfil-de-escrita.md`: parágrafo e frase médios, conectivos, pronomes de tratamento, designação das partes, fechos, latinismos, estilo de citação (nº/n., fls., ID PJe, Rel., j., DJe, "grifos nossos") e títulos em caixa alta.
 
+### 5.1 Súmulas canceladas ou superadas (`lib/sumulas.js`, lista local)
+
+- O livro de conferências diz se o julgado existe e se o trecho bate, mas não se a súmula ainda vale. `avaliarSumulas(texto, citacoes)` recebe as citações de `analisarCitacoes` (sem alterar `citacoes.js`) e anexa `sumula: {situacao, tribunal, ato, data, substituidaPor, consciente, fonteLista, nivel}`.
+- **Fontes, sem rede:** `scripts/lib/dados/sumulas-canceladas.json` (`{versao, revisadoEm, itens}`, curada à mão; `cancelada` = cancelamento formal, `superada` = superação sem cancelamento) e o ajuste do escritório `WIKI/sumulas-situacao.json` (`julgados.js sumula marcar … --fonte`, obrigatória). O ajuste vale mais que a lista, e `vigente` anula falso positivo. Arquivo do escritório ilegível: ignorado, com aviso, sem gravação por cima. `ADVOGADO_SUMULAS_LISTA` troca a lista (testes).
+- **Tribunal:** pela própria citação ou até ~20 caracteres depois ("do STJ", "/STJ", "do C. STJ"); "Súmula Vinculante" = STF; outros tribunais (TJ, TRT…) são ignorados. **Consciente:** "cancelada/revogada/superada/antiga/extinta" na mesma frase (o ponto de "n." e "C." não fecha frase) ou `[CITADA COMO HISTÓRICO]` logo depois.
+- **Níveis:** `bloqueio` (cancelada, tribunal identificado, não consciente) → `exportar-docx` e `mapa-teses exportar` recusam com código 2; com `--forcar`, `[⚠️ SÚMULA CANCELADA]` sai grifado em vermelho (mesmo caminho do `[🔴 DIVERGENTE]`). `aviso` (superada), `leve` (sem tribunal: "confirme de qual tribunal") e `info` (consciente) só avisam. Sem súmula da lista, o `document.xml` não muda (golden em `testes/fixtures/`).
+- Toda mensagem diz "segundo a lista local de DD/MM/AAAA" e manda confirmar no site do tribunal. O doutor mostra itens e `revisadoEm`; a manutenção quinzenal avisa quando a revisão passa de 6 meses. Limites: lista não exaustiva; OJs do TST fora por enquanto.
+
 ## 6. Economia de tokens
 
 - `preparar-autos.js` converte cada documento **uma vez só** (manifesto com hash) para `autos-md/`:

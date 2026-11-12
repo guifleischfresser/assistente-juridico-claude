@@ -16,6 +16,10 @@
  *           Arquivo sem texto legivel (PDF escaneado, pagina vazia): nao confere nem diverge; codigo 4, status 'sem-texto'.
  *      node julgados.js registrar --citacao "<c>" --status confere|divergente|inexistente --fonte <url|WIKI/...> [--obs "..."]
  *      node julgados.js situacao "<citação>"
+ *      node julgados.js sumula consultar "<súmula>"       cancelada/superada segundo a lista local (lib/sumulas.js)?
+ *      node julgados.js sumula marcar "<súmula>" --vigente|--cancelada|--superada --fonte <url|arquivo>
+ *           ajuste do escritório (WIKI/sumulas-situacao.json; vale mais que a lista embarcada; fonte obrigatória)
+ *      node julgados.js sumula listar
  */
 const fs = require('fs');
 const path = require('path');
@@ -60,6 +64,63 @@ function listar(arq) {
   const cfg = c.config();
   return analisarCitacoes(texto, path.dirname(arq), cfg.escritorio).filter((x) => x.tipo === 'jurisprudencia')
     .map((x) => ({ citacao: x.texto, linha: x.linha, trecho: j.trechoCitado(texto, x.ini, x.fim), registro: j.consultar(x.texto) }));
+}
+
+// --- sumulas canceladas/superadas (lib/sumulas.js): lista local embarcada + ajuste do escritorio; sem rede
+function sumula(b) {
+  const S = require('./lib/sumulas');
+  const USO = 'Uso: julgados.js sumula consultar "<súmula>" | marcar "<súmula>" --vigente|--cancelada|--superada --fonte <link|arquivo> [--data AAAA] [--substituida-por N] [--obs "..."] | listar';
+  const op = (k) => { const i = b.indexOf(k); return i >= 0 ? b[i + 1] : undefined; };
+  const nomeS = (t, n, v) => (v ? 'Súmula Vinculante ' + n : 'Súmula ' + n + ' do ' + t);
+  const linhaItem = (x) => '- ' + nomeS(x.tribunal, x.numero, x.vinculante) + ': ' + x.situacao + (x.data ? ' (' + x.data + ')' : '') + (x.substituidaPor ? ', substituída pela ' + x.substituidaPor : '') + (x.ato ? ' — ' + x.ato : '') + (x.fonte ? ' — fonte: ' + x.fonte : '');
+  const sub = b[0];
+  const esc = c.config().escritorio;
+  const E0 = S.lerEscritorio(esc);
+  const avisoIleg = E0.ilegivel ? '⚠️ O arquivo de ajustes do escritório (' + E0.arquivo + ') está ilegível e foi ignorado; não gravo nada por cima dele.' : null;
+  if (sub === 'consultar') {
+    if (!b[1]) sair(USO, 1);
+    const r = S.consultar(b[1], esc);
+    if (r.erro) sair(r.erro, 1);
+    const L = r.lista; const quando = L.ok ? S.dataBR(L.revisadoEm) : '?';
+    const linhas = [];
+    if (avisoIleg) linhas.push(avisoIleg);
+    if (!L.ok) linhas.push('⚠️ A lista local de súmulas não pôde ser lida (' + L.erro + '); rode /doutor.');
+    if (r.semTribunal) {
+      if (!r.candidatos.length) linhas.push('A Súmula ' + r.lc.numero + ' não consta como cancelada nem superada (em nenhum tribunal) na lista local de ' + quando + '. Isso não garante que ela esteja vigente: confirme no site do tribunal.');
+      else linhas.push('Você não disse o tribunal. Na lista local: ' + r.candidatos.map((x) => 'Súmula ' + x.numero + ' do ' + x.tribunal + ' = ' + x.situacao + (x.origem === 'escritorio' ? ' (ajuste do escritório)' : '')).join('; ') + '. Confirme de qual tribunal é a súmula e confira no site do tribunal.');
+      sair(linhas.join('\n'));
+    }
+    const t = r.lc.tribunal; const nm = nomeS(t, r.lc.numero, r.lc.vinculante); const site = 'Confirme no site do ' + t + ' (' + S.SITES[t] + ') antes de protocolar.';
+    const x = r.item;
+    if (!x) linhas.push(nm + ': não consta como cancelada nem superada na lista local de ' + quando + '. Isso não garante que esteja vigente. ' + site);
+    else if (x.situacao === 'vigente') linhas.push(nm + ': marcada como vigente pelo escritório em ' + S.dataBR(x.marcadoEm) + ' (fonte: ' + x.fonte + '), o que anula a lista embarcada. ' + site);
+    else {
+      const s = { situacao: x.situacao, tribunal: t, numero: r.lc.numero, vinculante: r.lc.vinculante, data: x.data || null, substituidaPor: x.substituidaPor || null, nivel: x.situacao === 'cancelada' ? 'bloqueio' : 'aviso', fonteLista: (x.origem === 'escritorio' ? 'lista local do escritório de ' : 'lista local de ') + S.dataBR(x.dataFonte) };
+      linhas.push(S.mensagem(s) + (x.ato ? ' Ato: ' + x.ato + '.' : '') + (x.fonte ? ' Fonte do escritório: ' + x.fonte + '.' : ''));
+    }
+    sair(linhas.join('\n'));
+  }
+  if (sub === 'marcar') {
+    const sit = b.includes('--vigente') ? 'vigente' : b.includes('--cancelada') ? 'cancelada' : b.includes('--superada') ? 'superada' : null;
+    if (!b[1] || b[1].startsWith('--') || !sit) sair(USO, 1);
+    const fonte = op('--fonte');
+    if (!fonte || fonte.startsWith('--')) sair('❌ A fonte é obrigatória: --fonte <link do site do tribunal ou arquivo salvo>. Nada foi gravado.\n' + USO, 1);
+    const r = S.marcar(b[1], sit, fonte, { data: op('--data'), substituidaPor: op('--substituida-por'), observacao: op('--obs') }, esc);
+    if (!r.ok) sair('❌ ' + r.erro, r.codigo || 2);
+    sair('✅ Anotado no ajuste do escritório (' + path.relative(esc, r.arquivo).replace(/\\/g, '/') + '): ' + nomeS(r.item.tribunal, r.item.numero, r.item.vinculante) + ' = ' + sit + ' (fonte: ' + fonte + '). Este ajuste vale mais que a lista embarcada.');
+  }
+  if (sub === 'listar') {
+    const L = S.lerLista(); const E = S.lerEscritorio(esc);
+    const linhas = [];
+    if (avisoIleg) linhas.push(avisoIleg);
+    if (!L.ok) linhas.push('⚠️ A lista local de súmulas não pôde ser lida (' + L.erro + '); rode /doutor.');
+    else linhas.push('Lista local de súmulas canceladas ou superadas — revisada em ' + S.dataBR(L.revisadoEm) + ' (' + L.itens.length + ' item(ns)). Não é completa: súmula fora da lista não está confirmada como vigente.');
+    for (const x of L.itens) linhas.push(linhaItem(Object.assign({}, x, { tribunal: String(x.tribunal).toUpperCase() })));
+    if (E.itens.length) { linhas.push('', 'Ajustes do escritório (' + E.itens.length + '; valem mais que a lista):'); for (const x of E.itens) linhas.push(linhaItem(x) + (x.marcadoEm ? ' — marcado em ' + S.dataBR(x.marcadoEm) : '')); }
+    else if (!E.ilegivel) linhas.push('', 'Nenhum ajuste do escritório (para corrigir a lista: julgados.js sumula marcar "<súmula>" --vigente --fonte <link>).');
+    sair(linhas.join('\n'));
+  }
+  sair(USO, 1);
 }
 
 switch (cmd) {
@@ -124,5 +185,6 @@ switch (cmd) {
     break;
   }
   case 'situacao': { const r = j.consultar(a[1]); sair(a[1] + ': ' + rotulo(r) + (r && r.fonte ? ' (' + r.fonte + ')' : '')); break; }
-  default: sair('Uso: julgados.js listar <arquivo> | politica | autorizar|desautorizar <dominio|busca> | pedir "<c>" | comparar … | registrar … | situacao "<c>"', 1);
+  case 'sumula': sumula(a.slice(1)); break;
+  default: sair('Uso: julgados.js listar <arquivo> | politica | autorizar|desautorizar <dominio|busca> | pedir "<c>" | comparar … | registrar … | situacao "<c>" | sumula consultar|marcar|listar …', 1);
 }
