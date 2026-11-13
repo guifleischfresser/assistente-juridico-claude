@@ -76,6 +76,10 @@ c.rodarHook('pos-ferramenta', (ent) => {
     if (mudou) c.gravarSessao(ent.session_id, s);
   } catch (e) { c.log('erros', 'v05 pos: ' + e.message); }
 
+  // LGPD: registro local "o que saiu da maquina" (<caso>/_saida/registro.jsonl; so caminho relativo, nunca conteudo).
+  // Bloco proprio e fail-open: so le o estado da anonimizacao e do consentimento.
+  try { require('./lib/saida').registrar(ent, c.config().escritorio); } catch (e) { c.log('erros', 'saida pos: ' + e.message); }
+
   // anonimizacao: o advogado autorizou ler o ORIGINAL de um caso anonimizado => lembrete de usar os marcadores
   if (nome === 'Read' && inp.file_path) {
     try {

@@ -59,6 +59,7 @@ function conteudo(esc, nome, sk) {
     '- **Uma conversa por processo:** `node "' + S + '/processo.js" abrir "<caso>"`; dados do cliente só no `DOSSIE.md` do caso (`processo.js anotar`), nunca em memória global.',
     '- **Caso anonimizado** (existe `<caso>/_anonimizacao/`): leia só `<caso>/anonimizado/`, escreva com os marcadores e **nunca** abra `_anonimizacao/` (dados reais). No fim: `node "' + S + '/anonimizar.js" reverter "<peça>"`.',
     '- **Consentimento do cliente** (uso de IA, por caso): `node "' + S + '/consentimento.js" estado "<caso>"`. Sem registro, revogado ou com anonimização exigida e desligada: avise o advogado em uma linha, sem travar; registrar/revogar só pelo script (o registro fica em `<caso>/_consentimento/`, nunca edite à mão).',
+    '- **O que saiu da máquina** (por caso): `node "' + S + '/saida.js" resumo "<caso>"` mostra o que o Claude Code já leu do caso. Aqui (sem os hooks) nada é anotado: se o advogado perguntar, diga que leituras feitas neste agente não entram no registro.',
     '- **Contexto perto do limite:** salve um handoff no `HANDOFF.md` do caso e em `HANDOFFS/`.',
     '- Não crie nem altere skills automaticamente fora do Claude Code (a auto-melhoria depende das salvaguardas dele).',
     '',
