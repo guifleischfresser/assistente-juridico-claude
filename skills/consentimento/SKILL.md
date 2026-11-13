@@ -22,4 +22,6 @@ O registro fica **só na pasta do caso** (`<caso>/_consentimento/registro.json`)
 
 Avisos (vêm do `/processo`, do início da conversa e da checagem da peça): repasse ao advogado em uma linha e **não trave o trabalho**. Revogado ou não autorizado: "o cliente revogou a autorização de uso de IA neste caso" e sugira `/anonimizar`. Anonimização obrigatória desligada: sugira ligar antes de ler documentos.
 
+"O que já foi enviado pro Claude deste caso?" / "o que saiu da máquina?": `node "$HOME/.claude/advogado/scripts/saida.js" resumo "<caso>"` e repita a mensagem; veja [references/o-que-saiu-da-maquina.md](references/o-que-saiu-da-maquina.md).
+
 Detalhes (formato, opções, avisos e limites): [references/detalhes.md](references/detalhes.md).

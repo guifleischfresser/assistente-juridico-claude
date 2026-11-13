@@ -1672,6 +1672,136 @@ console.log('\n12k. Mapa de teses: importar valores da planilha de cálculo da i
   t('caso anonimizado: importa só o número, mostra o pedido com marcador ([PARTE_…]) e avisa; nenhum nome real na saída', ra.code === 0 && r.code === 0 && /R\$ 7\.000,00/.test(fs.readFileSync(mapaA, 'utf8')) && /\[PARTE_[A-Z]\]/.test(r.out) && !/Maria|Aparecida/.test(r.out) && /está anonimizado/.test(r.out), ra.out + r.out);
 }
 
+console.log('\n12n. O que sai da máquina (LGPD): registro local por caso do que o assistente leu');
+{
+  const R13 = path.join(TMP, 'saida'); const CL13 = path.join(R13, '.claude'); const ESC13 = path.join(R13, 'ESCRITORIO');
+  const SC13 = (n) => path.join(CL13, 'advogado', 'scripts', n);
+  const env13 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL13 });
+  const run13 = (args, entrada, envExtra) => { const x = spawnSync(process.execPath, args, { env: Object.assign({}, env13, envExtra || {}), encoding: 'utf8', cwd: R13, input: entrada == null ? '' : (typeof entrada === 'string' ? entrada : JSON.stringify(entrada)) }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  const hook13 = (n, e, envExtra) => { const x = run13([SC13(n)], e, envExtra); let o = {}; try { o = x.out ? JSON.parse(x.out) : {}; } catch (er) { o = { _bruto: x.out }; } return Object.assign(o, { _r: x }); };
+  const dec13 = (o) => o.hookSpecificOutput && o.hookSpecificOutput.permissionDecision;
+  fs.mkdirSync(R13, { recursive: true });
+  r = run13([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC13, '--nome', 'Dra. Treze']);
+  const CLp13 = path.join(R13, 'plugin', '.claude'); const envP13 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CLp13 });
+  const rp13 = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', path.join(R13, 'plugin', 'ESCRITORIO'), '--modo-plugin'], { env: envP13, encoding: 'utf8' });
+  const regras13 = ['Bash(node "$HOME/.claude/advogado/scripts/saida.js" *)', 'PowerShell(node "$HOME/.claude/advogado/scripts/saida.js" *)', 'Bash(node "~/.claude/advogado/scripts/saida.js" *)', 'PowerShell(node "~/.claude/advogado/scripts/saida.js" *)'];
+  const allow13 = (cl) => JSON.parse(fs.readFileSync(path.join(cl, 'settings.json'), 'utf8')).permissions.allow;
+  t('saída: instalação do sandbox; saida.js e lib instalados; regra estreita Bash/PowerShell(node "…/saida.js" *) no instalador e no modo plugin, sem curinga no caminho', r.code === 0 && rp13.status === 0 && fs.existsSync(SC13('saida.js')) && fs.existsSync(SC13('lib/saida.js')) && regras13.every((x) => allow13(CL13).includes(x) && allow13(CLp13).includes(x)) && !allow13(CL13).some((x) => /saida\.js" \w/.test(x) || /\*\/saida|scripts\/\*/.test(x)), r.out + r.err + rp13.stderr);
+
+  // casos: A sem anonimização e sem consentimento; A2 com nome que é prefixo de A; B anonimizado e autorizado; C revogado; D exige anonimização
+  const caso13 = (nome, dossie) => { const p = path.join(ESC13, 'CASOS', 'Ativos', nome); fs.mkdirSync(path.join(p, 'documentos'), { recursive: true }); fs.writeFileSync(path.join(p, 'DOSSIE.md'), dossie); return p; };
+  const cA = caso13('2026-marta', '# DOSSIÊ\n\n## Identificação\n- Cliente: Marta Lúcia Ferreira · Parte contrária: Banco Nove S.A.\n');
+  const cA2 = caso13('2026-marta-recurso', '# DOSSIÊ\n- Cliente: Outra Pessoa Qualquer\n');
+  const cB = caso13('2026-rui-plano', '# DOSSIÊ\n- Cliente: Rui Souza Prado · Parte contrária: Plano Saúde Ltda.\n');
+  const cC = caso13('2026-joana-loja', '# DOSSIÊ\n- Cliente: Joana Dias Coelho\n');
+  const cD = caso13('2026-pedro-obra', '# DOSSIÊ\n- Cliente: Pedro Alves Lima\n');
+  for (const [p, f, txt] of [[cA, 'contrato-marta-ferreira.pdf', '%PDF-1.4 x'], [cA, 'rg-123.456.789-09.pdf', '%PDF-1.4 x'], [cA, 'proc-0001234-55.2026.8.16.0001.pdf', '%PDF-1.4 x'], [cA2, 'recurso.pdf', '%PDF-1.4 x'],
+    [cB, 'inicial.md', 'Rui Souza Prado, brasileiro, CPF 529.982.247-25, propõe ação contra Plano Saúde Ltda.\n'], [cB, 'contrato-rui-prado.md', 'Contrato de Rui Souza Prado.\n'], [cC, 'nota.pdf', '%PDF x'], [cD, 'laudo.pdf', '%PDF x']]) fs.writeFileSync(path.join(p, 'documentos', f), txt);
+  const AN13 = SC13('anonimizar.js'); const CS13 = SC13('consentimento.js'); const SD = SC13('saida.js');
+  const prep = [run13([AN13, 'preparar', 'rui-plano']), run13([AN13, 'aplicar', 'rui-plano']), run13([CS13, 'registrar', 'rui-plano', '--forma', 'escrito']),
+    run13([CS13, 'registrar', 'joana', '--forma', 'email']), run13([CS13, 'revogar', 'joana', '--forma', 'email']), run13([CS13, 'registrar', 'pedro', '--forma', 'escrito', '--anonimizacao', 'obrigatoria'])];
+  t('saída: preparo (anonimização do caso B com cópias; consentimentos autorizado, revogado e com anonimização obrigatória)', prep.every((x) => x.code === 0) && fs.existsSync(path.join(cB, 'anonimizado', 'documentos', 'inicial.md')), prep.map((x) => x.code + ' ' + x.out.slice(0, 200)).join(' | '));
+  const regDe = (p) => path.join(p, '_saida', 'registro.jsonl');
+  const linhas13 = (p) => { try { return fs.readFileSync(regDe(p), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)); } catch (e) { return []; } };
+  const pos13 = (sess, tool, input, resp, envExtra) => hook13('pos-ferramenta.js', { session_id: sess, tool_name: tool, tool_input: input, tool_response: resp == null ? {} : resp, cwd: R13 }, envExtra);
+
+  // Read de original sem anonimização
+  let o13 = pos13('sessao-um-1234', 'Read', { file_path: path.join(cA, 'documentos', 'contrato-marta-ferreira.pdf') });
+  let la = linhas13(cA);
+  t('Read de original sem anonimização: 1 linha com caminho RELATIVO, tipo original, sem anonimização, sem cópia, consentimento sem-registro, sessão curta e data local (sem conteúdo)', o13._r.code === 0 && la.length === 1 && la[0].arquivo === 'documentos/contrato-marta-ferreira.pdf' && la[0].tipo === 'original' && la[0].anonimizacao === false && la[0].copiaDisponivel === false && la[0].consentimento === 'sem-registro' && la[0].sessao === 'sessao-u' && la[0].ferramenta === 'Read' && /^\d{4}-\d\d-\d\d$/.test(la[0].data) && !/PDF-1\.4/.test(fs.readFileSync(regDe(cA), 'utf8')), JSON.stringify(la));
+  // Read de original COM cópia anonimizada disponível e da própria cópia
+  pos13('sessao-um-1234', 'Read', { file_path: path.join(cB, 'documentos', 'inicial.md') }, { file: { content: 'Rui Souza Prado, brasileiro, CPF 529.982.247-25' } });
+  pos13('sessao-um-1234', 'Read', { file_path: path.join(cB, 'anonimizado', 'documentos', 'inicial.md') });
+  pos13('sessao-um-1234', 'Read', { file_path: path.join(cB, 'DOSSIE.md') });
+  let lb = linhas13(cB);
+  t('Read de original havendo cópia anonimizada: anonimizacao true e copiaDisponivel true (destaque); a cópia vira copia-anonimizada; DOSSIE vira derivado; consentimento autorizado', lb.length === 3 && lb[0].tipo === 'original' && lb[0].anonimizacao === true && lb[0].copiaDisponivel === true && lb[0].consentimento === 'autorizado' && lb[1].tipo === 'copia-anonimizada' && lb[1].arquivo === 'anonimizado/documentos/inicial.md' && lb[2].tipo === 'derivado' && !/Rui|529\.982/.test(fs.readFileSync(regDe(cB), 'utf8')), JSON.stringify(lb));
+  // Grep (lista de arquivos e modo conteúdo) e Bash citando o caso
+  pos13('sessao-um-1234', 'Grep', { pattern: 'x', path: cA, output_mode: 'files_with_matches' }, { mode: 'files_with_matches', filenames: [path.join(cA, 'documentos', 'rg-123.456.789-09.pdf')], numFiles: 1 });
+  pos13('sessao-um-1234', 'Grep', { pattern: 'x', path: path.join(ESC13, 'CASOS'), output_mode: 'content' }, { mode: 'content', content: path.join(cC, 'documentos', 'nota.pdf') + ':3:texto qualquer\n' });
+  pos13('sessao-um-1234', 'Bash', { command: 'pdftotext "' + path.join(cA, 'documentos', 'proc-0001234-55.2026.8.16.0001.pdf') + '" - | head' }, { stdout: '...' });
+  pos13('sessao-um-1234', 'Bash', { command: 'ls CASOS/Ativos/2026-marta-recurso/documentos' }, { stdout: 'recurso.pdf' });
+  la = linhas13(cA); const la2 = linhas13(cA2); const lc = linhas13(cC);
+  t('Grep (filenames e trechos "arquivo:linha:") e Bash citando o caminho do caso (absoluto ou CASOS/…) entram como eventos da ferramenta', la.some((e) => e.ferramenta === 'Grep' && e.arquivo === 'documentos/rg-123.456.789-09.pdf') && lc.some((e) => e.ferramenta === 'Grep' && e.arquivo === 'documentos/nota.pdf' && e.consentimento === 'revogado') && la.some((e) => e.ferramenta === 'Bash' && e.arquivo === 'documentos/proc-0001234-55.2026.8.16.0001.pdf') && la2.some((e) => e.ferramenta === 'Bash' && e.arquivo === 'documentos'), JSON.stringify([la, la2, lc]));
+  t('arquivo de outro caso não vaza: o caso "2026-marta" (prefixo de "2026-marta-recurso") não recebe o evento do outro, e nenhum registro cita caminho de outro caso', !la.some((e) => /recurso/.test(e.arquivo)) && !la2.some((e) => /marta|contrato/.test(e.arquivo)) && !lb.some((e) => /marta|nota/.test(e.arquivo)), JSON.stringify([la, la2]));
+  // dedup
+  const nA = linhas13(cA).length;
+  pos13('sessao-um-1234', 'Read', { file_path: path.join(cA, 'documentos', 'contrato-marta-ferreira.pdf') });
+  pos13('sessao-um-1234', 'Grep', { pattern: 'y', path: cA }, { filenames: [path.join(cA, 'documentos', 'contrato-marta-ferreira.pdf')] });
+  const nA2 = linhas13(cA).length;
+  pos13('sessao-dois-999', 'Read', { file_path: path.join(cA, 'documentos', 'contrato-marta-ferreira.pdf') });
+  la = linhas13(cA);
+  t('dedup: mesmo arquivo na mesma conversa (Read de novo ou por Grep) não gera linha; outra conversa gera 1 linha nova', nA2 === nA && la.length === nA + 1 && la[la.length - 1].sessao === 'sessao-d', nA + ' ' + nA2 + ' ' + la.length);
+  // consentimento revogado e exige anonimização refletidos no evento
+  pos13('sessao-um-1234', 'Read', { file_path: path.join(cD, 'documentos', 'laudo.pdf') });
+  t('consentimento na hora: ausente (sem-registro), revogado e exige-anonimizacao ficam no evento', linhas13(cD)[0].consentimento === 'exige-anonimizacao' && lc[0].consentimento === 'revogado' && la[0].consentimento === 'sem-registro', JSON.stringify(linhas13(cD)));
+  // registro corrompido não é sobrescrito
+  const lixo = fs.readFileSync(regDe(cC), 'utf8') + 'isso não é json\n';
+  fs.writeFileSync(regDe(cC), lixo);
+  o13 = pos13('sessao-tres-1', 'Read', { file_path: path.join(cC, 'documentos', 'nota.pdf') });
+  const logErr = (() => { try { return fs.readFileSync(path.join(CL13, 'advogado', 'logs', 'erros.log'), 'utf8'); } catch (e) { return ''; } })();
+  t('registro estragado: o hook não grava (nem por cima nem no fim), anota no log e segue (código 0)', o13._r.code === 0 && fs.readFileSync(regDe(cC), 'utf8') === lixo && /saida: registro ilegivel/.test(logErr), logErr.slice(-300));
+  // data local às 23h30 em São Paulo (02h30 do dia seguinte em UTC)
+  pos13('sessao-fuso-1', 'Read', { file_path: path.join(cA2, 'documentos', 'recurso.pdf') }, null, { ADVOGADO_AGORA: '2026-10-27T23:30:00-03:00', TZ: 'America/Sao_Paulo' });
+  const lf = linhas13(cA2).find((e) => e.sessao === 'sessao-f');
+  t('data local correta às 23h30 em São Paulo: data 2026-10-27 e horário com fuso -03:00 (não o dia seguinte em UTC)', lf && lf.data === '2026-10-27' && /^2026-10-27T23:30:\d\d-03:00$/.test(lf.em), JSON.stringify(lf));
+  // WebFetch/WebSearch com caso aberto: só o site, nunca o que foi pesquisado
+  const ab = run13([SC13('processo.js'), 'abrir', 'rui-plano']);
+  pos13('sessao-web-1', 'Bash', { command: 'node "' + SC13('processo.js') + '" abrir rui-plano' }, { stdout: ab.out });
+  pos13('sessao-web-1', 'WebFetch', { url: 'https://www.stj.jus.br/sites/portalp/Paginas/x.aspx', prompt: 'Rui Souza Prado' });
+  pos13('sessao-web-1', 'WebSearch', { query: 'plano de saúde negativa Rui Souza Prado' });
+  lb = linhas13(cB);
+  t('/processo abrir registra DOSSIE (derivado); WebFetch/WebSearch com caso aberto viram "internet" com o site, sem a pesquisa', lb.some((e) => e.sessao === 'sessao-w' && e.ferramenta === 'Bash' && e.arquivo === 'DOSSIE.md' && e.tipo === 'derivado') && lb.some((e) => e.tipo === 'internet' && e.site === 'www.stj.jus.br') && lb.some((e) => e.tipo === 'internet' && e.ferramenta === 'WebSearch' && e.site === null) && !/Rui|negativa|Prado/.test(fs.readFileSync(regDe(cB), 'utf8')), JSON.stringify(lb.slice(-4)));
+
+  // resumo: sem dado de cliente (CPF, CNPJ, CNJ, nome do DOSSIE)
+  r = run13([SD, 'resumo', '2026-marta']);
+  t('resumo de caso não anonimizado: mensagem simples ("já leu N arquivos em M conversas", originais, consentimento) e nomes de arquivo com [CLIENTE]/[CPF]/[Nº PROCESSO], nunca o dado real', r.code === 0 && /Neste caso, o assistente já leu 3 arquivos em 2 conversas\./.test(r.out) && /3 eram originais\./.test(r.out) && /Nenhum arquivo foi enviado pela internet além da conversa com o Claude\./.test(r.out) && /Consentimento: sem registro\./.test(r.out) && /lidos sem consentimento registrado/.test(r.out) && /contrato-\[CLIENTE\]\.pdf/.test(r.out) && /rg-\[CPF\]\.pdf/.test(r.out) && /proc-\[Nº PROCESSO\]\.pdf/.test(r.out) && !/Marta|Ferreira|marta-ferreira|123\.456|0001234|Banco Nove/i.test(r.out.replace(/2026-marta/g, '')) && /Limites:/.test(r.out), r.out);
+  r = run13([SD, 'resumo', 'rui-plano']);
+  t('resumo de caso anonimizado: destaca original lido havendo cópia, conta cópias e derivados, consentimento por escrito na data local, internet só com o site, e nome de arquivo com o marcador da tabela', r.code === 0 && /1 era cópia anonimizada\./.test(r.out) && /1 era original e tinha cópia anonimizada disponível \(inicial\.md\)/.test(r.out) && /🔶 havia cópia anonimizada/.test(r.out) && r.out.includes('Consentimento: autorizado por escrito em ' + (() => { const d = new Date(); const z = (n) => String(n).padStart(2, '0'); return z(d.getDate()) + '/' + z(d.getMonth() + 1) + '/' + d.getFullYear(); })() + '.') && /consultas à internet .*www\.stj\.jus\.br/.test(r.out) && !/Rui|Souza|Prado|529\.982/.test(r.out.replace(/rui-plano/g, '')), r.out);
+  pos13('sessao-um-1234', 'Read', { file_path: path.join(cB, 'documentos', 'contrato-rui-prado.md') });
+  r = run13([SD, 'resumo', 'rui-plano']);
+  t('caso anonimizado: arquivo cujo nome tem dado da tabela aparece com o marcador ([PARTE_…]), sem o nome real', /contrato-\[PARTE_[A-Z]+\]\.md/.test(r.out) && !/rui-prado|Rui|Prado/i.test(r.out.replace(/rui-plano/g, '')), r.out);
+  r = run13([SD, 'resumo', 'joana', '--json']);
+  let j13 = {}; try { j13 = JSON.parse(r.out); } catch (e) { j13 = {}; }
+  t('resumo --json: estrutura com porTipo, destaques (após revogação), consentimento revogado e a mensagem', r.code === 0 && j13.arquivos === 1 && j13.porTipo && j13.porTipo.original.length === 1 && j13.destaques.aposRevogacao.length === 1 && j13.consentimento.situacao === 'revogado' && /depois da revogação/.test(j13.mensagem) && j13.registroIlegivel === true && /linhas ilegíveis/.test(j13.mensagem), r.out.slice(0, 900));
+  r = run13([SD, 'resumo', 'marta-recurso', '--desde', '2099-01-01']);
+  const r2_13 = run13([SD, 'resumo', 'marta-recurso', '--desde', '27/10/2026']);
+  t('--desde filtra pelo dia local (AAAA-MM-DD ou DD/MM/AAAA); data inválida = código 1; caso inexistente = código 3', /não há registro de arquivo lido pelo assistente desde 01\/01\/2099/.test(r.out) && /já leu 2 arquivos/.test(r2_13.out) && run13([SD, 'resumo', '2026-marta', '--desde', 'ontem-cedo']).code === 1 && run13([SD, 'resumo', 'caso-que-nao-existe']).code === 3, r.out + r2_13.out);
+  // exportar
+  r = run13([SD, 'exportar', '2026-marta']);
+  const hoje13 = (() => { const d = new Date(); const z = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); })();
+  const exp13 = path.join(cA, '_saida', 'resumo-' + hoje13 + '.md');
+  const mdExp = fs.existsSync(exp13) ? fs.readFileSync(exp13, 'utf8') : '';
+  t('exportar gera <caso>/_saida/resumo-AAAA-MM-DD.md (dia local) com resumo, lista por tipo e limites, sem dado de cliente', r.code === 0 && /_saida\/resumo-\d{4}-\d\d-\d\d\.md/.test(r.out) && /^# O que saiu da máquina/.test(mdExp) && /## Arquivos lidos pelo assistente/.test(mdExp) && /\*\*Originais \(3\):\*\*/.test(mdExp) && /Limites:/.test(mdExp) && !/Ferreira|123\.456|0001234|Banco Nove/.test(mdExp), r.out + mdExp.slice(0, 600));
+  // estado (todos os casos: só contagens)
+  r = run13([SD, 'estado']);
+  t('estado: só contagens de todos os casos (com registro, originais, cópias, após revogação, ilegíveis), sem nome de caso nem de arquivo', r.code === 0 && /casos?, só contagens/.test(r.out) && /🔶 2 original\(is\) lido\(s\) havendo cópia anonimizada, em 1 caso/.test(r.out) && /após revogação/.test(r.out) && /ilegíve/.test(r.out) && !/marta|rui|joana|pedro|contrato|inicial/i.test(r.out), r.out);
+  // /processo abrir mostra a linha
+  r = run13([SC13('processo.js'), 'abrir', 'rui-plano']);
+  t('/processo abrir mostra uma linha "O que já saiu da máquina" com originais e quantos tinham cópia anonimizada', /O que já saiu da máquina: li 2 originais \(2 tinham cópia anonimizada\), 1 cópia anonimizada e 1 derivado deste caso/.test(r.out) && /o que saiu da máquina\?/.test(r.out), r.out.slice(-700));
+
+  // guardas: editar/apagar o registro e copiar o conteúdo dele
+  const g13 = (tool, inp) => dec13(hook13('guarda-escrita.js', { session_id: 'g', tool_name: tool, tool_input: inp }));
+  const linhaReg = fs.readFileSync(regDe(cA), 'utf8').split('\n')[0];
+  const gs = [g13('Write', { file_path: regDe(cA), content: '' }), g13('Edit', { file_path: regDe(cA), old_string: 'a', new_string: 'b' }), g13('Write', { file_path: path.join(cA, '_SAIDA', 'Registro.jsonl'), content: 'x' }),
+    g13('Write', { file_path: path.join(ESC13, 'MEMORIA', 'notas.md'), content: 'Lidos:\n' + linhaReg }), g13('Write', { file_path: path.join(CL13, 'CLAUDE.md'), content: linhaReg }), g13('Write', { file_path: path.join(CL13, 'skills', 'auto-x', 'SKILL.md'), content: linhaReg })];
+  const sg = (cmd) => dec13(hook13('guarda-sigilo.js', { session_id: 'g', tool_name: 'Bash', tool_input: { command: cmd }, cwd: R13 }));
+  t('guarda-escrita nega editar/apagar o registro (qualquer caixa) e copiar o conteúdo dele para memória, CLAUDE.md ou skill; terminal que apaga/reescreve é negado e ler continua livre', gs.every((x) => x === 'deny') && sg('rm "' + regDe(cA) + '"') === 'deny' && sg('echo x > "' + regDe(cA) + '"') === 'deny' && sg('rm -rf "' + path.join(cA, '_saida') + '"') === 'deny' && sg('cat "' + regDe(cA) + '"') !== 'deny' && g13('Write', { file_path: path.join(cA, 'documentos', 'nota.md'), content: 'lista de arquivos lidos' }) !== 'deny', JSON.stringify(gs));
+  // fail-open com entrada malformada
+  const antes13 = fs.readFileSync(regDe(cA), 'utf8');
+  const mal = ['não é json', '', JSON.stringify({ tool_name: 'Read', tool_input: 'x' }), JSON.stringify({ tool_name: 'Read', tool_input: { file_path: 123 } }), JSON.stringify({ tool_name: 'Grep', tool_input: null, tool_response: 5 }), JSON.stringify({ tool_name: 'Bash', tool_input: { command: null } }), JSON.stringify({ tool_name: 'mcp__drive__upload', tool_input: { arquivos: [1, null, { x: path.join(cA, 'documentos', 'contrato-marta-ferreira.pdf') }] } })].map((e) => run13([SC13('pos-ferramenta.js')], e));
+  t('hook com entrada malformada não quebra (código 0, fail-open) e o registro só cresce', mal.every((x) => x.code === 0) && fs.readFileSync(regDe(cA), 'utf8').startsWith(antes13), mal.map((x) => x.code + x.err.slice(0, 120)).join(' | '));
+  t('ferramenta externa (mcp__*) citando arquivo do caso fica marcada e o resumo avisa', linhas13(cA).some((e) => e.externo === true && /^mcp__drive/.test(e.ferramenta)) && /ferramenta externa conectada ao Claude/.test(run13([SD, 'resumo', '2026-marta']).out));
+  // contexto fixo, AGENTS.md e CLAUDE.md global
+  const mp13 = JSON.parse(run13([SC13('manutencao.js'), 'medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out);
+  const ag13 = fs.readFileSync(path.join(ESC13, 'AGENTS.md'), 'utf8'); const md13 = fs.readFileSync(path.join(CL13, 'CLAUDE.md'), 'utf8');
+  t('sem skill nova: contexto fixo das skills continua ≤ 3.869; AGENTS.md e CLAUDE.md global com uma linha sobre o que saiu da máquina (CLAUDE.md < 60 linhas)', mp13.fixo <= 3869 && fs.readdirSync(path.join(CL13, 'skills')).length === 26 && /saida\.js/.test(ag13) && /que saiu da máquina/i.test(md13) && md13.split('\n').length < 60 && Buffer.byteLength(ag13) < 32768, mp13.fixo + ' ' + md13.split('\n').length);
+  // desinstalar remove a regra e nunca toca _saida/
+  const regAntes = fs.readFileSync(regDe(cA), 'utf8');
+  const rd13 = run13([path.join(RAIZ, 'scripts', 'instalar.js'), '--desinstalar']);
+  const rdp13 = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--desinstalar'], { env: envP13, encoding: 'utf8' });
+  t('desinstalador remove a regra do saida.js (instalação normal e plugin) e nunca toca _saida/ (registro e resumo exportado intactos)', rd13.code === 0 && rdp13.status === 0 && !allow13(CL13).some((x) => /saida\.js/.test(x)) && !allow13(CLp13).some((x) => /saida\.js/.test(x)) && fs.readFileSync(regDe(cA), 'utf8') === regAntes && fs.existsSync(exp13), rd13.out + rd13.err);
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));

@@ -570,3 +570,45 @@ Complementa a `/anonimizar` (§17): a anonimização reduz **o que** vai para a 
 7. ~~Mapa de teses: importar valores direto do cálculo da inicial (planilha anexa).~~ *(Feito: `mapa-teses.js importar-valores` lê `.xlsx`/`.csv` da pasta do caso e a exportação para .docx com tabela de verdade e totais por risco — `mapa-teses.js exportar` —, §15.2.)*
 8. Teste real do plugin num Claude Code limpo (Windows e Mac): `/plugin marketplace add` → `/plugin install` → primeira execução.
 9. Anonimização: reconhecimento de nomes com dicionário local de prenomes/sobrenomes (menos falso negativo) e cópia anonimizada direto em `.docx`.
+10. O que saiu da máquina (§20): item no `doutor` (contagens, registros ilegíveis) e menção no `/ajuda` — dependem do PR #12, que mexe nesses arquivos.
+
+## 20. Registro do que sai da máquina (ideia @dailymonologo; não lançado)
+
+Complementa a `/anonimizar` (§17, **o que** vai para a API) e o `/consentimento` (§18, **se** o cliente autorizou): diz, caso a caso, o que a sessão do Claude Code **já leu** da pasta do caso — e portanto foi enviado ao modelo — e se havia cópia anonimizada daquele arquivo naquele momento. Tudo local, por caso, sem rede, Node puro.
+
+### 20.1 Onde fica e formato (`<caso>/_saida/registro.jsonl`)
+```json
+{"reg":"registro-saida","v":1,"em":"2026-10-27T23:30:05-03:00","data":"2026-10-27","sessao":"a1b2c3d4","ferramenta":"Read",
+ "arquivo":"documentos/contrato.pdf","tipo":"original","anonimizacao":true,"copiaDisponivel":true,"consentimento":"autorizado"}
+```
+- **Uma linha JSON por evento, só acréscimo** (`appendFileSync`); JSONL e não JSON único porque o hook roda a cada ferramenta: acrescentar uma linha é barato e nunca reescreve o histórico.
+- `arquivo` é o caminho **relativo ao caso** (`/` como separador; `.` = a própria pasta). Nunca conteúdo, trecho ou hash do texto. `sessao` = 8 primeiros caracteres do id da conversa. `em`/`data` no horário/dia **local** (`lib/prazos.agora()` + getters locais; às 23h30 em São Paulo sai o dia de hoje, não o de amanhã em UTC).
+- `tipo`: `copia-anonimizada` (dentro de `anonimizado/`), `derivado` (`autos-md/`, `pecas/`, `DOSSIE.md`, `HANDOFF.md`, `mapa-de-teses*`, `_consentimento/`), `original` (o resto) e `internet` (WebFetch/WebSearch com caso aberto na conversa: guarda só o site do WebFetch, nunca a pesquisa nem o endereço completo). `_saida/` e `_anonimizacao/` nunca entram.
+- `anonimizacao` (tabela ativa) e `copiaDisponivel` (há `t.documentos[rel].copia` ou `caminhoCopia()` existente) vêm **só por leitura** das funções exportadas de `lib/anonimizar` (nenhuma mudança nela); `consentimento` = `autorizado` | `exige-anonimizacao` | `sem-registro` | `revogado` | `nao-autorizado` | `ilegivel`, por `lib/consentimento.situacao()`. Ferramenta `mcp__*` ganha `externo: true`.
+- **Dedup:** uma linha por arquivo/sessão/tipo (chave `sessao|tipo|arquivo|site`), conferida no próprio arquivo (não no estado da sessão: sobrevive a `/clear` e a estado apagado). Outra conversa = linha nova.
+- **Registro estragado** (linha que não é evento nosso, ou última linha cortada): o hook não grava (nem por cima nem no fim), anota em `logs/erros.log` e segue; `resumo`/`estado` dizem que há linhas ilegíveis.
+
+### 20.2 Quem grava (`pos-ferramenta.js`, bloco próprio, fail-open)
+| Ferramenta | O que conta |
+|---|---|
+| `Read`, `NotebookRead` | o arquivo |
+| `Grep` | `tool_response.filenames`; senão os caminhos no início das linhas `arquivo:linha:` do modo conteúdo; senão o `path` da busca |
+| `Bash`, `PowerShell` | **heurístico:** caminhos de casos citados no comando (absolutos ou `CASOS/<fase>/<caso>`; entre aspas até a aspa, sem aspas até o espaço; curinga → a pasta antes dele); `processo.js abrir` conta `DOSSIE.md` e `HANDOFF.md`; `saida.js` não conta |
+| `mcp__*` | caminhos de casos em qualquer campo da entrada (`externo: true`) |
+| `WebFetch`, `WebSearch` | só com caso aberto na conversa (`casoAtivo`), tipo `internet` |
+- O caso é achado por `lib/anonimizar.pastaDoCaso` (NFD/caixa) e `lib/casos.listar`; prefixos são respeitados (`2026-marta` não recebe evento de `2026-marta-recurso`). Só passa pelo hook o que roda **com sucesso** (PostToolUse); leitura negada pela guarda não é anotada.
+- **Limites (documentados no README, na skill e no resumo):** só o que passa pelos hooks do Claude Code com o mod instalado; terminal heurístico (comando que chega ao arquivo sem citar o caminho do caso — `cd` antes, variável, script — não aparece); o que o advogado cola na conversa não aparece; Codex/Cursor (AGENTS.md) não têm hooks e nada é anotado.
+
+### 20.3 Comandos (`scripts/saida.js`, `scripts/lib/saida.js`)
+- `resumo <caso> [--desde AAAA-MM-DD|DD/MM/AAAA] [--json]`: mensagem pt-BR ("Neste caso, o assistente já leu 14 arquivos em 3 conversas. 9 eram cópias anonimizadas. 5 eram originais: 2 deles tinham cópia anonimizada disponível (…). Nenhum arquivo foi enviado pela internet além da conversa com o Claude. Consentimento: autorizado por escrito em 29/10/2026."), lista agrupada por tipo e destaques: 🔶 original lido havendo cópia; ⚠️ sem consentimento registrado, após revogação/sem autorização, original lido quando o cliente exigia anonimização, ferramenta externa.
+- `estado [--json]`: todos os casos, **só contagens** (nenhum nome de caso ou arquivo). `exportar <caso>`: `<caso>/_saida/resumo-AAAA-MM-DD.md` (dia local; o do mesmo dia vai antes para `_versoes/`), para anexar ao dossiê ou mostrar ao cliente.
+- **Máscara:** a saída nunca traz CPF/CNPJ/nº CNJ/nome real. Nomes de arquivo passam por `mascarar()`: no caso com tabela de anonimização, `anonimizarTexto(…, {detectar:false})` numa cópia em memória da tabela + troca palavra a palavra (sem acento/caixa, separadores `-_.`) pelos marcadores da tabela (`contrato-[PARTE_A].md`); em todos os casos, números de CPF/CNPJ/CNJ viram `[CPF]`/`[CNPJ]`/`[Nº PROCESSO]` e as palavras dos nomes do DOSSIE (`Cliente`, `Parte contrária`, `Representante`, partes processuais) viram `[CLIENTE]`/`[PARTE]`. A tabela nunca é impressa nem gravada.
+- `/processo abrir` mostra uma linha ("O que já saiu da máquina: li 5 originais (2 tinham cópia anonimizada), … Detalhes: pergunte "o que saiu da máquina?"") só quando já há registro. Regra estreita `Bash/PowerShell(node "…/saida.js" *)` (`SCRIPTS_CLI`: instalador e modo plugin); o desinstalador remove pelo filtro `advogado/scripts` e nunca toca `_saida/` (fica no ESCRITORIO).
+
+### 20.4 Guardas e instruções
+- `guarda-escrita.js` 0c (logo após o 0b do consentimento): Write/Edit em `_saida/registro.jsonl` (qualquer caixa) → deny; texto com a assinatura `"reg":"registro-saida"` em qualquer outro arquivo (memória, CLAUDE.md, skills, escritório) → deny. `guarda-sigilo.js`: comando de terminal que cita `_saida` e apaga/move/reescreve (`rm`, `mv`, `>`, `sed -i`, `Remove-Item`, `Set-Content`…) → deny; ler continua livre.
+- Sem skill nova: contexto fixo continua **3.869** caracteres. Instruções no corpo da `/processo`, em `skills/consentimento/references/o-que-saiu-da-maquina.md` (apontada pelo corpo da `/consentimento`), uma linha no CLAUDE.md global e uma no AGENTS.md gerado (lá: "aqui nada é anotado").
+- Fora deste passo (PR #12 mexe nos arquivos): item no `doutor` e menção no `/ajuda` (§19 item 10).
+
+### 20.5 Testes
+- Suíte 12n (+24, sandbox próprio): regras no instalador e no modo plugin; Read de original sem anonimização; Read de original com cópia disponível (destaque); Read da cópia e do DOSSIE; Grep (filenames e modo conteúdo) e Bash citando o caso (absoluto e `CASOS/…`); outro caso não vaza (prefixo); dedup na mesma sessão e linha nova em outra; consentimento ausente/revogado/exige anonimização no evento; registro corrompido intacto + log; 23h30 em São Paulo; WebFetch/WebSearch com caso aberto (site, sem pesquisa); `resumo` sem CPF/CNJ/nome do DOSSIE e com marcador em caso anonimizado; `--json`; `--desde`; `exportar`; `estado` sem nomes; `/processo abrir`; guarda-escrita e terminal; entrada malformada (fail-open); `mcp__*` externo; contexto fixo ≤ 3.869, AGENTS.md/CLAUDE.md; desinstalador remove a regra e não toca `_saida/`. Verde também com `TZ=America/Sao_Paulo` e relógio falso.

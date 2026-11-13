@@ -213,6 +213,10 @@ Tudo são arquivos comuns no seu computador. Você pode abrir no Word, no Bloco 
 - **Importante:** o texto da conversa é processado pelos servidores da Anthropic, porque é assim que o Claude funciona. Avalie, com base no Código de Ética da OAB e na Recomendação CFOAB nº 001/2024, o que é adequado compartilhar, e considere obter o consentimento do cliente (`/consentimento modelo` gera o termo do caso; há também um modelo geral em `PECAS/modelos/termo-consentimento-ia.md`).
 - **Evite** colocar a pasta ESCRITORIO dentro do OneDrive, Google Drive ou Dropbox, a menos que o seu escritório já use esses serviços de forma adequada para dados de clientes.
 
+### O que saiu da máquina (por caso)
+
+Pergunte "o que já foi enviado pro Claude deste caso?" e o assistente responde com um registro que fica **só na pasta do caso** (`_saida/registro.jsonl`), anotado sozinho a cada arquivo que ele lê: "Neste caso, o assistente já leu 14 arquivos em 3 conversas. 9 eram cópias anonimizadas. 5 eram originais: 2 deles tinham cópia anonimizada disponível. Consentimento: autorizado por escrito em 29/10/2026." O registro guarda só o nome do arquivo (nunca o conteúdo), avisa quando um original foi lido havendo cópia anonimizada ou sem consentimento registrado, e vira um resumo em `.md` para anexar ao dossiê ou mostrar ao cliente (`saida.js exportar`). Limites: só conta o que passou pelas ferramentas do Claude Code; comandos de terminal entram quando citam o caminho do caso; o que você cola na conversa não aparece ali.
+
 ---
 
 ## 7. Ler PDFs (recomendado)

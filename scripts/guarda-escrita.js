@@ -13,6 +13,8 @@
 //     e nada dela vai para CLAUDE.md, skills, memoria ou perfil de estilo.
 //  0b. Consentimento: o registro (<caso>/_consentimento/registro.json) so e gravado pelo consentimento.js
 //      (historico nunca apagado) e o conteudo dele nao e copiado para nenhum outro arquivo.
+//  0c. O que saiu da maquina: o registro (<caso>/_saida/registro.jsonl) so recebe acrescimos do hook
+//      PostToolUse; editar/apagar a mao ou copiar o conteudo dele para outro arquivo => nega.
 const fs = require('fs');
 const path = require('path');
 const c = require('./lib/comum');
@@ -37,6 +39,9 @@ c.rodarHook('guarda-escrita', (ent) => {
   // 0b. Registro de consentimento: so o consentimento.js grava, dentro da pasta do caso; nunca copiado para fora
   const cs = require('./lib/consentimento').avaliarGravacao(arq, novoTexto);
   if (cs) { c.log('guardas', 'consentimento: gravacao negada em ' + path.basename(arq)); return deny(cs.motivo); }
+  // 0c. Registro do que saiu da maquina: so o hook acrescenta; nao e editado, apagado nem copiado
+  const sd = require('./lib/saida').avaliarGravacao(arq, novoTexto);
+  if (sd) { c.log('guardas', 'saida: gravacao negada em ' + path.basename(arq)); return deny(sd.motivo); }
 
   // 1. Fontes brutas
   for (const bruto of ['ESTILO/amostras', 'WIKI/raw']) {
