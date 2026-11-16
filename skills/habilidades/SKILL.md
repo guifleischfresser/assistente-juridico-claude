@@ -18,5 +18,7 @@ Script: `node "$HOME/.claude/advogado/scripts/habilidades.js" <comando>`
 - **aposentar <nome>** → `aposentar <nome> "pedido do usuário"`.
 - **restaurar <nome>** → `restaurar <nome>`.
 - **candidatas** → `candidatas` (tarefas repetidas que podem virar atalho).
+- **auditar <pasta|SKILL.md|.zip>** (skill de terceiro, antes de instalar) → `node "$HOME/.claude/advogado/scripts/auditar-skill.js" auditar <caminho>` (texto colado: `auditar --colado`). Fluxo em [references/terceiros.md](references/terceiros.md).
+- **instalar-terceiro <id>** → só depois de mostrar o relatório e ouvir um OK explícito: `node "$HOME/.claude/advogado/scripts/auditar-skill.js" instalar <id> --confirmo` (🔴 nunca). Ver [references/terceiros.md](references/terceiros.md).
 
 Lembre ao usuário que nada é apagado: tudo fica em `~/.claude/advogado/habilidades/` (versões, aposentadas e CHANGELOG.md).
