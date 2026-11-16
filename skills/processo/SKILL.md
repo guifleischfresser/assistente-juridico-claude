@@ -14,6 +14,7 @@ Caso: $ARGUMENTS. `S="$HOME/.claude/advogado/scripts"`.
    - Não leia nem cite outros casos sem o advogado pedir. Outro caso → sugira abrir outra conversa (`/clear` ou nova janela) e `/processo <outro>`.
    - Fatos, decisões e preferências deste cliente: `node "$S/processo.js" anotar "<caso>" "<texto>"` (vai para o DOSSIE.md do caso). **Nunca** em `MEMORIA/` (memória global é só de estilo e método, sem dados de clientes).
    - Autos: só por trechos (`autos-md/INDICE.md` + Grep).
+   - "O que já foi enviado pro Claude deste caso?" / "o que saiu da máquina?": `node "$S/saida.js" resumo "<caso>"` e repita a mensagem (o `abrir` já mostra a linha "O que já saiu da máquina"). Para guardar ou mostrar ao cliente: `saida.js exportar "<caso>"`. Detalhes e limites: `references/o-que-saiu-da-maquina.md` da skill `/consentimento`.
 4. Ao encerrar o assunto do dia: `/handoff` (atualiza o HANDOFF.md do caso).
 
 Dica para o advogado (diga uma vez): uma conversa por processo deixa as respostas mais precisas, gasta menos limite e evita misturar dados de clientes.

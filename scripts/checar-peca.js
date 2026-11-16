@@ -4,7 +4,7 @@
  * Checagem automatica de uma peca (usada por /revisar, /verificar-citacoes e pelo hook pos-escrita).
  * Uso: node checar-peca.js <arquivo.md> [--tipo inicial|contestacao|recurso|contrato|parecer] [--json] [--marcar]
  *  --marcar : insere " [NÃO VERIFICADO]" apos cada citacao pendente (faz backup em _versoes antes).
- * Relatorio: texto oculto (v0.6), citacoes (verificadas/marcadas/pendentes), "cara de IA", restos de markdown/emoji,
+ * Relatorio: texto oculto (v0.6), citacoes (verificadas/marcadas/pendentes), sumulas canceladas/superadas (lib/sumulas.js), "cara de IA", restos de markdown/emoji,
  * campos a preencher, tamanho de paragrafos vs. perfil de escrita, requisitos minimos por tipo e, em peca de um caso,
  * o estado do consentimento do cliente (sem registro, revogado, anonimizacao exigida e desligada).
  */
@@ -26,6 +26,8 @@ function checar(arquivo, opc) {
   const texto = fs.readFileSync(arquivo, 'utf8');
   const cfg = c.config();
   const cits = analisarCitacoes(texto, path.dirname(arquivo), cfg.escritorio);
+  // sumulas canceladas/superadas (lista local embarcada + ajuste do escritorio; fail-open)
+  let sumulas = []; try { sumulas = require('./lib/sumulas').avaliarSumulas(texto, cits, { escritorio: cfg.escritorio }); } catch (e) { /* fail-open */ }
   const baixo = texto.toLowerCase();
   const ia = CARA_DE_IA.filter((e) => baixo.includes(e));
   const emoji = (texto.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu) || []).length;
@@ -43,7 +45,7 @@ function checar(arquivo, opc) {
   // consentimento do cliente (so peca dentro de um caso): avisos sem travar
   let consentimento = [];
   try { const pasta = require('./lib/anonimizar').pastaDoCaso(arquivo, cfg.escritorio); if (pasta) consentimento = require('./lib/consentimento').avisos(pasta); } catch (e) { /* fail-open */ }
-  return { arquivo, tipo, cits, ia, emoji, restosMd, preencher, media, perfilMedia, faltando, oculto, anonimos, consentimento, texto };
+  return { arquivo, tipo, cits, sumulas, ia, emoji, restosMd, preencher, media, perfilMedia, faltando, oculto, anonimos, consentimento, texto };
 }
 
 function relatorio(r) {
@@ -56,6 +58,12 @@ function relatorio(r) {
   prob.forEach((x) => L.push('  - 🔴 linha ' + x.linha + ': ' + x.texto + ' — ' + (x.problema === 'inexistente' ? 'NÃO EXISTE' : 'trecho/conteúdo DIVERGE do original') + ' (conferido em ' + (x.fonteRegistro || 'fonte registrada') + '): remova ou reescreva'));
   pend.forEach((x) => L.push('  - ❌ linha ' + x.linha + ': ' + x.texto + ' (' + x.tipo + ')' + (x.semTexto ? ' (o arquivo salvo não tinha texto legível — veja `julgados.js situacao`)' : '')));
   marc.forEach((x) => L.push('  - ⚠️ linha ' + x.linha + ': ' + x.texto));
+  if (r.sumulas && r.sumulas.length) {
+    const ic = { bloqueio: '🔴', aviso: '⚠️', leve: '❓', info: 'ℹ️' };
+    L.push('', '## Súmulas canceladas ou superadas (' + r.sumulas.length + ')');
+    r.sumulas.forEach((x) => L.push('- ' + ic[x.sumula.nivel] + ' linha ' + x.linha + ': ' + x.sumula.mensagem));
+    if (r.sumulas.some((x) => x.sumula.nivel === 'bloqueio')) L.push('- A exportação para Word fica bloqueada enquanto a peça citar súmula cancelada como se valesse. Se a citação é histórica, ponha [CITADA COMO HISTÓRICO] logo depois; se a lista estiver errada, confira no site do tribunal e registre com `julgados.js sumula marcar`.');
+  }
   L.push('', '## Naturalidade do texto');
   L.push(r.ia.length ? '- Expressões com "cara de IA": ' + r.ia.join('; ') : '- Nenhuma expressão típica de IA encontrada.');
   if (r.emoji) L.push('- ' + r.emoji + ' emoji(s) — remover.');

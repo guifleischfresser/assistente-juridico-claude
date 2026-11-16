@@ -9,6 +9,7 @@
 // - Apagar pastas do ESCRITORIO em massa => "deny" (use _versoes, nunca apague).
 // - Anonimizacao (opt-in por caso): ler o ORIGINAL de caso anonimizado (Read, ou Grep que mostra trechos)
 //   => "ask" (o advogado decide); a tabela com os dados reais (_anonimizacao/) => "deny" em Read/Grep/terminal.
+// - O que saiu da maquina: terminal que apaga, move ou reescreve <caso>/_saida/registro.jsonl => "deny" (ler e livre).
 const c = require('./lib/comum');
 
 const ENVIO = [
@@ -51,6 +52,8 @@ c.rodarHook('guarda-sigilo', (ent) => {
     const cmd = String(inp.command || '');
     const tab = require('./lib/anonimizar').avaliarComando(cmd);
     if (tab) { c.log('guardas', 'negado acesso a tabela de anonimizacao'); return negar(tab.motivo); }
+    const sd = require('./lib/saida').avaliarComando(cmd);
+    if (sd) { c.log('guardas', 'negado alterar o registro do que saiu da maquina'); return negar(sd.motivo); }
     if (APAGAR_MASSA.test(cmd) && (cmd.includes('ESCRITORIO') || c.dentroDe(ent.cwd || '', cfg.escritorio))) {
       c.log('guardas', 'negado apagar-massa: ' + cmd.slice(0, 200));
       return negar('Apagar pastas inteiras do ESCRITORIO está bloqueado. Mova para CASOS/Arquivados ou para _versoes em vez de apagar.');

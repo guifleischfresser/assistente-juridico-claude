@@ -1,0 +1,23 @@
+{
+  "versao": 1,
+  "revisadoEm": "2026-11-12",
+  "observacao": "Lista curada à mão, só com cancelamentos/superações de alta certeza. Não é exaustiva: súmula fora da lista NÃO está confirmada como vigente. Ajustes do escritório: ESCRITORIO/WIKI/sumulas-situacao.json (julgados.js sumula marcar). OJs do TST ficam fora por enquanto.",
+  "itens": [
+    { "tribunal": "STJ", "numero": 469, "situacao": "cancelada", "ato": "Segunda Seção", "data": "2018", "substituidaPor": "608", "observacao": "CDC e planos de saúde; a 608 exclui os de autogestão." },
+    { "tribunal": "STJ", "numero": 603, "situacao": "cancelada", "ato": "Segunda Seção (REsp 1.555.722/SP)", "data": "2018", "observacao": "Retenção de salário pelo banco para pagar dívida." },
+    { "tribunal": "STJ", "numero": 418, "situacao": "cancelada", "ato": "Corte Especial", "data": "2016", "substituidaPor": "579", "observacao": "Recurso especial interposto antes do julgamento dos embargos de declaração." },
+    { "tribunal": "STJ", "numero": 321, "situacao": "cancelada", "ato": "Segunda Seção", "data": "2016", "substituidaPor": "563", "observacao": "CDC e entidades de previdência privada." },
+    { "tribunal": "STJ", "numero": 470, "situacao": "cancelada", "ato": "Segunda Seção", "data": "2015", "observacao": "Legitimidade do Ministério Público em ação sobre o DPVAT." },
+    { "tribunal": "STJ", "numero": 366, "situacao": "cancelada", "ato": "Corte Especial", "data": "2009", "observacao": "Competência para a ação de indenização por acidente de trabalho proposta pela família do empregado." },
+    { "tribunal": "STJ", "numero": 263, "situacao": "cancelada", "ato": "Segunda Seção", "data": "2003", "substituidaPor": "293", "observacao": "Cobrança antecipada do VRG no arrendamento mercantil." },
+    { "tribunal": "STJ", "numero": 217, "situacao": "cancelada", "ato": "Corte Especial", "data": "2003", "observacao": "Agravo regimental contra decisão sobre suspensão de segurança." },
+    { "tribunal": "STJ", "numero": 256, "situacao": "cancelada", "ato": "Corte Especial", "data": "2008", "observacao": "Protocolo integrado nos recursos dirigidos ao STJ." },
+    { "tribunal": "STJ", "numero": 276, "situacao": "cancelada", "ato": "Primeira Seção", "data": "2008", "observacao": "Isenção de Cofins das sociedades civis de profissão regulamentada." },
+    { "tribunal": "STJ", "numero": 174, "situacao": "cancelada", "ato": "Terceira Seção", "data": "2001", "observacao": "Arma de brinquedo como causa de aumento no roubo." },
+    { "tribunal": "STF", "numero": 394, "situacao": "cancelada", "ato": "Plenário (Inq 687 QO)", "data": "1999", "observacao": "Foro por prerrogativa de função depois do fim do mandato." },
+    { "tribunal": "STF", "numero": 619, "situacao": "cancelada", "ato": "Plenário (HC 92.566)", "data": "2008", "observacao": "Prisão do depositário infiel; ver a Súmula Vinculante 25." },
+    { "tribunal": "STF", "numero": 690, "situacao": "superada", "ato": "Plenário (HC 86.834)", "data": "2006", "observacao": "Competência para habeas corpus contra turma recursal; superada sem cancelamento formal." },
+    { "tribunal": "TST", "numero": 310, "situacao": "cancelada", "ato": "Res. 119/2003", "data": "2003", "observacao": "Substituição processual pelo sindicato." },
+    { "tribunal": "TST", "numero": 349, "situacao": "cancelada", "ato": "Res. 174/2011", "data": "2011", "observacao": "Compensação de jornada em atividade insalubre." }
+  ]
+}

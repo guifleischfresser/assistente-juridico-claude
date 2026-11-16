@@ -3,7 +3,7 @@
 ## Marcadores (estáveis por caso)
 | Dado | Marcador | Como é achado |
 |---|---|---|
-| Nome de parte (pessoa ou empresa) | `[PARTE_A]`, `[PARTE_B]`… | DOSSIE (`Cliente:`, `Parte contrária:`, `Anonimizar também:`), `--nome`, e nos documentos: rótulo (`Autor:`, `Réu:`, `Requerente:`…), qualificação (`NOME, brasileiro…`) e sufixo de empresa (Ltda., S.A., S/A, EIRELI, ME, EPP) |
+| Nome de parte (pessoa ou empresa) | `[PARTE_A]`, `[PARTE_B]`… | DOSSIE (`Cliente:`, `Parte contrária:`, `Anonimizar também:`), `--nome`, e nos documentos: rótulo (`Autor:`, `Réu:`, `Requerente:`…), qualificação (`NOME, brasileiro…`), sufixo de empresa (Ltda., S.A., S/A, EIRELI, ME, EPP) e, sem rótulo, prenome + sobrenome do dicionário local (`scripts/lib/dados/`) |
 | CPF | `[CPF_1]` | com ou sem pontos (sem pontos só se o dígito verificador bater) |
 | CNPJ | `[CNPJ_1]` | idem |
 | Nº do processo (CNJ) | `[PROCESSO_1]` | formatado ou só os 20 dígitos |
@@ -14,6 +14,12 @@
 - O mesmo dado recebe o mesmo marcador em todos os documentos do caso; casos diferentes têm tabelas separadas.
 - Outra grafia do mesmo dado (MAIÚSCULAS, sem acento, CPF sem pontos) ganha sufixo: `[PARTE_A#2]`. É a mesma pessoa; a reversão devolve exatamente aquela grafia.
 - Nomes são comparados sem acento e sem diferença de maiúsculas, inclusive com acentos gravados de outro jeito (macOS).
+
+## Nomes sem rótulo (dicionário local)
+- "Conversei com Maria Aparecida Souza ontem" também vira marcador: o script reconhece **prenome conhecido + sobrenome conhecido** (Title Case ou CAIXA ALTA, na mesma linha) por um dicionário que vem no pacote (nada é baixado).
+- Não troca: só o prenome ("Maria"), relator/ministro/desembargador/juiz ("Rel. Min. Nancy Andrighi", nomes dentro da citação de um REsp), "Lei Maria da Penha", lugares e logradouros ("São José", "Santa Catarina", "Rua João Silva"), o próprio advogado e o escritório.
+- O script diz quantos nomes achou assim — "2 nome(s) achado(s) pelo dicionário — confira na cópia" — sem mostrar quais. Repita a frase e peça ao advogado para conferir na cópia. Se algum não era pessoa, ele pode rodar `ANZ aplicar "<caso>" --sem-dicionario` (volta ao comportamento antigo) ou corrigir à mão.
+- `ANZ simular "<caso>"` mostra a contagem antes, sem gravar nada.
 
 ## Onde fica cada coisa
 - Tabela (dados reais): `<caso>/_anonimizacao/tabela.json` — só na pasta do caso, nunca global.
@@ -28,7 +34,7 @@
 - `/processo` mostra o dossiê e o handoff já com marcadores. `checar-peca` conta os marcadores; `exportar-docx` recusa (código 2) se sobrar marcador — `--forcar` exporta com eles grifados.
 
 ## Limites (diga com franqueza)
-- A detecção de nomes é heurística: nome sozinho (só "Maria"), apelido, sobrenome solto ("o Sr. Silva"), nome no meio da frase sem qualificação e nomes de testemunhas podem escapar. Nome de juiz, advogado e tribunal não é trocado. O advogado revisa as cópias; o que escapou entra com `Anonimizar também:` no DOSSIE ou `--nome "Nome|Silva"` (variantes separadas por `|` viram a mesma parte).
+- A detecção de nomes é heurística: nome sozinho (só "Maria"), apelido, sobrenome solto ("o Sr. Silva") e nome raro que não está no dicionário (prenome estrangeiro, sobrenome incomum — "Maria Souza Zwicker" pode virar "[PARTE_A] Zwicker") podem escapar; um doutrinador citado sem título pode virar marcador (a reversão devolve). Nome de juiz, advogado e tribunal não é trocado. O advogado revisa as cópias; o que escapou entra com `Anonimizar também:` no DOSSIE ou `--nome "Nome|Silva"` (variantes separadas por `|` viram a mesma parte).
 - O nome da pasta do caso (ex.: `silva-x-banco`) continua aparecendo; escolha nomes neutros se isso importar.
 - Leituras pelo terminal (cat, scripts) de arquivos originais não passam pela pergunta; só a pasta da tabela é bloqueada no terminal.
 - O que o advogado escrever na conversa continua indo para a Anthropic, como sempre.

@@ -163,6 +163,13 @@ function diagnosticar() {
     }
   } catch (e) { add('calendario', false, 'Não consegui ler o calendário forense — ' + CONS + '.', 'aviso', 'reinstalar', e.message); }
 
+  // 5b2. sumulas canceladas/superadas: a lista embarcada precisa ler; ajuste do escritorio ilegivel = aviso (nada e gravado por cima)
+  try {
+    const sm = require('./lib/sumulas').estado(esc);
+    add('sumulas', sm.ok, sm.ok ? 'Lista local de súmulas canceladas ou superadas: ' + sm.n + ' item(ns), revisada em ' + sm.revisadoBR + (sm.escritorio.n ? ' (+ ' + sm.escritorio.n + ' ajuste(s) do escritório)' : '') : 'A lista local de súmulas canceladas não pôde ser lida, então não aviso sobre súmula cancelada — ' + CONS + '.', 'aviso', sm.ok ? null : 'reinstalar', sm.arquivo + (sm.erro ? ': ' + sm.erro : ''));
+    if (sm.escritorio.ilegivel) add('sumulas-escritorio', false, 'O arquivo de ajustes de súmulas do escritório (WIKI/sumulas-situacao.json) ficou ilegível e está sendo ignorado; não gravo nada por cima. Abra e corrija o arquivo (ou renomeie e marque de novo com julgados.js sumula marcar).', 'aviso', null, sm.escritorio.arquivo + ': JSON inválido');
+  } catch (e) { add('sumulas', false, 'Não consegui ler a lista local de súmulas — ' + CONS + '.', 'aviso', 'reinstalar', e.message); }
+
   // 5c. consentimento dos clientes (LGPD): informativo, nunca erro; so contagens (sem nome de cliente)
   try {
     const cs = require('./lib/consentimento');
