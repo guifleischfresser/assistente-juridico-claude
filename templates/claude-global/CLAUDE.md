@@ -19,6 +19,7 @@
 - **Uma conversa por processo** (`/processo <caso>`): carrega só o dossiê e o handoff daquele caso.
 - **Caso anonimizado** (`/anonimizar`, só se o advogado pedir): leia só `anonimizado/`, escreva com os marcadores (`[PARTE_A]`, `[CPF_1]`), nunca abra `_anonimizacao/`; dados reais só no fim (`/anonimizar reverter`).
 - **Consentimento do cliente** (`/consentimento`): `/processo` mostra o estado; sem registro, revogado ou anonimização exigida e desligada → avise o advogado em uma linha, sem travar.
+- **O que saiu da máquina** ("o que já foi enviado pro Claude deste caso?"): `node "{{BASE}}/scripts/saida.js" resumo "<caso>"`; o registro (`<caso>/_saida/`) é anotado sozinho e nunca é editado.
 - Estilo do usuário: `ESTILO/perfil-de-escrita.md` (ler antes de redigir).
 - Memória de cada caso: `DOSSIE.md` na pasta do caso.
 - Preferências e cuidados aprendidos: `MEMORIA/preferencias-e-cuidados.md` (o assistente mantém; histórico em `MEMORIA/CHANGELOG.md`).

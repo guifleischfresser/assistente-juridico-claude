@@ -12,6 +12,7 @@
  * Caso anonimizado (/anonimizar): abrir mostra DOSSIE e HANDOFF já com marcadores.
  * Consentimento do cliente (/consentimento): abrir mostra o estado e avisa (sem travar) se falta, foi revogado
  * ou exige anonimização desligada.
+ * O que saiu da máquina (lib/saida): abrir mostra uma linha com o que o assistente já leu do caso.
  * Tudo local. A memória global (MEMORIA/) nunca recebe dados do cliente.
  */
 const fs = require('fs');
@@ -58,6 +59,8 @@ switch (a[0]) {
       console.log('\nConsentimento do cliente para uso de IA: ' + cs.resumo(stc) + '.');
       for (const av of cs.avisos(x.pasta, { st: stc, anonimizada: anonimo })) console.log(av);
     } catch (e) { c.log('erros', 'consentimento abrir: ' + e.message); }
+    // o que ja saiu da maquina neste caso (registro local _saida/; uma linha, sem nomes de arquivo)
+    try { const ls = require('./lib/saida').linhaProcesso(x.pasta); if (ls) console.log('\n' + ls); } catch (e) { c.log('erros', 'saida abrir: ' + e.message); }
     console.log('\nAutos convertidos: ' + (autos ? 'sim (autos-md/INDICE.md)' : 'não — use /preparar-autos se precisar ler o processo'));
     if (anonimo) console.log('\n🔒 Caso ANONIMIZADO: leia só as cópias em anonimizado/ (dossiê acima já com marcadores), escreva a peça com os marcadores ([PARTE_A], [CPF_1]…) e nunca abra _anonimizacao/. Dados reais só no fim: /anonimizar reverter <peça>.');
     console.log('\nRegras desta conversa: trabalhe só neste caso; leia outros casos apenas se o advogado pedir; anotações do cliente vão para o DOSSIE.md deste caso (processo.js anotar), nunca para MEMORIA/.');
