@@ -55,4 +55,4 @@ function analisarCitacoes(texto, baseDir, escritorio) {
   });
   return lista;
 }
-module.exports = { analisarCitacoes };
+module.exports = { analisarCitacoes, PADROES };
