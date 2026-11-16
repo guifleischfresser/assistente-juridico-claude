@@ -121,6 +121,7 @@ Exemplo: *"Anonimizei 3 documentos do caso Silva x Banco: 4 nomes e 1 CPF virara
 - ✍️ **Aprende o seu jeito de escrever**, para que o texto não fique com "cara de robô".
 - 📄 **Redige e formata peças** e exporta para Word (.docx) no padrão forense: A4, margens 3/2 cm, Times 12, espaçamento 1,5. Tabelas em Markdown viram tabelas do Word.
 - 🔎 **Não inventa jurisprudência.** Citação sem fonte fica marcada como **[NÃO VERIFICADO]**, e a exportação trava até você conferir.
+- 🚫 **Avisa sobre súmula cancelada ou superada** (STF, STJ, TST) com uma lista local que vem com o assistente, sem internet: "A Súmula 469 do STJ foi cancelada em 2018 (substituída pela 608), segundo a lista local de 12/11/2026. Confirme no site do STJ antes de protocolar." Súmula cancelada citada como se valesse trava o Word; citação histórica ("a antiga Súmula…", ou `[CITADA COMO HISTÓRICO]`) só gera um aviso. Se a lista estiver errada para o seu caso, confira no site do tribunal e corrija com `julgados.js sumula marcar … --fonte <link>`.
 - 😈 Tem um **advogado do diabo**, que ataca a sua peça antes da parte contrária.
 - 📚 **Lê os autos em PDF uma vez só**, transforma em texto e tira as repetições, o que economiza o seu limite de uso.
 - 🛡️ **Avisa sobre instruções escondidas** em documentos da parte contrária.
@@ -247,6 +248,9 @@ Modelos de IA podem "inventar" julgados. Por isso o kit marca automaticamente qu
 
 **Como o assistente confere um julgado?**
 Ele procura primeiro nos seus arquivos (WIKI e autos). Se não achar e você autorizar, abre a página oficial do tribunal (ou do JusBrasil) só com o número do julgado, guarda o texto original em `WIKI/raw/` e compara com o trecho entre aspas da sua peça: ✅ confere, ou 🔴 diverge (mostra as palavras que não estão no original). Um serviço externo opcional de verificação de citações é o **Basanos** (cognitio.one); ele **não** é integrado ao assistente, e usá-lo é decisão sua, fora do Claude.
+
+**E se a súmula que eu citei foi cancelada?**
+O assistente compara as súmulas da peça com uma lista local de súmulas do STF, do STJ e do TST canceladas ou superadas. A lista foi montada à mão, tem data de revisão e não usa internet. Súmula cancelada citada como se valesse trava o Word (com `--forcar`, sai grifada em vermelho); superada ou sem tribunal só gera aviso. A lista não é completa: súmula fora dela não está confirmada como vigente, e o aviso sempre manda conferir no site do tribunal. Se a lista errar, confira no site e registre o ajuste do escritório (`julgados.js sumula marcar "Súmula N do STJ" --vigente --fonte <link>`), que vale mais que a lista. As OJs do TST ainda não estão na lista.
 
 **Posso usar o mesmo escritório no Codex ou no Cursor?**
 Sim. A pasta do escritório tem um `AGENTS.md` com as mesmas regras (sigilo, não inventar citação, uma conversa por processo). Abra o Codex/Cursor **dentro da pasta do escritório**. Para o Codex encontrar também as habilidades: `node "$HOME/.claude/advogado/scripts/agentes.js" gerar --skills`. Atenção: as proteções automáticas (janelas de confirmação, bloqueio de dados de clientes) só existem no Claude Code; nos outros, o `AGENTS.md` pede que as conferências sejam feitas à mão.

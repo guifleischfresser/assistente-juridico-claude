@@ -400,6 +400,9 @@ function revisar(opts) {
   res.depois = medir(pasta, filtro);
   res.reducaoFixo = antes.fixo ? Math.round((1 - res.depois.fixo / antes.fixo) * 100) : 0;
   res.resumo = resumoLinha(res);
+  // lista local de sumulas canceladas (lib/sumulas.js) revisada ha mais de 6 meses: so avisa, sem rede
+  res.avisoSumulas = avisoSumulas();
+  if (res.avisoSumulas) res.resumo += ' ' + res.avisoSumulas;
   if (!simular && !opts.pasta) {
     res.relatorio = gravarRelatorio(res, lim);
     const est = lerEstado();
@@ -409,6 +412,13 @@ function revisar(opts) {
   }
   removerDir(path.join(c.P.estado, 'revisao-tmp'));
   return res;
+}
+/** Aviso (texto) quando a lista local de sumulas canceladas passou de 6 meses desde revisadoEm; null se em dia ou ilegivel (o doutor cuida). */
+function avisoSumulas() {
+  try {
+    const v = require('./lib/sumulas').listaVencida(c.hojeISO(agora()), 6);
+    return v ? '⚠️ A lista local de súmulas canceladas foi revisada em ' + v.revisadoBR + ' (mais de 6 meses): confira novos cancelamentos nos sites do STF, STJ e TST e atualize o assistente; até lá, ajustes pontuais com julgados.js sumula marcar.' : null;
+  } catch (e) { return null; }
 }
 function changelogMemoria(msg) {
   const k = require('./memoria').caminhos();
@@ -492,7 +502,7 @@ function aoIniciarSessao() {
   return { executada: !!r, resumo: null };
 }
 
-module.exports = { medir, revisar, desfazer, verificarAgenda, aoIniciarSessao, encurtarDescricao, progressiva, infoSkill, similaridade, sobreposicoes, ensaio, PADRAO };
+module.exports = { avisoSumulas, medir, revisar, desfazer, verificarAgenda, aoIniciarSessao, encurtarDescricao, progressiva, infoSkill, similaridade, sobreposicoes, ensaio, PADRAO };
 
 if (require.main === module) {
   const a = process.argv.slice(2); const cmd = a[0] || 'estado'; const json = a.includes('--json');
@@ -511,6 +521,7 @@ if (require.main === module) {
     console.log(r.ok ? '↩️ Manutenção ' + r.carimbo + ' desfeita: tudo voltou ao estado anterior.' : 'Nada desfeito: ' + r.erro); if (!r.ok) process.exitCode = 2;
   } else if (cmd === 'estado') {
     const est = lerEstado(); const ag = est.ultima ? dias(new Date(est.ultima), agora()) : null;
-    if (json) console.log(JSON.stringify(est, null, 1)); else console.log(est.ultima ? 'Última manutenção/referência: ' + est.ultima.slice(0, 10) + ' (há ' + Math.floor(ag) + ' dia(s)) · próxima: ' + String(est.proxima || '').slice(0, 10) + (est.ultimoResumo ? '\nÚltimo resultado: ' + est.ultimoResumo : '') : 'Nenhuma manutenção registrada ainda (a contagem começa na próxima conversa).');
+    const avS = avisoSumulas();
+    if (json) console.log(JSON.stringify(Object.assign({}, est, { avisoSumulas: avS }), null, 1)); else console.log((est.ultima ? 'Última manutenção/referência: ' + est.ultima.slice(0, 10) + ' (há ' + Math.floor(ag) + ' dia(s)) · próxima: ' + String(est.proxima || '').slice(0, 10) + (est.ultimoResumo ? '\nÚltimo resultado: ' + est.ultimoResumo : '') : 'Nenhuma manutenção registrada ainda (a contagem começa na próxima conversa).') + (avS ? '\n' + avS : ''));
   } else { console.log('Uso: manutencao.js medir | revisar [--simular] | desfazer [carimbo] | estado'); process.exitCode = 1; }
 }
