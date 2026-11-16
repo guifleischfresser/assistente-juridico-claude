@@ -4,10 +4,15 @@
  * Anonimizacao opcional por caso: troca nomes das partes, CPF/CNPJ, nº CNJ, RG, e-mails, telefones,
  * enderecos e CEPs por marcadores estaveis ([PARTE_A], [CPF_1], [PROCESSO_1]...) ANTES de o assistente
  * ler o documento, e devolve os dados reais no rascunho final. Tudo local; a tabela fica SO na pasta do caso.
- * Uso: node anonimizar.js preparar <caso> [--nome "Nome|Outra grafia"]... [--cpf X] [--endereco "..."]
+ * Uso: node anonimizar.js preparar <caso> [--nome "Nome|Outra grafia"]... [--cpf X] [--endereco "..."] [--sem-dicionario]
  *        cria/atualiza a tabela (DOSSIE: Cliente, Parte contrária, "Anonimizar também:" + o que os
  *        documentos do caso mostrarem) e LIGA a anonimização do caso
- *      node anonimizar.js aplicar <caso> [arquivo ...]   copias anonimizadas em <caso>/anonimizado/ (original intacto)
+ *      node anonimizar.js aplicar <caso> [arquivo ...] [--sem-dicionario]
+ *                                         copias anonimizadas em <caso>/anonimizado/ (original intacto)
+ *      node anonimizar.js simular <caso> [arquivo ...] [--sem-dicionario]
+ *                                         so conta o que viraria marcador (nao grava copia nem tabela)
+ *        Nomes soltos ("conversei com Maria Souza") sao achados por um dicionario local de prenomes e
+ *        sobrenomes (scripts/lib/dados); --sem-dicionario volta a usar so rotulo/qualificacao/sufixo.
  *      node anonimizar.js reverter <arquivo> [--saida <arq>] [--caso <caso>]
  *                                         grava <arquivo>-dados-reais.md com os dados reais (marcador sem
  *                                         correspondencia fica como esta e e avisado; codigo 2)
@@ -32,11 +37,12 @@ function unico(termo) {
   if (!r.length) { console.log('Não achei caso com "' + termo + '". Use o nome da pasta do caso (veja /casos).'); process.exit(3); }
   console.log('Mais de um caso combina com "' + termo + '". Qual deles?\n' + r.slice(0, 15).map((x) => '- ' + x.rel).join('\n')); process.exit(3);
 }
+const FLAGS = new Set(['sem-dicionario']); // opcoes sem valor
 function opcoes(argv) {
   const pos = [], op = {};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a.startsWith('--')) { const n = a.slice(2); const v = argv[i + 1] != null && !argv[i + 1].startsWith('--') ? argv[++i] : true; (op[n] = op[n] || []).push(v); } else pos.push(a);
+    if (a.startsWith('--')) { const n = a.slice(2); const v = !FLAGS.has(n) && argv[i + 1] != null && !argv[i + 1].startsWith('--') ? argv[++i] : true; (op[n] = op[n] || []).push(v); } else pos.push(a);
   }
   return { pos, op };
 }
@@ -78,12 +84,13 @@ function preparar(argv) {
   const { pos, op } = opcoes(argv);
   if (!pos.length) { console.log('Uso: preparar <caso> [--nome "Nome|Outra grafia"] [--cpf X] [--endereco "..."]'); process.exit(1); }
   const x = unico(pos.join(' '));
+  const opAn = { dicionario: !op['sem-dicionario'] };
   let t = A.lerTabela(x.pasta); const nova = !t;
   if (!t) t = A.novaTabela(x.rel);
   const antes = t.entradas.length;
   t.ativa = true; t.caso = x.rel;
   for (const n of nomesDoDossie(x.pasta)) {
-    if (/\d{3}/.test(n)) { A.anonimizarTexto(n, t); continue; }
+    if (/\d{3}/.test(n)) { A.anonimizarTexto(n, t, opAn); continue; }
     A.adicionar(t, 'nome', n);
   }
   const tipos = { nome: 'nome', cpf: 'cpf', cnpj: 'cnpj', processo: 'cnj', rg: 'rg', email: 'email', telefone: 'telefone', endereco: 'endereco', cep: 'cep' };
@@ -94,7 +101,7 @@ function preparar(argv) {
   for (const f of fontes) {
     if (!fs.existsSync(f)) continue;
     const r = A.lerParaAnonimizar(f); if (r.erro) continue;
-    A.anonimizarTexto(r.texto, t); lidos++;
+    A.anonimizarTexto(r.texto, t, opAn); lidos++;
   }
   A.gravarTabela(x.pasta, t);
   const porTipo = {}; for (const e of t.entradas) porTipo[e.tipo] = (porTipo[e.tipo] || 0) + 1;
@@ -108,36 +115,49 @@ function descrever(porTipo) {
   return p.length ? p.join(', ') : 'nenhum ainda';
 }
 
-function aplicar(argv) {
-  const { pos } = opcoes(argv);
-  if (!pos.length) { console.log('Uso: aplicar <caso> [arquivo ...]'); process.exit(1); }
+function aplicar(argv, simular) {
+  const { pos, op } = opcoes(argv);
+  const cmd = simular ? 'simular' : 'aplicar';
+  const opAn = { dicionario: !op['sem-dicionario'] };
+  if (!pos.length) { console.log('Uso: ' + cmd + ' <caso> [arquivo ...] [--sem-dicionario]'); process.exit(1); }
   // o caso e o 1º argumento; o resto, arquivos (se existirem)
   const arquivos = pos.slice(1).filter((p) => fs.existsSync(p));
   const termo = arquivos.length ? pos[0] : pos.join(' ');
   const x = unico(termo);
-  const t = A.lerTabela(x.pasta);
-  if (!t || t.ativa === false) { console.log('A anonimização do caso ' + x.rel + ' está desligada. Ela só liga quando o advogado pede: node "' + path.join(c.P.base, 'scripts', 'anonimizar.js') + '" preparar "' + x.nome + '"'); process.exit(2); }
+  let t = A.lerTabela(x.pasta);
+  if (simular) t = t ? JSON.parse(JSON.stringify(t)) : (() => { const n = A.novaTabela(x.rel); for (const v of nomesDoDossie(x.pasta)) if (!/\d{3}/.test(v)) A.adicionar(n, 'nome', v); return n; })();
+  if (!simular && (!t || t.ativa === false)) { console.log('A anonimização do caso ' + x.rel + ' está desligada. Ela só liga quando o advogado pede: node "' + path.join(c.P.base, 'scripts', 'anonimizar.js') + '" preparar "' + x.nome + '"'); process.exit(2); }
   const lista = arquivos.length ? arquivos.map((p) => path.resolve(p)) : arquivosDoCaso(x.pasta);
-  if (!lista.length) { console.log('Não achei documentos em ' + x.rel + '/documentos nem em autos-md/. Indique os arquivos: aplicar "' + x.nome + '" <arquivo>'); process.exit(2); }
+  if (!lista.length) { console.log('Não achei documentos em ' + x.rel + '/documentos nem em autos-md/. Indique os arquivos: ' + cmd + ' "' + x.nome + '" <arquivo>'); process.exit(2); }
+  if (opAn.dicionario && !A.dicionarioDisponivel()) console.log('⚠️ O dicionário de nomes (scripts/lib/dados) não foi encontrado: só os nomes com rótulo ou qualificação serão trocados. Rode o /consertar para reinstalar.');
   const trocas = [], feitos = [], falhas = [];
   for (const f of lista) {
     if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta)) continue;
     const r = A.lerParaAnonimizar(f);
     if (r.erro) { falhas.push(path.basename(f) + ': ' + r.erro); continue; }
-    const an = A.anonimizarTexto(r.texto, t);
+    const an = A.anonimizarTexto(r.texto, t, opAn);
     const destino = A.caminhoCopia(f, x.pasta);
+    if (simular) { trocas.push(...an.trocas); feitos.push(relCaso(x.pasta, destino)); continue; }
     c.garantirDir(path.dirname(destino));
     fs.writeFileSync(destino, an.texto, 'utf8');
     const chave = c.dentroDe(f, x.pasta) ? relCaso(x.pasta, f) : 'externo/' + path.basename(f);
     t.documentos[chave] = { sha256: sha(f), copia: relCaso(x.pasta, destino), em: new Date().toISOString() };
     trocas.push(...an.trocas); feitos.push(relCaso(x.pasta, destino));
   }
-  A.gravarTabela(x.pasta, t);
-  if (!feitos.length) { console.log('Nenhum documento anonimizado em ' + x.rel + (falhas.length ? ': ' + falhas.join('; ') : '.')); process.exit(2); }
+  if (!simular) A.gravarTabela(x.pasta, t);
+  if (!feitos.length) { console.log('Nenhum documento ' + (simular ? 'legível' : 'anonimizado') + ' em ' + x.rel + (falhas.length ? ': ' + falhas.join('; ') : '.')); process.exit(2); }
+  const dic = A.resumoDicionario(trocas);
+  if (simular) {
+    console.log('🔎 Simulação (nada foi gravado) em ' + feitos.length + ' documento' + (feitos.length > 1 ? 's' : '') + ' do caso ' + x.nome + ': ' + A.resumoContagem(trocas).replace(/viraram marcadores$/, 'virariam marcadores').replace(/virou marcador$/, 'viraria marcador') + '.' + (opAn.dicionario ? '' : ' (sem o dicionário de nomes)'));
+    if (dic) console.log(dic.replace('confira na cópia', 'confira na cópia depois de aplicar') + '.');
+    if (falhas.length) console.log('Não consegui ler: ' + falhas.join('; '));
+    return;
+  }
   console.log('🔒 Anonimizei ' + feitos.length + ' documento' + (feitos.length > 1 ? 's' : '') + ' do caso ' + x.nome + ': ' + A.resumoContagem(trocas) + '. A tabela ficou só na pasta do caso.');
   console.log('Cópias para trabalhar (leia só estas):\n' + feitos.slice(0, 30).map((f) => '- ' + f).join('\n') + (feitos.length > 30 ? '\n- … e mais ' + (feitos.length - 30) : ''));
+  if (dic) console.log('🔎 ' + dic + ' (nomes sem rótulo, reconhecidos por prenome + sobrenome; se algum não for pessoa, avise o advogado).');
   if (falhas.length) console.log('Não consegui ler: ' + falhas.join('; '));
-  console.log('⚠️ A detecção de nomes não é perfeita (apelidos, nome só com o sobrenome, nomes no meio de frases). Peça ao advogado para passar o olho nas cópias antes; o que escapou entra na linha "Anonimizar também:" do DOSSIE.md (ou preparar --nome) e depois aplicar de novo.');
+  console.log('⚠️ A detecção de nomes não é perfeita (apelidos, nome só com o sobrenome, nome raro que não está no dicionário). Peça ao advogado para passar o olho nas cópias antes; o que escapou entra na linha "Anonimizar também:" do DOSSIE.md (ou preparar --nome) e depois aplicar de novo.');
 }
 
 function tabelaPara(arquivo, op) {
@@ -214,8 +234,8 @@ function desligar(argv) {
 
 if (require.main === module) {
   const [cmd, ...resto] = process.argv.slice(2);
-  const f = { preparar, aplicar, reverter, conferir, estado, desligar }[cmd];
-  if (!f) { console.log('Uso: anonimizar.js preparar <caso> | aplicar <caso> [arquivo...] | reverter <arquivo> [--saida X] | conferir <arquivo> | estado [<caso>] | desligar <caso>'); process.exit(1); }
+  const f = { preparar, aplicar, simular: (a) => aplicar(a, true), reverter, conferir, estado, desligar }[cmd];
+  if (!f) { console.log('Uso: anonimizar.js preparar <caso> | aplicar <caso> [arquivo...] [--sem-dicionario] | simular <caso> [arquivo...] | reverter <arquivo> [--saida X] | conferir <arquivo> | estado [<caso>] | desligar <caso>'); process.exit(1); }
   f(resto);
 }
 module.exports = { nomesDoDossie, arquivosDoCaso };

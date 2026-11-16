@@ -1672,6 +1672,220 @@ console.log('\n12k. Mapa de teses: importar valores da planilha de cálculo da i
   t('caso anonimizado: importa só o número, mostra o pedido com marcador ([PARTE_…]) e avisa; nenhum nome real na saída', ra.code === 0 && r.code === 0 && /R\$ 7\.000,00/.test(fs.readFileSync(mapaA, 'utf8')) && /\[PARTE_[A-Z]\]/.test(r.out) && !/Maria|Aparecida/.test(r.out) && /está anonimizado/.test(r.out), ra.out + r.out);
 }
 
+console.log('\n12l. Anonimização: nomes sem rótulo pelo dicionário local de prenomes/sobrenomes (Roadmap item 9, parte 1)');
+{
+  const LA = require(path.join(RAIZ, 'scripts', 'lib', 'anonimizar.js'));
+  const ADV = 'Dra. Helena Costa Ribeiro';
+  const op = { proprios: [ADV] };
+  const nomesDic = (s, o) => LA.detectar(s, Object.assign({}, op, o)).filter((x) => x.dicionario).map((x) => x.valor);
+  const an = (s, o) => LA.anonimizarTexto(s, LA.novaTabela('teste'), Object.assign({}, op, o));
+  // dicionario embarcado: sem rede, pequeno, sem acento na chave
+  const DD = path.join(RAIZ, 'scripts', 'lib', 'dados');
+  const tam = ['prenomes.txt', 'sobrenomes.txt'].map((n) => fs.statSync(path.join(DD, n)).size);
+  const linhas = (n) => fs.readFileSync(path.join(DD, n), 'utf8').split('\n').filter((l) => l && !l.startsWith('#'));
+  t('dicionário em scripts/lib/dados: prenomes.txt e sobrenomes.txt, alguns milhares de chaves sem acento (≤ 100 KB), carregado sem rede', LA.dicionarioDisponivel() && tam[0] + tam[1] <= 100 * 1024 && linhas('prenomes.txt').length + linhas('sobrenomes.txt').length >= 2000 && linhas('prenomes.txt').concat(linhas('sobrenomes.txt')).every((k) => /^[a-z'-]+$/.test(k)) && linhas('prenomes.txt').includes('joao') && linhas('sobrenomes.txt').includes('silva'), JSON.stringify(tam));
+  // nome solto, Title Case e CAIXA ALTA
+  let x = an('Ontem conversei com Maria Aparecida Souza sobre o acordo.\nDepois falei com JOSÉ CARLOS PEREIRA por telefone.\n');
+  t('nome solto em Title Case e em CAIXA ALTA: detectado e anonimizado ([PARTE_A], [PARTE_B])', x.texto === 'Ontem conversei com [PARTE_A] sobre o acordo.\nDepois falei com [PARTE_B] por telefone.\n' && x.trocas.every((y) => y.dicionario), x.texto);
+  t('prenome sozinho (e prenome composto sem sobrenome) não é detectado', !nomesDic('Maria disse que viria. Falei com João ontem. Maria Aparecida chegou.').length && an('Maria disse que viria; JOÃO também.').texto === 'Maria disse que viria; JOÃO também.');
+  t('não atravessa linha: "Maria\\nSouza" não vira nome', !nomesDic('Maria\nSouza assinou').length && !nomesDic('Maria\r\nSouza').length);
+  t('duas pessoas com "e" ficam separadas; inicial do meio aceita ("João C. Silva")', JSON.stringify(nomesDic('Maria Souza e Pedro Lima chegaram; João C. Silva também.')) === '["Maria Souza","Pedro Lima","João C. Silva"]', JSON.stringify(nomesDic('Maria Souza e Pedro Lima chegaram; João C. Silva também.')));
+  // exclusoes
+  const cit = 'Nesse sentido: REsp 1.737.412/SE, Rel. Min. Nancy Andrighi, Terceira Turma, julgado em 05/02/2019. Também: (AgInt no AREsp 1.234.567/PR, Antonio Carlos Ferreira, Quarta Turma, j. 10/10/2023). E ainda Rel. Min. Antonio Carlos Ferreira e Relator Ministro Luiz Alberto Gomes; Juiz de Direito Carlos Alberto Moreira; Desembargadora Federal Ana Paula Martins.';
+  t('"Rel. Min. Nancy Andrighi", o relator dentro de um REsp/AgInt citado (lib/citacoes) e magistrados com título ficam intactos', an(cit).texto === cit && !nomesDic(cit).length, JSON.stringify(nomesDic(cit)));
+  const lug = 'A Lei Maria da Penha (Lei nº 11.340/2006) vale em São José, em São José dos Campos e em Santa Catarina; na cidade de João Pessoa; na Rua João Silva Pereira; na Fundação Getúlio Vargas.';
+  t('"Lei Maria da Penha", "São José", "Santa Catarina" (e outros lugares/logradouros/institutos) intactos', an(lug).texto === lug, JSON.stringify(nomesDic(lug)));
+  const adv = 'Assina a Dra. Helena Costa Ribeiro, OAB/PR 12.345; HELENA COSTA RIBEIRO, advogada.';
+  t('o próprio advogado (config.nome) fica intacto', !nomesDic(adv).length && nomesDic(adv, { proprios: [] }).length === 2, JSON.stringify(nomesDic(adv, { proprios: [] })));
+  t('trecho que já virou marcador não é tocado de novo', an('[PARTE_A] e [PARTE_B] falaram com [PARTE_C#2].').texto === '[PARTE_A] e [PARTE_B] falaram com [PARTE_C#2].');
+  // mesmo nome com e sem rotulo => mesmo marcador (nos dois sentidos)
+  const tb = LA.novaTabela('t');
+  x = LA.anonimizarTexto('Ontem encontrei Roberto Almeida Campos no fórum.\r\nRequerente: Roberto Almeida Campos, brasileiro, casado.\r\nROBERTO ALMEIDA CAMPOS confirmou.\r\n', tb, op);
+  const x2 = an('Autor: Roberto Almeida Campos.\nDepois, Roberto Almeida Campos saiu.\n');
+  t('o mesmo nome com e sem rótulo vira o mesmo [PARTE_X] (rótulo confirma o achado pelo dicionário)', x.texto === 'Ontem encontrei [PARTE_A] no fórum.\r\nRequerente: [PARTE_A], brasileiro, casado.\r\n[PARTE_A#2] confirmou.\r\n' && tb.entradas.length === 1 && !tb.entradas[0].origem && x2.texto === 'Autor: [PARTE_A].\nDepois, [PARTE_A] saiu.\n', x.texto + x2.texto);
+  // ida e volta byte a byte (NFD, CRLF, CAIXA ALTA, sem acento)
+  const ida = ('Conversei com José Antônio Pereira e com JOSÉ ANTÔNIO PEREIRA.\r\nJose Antonio Pereira mora em São José.\r\nA Lei Maria da Penha e a Dra. Helena Costa Ribeiro.\r\n').normalize('NFD');
+  const tv = LA.novaTabela('t'); const ia = LA.anonimizarTexto(ida, tv, op);
+  t('reverterTexto(anonimizarTexto(x)) === x byte a byte, com NFD e CRLF', LA.reverterTexto(ia.texto, tv).texto === ida && !/Pereira/.test(ia.texto) && /\r\n/.test(ia.texto) && /São José/.test(ia.texto.normalize('NFC')), ia.texto);
+  // --sem-dicionario = saida anterior (fixada com a versao sem dicionario)
+  const ANTES = 'Autor: Roberto Almeida Campos, brasileiro, CPF 123.456.789-09.\r\nOntem conversei com Maria Aparecida Souza e com JOSÉ CARLOS PEREIRA.\r\nRoberto Almeida Campos confirmou; a Lei Maria da Penha vale em São José (Santa Catarina).\r\n';
+  const SAIDA_ANTERIOR = 'Autor: [PARTE_A], brasileiro, CPF [CPF_1].\r\nOntem conversei com Maria Aparecida Souza e com JOSÉ CARLOS PEREIRA.\r\n[PARTE_A] confirmou; a Lei Maria da Penha vale em São José (Santa Catarina).\r\n';
+  const tSem = LA.novaTabela('t'); const sem = LA.anonimizarTexto(ANTES, tSem, Object.assign({ dicionario: false }, op));
+  t('--sem-dicionario reproduz exatamente a saída anterior (texto, tabela e detecção)', sem.texto === SAIDA_ANTERIOR && tSem.entradas.map((e) => e.id).join() === 'PARTE_A,CPF_1' && LA.detectar(ANTES, { dicionario: false }).every((y) => !y.dicionario) && an(ANTES).texto === 'Autor: [PARTE_A], brasileiro, CPF [CPF_1].\r\nOntem conversei com [PARTE_B] e com [PARTE_C].\r\n[PARTE_A] confirmou; a Lei Maria da Penha vale em São José (Santa Catarina).\r\n', sem.texto);
+  const tMix = LA.novaTabela('t'); LA.anonimizarTexto(ANTES, tMix, op);
+  t('… e numa tabela que já tem nomes do dicionário, --sem-dicionario não os aplica (o que tem rótulo continua)', LA.anonimizarTexto(ANTES, tMix, Object.assign({ dicionario: false }, op)).texto === SAIDA_ANTERIOR);
+  t('resumo separa os nomes do dicionário sem mostrar o nome real', LA.resumoDicionario(an(ANTES).trocas) === '2 nome(s) achado(s) pelo dicionário — confira na cópia' && LA.resumoDicionario(sem.trocas) === '');
+  // desempenho: 3 MB a menos de 2 s a mais que sem o dicionario
+  const bloco = 'Autor: Roberto Almeida Campos, CPF 123.456.789-09. Ontem conversei com Maria Aparecida Souza sobre o REsp 1.234.567/SP, Rel. Min. Nancy Andrighi. A Lei Maria da Penha vale em São José. Pedro Henrique Lima Martins assinou em 12/10/2026.\n';
+  const big = bloco.repeat(Math.ceil(3 * 1024 * 1024 / bloco.length));
+  let t0 = Date.now(); LA.anonimizarTexto(big, LA.novaTabela('t'), Object.assign({ dicionario: false }, op)); const tSemD = Date.now() - t0;
+  t0 = Date.now(); const rBig = LA.anonimizarTexto(big, LA.novaTabela('t'), op); const tComD = Date.now() - t0;
+  t('desempenho: texto de 3 MB com o dicionário < 2 s a mais que sem ele', tComD - tSemD < 2000 && rBig.novas.length === 4, tSemD + ' ms x ' + tComD + ' ms');
+
+  // CLI e instalacao: sandbox com config.nome = advogada
+  const R12 = path.join(TMP, 'anon-dic'); const CL12 = path.join(R12, '.claude'); const ESC12 = path.join(R12, 'ESCRITORIO');
+  const B12 = path.join(CL12, 'advogado'); const SC12 = (n) => path.join(B12, 'scripts', n);
+  const env12 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL12 });
+  const run12 = (args, entrada) => { const y = spawnSync(process.execPath, args, { env: env12, encoding: 'utf8', cwd: R12, input: entrada == null ? '' : (typeof entrada === 'string' ? entrada : JSON.stringify(entrada)) }); return { code: y.status, out: y.stdout || '', err: y.stderr || '' }; };
+  const dec12 = (args, entrada) => { const y = run12(args, entrada); try { const o = JSON.parse(y.out); return o.hookSpecificOutput && o.hookSpecificOutput.permissionDecision; } catch (e) { return null; } };
+  fs.mkdirSync(R12, { recursive: true });
+  r = run12([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC12, '--nome', ADV]);
+  t('instalador leva o dicionário (scripts/lib/dados) e o modo plugin também (cópia base e raiz do plugin)', r.code === 0 && ['prenomes.txt', 'sobrenomes.txt'].every((n) => fs.readFileSync(SC12('lib/dados/' + n), 'utf8') === fs.readFileSync(path.join(DD, n), 'utf8') && fs.existsSync(path.join(TMP, 'plugin', '.claude', 'advogado', 'scripts', 'lib', 'dados', n))), r.err || r.out);
+  const gitLs = fs.existsSync(path.join(RAIZ, '.git')) ? spawnSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', 'scripts/lib/dados'], { cwd: RAIZ, encoding: 'utf8' }).stdout || '' : null;
+  const zipDist = path.join(TMP, 'dist', 'advogado-claude-mod.zip');
+  t('empacotamento: os arquivos do dicionário entram (git ls-files e o zip da release)', (gitLs == null || (/scripts\/lib\/dados\/prenomes\.txt/.test(gitLs) && /scripts\/lib\/dados\/sobrenomes\.txt/.test(gitLs))) && (!fs.existsSync(zipDist) || ['prenomes', 'sobrenomes'].every((n) => fs.readFileSync(zipDist).includes('advogado-claude-mod/scripts/lib/dados/' + n + '.txt'))), gitLs);
+  const casoD = path.join(ESC12, 'CASOS', 'Ativos', '2026-caso-delta'); fs.mkdirSync(path.join(casoD, 'documentos'), { recursive: true });
+  fs.writeFileSync(path.join(casoD, 'DOSSIE.md'), '# DOSSIÊ\n- Cliente: Roberto Almeida Campos\n');
+  const relato = ('Relato do cliente\r\n\r\nOntem conversei com Maria Aparecida Souza e com JOSÉ CARLOS PEREIRA. Maria disse que viria.\r\n' + cit + '\r\n' + lug + '\r\nAssina: Dra. Helena Costa Ribeiro.\r\n').normalize('NFD');
+  fs.writeFileSync(path.join(casoD, 'documentos', 'relato.md'), relato);
+  const casoE = path.join(ESC12, 'CASOS', 'Ativos', '2026-caso-epsilon'); fs.mkdirSync(path.join(casoE, 'documentos'), { recursive: true });
+  fs.writeFileSync(path.join(casoE, 'documentos', 'ata.md'), ANTES);
+  r = run12([SC12('anonimizar.js'), 'simular', 'caso delta']);
+  t('simular: conta o que viraria marcador e os nomes do dicionário, sem gravar cópia nem tabela e sem nome real', r.code === 0 && /Simulação \(nada foi gravado\)/.test(r.out) && /nome\(s\) achado\(s\) pelo dicionário/.test(r.out) && !fs.existsSync(path.join(casoD, 'anonimizado')) && !fs.existsSync(path.join(casoD, '_anonimizacao')) && !/Souza|PEREIRA|Roberto/.test(r.out), r.out);
+  run12([SC12('anonimizar.js'), 'preparar', 'caso delta']);
+  r = run12([SC12('anonimizar.js'), 'aplicar', 'caso delta']);
+  const copiaD = path.join(casoD, 'anonimizado', 'documentos', 'relato.md');
+  const cpD = fs.existsSync(copiaD) ? fs.readFileSync(copiaD, 'utf8').normalize('NFC') : '';
+  t('aplicar (padrão: dicionário ligado): nomes soltos viram marcador; exclusões e config.nome intactos; resumo "N nome(s) achado(s) pelo dicionário — confira na cópia" sem nome real', r.code === 0 && /🔎 2 nome\(s\) achado\(s\) pelo dicionário — confira na cópia/.test(r.out) && !/Souza|PEREIRA|Roberto|Aparecida/.test(r.out) && /conversei com \[PARTE_B(#\d+)?\] e com \[PARTE_C(#\d+)?\]\. Maria disse/.test(cpD) && cpD.includes(cit) && cpD.includes(lug) && cpD.includes('Dra. Helena Costa Ribeiro'), r.out + cpD);
+  const voltaD = path.join(R12, 'volta-relato.md'); const rv = run12([SC12('anonimizar.js'), 'reverter', copiaD, '--saida', voltaD, '--caso', 'caso delta']);
+  t('reverter pela CLI: ida e volta idêntica byte a byte (NFD e CRLF)', rv.code === 0 && fs.readFileSync(voltaD, 'utf8') === relato, rv.out);
+  run12([SC12('anonimizar.js'), 'preparar', 'caso epsilon', '--sem-dicionario']);
+  r = run12([SC12('anonimizar.js'), 'aplicar', 'caso epsilon', '--sem-dicionario']);
+  t('aplicar --sem-dicionario: cópia igual à saída anterior e sem a linha do dicionário', r.code === 0 && fs.readFileSync(path.join(casoE, 'anonimizado', 'documentos', 'ata.md'), 'utf8') === SAIDA_ANTERIOR && !/achado\(s\) pelo dicionário/.test(r.out), r.out);
+  // guardas: o dicionario nao e dado de cliente
+  const novoDic = path.join(B12, 'scripts', 'lib', 'dados', 'prenomes-extra.txt');
+  const dicTxt = fs.readFileSync(path.join(DD, 'prenomes.txt'), 'utf8') + fs.readFileSync(path.join(DD, 'sobrenomes.txt'), 'utf8');
+  t('guarda-escrita aceita o dicionário (com caso anonimizado no escritório) e guarda-sigilo não barra a leitura', !dec12([SC12('guarda-escrita.js')], { session_id: 'd1', tool_name: 'Write', tool_input: { file_path: novoDic, content: dicTxt } }) && !dec12([SC12('guarda-escrita.js')], { session_id: 'd1', tool_name: 'Write', tool_input: { file_path: path.join(R12, 'repo', 'scripts', 'lib', 'dados', 'sobrenomes.txt'), content: dicTxt } }) && !dec12([SC12('guarda-sigilo.js')], { session_id: 'd1', tool_name: 'Read', tool_input: { file_path: SC12('lib/dados/prenomes.txt') } }) && fs.existsSync(path.join(casoD, '_anonimizacao', 'tabela.json')));
+  t('tabela.json continua versão 1 (campo "origem" opcional; nenhum tipo novo de marcador)', (() => { const tt = JSON.parse(fs.readFileSync(path.join(casoD, '_anonimizacao', 'tabela.json'), 'utf8')); return tt.versao === 1 && tt.entradas.every((e) => Object.keys(LA.TIPOS).includes(e.tipo) && /^PARTE_|^[A-Z]+_\d+$/.test(e.id)) && tt.entradas.some((e) => e.origem === 'dicionario'); })());
+}
+
+console.log('\n12m. Súmulas canceladas ou superadas: aviso pela lista local embarcada (sem rede)');
+{
+  const R12 = path.join(TMP, 'sumulas'); const CL12 = path.join(R12, '.claude'); const ESC12 = path.join(R12, 'ESCRITORIO');
+  const SC12 = (n) => path.join(CL12, 'advogado', 'scripts', n);
+  fs.mkdirSync(R12, { recursive: true });
+  // lista de TESTE (os testes não dependem dos dados reais; o sanity das âncoras fica no fim da seção)
+  const LISTA12 = path.join(R12, 'lista-teste.json');
+  fs.writeFileSync(LISTA12, JSON.stringify({ versao: 1, revisadoEm: '2026-11-12', itens: [
+    { tribunal: 'STJ', numero: 469, situacao: 'cancelada', ato: 'Segunda Seção', data: '2018', substituidaPor: '608' },
+    { tribunal: 'STJ', numero: 603, situacao: 'cancelada', data: '2018' },
+    { tribunal: 'STF', numero: 690, situacao: 'superada', data: '2006' },
+  ] }, null, 2));
+  const env12 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL12, ADVOGADO_SUMULAS_LISTA: LISTA12 }); delete env12.ADVOGADO_AGORA;
+  const run12 = (args, extra) => { const x = spawnSync(process.execPath, args, { env: Object.assign({}, env12, extra || {}), encoding: 'utf8', cwd: R12 }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  r = run12([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC12, '--nome', 'Dra. Doze']);
+  const CLp = path.join(R12, 'plugin', '.claude');
+  const rp = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', path.join(R12, 'plugin', 'ESCRITORIO'), '--modo-plugin'], { env: Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CLp }), encoding: 'utf8' });
+  const cobre = (arq) => { const allow = JSON.parse(fs.readFileSync(arq, 'utf8')).permissions.allow; return ['Bash(node "$HOME/.claude/advogado/scripts/julgados.js" *)', 'PowerShell(node "~/.claude/advogado/scripts/julgados.js" *)'].every((x) => allow.includes(x)) && !allow.some((x) => /julgados\.js" sumula/.test(x)) && !JSON.stringify(allow).includes('bypassPermissions'); };
+  t('súmulas: instalação do sandbox; a regra estreita julgados.js * cobre "sumula" no instalador e no modo plugin (sem regra nova)', r.code === 0 && rp.status === 0 && cobre(path.join(CL12, 'settings.json')) && cobre(path.join(CLp, 'settings.json')), r.out + r.err + rp.stdout + rp.stderr);
+  t('lista embarcada instalada junto com os scripts (scripts/lib/dados/sumulas-canceladas.json)', fs.existsSync(SC12('lib/dados/sumulas-canceladas.json')) && fs.existsSync(SC12('lib/sumulas.js')));
+  const srcS = fs.readFileSync(path.join(RAIZ, 'scripts', 'lib', 'sumulas.js'), 'utf8');
+  t('lib/sumulas.js sem rede e sem dependência (só fs/path/comum)', !/require\(['"](https?|net|dns|tls|child_process)['"]\)/.test(srcS) && (srcS.match(/require\(['"]([^'"]+)['"]\)/g) || []).every((x) => /'(fs|path|\.\/comum)'/.test(x)), (srcS.match(/require\([^)]*\)/g) || []).join(' '));
+
+  // --- detecção (checar-peca --json): variações de grafia, tribunal, citação consciente
+  const caso12 = path.join(ESC12, 'CASOS', 'Ativos', 'silva-x-plano'); fs.mkdirSync(caso12, { recursive: true });
+  const det = path.join(caso12, 'deteccao.md');
+  fs.writeFileSync(det, ['Aplica-se a Súmula 469 do STJ ao caso.', 'Conforme a Súmula n. 469/STJ, o CDC se aplica.', 'Nos termos da Súmula 469 do C. STJ, aplica-se o CDC.', 'Incide a Súmula 7 do STJ.', 'Incide a Súmula 469 ao caso.', 'A antiga Súmula 469 do STJ, cancelada em 2018, dizia outra coisa.', 'Súmula 603 do STJ [CITADA COMO HISTÓRICO] tratava da retenção de salário.', 'Veja a Súmula 690 do STF.', 'Aplica-se a Súmula 469 do TJSP.', 'Aplica-se a Súmula 603 do STJ. Uma antiga lei dizia o contrário.'].join('\n\n') + '\n');
+  r = run12([SC12('checar-peca.js'), det, '--json']);
+  let jd = {}; try { jd = JSON.parse(r.out); } catch (e) { /* */ }
+  const nivel = (linha) => { const x = (jd.cits || []).find((y) => y.linha === linha && /S[uú]mula/.test(y.texto)); return x ? (x.sumula ? x.sumula.nivel : 'nenhum') : 'sem-citacao'; };
+  t('"Súmula 469 do STJ", "Súmula n. 469/STJ" e "Súmula 469 do C. STJ" detectadas como cancelada (bloqueio)', [1, 3, 5].every((l) => nivel(l) === 'bloqueio'), JSON.stringify([1, 3, 5].map(nivel)) + r.out.slice(0, 300));
+  t('"Súmula 7 do STJ" (fora da lista) e "Súmula 469 do TJSP" (outro tribunal) sem aviso', nivel(7) === 'nenhum' && nivel(17) === 'nenhum', nivel(7) + ' ' + nivel(17));
+  t('número cancelado sem tribunal => só aviso leve ("confirme de qual tribunal")', nivel(9) === 'leve' && /confirme de qual tribunal/i.test(((jd.cits || []).find((y) => y.linha === 9) || { sumula: {} }).sumula.mensagem || ''), nivel(9));
+  t('citação consciente ("A antiga Súmula 469 do STJ, cancelada…") e [CITADA COMO HISTÓRICO] => só informativa, sem bloqueio', nivel(11) === 'info' && nivel(13) === 'info', nivel(11) + ' ' + nivel(13));
+  t('"antiga" em OUTRA frase não torna a citação consciente; superada => só aviso', nivel(19) === 'bloqueio' && nivel(15) === 'aviso', nivel(19) + ' ' + nivel(15));
+  r = run12([SC12('checar-peca.js'), det]);
+  t('checar-peca lista as súmulas com a linha, "segundo a lista local de 12/11/2026" e "confirme no site do tribunal"', /## Súmulas canceladas ou superadas \(\d+\)/.test(r.out) && /🔴 linha 1: A Súmula 469 do STJ foi cancelada em 2018 \(substituída pela 608\), segundo a lista local de 12\/11\/2026\. Confirme no site do STJ \(stj\.jus\.br\) antes de protocolar\./.test(r.out) && /⚠️ linha 15: A Súmula 690 do STF é tida como superada/.test(r.out) && !/Súmula 7 do STJ (foi|é)/.test(r.out), r.out);
+
+  // --- exportar-docx: recusa (código 2); --forcar grifa em vermelho; superada/leve/histórica só avisam
+  const docXml12 = (arq) => require(path.join(RAIZ, 'scripts', 'lib', 'zip.js')).lerZip(fs.readFileSync(arq)).get('word/document.xml').toString('utf8');
+  const pc = path.join(caso12, 'contestacao-cancelada.md');
+  fs.writeFileSync(pc, '# CONTESTAÇÃO\n\nAplica-se a Súmula 469 do STJ (https://scon.stj.jus.br/x) ao contrato.\n');
+  r = run12([SC12('exportar-docx.js'), pc]);
+  t('exportar-docx recusa (código 2) súmula cancelada citada como se valesse, com aviso em pt-BR simples, sem gerar o Word', r.code === 2 && /súmula\(s\) cancelada\(s\)/.test(r.out) && /segundo a lista local de 12\/11\/2026/.test(r.out) && /--forcar/.test(r.out) && !fs.existsSync(pc.replace(/\.md$/, '.docx')), r.out);
+  r = run12([SC12('exportar-docx.js'), pc, '--forcar']);
+  const xf = fs.existsSync(pc.replace(/\.md$/, '.docx')) ? docXml12(pc.replace(/\.md$/, '.docx')) : '';
+  t('--forcar exporta com [⚠️ SÚMULA CANCELADA] grifado em vermelho (mesmo padrão do [🔴 DIVERGENTE]); o .md não muda', r.code === 0 && /<w:rPr><w:b\/><w:highlight w:val="red"\/><\/w:rPr><w:t xml:space="preserve">\[⚠️ SÚMULA CANCELADA\]<\/w:t>/.test(xf) && /Exportado com --forcar apesar de 1 súmula/.test(r.out) && !/SÚMULA CANCELADA/.test(fs.readFileSync(pc, 'utf8')), r.out + xf.slice(0, 300));
+  const pa = path.join(caso12, 'contestacao-avisos.md');
+  fs.writeFileSync(pa, '# CONTESTAÇÃO\n\nVeja a Súmula 690 do STF (https://portal.stf.jus.br/x).\n\nIncide a Súmula 469 (https://x.jus.br/a) ao caso.\n\nA antiga Súmula 603 do STJ (https://scon.stj.jus.br/y), cancelada em 2018, não se aplica.\n');
+  r = run12([SC12('exportar-docx.js'), pa]);
+  const xa = fs.existsSync(pa.replace(/\.md$/, '.docx')) ? docXml12(pa.replace(/\.md$/, '.docx')) : '';
+  t('superada, sem tribunal e histórica: exporta (código 0) só com avisos, sem grifo vermelho', r.code === 0 && /⚠️ Linha 3: A Súmula 690 do STF é tida como superada desde 2006/.test(r.out) && /Linha 5: A Súmula 469 foi citada sem o tribunal/.test(r.out) && /ℹ️ Linha 7: A Súmula 603 do STJ aparece citada como histórico/.test(r.out) && xa && !/SÚMULA CANCELADA/.test(xa) && !/w:val="red"/.test(xa), r.out);
+  // golden: peça com súmulas fora da lista => document.xml idêntico ao de main
+  const fx12 = path.join(RAIZ, 'testes', 'fixtures');
+  const pg = path.join(R12, 'golden-sumulas.md'); fs.copyFileSync(path.join(fx12, 'peca-sumula-fora-da-lista.md'), pg);
+  r = run12([SC12('exportar-docx.js'), pg, path.join(R12, 'golden-sumulas.docx')]);
+  t('golden: peça com súmulas fora da lista (7/STJ, 331/TST, SV 25, 83/STJ) gera document.xml idêntico byte a byte ao de main', r.code === 0 && docXml12(path.join(R12, 'golden-sumulas.docx')) === fs.readFileSync(path.join(fx12, 'peca-sumula-fora-da-lista.document.xml'), 'utf8') && !/[Ss]úmula/.test(r.out.replace(/^✅.*$/m, '')), r.out);
+
+  // --- mapa-teses exportar: mesma regra
+  const MT12 = SC12('mapa-teses.js');
+  fs.writeFileSync(path.join(caso12, 'DOSSIE.md'), '# DOSSIÊ\n\n- Cliente: Plano Fictício S.A.\n');
+  r = run12([MT12, 'modelo', caso12, '--titulo', 'Ação contra plano de saúde']);
+  const mapa12 = (r.out.match(/Mapa criado: (.+)$/m) || [])[1] || path.join(caso12, 'pecas', 'x.md');
+  const baseM = fs.existsSync(mapa12) ? fs.readFileSync(mapa12, 'utf8') : '';
+  fs.writeFileSync(mapa12, baseM.replace(/\| 1 \| \[PREENCHER\].*\|\n/, '| 1 | Reembolso | R$ 5.000,00 | alto | contrato de adesão | Súmula 469 do STJ [A VERIFICAR] |\n| 2 | Dano moral | 8.000,00 | baixo | mero aborrecimento | Súmula 7 do STJ [A VERIFICAR] |\n'));
+  r = run12([MT12, 'exportar', mapa12]);
+  const docM = mapa12.replace(/\.md$/, '.docx');
+  t('mapa-teses exportar recusa (código 2) súmula cancelada do mesmo jeito, sem gerar o Word', r.code === 2 && /o mapa de teses cita 1 súmula\(s\) cancelada\(s\)/.test(r.out) && /Súmula 469 do STJ foi cancelada/.test(r.out) && !fs.existsSync(docM), r.out);
+  r = run12([MT12, 'exportar', mapa12, '--forcar']);
+  const xm = fs.existsSync(docM) ? docXml12(docM) : '';
+  t('mapa-teses exportar --forcar: [⚠️ SÚMULA CANCELADA] grifado em vermelho na tabela; Súmula 7 sem marca', r.code === 0 && /<w:highlight w:val="red"\/><\/w:rPr><w:t xml:space="preserve">\[⚠️ SÚMULA CANCELADA\]/.test(xm) && (xm.match(/SÚMULA CANCELADA/g) || []).length === 1 && /Exportado com --forcar apesar de 1 súmula/.test(r.out), r.out);
+
+  // --- julgados.js sumula: consultar, marcar (fonte obrigatória), listar; ajuste do escritório vale mais que a lista
+  const JG = SC12('julgados.js'); const ajuste = path.join(ESC12, 'WIKI', 'sumulas-situacao.json');
+  r = run12([JG, 'sumula', 'consultar', 'Súmula n. 469/STJ']);
+  const r7 = run12([JG, 'sumula', 'consultar', 'Súmula 7 do STJ']);
+  t('sumula consultar: cancelada (com substituta e data da lista) e "não consta… não garante que esteja vigente"', r.code === 0 && /A Súmula 469 do STJ foi cancelada em 2018 \(substituída pela 608\), segundo a lista local de 12\/11\/2026/.test(r.out) && r7.code === 0 && /não consta como cancelada nem superada na lista local de 12\/11\/2026\. Isso não garante que esteja vigente/.test(r7.out), r.out + r7.out);
+  r = run12([JG, 'sumula', 'marcar', 'Súmula 603 do STJ', '--vigente']);
+  t('sumula marcar sem --fonte: recusa (código 1) e não grava nada', r.code === 1 && /fonte é obrigatória/.test(r.out) && !fs.existsSync(ajuste), r.out);
+  r = run12([JG, 'sumula', 'marcar', 'Súmula 603 do STJ', '--vigente', '--fonte', 'https://scon.stj.jus.br/SCON/sumstj/603']);
+  const rS = run12([JG, 'sumula', 'marcar', 'Súmula 500 do STJ', '--cancelada', '--fonte', 'https://scon.stj.jus.br/SCON/sumstj/500', '--data', '2025']);
+  const aj = () => { try { return JSON.parse(fs.readFileSync(ajuste, 'utf8')); } catch (e) { return null; } };
+  t('sumula marcar com fonte grava o ajuste do escritório em WIKI/sumulas-situacao.json (público, sem dado de cliente)', r.code === 0 && rS.code === 0 && aj() && aj().itens.length === 2 && aj().itens.some((x) => x.numero === 603 && x.situacao === 'vigente' && /^https:/.test(x.fonte)) && !/Plano Fictício|silva/i.test(fs.readFileSync(ajuste, 'utf8')), r.out + rS.out);
+  fs.writeFileSync(path.join(caso12, 'ajuste.md'), 'Aplica-se a Súmula 603 do STJ (https://scon.stj.jus.br/z).\n\nAplica-se a Súmula 500 do STJ (https://scon.stj.jus.br/w).\n');
+  r = run12([SC12('checar-peca.js'), path.join(caso12, 'ajuste.md'), '--json']);
+  let ja = {}; try { ja = JSON.parse(r.out); } catch (e) { /* */ }
+  const sAj = (n) => ((ja.cits || []).find((y) => new RegExp('Súmula ' + n).test(y.texto)) || {}).sumula;
+  t('ajuste "vigente" do escritório anula o aviso da lista; item acrescentado pelo escritório passa a avisar ("lista local do escritório")', !sAj(603) && sAj(500) && sAj(500).nivel === 'bloqueio' && /segundo a lista local do escritório de \d\d\/\d\d\/\d{4}/.test(sAj(500).mensagem), JSON.stringify(ja.cits || r.out).slice(0, 500));
+  r = run12([JG, 'sumula', 'listar']);
+  t('sumula listar: data de revisão, itens da lista e ajustes do escritório', r.code === 0 && /revisada em 12\/11\/2026 \(3 item\(ns\)\)/.test(r.out) && /Ajustes do escritório \(2;/.test(r.out) && /Súmula 603 do STJ: vigente/.test(r.out), r.out);
+  // JSON do escritório ilegível: aviso, nada gravado por cima (e a lista embarcada volta a valer)
+  fs.writeFileSync(ajuste, '{ isto não é json');
+  const antesIleg = fs.readFileSync(ajuste, 'utf8');
+  const rm1 = run12([JG, 'sumula', 'marcar', 'Súmula 603 do STJ', '--vigente', '--fonte', 'https://scon.stj.jus.br/SCON/sumstj/603']);
+  const rc1 = run12([JG, 'sumula', 'consultar', 'Súmula 603 do STJ']);
+  const rk1 = run12([SC12('checar-peca.js'), path.join(caso12, 'ajuste.md')]);
+  const rd1 = run12([SC12('doutor.js'), '--json', '--rapido']);
+  let dd = {}; try { dd = JSON.parse(rd1.out); } catch (e) { /* */ }
+  const itS = (id) => (dd.itens || []).find((x) => x.id === id);
+  t('JSON do escritório ilegível: marcar recusa (código 2), consultar e doutor avisam, checar-peca segue com a lista; nada gravado por cima', rm1.code === 2 && /ilegível/.test(rm1.out) && /ilegível e foi ignorado/.test(rc1.out) && /Súmula 603 do STJ foi cancelada/.test(rc1.out) && /🔴 linha 1: A Súmula 603 do STJ/.test(rk1.out) && itS('sumulas-escritorio') && itS('sumulas-escritorio').nivel === 'aviso' && fs.readFileSync(ajuste, 'utf8') === antesIleg, rm1.out + rc1.out + rk1.out + JSON.stringify(itS('sumulas-escritorio')));
+  t('doutor confere a lista: lê sem erro, mostra o número de itens e a data revisadoEm', itS('sumulas') && itS('sumulas').ok && /3 item\(ns\), revisada em 12\/11\/2026/.test(itS('sumulas').msg), JSON.stringify(itS('sumulas')));
+  fs.unlinkSync(ajuste);
+  const rdq = run12([SC12('doutor.js'), '--json', '--rapido'], { ADVOGADO_SUMULAS_LISTA: path.join(R12, 'nao-existe.json') });
+  let dq = {}; try { dq = JSON.parse(rdq.out); } catch (e) { /* */ }
+  const itQ = (dq.itens || []).find((x) => x.id === 'sumulas');
+  t('doutor: lista que não lê vira aviso (não erro) com conserto', itQ && !itQ.ok && itQ.nivel === 'aviso' && /não pôde ser lida/.test(itQ.msg), JSON.stringify(itQ));
+
+  // --- manutenção quinzenal: lista com mais de 6 meses => "confira novos cancelamentos" (relógio falso, sem rede)
+  const rf = path.join(RAIZ, 'testes', 'relogio-falso.js').replace(/\\/g, '/');
+  const relogio = (iso) => ({ ADVOGADO_TESTE_AGORA: iso, NODE_OPTIONS: ((process.env.NODE_OPTIONS || '') + ' --require "' + rf + '"').trim() });
+  const mVelha = run12([SC12('manutencao.js'), 'revisar', '--simular'], relogio('2027-06-01T12:00:00-03:00'));
+  const mNova = run12([SC12('manutencao.js'), 'revisar', '--simular'], relogio('2027-03-01T12:00:00-03:00'));
+  const mEst = run12([SC12('manutencao.js'), 'estado'], relogio('2027-06-01T12:00:00-03:00'));
+  t('manutenção avisa lista com mais de 6 meses ("confira novos cancelamentos"); com menos, não avisa', mVelha.code === 0 && /revisada em 12\/11\/2026 \(mais de 6 meses\): confira novos cancelamentos/.test(mVelha.out) && mNova.code === 0 && !/novos cancelamentos/.test(mNova.out) && /confira novos cancelamentos/.test(mEst.out), mVelha.out + mVelha.err + ' || ' + mNova.out);
+
+  // --- contexto fixo e textos
+  const mp12 = JSON.parse(run12([SC12('manutencao.js'), 'medir', '--pasta', path.join(RAIZ, 'skills'), '--json']).out || '{}');
+  const skV = fs.readFileSync(path.join(RAIZ, 'skills', 'verificar-citacoes', 'SKILL.md'), 'utf8');
+  t('contexto fixo continua ≤ 3.869 (descrição da /verificar-citacoes inalterada; o fluxo de súmulas fica no corpo)', mp12.fixo <= 3869 && /sumula consultar/.test(skV) && /^description: "Verificador anti-alucinação: confere se julgados citados existem e se o trecho entre aspas bate com o original\. Use para conferir citações\/jurisprudência\."$/m.test(skV), String(mp12.fixo));
+
+  // --- sanity dos dados reais: âncoras STJ 469 (cancelada em 2018, substituída pela 608) e STJ 603 (cancelada em 2018)
+  const real = JSON.parse(fs.readFileSync(path.join(RAIZ, 'scripts', 'lib', 'dados', 'sumulas-canceladas.json'), 'utf8'));
+  const ach = (n) => real.itens.find((x) => x.tribunal === 'STJ' && x.numero === n && !x.vinculante);
+  const chaves = real.itens.map((x) => x.tribunal + (x.vinculante ? 'SV' : '') + x.numero);
+  t('dados reais: lista válida, sem repetição, com as âncoras STJ 469 (→ 608, 2018) e STJ 603 (2018)', /^\d{4}-\d\d-\d\d$/.test(real.revisadoEm) && new Set(chaves).size === chaves.length && real.itens.every((x) => ['STF', 'STJ', 'TST'].includes(x.tribunal) && ['cancelada', 'superada'].includes(x.situacao)) && ach(469) && ach(469).situacao === 'cancelada' && ach(469).data === '2018' && ach(469).substituidaPor === '608' && ach(603) && ach(603).situacao === 'cancelada' && ach(603).data === '2018', JSON.stringify([ach(469), ach(603)]));
+}
+
 console.log('\n12n. O que sai da máquina (LGPD): registro local por caso do que o assistente leu');
 {
   const R13 = path.join(TMP, 'saida'); const CL13 = path.join(R13, '.claude'); const ESC13 = path.join(R13, 'ESCRITORIO');
