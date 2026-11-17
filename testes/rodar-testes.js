@@ -2245,8 +2245,11 @@ console.log('\n12p. Integridade do núcleo: aviso quando script, hook ou skill d
   t('integridade: modo plugin grava o manifesto a partir da raiz do plugin e confere OK; regra estreita integridade.js * também no modo plugin', rp.code === 0 && mp.modo === 'plugin' && mp.origem === 'plugin' && kp._code === 0 && regras14.every((x) => allow14(CLp).includes(x)), rp.err + JSON.stringify(kp));
   fs.appendFileSync(path.join(PR, 'scripts', 'guarda-escrita.js'), '\n// mexido no plugin\n'); fs.appendFileSync(path.join(PR, 'skills', 'revisar', 'SKILL.md'), '\nmexido\n');
   kp = confP();
-  const sp = run14([path.join(PR, 'scripts', 'sessao-inicio.js')], { session_id: 'int-p', source: 'startup', hook_event_name: 'SessionStart' }, Object.assign({ CLAUDE_PLUGIN_ROOT: PR }, envP));
-  t('integridade: modo plugin — script e skill mexidos na pasta do plugin = aviso no início da conversa', kp._code === 2 && kp.alterados.includes('plugin/scripts/guarda-escrita.js') && kp.alterados.includes('skills/revisar/SKILL.md') && AVISO.test(sp.out) && /atalho \/revisar/.test(sp.out), JSON.stringify(kp) + sp.err);
+  // CLAUDE_PLUGIN_ROOT por link simbolico (macOS: /var -> /private/var; o instalador grava o caminho resolvido):
+  // a 1a conversa nao pode confundir isso com atualizacao do plugin e "abencoar" o arquivo mexido
+  let PRl = PR; try { fs.symlinkSync(PR, PR + '-link', 'junction'); PRl = PR + '-link'; } catch (e) { /* sem permissao de link (Windows): caminho direto */ }
+  const sp = run14([path.join(PRl, 'scripts', 'sessao-inicio.js')], { session_id: 'int-p', source: 'startup', hook_event_name: 'SessionStart' }, Object.assign({ CLAUDE_PLUGIN_ROOT: PRl }, envP));
+  t('integridade: modo plugin — script e skill mexidos na pasta do plugin = aviso no início da conversa (raiz via link simbólico)', kp._code === 2 && kp.alterados.includes('plugin/scripts/guarda-escrita.js') && kp.alterados.includes('skills/revisar/SKILL.md') && AVISO.test(sp.out) && /atalho \/revisar/.test(sp.out), JSON.stringify(kp) + sp.err);
   const dp = run14([path.join(Bp, 'scripts', 'doutor.js'), '--consertar', '--rapido'], null, envP);
   t('integridade: modo plugin — /consertar não reinstala de pasta do plugin mexida e manda atualizar pelo /plugin', /digita \/plugin, atualiza o “advogado-claude”/.test(dp.out) && confP()._code === 2, dp.out);
   const PR2 = path.join(R14, 'plugin-v2'); for (const n of ['scripts', 'skills', 'hooks', 'templates', 'output-styles', '.claude-plugin']) copiar(path.join(RAIZ, n), path.join(PR2, n));

@@ -17,6 +17,8 @@ const ig = require('./lib/integridade');
 
 const args = process.argv.slice(2);
 const cmd = args[0] || 'conferir';
+// stdout bloqueante: no macOS o pipe e assincrono e process.exit() cortaria um --json maior que o buffer
+try { if (process.stdout._handle && process.stdout._handle.setBlocking) process.stdout._handle.setBlocking(true); } catch (e) { /* */ }
 const sair = (txt, code) => { if (txt) console.log(txt); process.exit(code || 0); };
 
 if (cmd === 'conferir') {

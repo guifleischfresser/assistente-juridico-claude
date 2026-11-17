@@ -31,7 +31,7 @@ c.rodarHook('sessao-inicio', (ent) => {
         // (o hash do bloco do CLAUDE.md global continua o da ultima instalacao/conserto)
         // so quando a pasta/versao MUDOU em relacao a conhecida (a 1a conversa depois do instalar-plugin nao "abencoa" nada)
         const conhecida = atualP.raiz || cfg.raizPlugin;
-        if (cfg.modoPlugin && (c.norm(conhecida) !== c.norm(raizPlugin) || (atualP.versao && atualP.versao !== c.VERSAO))) { try { const ig = require('./lib/integridade'); ig.gravarManifesto(ig.gerarManifesto(raizPlugin, { origem: 'plugin', modoPlugin: true, manterClaudeMd: true })); } catch (e) { c.log('erros', 'integridade plugin: ' + e.message); } }
+        if (cfg.modoPlugin && (c.normReal(conhecida) !== c.normReal(raizPlugin) || (atualP.versao && atualP.versao !== c.VERSAO))) { try { const ig = require('./lib/integridade'); ig.gravarManifesto(ig.gerarManifesto(raizPlugin, { origem: 'plugin', modoPlugin: true, manterClaudeMd: true })); } catch (e) { c.log('erros', 'integridade plugin: ' + e.message); } }
       }
     } catch (e) { c.log('erros', 'plugin.json: ' + e.message); }
   }

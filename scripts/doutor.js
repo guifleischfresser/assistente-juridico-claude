@@ -22,11 +22,17 @@ const args = process.argv.slice(2);
 const CONSERTAR = args.includes('--consertar');
 const JSON_OUT = args.includes('--json');
 const RAPIDO = args.includes('--rapido');
+// No macOS (e em pipes assincronos em geral) process.exit() logo apos console.log corta a saida que ainda
+// nao foi escrita: um --json maior que o buffer do pipe (~8 KB) chegava truncado. Sai so depois do flush.
+function encerrar(code) {
+  process.exitCode = code;
+  process.stdout.write('', () => process.exit(code));
+}
 if (args.includes('--canario')) {
   const md = path.join(c.P.claude, 'CLAUDE.md');
   const m = (fs.existsSync(md) ? fs.readFileSync(md, 'utf8') : '').match(/Palavra de confer[êe]ncia[^*]*\*\*([A-ZÇÃÕÉ]+)\*\*/);
   console.log(m ? 'PALAVRA ESPERADA: ' + m[1] + '\nSe o assistente, SEM ler arquivos, não souber dizer essa palavra, as instruções globais não foram carregadas nesta conversa: feche e abra o Claude Code dentro da pasta do escritório (ou rode o doutor com --consertar).' : 'PALAVRA ESPERADA: (nenhuma) — o bloco do assistente não está em ~/.claude/CLAUDE.md. Rode o doutor com --consertar.');
-  process.exit(m ? 0 : 2);
+  encerrar(m ? 0 : 2); return;
 }
 const ID_PLUGIN = 'advogado-claude@advogado-claude-mod';
 const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'anonimizar.js', 'consentimento.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
@@ -308,4 +314,4 @@ else {
   if (pend.length) console.log('\n(Detalhe técnico, só para o assistente — não repita ao advogado: ' + pend.map((x) => x.id + ': ' + x.tecnico).join(' | ') + ')');
   console.log('\n' + (saida.ok ? 'RESULTADO: TUDO CERTO' + (saida.avisos ? ' (com ' + saida.avisos + ' aviso(s))' : '') : 'RESULTADO: ' + erros.length + ' PROBLEMA(S)' + (CONSERTAR ? ' — não consegui consertar tudo sozinho.' : ' — dá pra consertar: node "' + path.join(c.P.base, 'scripts', 'doutor.js') + '" --consertar')));
 }
-process.exit(saida.ok ? 0 : 2);
+encerrar(saida.ok ? 0 : 2);
