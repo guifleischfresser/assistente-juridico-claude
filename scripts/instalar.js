@@ -25,7 +25,7 @@ const SIMULAR = args.includes('--simular');
 const MODO_PLUGIN = args.includes('--modo-plugin');
 const barra = (p) => p.replace(/\\/g, '/');
 const RETENCAO_DIAS = 14;
-const PACOTE_ITENS = ['scripts', 'skills', 'templates', 'output-styles', 'hooks', '.claude-plugin', 'README.md', 'INSTALAR.md', 'ARQUITETURA.md', 'CHANGELOG.md'];
+const PACOTE_ITENS = ['scripts', 'skills', 'templates', 'output-styles', 'hooks', '.claude-plugin', 'integridade.json', 'README.md', 'INSTALAR.md', 'ARQUITETURA.md', 'CHANGELOG.md'];
 
 /** "node" se estiver no PATH (>=18); senao o caminho completo do Node atual (ex.: logo apos instalar o Node). */
 function comandoNode() {
@@ -129,7 +129,7 @@ function mesclarSettings(esc, forcar, modoPlugin) {
 /** Regras de permissao ESTREITAS: so os scripts do proprio assistente, pelo caminho exato
  *  (sem curinga no nome do arquivo => nao cobre ../ nem outros .js). Valem no modo manual;
  *  no modo auto as regras estreitas continuam valendo e o resto passa pelo classificador. */
-const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos', 'julgados', 'processo', 'mapa-teses', 'erros', 'agentes', 'anonimizar', 'consentimento', 'saida'];
+const SCRIPTS_CLI = ['primeira-execucao', 'doutor', 'habilidades', 'memoria', 'manutencao', 'estilo', 'prazos', 'checar-peca', 'exportar-docx', 'preparar-autos', 'julgados', 'processo', 'mapa-teses', 'erros', 'agentes', 'anonimizar', 'consentimento', 'saida', 'integridade'];
 function regrasScripts() {
   const r = [];
   for (const s of SCRIPTS_CLI) for (const base of ['$HOME/.claude/advogado/scripts/', '~/.claude/advogado/scripts/']) for (const tool of ['Bash', 'PowerShell']) r.push(tool + '(node "' + base + s + '.js" *)');
@@ -175,6 +175,14 @@ function instalar() {
   console.log('\n⚖️  Advogado Claude Mod v' + c.VERSAO + (SIMULAR ? '  (SIMULAÇÃO: nada será gravado)' : ''));
   console.log('   Pasta do escritório: ' + esc);
   if (/OneDrive|Dropbox|Google Drive|iCloud/i.test(esc)) console.log('   ⚠️  Essa pasta parece sincronizar com a nuvem. Por sigilo, prefira uma pasta local.');
+  // pacote baixado (zip da release) traz integridade.json: confere antes de instalar (so avisa; sem rede)
+  try {
+    const emb = path.join(RAIZ, 'integridade.json');
+    if (fs.existsSync(emb)) {
+      const cp = require('./lib/integridade').conferirPacote(RAIZ, JSON.parse(fs.readFileSync(emb, 'utf8')));
+      if (!cp.ok) console.log('   ⚠️  ATENÇÃO: ' + (cp.alterados.length + cp.faltando.length + cp.novos.length) + ' arquivo(s) deste pacote não batem com a lista de conferência que veio nele (ex.: ' + cp.alterados.concat(cp.faltando, cp.novos).slice(0, 3).join(', ') + '). Baixe de novo pela frase de instalação oficial.');
+    }
+  } catch (e) { console.log('   ⚠️  Não consegui ler a lista de conferência do pacote (integridade.json).'); }
   const dirBk = backup();
   console.log('1/6 Backup das configurações atuais: ' + dirBk);
   instalarArquivosBase(RAIZ);
@@ -206,6 +214,8 @@ function instalar() {
     if (st.aplicado) console.log('   Piloto automático: modo auto (permissões revisadas por um classificador), modelo Opus 5.5 com esforço médio e memória automática ligados. Seus valores anteriores foram guardados.');
     if (st.nodeCmd !== 'node') console.log('   Node fora do PATH desta sessão: os hooks usarão o caminho completo ' + st.nodeCmd);
     c.gravarJSON(c.P.config, Object.assign({}, cfgAnt, { configAnterior: st.anteriores, pilotoAutomaticoAplicado: cfgAnt.pilotoAutomaticoAplicado || st.aplicado, retencaoDefinidaPeloMod: cfgAnt.retencaoDefinidaPeloMod || st.retencaoNossa, escritorio: esc, nome, versao: c.VERSAO, instaladoEm: cfgAnt.instaladoEm || new Date().toISOString(), atualizadoEm: new Date().toISOString(), onboardingConcluido: !!cfgAnt.onboardingConcluido, limiteContexto: cfgAnt.limiteContexto || 75, modoPlugin: MODO_PLUGIN, raizPlugin: MODO_PLUGIN ? barra(RAIZ) : null }));
+    // §21 integridade do nucleo: manifesto a partir da FONTE desta instalacao (pacote/plugin), nunca do que ja estava instalado
+    try { const ig = require('./lib/integridade'); ig.gravarManifesto(ig.gerarManifesto(RAIZ, { origem: process.env.ADVOGADO_ORIGEM_INTEGRIDADE || (MODO_PLUGIN ? 'plugin' : 'instalacao'), modoPlugin: MODO_PLUGIN })); } catch (e) { c.log('erros', 'integridade: ' + e.message); }
     try { require('./agentes').gerar({ escritorio: esc, silencioso: true }); } catch (e) { c.log('erros', 'AGENTS.md: ' + e.message); }
     require('child_process').execFileSync(process.execPath, [path.join(c.P.base, 'scripts', 'habilidades.js'), 'registrar-nucleo', dirSk], { stdio: 'ignore' });
   }

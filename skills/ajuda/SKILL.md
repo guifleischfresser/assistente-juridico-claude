@@ -24,7 +24,7 @@ Responda com esta tabela (ajuste se houver habilidades `auto-*` novas: liste-as 
 | `/aprender-meu-estilo` | Aprendo seu jeito de escrever a partir das suas peças |
 | `/handoff` | Salvo onde paramos para continuar depois |
 | `/habilidades` | Mostro os atalhos que criei sozinho; você pode desfazer qualquer um |
-| `/consertar` | Verifico se está tudo funcionando e conserto sozinho o que estiver quebrado |
+| `/consertar` | Verifico se está tudo funcionando e conserto sozinho o que estiver quebrado; também aviso se algum arquivo do próprio assistente foi mexido fora da instalação oficial e ponho a versão original de volta |
 | `/primeira-execucao` | Refaço (ou continuo) a configuração inicial: onde ficam suas pastas, estilo e dossiês |
 | `/backup` | Faço cópia de segurança do escritório para um disco que você escolher |
 

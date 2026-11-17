@@ -301,6 +301,7 @@ function manter(opts) {
         let movidas = 0, descartadas = 0;
         for (const l of extras) { const p = preferir(l.replace(/^[-*]\s*/, ''), 'preferencia'); if (p.ok) movidas++; else descartadas++; }
         gravar(k.claudeGlobal, atual.replace(re, modelo));
+        try { require('./lib/integridade').atualizarBlocoClaudeMd(); } catch (e) { /* §21: fluxo oficial atualiza o hash do bloco */ }
         changelog('CLAUDE.md global enxugado: bloco do assistente restaurado; ' + movidas + ' linha(s) movidas para MEMORIA/preferencias-e-cuidados.md' + (descartadas ? ', ' + descartadas + ' descartada(s) (dado sensível ou inválida)' : '') + '.');
         r.feito.push('CLAUDE.md global enxugado (' + movidas + ' linha(s) movidas para a memória)');
       }

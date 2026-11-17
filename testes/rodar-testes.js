@@ -2139,6 +2139,146 @@ console.log('\n12o. Skill de terceiros: auditoria local antes de instalar (quare
   t('terceiros: /habilidades cita auditar e instalar-terceiro (fluxo em references/terceiros.md); contexto fixo continua 3.869; script instalado', /\*\*auditar /.test(hab) && /\*\*instalar-terceiro /.test(hab) && fs.existsSync(path.join(RAIZ, 'skills', 'habilidades', 'references', 'terceiros.md')) && mp12.fixo === 3869 && fs.existsSync(path.join(CL12, 'advogado', 'scripts', 'auditar-skill.js')) && fs.existsSync(path.join(CL12, 'advogado', 'scripts', 'lib', 'auditoria.js')), mp12.fixo);
 }
 
+console.log('\n12p. Integridade do núcleo: aviso quando script, hook ou skill do núcleo muda fora do fluxo oficial');
+{
+  const R14 = path.join(TMP, 'integridade'); const CL14 = path.join(R14, '.claude'); const ESC14 = path.join(R14, 'ESCRITORIO');
+  const B14 = path.join(CL14, 'advogado'); const SC14 = (n) => path.join(B14, 'scripts', n); const MAN14 = path.join(B14, 'integridade.json');
+  const env14 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL14 }); delete env14.CLAUDE_PLUGIN_ROOT;
+  const run14 = (args, entrada, envExtra) => { const x = spawnSync(process.execPath, args, { env: Object.assign({}, env14, envExtra || {}), encoding: 'utf8', cwd: R14, input: entrada == null ? '' : (typeof entrada === 'string' ? entrada : JSON.stringify(entrada)) }); return { code: x.status, out: x.stdout || '', err: x.stderr || '' }; };
+  const conf14 = (envExtra) => { const x = run14([SC14('integridade.js'), 'conferir', '--json'], null, envExtra); let o = {}; try { o = JSON.parse(x.out); } catch (e) { o = { _bruto: x.out + x.err }; } o._code = x.code; return o; };
+  const ini14 = (sid, src, envExtra) => { const x = run14([SC14('sessao-inicio.js')], { session_id: sid, source: src || 'startup', hook_event_name: 'SessionStart', cwd: ESC14 }, envExtra); let o = {}; try { o = JSON.parse(x.out); } catch (e) { o = { _bruto: x.out }; } return { code: x.code, ctx: (o.hookSpecificOutput && o.hookSpecificOutput.additionalContext) || '', bruto: x.out + x.err }; };
+  const AVISO = /foi mexido fora da instalação oficial/;
+  fs.mkdirSync(R14, { recursive: true });
+  r = run14([path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC14, '--nome', 'Dra. Catorze Sigilosa']);
+  const man0 = fs.existsSync(MAN14) ? JSON.parse(fs.readFileSync(MAN14, 'utf8')) : {};
+  const ks = Object.keys(man0.arquivos || {});
+  t('integridade: instalação limpa grava ~/.claude/advogado/integridade.json {versao, geradoEm, arquivos} com scripts/**, hooks/hooks.json, skills do núcleo e o bloco do CLAUDE.md', r.code === 0 && man0.versao && man0.geradoEm && ks.includes('scripts/guarda-sigilo.js') && ks.includes('scripts/lib/integridade.js') && ks.includes('hooks/hooks.json') && ks.includes('skills/processo/SKILL.md') && ks.includes('CLAUDE.md#advogado') && man0.nucleo.length === 26 && Object.values(man0.arquivos).every((h) => /^[0-9a-f]{64}$/.test(h)), r.err + JSON.stringify(ks.slice(0, 5)));
+  t('integridade: manifesto sem dado de cliente nem do escritório (só caminhos do pacote e hashes; nada de auto-*, ESCRITORIO, CASOS, config, logs, _versoes)', !JSON.stringify(man0).includes(ESC14) && !/Catorze|ESCRITORIO|CASOS|config\.json|logs\/|_versoes|auto-/.test(JSON.stringify(man0)));
+  let k14 = conf14(); let ini = ini14('int-a');
+  t('integridade: instalação limpa = OK (conferir código 0; início da conversa sem aviso; doutor com a linha de integridade ✅)', k14._code === 0 && k14.estado === 'ok' && !AVISO.test(ini.ctx) && ini.code === 0 && /✅ Arquivos do assistente conferidos/.test(run14([SC14('doutor.js'), '--rapido']).out), JSON.stringify(k14).slice(0, 300) + ini.ctx.slice(0, 300));
+  const allow14 = (cl) => JSON.parse(fs.readFileSync(path.join(cl, 'settings.json'), 'utf8')).permissions.allow;
+  const regras14 = ['Bash(node "$HOME/.claude/advogado/scripts/integridade.js" *)', 'PowerShell(node "$HOME/.claude/advogado/scripts/integridade.js" *)', 'Bash(node "~/.claude/advogado/scripts/integridade.js" *)', 'PowerShell(node "~/.claude/advogado/scripts/integridade.js" *)'];
+  t('integridade: regra estreita Bash/PowerShell(node "…/integridade.js" *) no instalador, sem curinga no caminho', regras14.every((x) => allow14(CL14).includes(x)) && !allow14(CL14).some((x) => /\*\/integridade|scripts\/\*/.test(x)));
+
+  // alterações no núcleo
+  const sig = SC14('guarda-sigilo.js'); const sigOrig = fs.readFileSync(sig);
+  fs.appendFileSync(sig, '\n// mexido por fora\n');
+  k14 = conf14(); ini = ini14('int-b');
+  t('integridade: script alterado = aviso (conferir código 2; SessionStart diz qual arquivo, em linguagem simples, e o único passo /consertar)', k14._code === 2 && k14.alterados.includes('scripts/guarda-sigilo.js') && AVISO.test(ini.ctx) && /proteção de sigilo \(guarda-sigilo\.js\)/.test(ini.ctx) && /digita \/consertar/.test(ini.ctx) && !ini.ctx.split('(Para você')[0].includes(B14), ini.ctx.slice(0, 600));
+  fs.writeFileSync(sig, sigOrig);
+  const hj = path.join(B14, 'pacote', 'hooks', 'hooks.json'); const hjOrig = fs.readFileSync(hj); fs.unlinkSync(hj);
+  k14 = conf14();
+  t('integridade: hooks.json apagado = aviso ("apagado")', k14._code === 2 && k14.faltando.includes('hooks/hooks.json') && /apagado: a lista das proteções/.test(run14([SC14('integridade.js'), 'conferir']).out), JSON.stringify(k14));
+  fs.writeFileSync(hj, hjOrig);
+  const novo14 = SC14('lib/porta-dos-fundos.js'); fs.writeFileSync(novo14, 'module.exports = 1;\n');
+  const novoSk = path.join(CL14, 'skills', 'processo', 'extra.md'); fs.writeFileSync(novoSk, 'instrução nova\n');
+  k14 = conf14();
+  t('integridade: arquivo novo no núcleo (scripts/ e pasta de skill do núcleo) = aviso', k14._code === 2 && k14.novos.includes('scripts/lib/porta-dos-fundos.js') && k14.novos.includes('skills/processo/extra.md'), JSON.stringify(k14));
+  fs.unlinkSync(novo14); fs.unlinkSync(novoSk);
+  // fora do núcleo: auto-*, terceiros, escritório, config, logs, _versoes
+  const auto14 = path.join(CL14, 'skills', 'auto-resumo-ata'); fs.mkdirSync(auto14, { recursive: true }); fs.writeFileSync(path.join(auto14, 'SKILL.md'), '---\nname: auto-resumo-ata\ndescription: x\n---\nv1\n');
+  ini14('int-c'); fs.appendFileSync(path.join(auto14, 'SKILL.md'), 'v2 alterada\n');
+  const terc14 = path.join(CL14, 'skills', 'skill-de-terceiro'); fs.mkdirSync(terc14, { recursive: true }); fs.writeFileSync(path.join(terc14, 'SKILL.md'), 'x');
+  fs.writeFileSync(path.join(ESC14, 'CASOS', 'Ativos', 'nota.md'), 'x'); fs.appendFileSync(path.join(B14, 'logs', 'erros.log'), 'x\n');
+  fs.mkdirSync(SC14('_versoes'), { recursive: true }); fs.writeFileSync(SC14('_versoes/velho.js'), 'x'); fs.writeFileSync(SC14('.DS_Store'), 'x');
+  k14 = conf14(); ini = ini14('int-d');
+  t('integridade: auto-* alterada, skill de terceiro, ESCRITORIO, logs, _versoes e .DS_Store = sem aviso', k14._code === 0 && k14.estado === 'ok' && !AVISO.test(ini.ctx), JSON.stringify(k14));
+  fs.rmSync(SC14('_versoes'), { recursive: true, force: true }); fs.unlinkSync(SC14('.DS_Store'));
+
+  // uma vez por conversa
+  fs.appendFileSync(SC14('prazos.js'), '\n// mexido\n');
+  const a1 = ini14('int-uma', 'startup'), a2 = ini14('int-uma', 'resume'), a3 = ini14('int-uma', 'compact'), a4 = ini14('int-outra', 'startup');
+  t('integridade: aviso só uma vez por conversa (resume/compact da mesma conversa não repetem; outra conversa avisa de novo)', AVISO.test(a1.ctx) && !AVISO.test(a2.ctx) && !AVISO.test(a3.ctx) && AVISO.test(a4.ctx) && a2.code === 0, [a1.ctx, a2.ctx].map((x) => x.slice(0, 120)).join(' || '));
+
+  // aceitar sem --confirmo não grava
+  const manAntes = fs.readFileSync(MAN14, 'utf8');
+  const ac = run14([SC14('integridade.js'), 'aceitar']);
+  t('integridade: aceitar sem --confirmo não grava (código 2, mostra o que mudaria e aponta /consertar)', ac.code === 2 && /NADA FOI GRAVADO/.test(ac.out) && /prazos/.test(ac.out) && /\/consertar/.test(ac.out) && fs.readFileSync(MAN14, 'utf8') === manAntes, ac.out);
+
+  // consertar: backup, reinstala do pacote local, aviso some
+  fs.writeFileSync(novo14, 'module.exports = 2;\n');
+  const dc = run14([SC14('doutor.js'), '--consertar', '--rapido']);
+  const bks = fs.existsSync(path.join(B14, 'backup-integridade')) ? fs.readdirSync(path.join(B14, 'backup-integridade')) : [];
+  const bk = bks.length ? path.join(B14, 'backup-integridade', bks[bks.length - 1]) : '';
+  k14 = conf14(); ini = ini14('int-depois');
+  const manD = JSON.parse(fs.readFileSync(MAN14, 'utf8'));
+  t('integridade: /consertar guarda cópia do que mudou (arquivo novo sai do núcleo), reinstala do pacote local, regrava o manifesto e o aviso some', /Guardei uma cópia/.test(dc.out) && /Reinstalei/.test(dc.out) && bk && fs.readFileSync(path.join(bk, 'scripts', 'prazos.js'), 'utf8').includes('// mexido') && fs.existsSync(path.join(bk, 'scripts', 'lib', 'porta-dos-fundos.js')) && !fs.existsSync(novo14) && !fs.readFileSync(SC14('prazos.js'), 'utf8').includes('// mexido') && manD.origem === 'consertar' && k14._code === 0 && !AVISO.test(ini.ctx), dc.out + JSON.stringify(k14));
+  // pacote local também mexido: não reinstala dele
+  fs.appendFileSync(SC14('julgados.js'), '\n// mexido\n'); fs.appendFileSync(path.join(B14, 'pacote', 'scripts', 'julgados.js'), '\n// mexido\n');
+  const dc2 = run14([SC14('doutor.js'), '--consertar', '--rapido']);
+  t('integridade: cópia de reserva também mexida → não reinstala dela e manda colar a frase de instalação (aviso continua)', /cópia de reserva do assistente também foi mexida/.test(dc2.out) && fs.readFileSync(SC14('julgados.js'), 'utf8').includes('// mexido') && conf14()._code === 2, dc2.out);
+  fs.writeFileSync(path.join(B14, 'pacote', 'scripts', 'julgados.js'), fs.readFileSync(path.join(RAIZ, 'scripts', 'julgados.js')));
+  run14([SC14('doutor.js'), '--consertar', '--rapido']);
+  // aceitar --confirmo (advogado mexeu de propósito)
+  fs.appendFileSync(SC14('estilo.js'), '\n// ajuste do advogado\n');
+  const acOk = run14([SC14('integridade.js'), 'aceitar', '--confirmo']);
+  t('integridade: aceitar --confirmo (depois do "sim") faz o estado atual virar o oficial', acOk.code === 0 && /virou o oficial/.test(acOk.out) && conf14()._code === 0 && JSON.parse(fs.readFileSync(MAN14, 'utf8')).origem === 'aceitar', acOk.out + acOk.err);
+
+  // manifesto corrompido ou ausente: fail-open, aviso leve, nunca trava
+  fs.writeFileSync(MAN14, '{ isto não é json');
+  const cr = ini14('int-corr'); const kc = conf14(); const dcr = run14([SC14('doutor.js'), '--rapido', '--json']);
+  let dj = {}; try { dj = JSON.parse(dcr.out); } catch (e) { /* */ }
+  const it = (dj.itens || []).find((x) => x.id === 'integridade') || {};
+  t('integridade: manifesto corrompido = fail-open (SessionStart roda, aviso leve "ilegível" com /consertar; conferir código 3; doutor = aviso, não erro)', cr.code === 0 && /ficou ilegível/.test(cr.ctx) && /\/consertar/.test(cr.ctx) && kc._code === 3 && kc.estado === 'ilegivel' && it.nivel === 'aviso', cr.bruto.slice(0, 300) + JSON.stringify(it));
+  run14([SC14('doutor.js'), '--consertar', '--rapido']);
+  t('integridade: /consertar refaz o manifesto corrompido (cópia estragada guardada)', conf14()._code === 0 && fs.readdirSync(path.join(B14, 'backup-integridade')).some((d) => fs.existsSync(path.join(B14, 'backup-integridade', d, 'integridade.json'))));
+  fs.unlinkSync(MAN14);
+  const sm = ini14('int-sem');
+  t('integridade: manifesto ausente = aviso leve, SessionStart não trava', sm.code === 0 && /Não achei a lista de conferência/.test(sm.ctx) && conf14()._code === 3);
+  const hg = run14([SC14('sessao-inicio.js')], '{ entrada quebrada');
+  t('integridade: entrada quebrada no SessionStart com manifesto ausente = fail-open (código 0)', hg.code === 0, hg.err);
+  run14([SC14('doutor.js'), '--consertar', '--rapido']);
+
+  // guarda de escrita recusa edição manual
+  const dg14 = (tool, inp) => { const x = run14([SC14('guarda-escrita.js')], { session_id: 'int-g', tool_name: tool, tool_input: inp, hook_event_name: 'PreToolUse' }); try { return JSON.parse(x.out).hookSpecificOutput.permissionDecision; } catch (e) { return null; } };
+  t('integridade: guarda de escrita recusa Write/Edit do manifesto à mão (deny), sem atrapalhar outros arquivos', dg14('Write', { file_path: MAN14, content: '{}' }) === 'deny' && dg14('Edit', { file_path: MAN14, old_string: 'a', new_string: 'b' }) === 'deny' && dg14('Write', { file_path: path.join(ESC14, 'MEMORIA', 'nota-integridade.md'), content: 'oi' }) !== 'deny');
+
+  // modo plugin: manifesto a partir da raiz do plugin; atualização do plugin regrava
+  const PR = path.join(R14, 'plugin-v1'); const CLp = path.join(R14, 'plugin', '.claude'); const Bp = path.join(CLp, 'advogado');
+  const copiar = (o, d) => { fs.mkdirSync(d, { recursive: true }); for (const n of fs.readdirSync(o)) { const a = path.join(o, n), b = path.join(d, n); if (fs.statSync(a).isDirectory()) copiar(a, b); else fs.copyFileSync(a, b); } };
+  for (const n of ['scripts', 'skills', 'hooks', 'templates', 'output-styles', '.claude-plugin']) copiar(path.join(RAIZ, n), path.join(PR, n));
+  const envP = { CLAUDE_CONFIG_DIR: CLp };
+  const rp = run14([path.join(PR, 'scripts', 'instalar.js'), '--escritorio', path.join(R14, 'plugin', 'ESCRITORIO'), '--modo-plugin'], null, envP);
+  const confP = () => { const x = run14([path.join(Bp, 'scripts', 'integridade.js'), 'conferir', '--json'], null, envP); let o = {}; try { o = JSON.parse(x.out); } catch (e) { /* */ } o._code = x.code; return o; };
+  const mp = JSON.parse(fs.readFileSync(path.join(Bp, 'integridade.json'), 'utf8'));
+  let kp = confP();
+  t('integridade: modo plugin grava o manifesto a partir da raiz do plugin e confere OK; regra estreita integridade.js * também no modo plugin', rp.code === 0 && mp.modo === 'plugin' && mp.origem === 'plugin' && kp._code === 0 && regras14.every((x) => allow14(CLp).includes(x)), rp.err + JSON.stringify(kp));
+  fs.appendFileSync(path.join(PR, 'scripts', 'guarda-escrita.js'), '\n// mexido no plugin\n'); fs.appendFileSync(path.join(PR, 'skills', 'revisar', 'SKILL.md'), '\nmexido\n');
+  kp = confP();
+  // CLAUDE_PLUGIN_ROOT por link simbolico (macOS: /var -> /private/var; o instalador grava o caminho resolvido):
+  // a 1a conversa nao pode confundir isso com atualizacao do plugin e "abencoar" o arquivo mexido
+  let PRl = PR; try { fs.symlinkSync(PR, PR + '-link', 'junction'); PRl = PR + '-link'; } catch (e) { /* sem permissao de link (Windows): caminho direto */ }
+  const sp = run14([path.join(PRl, 'scripts', 'sessao-inicio.js')], { session_id: 'int-p', source: 'startup', hook_event_name: 'SessionStart' }, Object.assign({ CLAUDE_PLUGIN_ROOT: PRl }, envP));
+  t('integridade: modo plugin — script e skill mexidos na pasta do plugin = aviso no início da conversa (raiz via link simbólico)', kp._code === 2 && kp.alterados.includes('plugin/scripts/guarda-escrita.js') && kp.alterados.includes('skills/revisar/SKILL.md') && AVISO.test(sp.out) && /atalho \/revisar/.test(sp.out), JSON.stringify(kp) + sp.err);
+  const dp = run14([path.join(Bp, 'scripts', 'doutor.js'), '--consertar', '--rapido'], null, envP);
+  t('integridade: modo plugin — /consertar não reinstala de pasta do plugin mexida e manda atualizar pelo /plugin', /digita \/plugin, atualiza o “advogado-claude”/.test(dp.out) && confP()._code === 2, dp.out);
+  const PR2 = path.join(R14, 'plugin-v2'); for (const n of ['scripts', 'skills', 'hooks', 'templates', 'output-styles', '.claude-plugin']) copiar(path.join(RAIZ, n), path.join(PR2, n));
+  const sp2 = run14([path.join(PR2, 'scripts', 'sessao-inicio.js')], { session_id: 'int-p2', source: 'startup', hook_event_name: 'SessionStart' }, Object.assign({ CLAUDE_PLUGIN_ROOT: PR2 }, envP));
+  const mp2 = JSON.parse(fs.readFileSync(path.join(Bp, 'integridade.json'), 'utf8'));
+  t('integridade: atualização do plugin (pasta nova) regrava o manifesto a partir da raiz do plugin e o aviso some (bloco do CLAUDE.md mantém o hash anterior)', sp2.code === 0 && !AVISO.test(sp2.out) && confP()._code === 0 && mp2.origem === 'plugin' && mp2.arquivos['CLAUDE.md#advogado'] === mp.arquivos['CLAUDE.md#advogado'], sp2.out.slice(0, 400));
+
+  // empacotar reprodutível com o manifesto
+  const d1 = path.join(R14, 'dist1'), d2 = path.join(R14, 'dist2');
+  const e1 = spawnSync(process.execPath, [path.join(RAIZ, 'ferramentas', 'empacotar.js'), '--saida', d1], { encoding: 'utf8' });
+  const e2 = spawnSync(process.execPath, [path.join(RAIZ, 'ferramentas', 'empacotar.js'), '--saida', d2], { encoding: 'utf8' });
+  const z1 = fs.readFileSync(path.join(d1, 'advogado-claude-mod.zip')), z2 = fs.readFileSync(path.join(d2, 'advogado-claude-mod.zip'));
+  const ent = require(path.join(RAIZ, 'scripts', 'lib', 'zip.js')).lerZip(z1);
+  const pegar = (n) => { const v = ent.get ? ent.get(n) : ent[n]; return Buffer.isBuffer(v) ? v : v && (v.dados || v.data); };
+  const mz = JSON.parse(String(pegar('advogado-claude-mod/integridade.json') || '{}'));
+  const igl = require(path.join(RAIZ, 'scripts', 'lib', 'integridade.js'));
+  t('integridade: empacotar embute integridade.json no zip e continua reprodutível (mesmo SHA em duas execuções; data fixa; hashes batem com os arquivos do zip)', e1.status === 0 && e2.status === 0 && z1.equals(z2) && mz.geradoEm === '2026-01-01T00:00:00.000Z' && mz.arquivos && mz.arquivos['scripts/guarda-sigilo.js'] === igl.sha(pegar('advogado-claude-mod/scripts/guarda-sigilo.js')) && mz.arquivos['hooks/hooks.json'] && mz.nucleo.length === 26 && !Object.keys(mz.arquivos).some((k) => /^(templates|ferramentas|testes)\//.test(k)), e1.stderr + Object.keys(mz).join(','));
+  // pacote extraído com arquivo adulterado: o instalador avisa
+  const PX = path.join(R14, 'zip-extraido'); for (const [n, v] of (ent instanceof Map ? ent : new Map(Object.entries(ent)))) { const b = Buffer.isBuffer(v) ? v : v && (v.dados || v.data); if (!n.endsWith('/') && b) { const a = path.join(PX, n); fs.mkdirSync(path.dirname(a), { recursive: true }); fs.writeFileSync(a, b); } }
+  const RX = path.join(PX, 'advogado-claude-mod'); fs.appendFileSync(path.join(RX, 'scripts', 'guarda-sigilo.js'), '\n// adulterado\n');
+  const ix = run14([path.join(RX, 'scripts', 'instalar.js'), '--escritorio', path.join(R14, 'zipesc'), '--simular'], null, { CLAUDE_CONFIG_DIR: path.join(R14, 'zip', '.claude') });
+  t('integridade: instalar a partir de zip adulterado avisa que o pacote não bate com a lista de conferência', ix.code === 0 && /não batem com a lista de conferência/.test(ix.out) && /guarda-sigilo/.test(ix.out), ix.out + ix.err);
+
+  // sem rede, sem bypass, contexto fixo
+  const txt14 = ['scripts/lib/integridade.js', 'scripts/integridade.js'].map((f) => fs.readFileSync(path.join(RAIZ, f), 'utf8')).join('\n');
+  const mp14 = JSON.parse(spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'manutencao.js'), 'medir', '--pasta', path.join(RAIZ, 'skills'), '--json'], { env: env14, encoding: 'utf8' }).stdout);
+  t('integridade: sem rede (nenhum http/https/net/child_process na lib e no CLI), nunca sugere bypass; nenhuma skill nova e contexto fixo continua 3.869', !/require\(['"](https?|net|tls|dgram|child_process)['"]\)|fetch\(/.test(txt14) && !/bypassPermissions|dangerously-skip-permissions/.test(txt14) && fs.readdirSync(path.join(RAIZ, 'skills')).length === 26 && mp14.fixo === 3869, mp14.fixo);
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));

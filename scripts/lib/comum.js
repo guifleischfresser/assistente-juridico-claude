@@ -98,6 +98,13 @@ function norm(p) {
   if (process.platform === 'win32') r = r.toLowerCase();
   return r;
 }
+
+/** norm() resolvendo links simbolicos: no macOS /var -> /private/var, e o Node ja resolve __dirname
+ *  enquanto CLAUDE_PLUGIN_ROOT chega sem resolver. Se o caminho nao existir, cai no norm(). */
+function normReal(p) {
+  if (!p) return '';
+  try { return norm(fs.realpathSync(String(p))); } catch (e) { return norm(p); }
+}
 function dentroDe(arquivo, pasta) {
   const a = norm(arquivo), b = norm(pasta).replace(/\/+$/, '');
   return a === b || a.startsWith(b + '/');
@@ -195,6 +202,7 @@ function acharSigilo(texto) {
 }
 
 module.exports = {
+  normReal,
   problemasYaml,
   VERSAO, P, garantirDir, lerJSON, gravarJSON, config, lerEntrada, responder, log, rodarHook,
   norm, dentroDe, carimbo, hojeISO, lerSessao, gravarSessao, versionar, lerFrontmatter, acharSigilo,

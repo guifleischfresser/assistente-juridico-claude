@@ -12,6 +12,7 @@
  *            exata e conferir o hash esperado. Rode, faca commit do estavel.json e so entao crie a tag.
  *   --tag    falha se a tag nao corresponder a VERSAO, se houver placeholders, ou se o zip
  *            reconstruido nao tiver exatamente o SHA256 fixado em release/estavel.json.
+ * integridade.json (§21): manifesto do nucleo embutido no zip, com data fixa.
  * Reprodutivel: lista de arquivos do git (rastreados + nao ignorados), ordem fixa, data fixa,
  * entradas sem compressao (STORE) -> mesmo SHA256 em qualquer maquina/versao do Node.
  */
@@ -55,6 +56,16 @@ const bomPs = arquivos.filter((a) => /\.(ps1|bat)$/.test(a.nome) && /[^\x00-\x7f
 if (bomPs.length) { console.error('ERRO: .ps1/.bat devem ser ASCII (PowerShell 5.1): ' + bomPs.map((a) => a.nome).join(', ')); process.exit(1); }
 const placeholders = arquivos.filter((a) => /\.(md)$/.test(a.nome) && a.dados.toString('utf8').includes('<OWNER>'));
 
+// §21 integridade: o zip leva integridade.json com o SHA-256 de cada arquivo do nucleo (scripts/**, hooks/hooks.json,
+// skills/<nucleo>/**). Data fixa e chaves em ordem => o zip continua reprodutivel (mesmo SHA em qualquer maquina).
+{
+  const ig = require(path.join(RAIZ, 'scripts', 'lib', 'integridade.js'));
+  const PFX = 'advogado-claude-mod/';
+  const man = ig.manifestoDeLista(arquivos.map((a) => ({ rel: a.nome.slice(PFX.length), dados: a.dados })), { versao: VERSAO, geradoEm: '2026-01-01T00:00:00.000Z', origem: 'pacote' });
+  const i = arquivos.findIndex((a) => a.nome === PFX + 'integridade.json'); if (i >= 0) arquivos.splice(i, 1);
+  arquivos.push({ nome: PFX + 'integridade.json', dados: Buffer.from(JSON.stringify(man, null, 2) + '\n', 'utf8'), modo: 0o644 });
+  arquivos.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
+}
 fs.mkdirSync(saida, { recursive: true });
 const zip = criarZip(arquivos, { data: new Date(Date.UTC(2026, 0, 1)), semCompressao: true });
 const sha = crypto.createHash('sha256').update(zip).digest('hex');

@@ -9,6 +9,8 @@
  *       Modo auto, pastas registradas e acessos vem de lib/diagnostico.js (o mesmo do inicio de cada conversa).
  * O reparo reinstala a partir da copia local do pacote (~/.claude/advogado/pacote), com backup,
  * recria pastas que faltam e NUNCA apaga nada do ESCRITORIO.
+ * §21: linha de integridade do nucleo (lib/integridade via lib/diagnostico); o reparo guarda copia do que mudou,
+ * confere o pacote local (ou a pasta do plugin) contra o manifesto e so entao reinstala dele.
  */
 const fs = require('fs');
 const path = require('path');
@@ -20,11 +22,17 @@ const args = process.argv.slice(2);
 const CONSERTAR = args.includes('--consertar');
 const JSON_OUT = args.includes('--json');
 const RAPIDO = args.includes('--rapido');
+// No macOS (e em pipes assincronos em geral) process.exit() logo apos console.log corta a saida que ainda
+// nao foi escrita: um --json maior que o buffer do pipe (~8 KB) chegava truncado. Sai so depois do flush.
+function encerrar(code) {
+  process.exitCode = code;
+  process.stdout.write('', () => process.exit(code));
+}
 if (args.includes('--canario')) {
   const md = path.join(c.P.claude, 'CLAUDE.md');
   const m = (fs.existsSync(md) ? fs.readFileSync(md, 'utf8') : '').match(/Palavra de confer[êe]ncia[^*]*\*\*([A-ZÇÃÕÉ]+)\*\*/);
   console.log(m ? 'PALAVRA ESPERADA: ' + m[1] + '\nSe o assistente, SEM ler arquivos, não souber dizer essa palavra, as instruções globais não foram carregadas nesta conversa: feche e abra o Claude Code dentro da pasta do escritório (ou rode o doutor com --consertar).' : 'PALAVRA ESPERADA: (nenhuma) — o bloco do assistente não está em ~/.claude/CLAUDE.md. Rode o doutor com --consertar.');
-  process.exit(m ? 0 : 2);
+  encerrar(m ? 0 : 2); return;
 }
 const ID_PLUGIN = 'advogado-claude@advogado-claude-mod';
 const FERRAMENTAS = ['prazos.js', 'julgados.js', 'processo.js', 'mapa-teses.js', 'erros.js', 'agentes.js', 'anonimizar.js', 'consentimento.js', 'checar-peca.js', 'exportar-docx.js', 'habilidades.js'];
@@ -228,6 +236,33 @@ function consertar(r) {
     const arqC = require('./lib/calendario').arquivo();
     if (fs.existsSync(arqC) && require('./lib/calendario').ler().invalido) { const dest = arqC + '.corrompido-' + c.carimbo(); fs.renameSync(arqC, dest); feitos.push('Guardei de lado o calendário forense que tinha embaralhado (' + path.basename(dest) + '); recadastre as datas com a fonte pelo /prazos'); }
   }
+  if (precisa.has('integridade')) {
+    // §21: algo do nucleo mudou por fora. 1) guarda copia do que mudou (evidencia; arquivos novos saem do nucleo);
+    // 2) confere a FONTE (pacote local ou pasta do plugin) contra o manifesto; 3) so entao reinstala dela.
+    const ig = require('./lib/integridade');
+    const ri = ig.conferir(); const L = ig.locais(cfg);
+    const dirBk = path.join(c.P.base, 'backup-integridade', c.carimbo());
+    let guardados = 0;
+    const guardar = (k, mover) => {
+      const a = ig.caminhoLocal(k, L); if (!a || !fs.existsSync(a)) return;
+      const d = path.join(dirBk, k.replace(/#.*$/, '')); c.garantirDir(path.dirname(d));
+      if (mover) fs.renameSync(a, d); else fs.copyFileSync(a, d); guardados++;
+    };
+    try {
+      if (ri.estado === 'alterado') { for (const k of ri.alterados) guardar(k, false); for (const k of ri.novos) guardar(k, true); }
+      if (ri.estado === 'ilegivel' && fs.existsSync(ig.arquivo())) { c.garantirDir(dirBk); fs.renameSync(ig.arquivo(), path.join(dirBk, 'integridade.json')); guardados++; }
+    } catch (e) { c.log('erros', 'backup integridade: ' + e.message); }
+    if (guardados) feitos.push('Guardei uma cópia do que tinha mudado nos arquivos do assistente (' + guardados + ' arquivo(s)) em ' + dirBk);
+    const lm = ig.lerManifesto();
+    const fonte = raizPlugin(cfg) && cfg.modoPlugin ? raizPlugin(cfg) : path.join(c.P.base, 'pacote');
+    const cp = lm.estado === 'ok' && fs.existsSync(fonte) ? ig.conferirPacote(fonte, lm.manifesto) : { ok: true };
+    if (!cp.ok) {
+      feitos.push(cfg.modoPlugin
+        ? '❌ A própria pasta do assistente no Claude também foi mexida, então não dá pra consertar daqui — digita /plugin, atualiza o “advogado-claude” e depois /reload-plugins.'
+        : '❌ A cópia de reserva do assistente também foi mexida, então não reinstalo a partir dela — cole de novo a frase de instalação (ela baixa a versão conferida).');
+      c.log('integridade', 'fonte do reparo diferente do manifesto: ' + cp.alterados.concat(cp.faltando, cp.novos).slice(0, 10).join(','));
+    } else precisa.add('reinstalar');
+  }
   if (precisa.has('reinstalar')) {
     const inst = path.join(c.P.base, 'pacote', 'scripts', 'instalar.js');
     const local = path.join(__dirname, 'instalar.js');
@@ -238,7 +273,7 @@ function consertar(r) {
       const a = [alvo, '--escritorio', cfg.escritorio, '--silencioso'];
       if (cfg.modoPlugin) a.push('--modo-plugin');
       if (cfg.nome) a.push('--nome', cfg.nome);
-      const p = spawnSync(process.execPath, a, { encoding: 'utf8', timeout: 120000 });
+      const p = spawnSync(process.execPath, a, { encoding: 'utf8', timeout: 120000, env: Object.assign({}, process.env, { ADVOGADO_ORIGEM_INTEGRIDADE: 'consertar' }) });
       feitos.push(p.status === 0 ? 'Reinstalei as ferramentas, os atalhos e as chaves das pastas (guardei cópia das configurações; seus arquivos não foram tocados)' : '❌ A reinstalação não deu certo: ' + String(p.stderr || p.stdout).slice(-400));
     }
   }
@@ -279,4 +314,4 @@ else {
   if (pend.length) console.log('\n(Detalhe técnico, só para o assistente — não repita ao advogado: ' + pend.map((x) => x.id + ': ' + x.tecnico).join(' | ') + ')');
   console.log('\n' + (saida.ok ? 'RESULTADO: TUDO CERTO' + (saida.avisos ? ' (com ' + saida.avisos + ' aviso(s))' : '') : 'RESULTADO: ' + erros.length + ' PROBLEMA(S)' + (CONSERTAR ? ' — não consegui consertar tudo sozinho.' : ' — dá pra consertar: node "' + path.join(c.P.base, 'scripts', 'doutor.js') + '" --consertar')));
 }
-process.exit(saida.ok ? 0 : 2);
+encerrar(saida.ok ? 0 : 2);

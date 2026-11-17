@@ -5,8 +5,9 @@
  *  1. modo auto desligado (permissions.defaultMode !== "auto" / sessao aberta em Manual);
  *  2. pastas registradas (ESCRITORIO, pastas externas, "Pasta original" dos casos) sumiram ou nao abrem;
  *  3. acessos gravados pelo instalador sumiram (additionalDirectories, permissions.allow, hooks, bloco do CLAUDE.md).
+ *  4. integridade do nucleo (§21, lib/integridade.js): arquivo do assistente alterado fora do fluxo oficial.
  * Cada problema: { id, nivel: 'erro'|'aviso', aviso (texto coloquial para o advogado: causa + 1 passo),
- *   tecnico (detalhe para o doutor/Claude), conserto ('reinstalar'|'mapa'|'reconectar'|'pastas'|'modo'|null) }.
+ *   tecnico (detalhe para o doutor/Claude), conserto ('reinstalar'|'mapa'|'reconectar'|'pastas'|'modo'|'integridade'|null) }.
  * REGRA DE LINGUAGEM: o campo "aviso" e lido pelo advogado. Nada de jargao (settings, hook, JSON, permissao...).
  * Rapido (so fs) e sem rede; nunca lanca.
  */
@@ -151,6 +152,16 @@ function diagnosticarSessao(opts) {
         let temBloco = false; try { temBloco = fs.readFileSync(path.join(c.P.claude, 'CLAUDE.md'), 'utf8').includes('<!-- advogado-claude-mod:inicio -->'); } catch (e) { /* */ }
         if (!temBloco) prob('claude-md', 'erro', 'As regras do assistente (sigilo, não inventar julgado) sumiram das instruções do Claude — ' + CONSERTAR.replace('devolvo', 'coloco de volta') + '.', 'Bloco do assistente ausente em ~/.claude/CLAUDE.md', 'reinstalar');
       }
+    }
+    // ---- 4. integridade do nucleo (§21): script, hook, skill do nucleo ou bloco do CLAUDE.md mexido por fora
+    if (instalado) {
+      try {
+        const ig = require('./integridade');
+        const ri = ig.conferir();
+        const pi = ig.problema(ri);
+        if (pi) { pi.marca = ig.marca(ri); problemas.push(pi); }
+        else ok('integridade', 'Arquivos do assistente conferidos: iguais aos da instalação oficial (' + ri.manifesto.n + ')');
+      } catch (e) { c.log('erros', 'diagnostico integridade: ' + e.message); }
     }
   } catch (e) { c.log('erros', 'diagnostico: ' + (e && e.stack || e)); }
   return { problemas, oks };
