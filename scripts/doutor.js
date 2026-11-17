@@ -9,6 +9,8 @@
  *       Modo auto, pastas registradas e acessos vem de lib/diagnostico.js (o mesmo do inicio de cada conversa).
  * O reparo reinstala a partir da copia local do pacote (~/.claude/advogado/pacote), com backup,
  * recria pastas que faltam e NUNCA apaga nada do ESCRITORIO.
+ * §21: linha de integridade do nucleo (lib/integridade via lib/diagnostico); o reparo guarda copia do que mudou,
+ * confere o pacote local (ou a pasta do plugin) contra o manifesto e so entao reinstala dele.
  */
 const fs = require('fs');
 const path = require('path');
@@ -228,6 +230,33 @@ function consertar(r) {
     const arqC = require('./lib/calendario').arquivo();
     if (fs.existsSync(arqC) && require('./lib/calendario').ler().invalido) { const dest = arqC + '.corrompido-' + c.carimbo(); fs.renameSync(arqC, dest); feitos.push('Guardei de lado o calendário forense que tinha embaralhado (' + path.basename(dest) + '); recadastre as datas com a fonte pelo /prazos'); }
   }
+  if (precisa.has('integridade')) {
+    // §21: algo do nucleo mudou por fora. 1) guarda copia do que mudou (evidencia; arquivos novos saem do nucleo);
+    // 2) confere a FONTE (pacote local ou pasta do plugin) contra o manifesto; 3) so entao reinstala dela.
+    const ig = require('./lib/integridade');
+    const ri = ig.conferir(); const L = ig.locais(cfg);
+    const dirBk = path.join(c.P.base, 'backup-integridade', c.carimbo());
+    let guardados = 0;
+    const guardar = (k, mover) => {
+      const a = ig.caminhoLocal(k, L); if (!a || !fs.existsSync(a)) return;
+      const d = path.join(dirBk, k.replace(/#.*$/, '')); c.garantirDir(path.dirname(d));
+      if (mover) fs.renameSync(a, d); else fs.copyFileSync(a, d); guardados++;
+    };
+    try {
+      if (ri.estado === 'alterado') { for (const k of ri.alterados) guardar(k, false); for (const k of ri.novos) guardar(k, true); }
+      if (ri.estado === 'ilegivel' && fs.existsSync(ig.arquivo())) { c.garantirDir(dirBk); fs.renameSync(ig.arquivo(), path.join(dirBk, 'integridade.json')); guardados++; }
+    } catch (e) { c.log('erros', 'backup integridade: ' + e.message); }
+    if (guardados) feitos.push('Guardei uma cópia do que tinha mudado nos arquivos do assistente (' + guardados + ' arquivo(s)) em ' + dirBk);
+    const lm = ig.lerManifesto();
+    const fonte = raizPlugin(cfg) && cfg.modoPlugin ? raizPlugin(cfg) : path.join(c.P.base, 'pacote');
+    const cp = lm.estado === 'ok' && fs.existsSync(fonte) ? ig.conferirPacote(fonte, lm.manifesto) : { ok: true };
+    if (!cp.ok) {
+      feitos.push(cfg.modoPlugin
+        ? '❌ A própria pasta do assistente no Claude também foi mexida, então não dá pra consertar daqui — digita /plugin, atualiza o “advogado-claude” e depois /reload-plugins.'
+        : '❌ A cópia de reserva do assistente também foi mexida, então não reinstalo a partir dela — cole de novo a frase de instalação (ela baixa a versão conferida).');
+      c.log('integridade', 'fonte do reparo diferente do manifesto: ' + cp.alterados.concat(cp.faltando, cp.novos).slice(0, 10).join(','));
+    } else precisa.add('reinstalar');
+  }
   if (precisa.has('reinstalar')) {
     const inst = path.join(c.P.base, 'pacote', 'scripts', 'instalar.js');
     const local = path.join(__dirname, 'instalar.js');
@@ -238,7 +267,7 @@ function consertar(r) {
       const a = [alvo, '--escritorio', cfg.escritorio, '--silencioso'];
       if (cfg.modoPlugin) a.push('--modo-plugin');
       if (cfg.nome) a.push('--nome', cfg.nome);
-      const p = spawnSync(process.execPath, a, { encoding: 'utf8', timeout: 120000 });
+      const p = spawnSync(process.execPath, a, { encoding: 'utf8', timeout: 120000, env: Object.assign({}, process.env, { ADVOGADO_ORIGEM_INTEGRIDADE: 'consertar' }) });
       feitos.push(p.status === 0 ? 'Reinstalei as ferramentas, os atalhos e as chaves das pastas (guardei cópia das configurações; seus arquivos não foram tocados)' : '❌ A reinstalação não deu certo: ' + String(p.stderr || p.stdout).slice(-400));
     }
   }

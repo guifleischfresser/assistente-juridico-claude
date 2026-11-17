@@ -17,6 +17,7 @@ argument-hint: "[verificar | consertar]"
    - a "chave" das pastas do escritório e das pastas registradas;
    - o modo automático como padrão das próximas conversas;
    - as gavetas que faltam no ESCRITORIO. Nada é apagado.
+   - arquivo do próprio assistente mexido por fora (aviso de integridade): guarda cópia do que mudou e põe a versão original de volta — ver [references/avisos.md](references/avisos.md#arquivo-do-assistente-mexido).
 5. **Pasta que mudou de lugar** (o doutor diz "me diga onde ela está agora"): faça **uma** pergunta — "Onde está agora a pasta “X”? Pode arrastar a pasta aqui pra conversa." — e reconecte como em [references/avisos.md](references/avisos.md#pasta-que-mudou-de-lugar).
 6. Se ainda restar ❌:
    - **Programa de apoio velho ou ausente:** ofereça instalar o Node LTS (Windows: `winget install -e --id OpenJS.NodeJS.LTS`; Mac: `brew install node`), com o sim do usuário.

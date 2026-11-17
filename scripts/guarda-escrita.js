@@ -15,6 +15,7 @@
 //      (historico nunca apagado) e o conteudo dele nao e copiado para nenhum outro arquivo.
 //  0c. O que saiu da maquina: o registro (<caso>/_saida/registro.jsonl) so recebe acrescimos do hook
 //      PostToolUse; editar/apagar a mao ou copiar o conteudo dele para outro arquivo => nega.
+//  0d. Integridade (§21): o manifesto ~/.claude/advogado/integridade.json nao e editado a mao => nega.
 const fs = require('fs');
 const path = require('path');
 const c = require('./lib/comum');
@@ -42,6 +43,12 @@ c.rodarHook('guarda-escrita', (ent) => {
   // 0c. Registro do que saiu da maquina: so o hook acrescenta; nao e editado, apagado nem copiado
   const sd = require('./lib/saida').avaliarGravacao(arq, novoTexto);
   if (sd) { c.log('guardas', 'saida: gravacao negada em ' + path.basename(arq)); return deny(sd.motivo); }
+
+  // 0d. Manifesto de integridade do nucleo (§21): so o fluxo oficial grava (instalacao, /consertar, plugin, aceitar --confirmo)
+  if (c.norm(arq).toLowerCase() === c.norm(require('./lib/integridade').arquivo()).toLowerCase()) {
+    c.log('guardas', 'integridade: edição manual do manifesto negada');
+    return deny('A lista de conferência dos arquivos do assistente (integridade.json) não é editada à mão: ela só é refeita pela instalação, pelo /consertar ou, se o advogado mexeu de propósito e disse "sim", por: node "' + path.join(c.P.base, 'scripts', 'integridade.js') + '" aceitar --confirmo.');
+  }
 
   // 1. Fontes brutas
   for (const bruto of ['ESTILO/amostras', 'WIKI/raw']) {

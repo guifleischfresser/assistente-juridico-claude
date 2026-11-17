@@ -25,7 +25,14 @@ c.rodarHook('sessao-inicio', (ent) => {
   if (raizPlugin) {
     try {
       const pj = path.join(c.P.base, 'plugin.json'); const atualP = c.lerJSON(pj, {}) || {};
-      if (atualP.raiz !== raizPlugin || atualP.versao !== c.VERSAO) c.gravarJSON(pj, { raiz: raizPlugin, versao: c.VERSAO, dados: process.env.CLAUDE_PLUGIN_DATA || null, em: new Date().toISOString() });
+      if (atualP.raiz !== raizPlugin || atualP.versao !== c.VERSAO) {
+        c.gravarJSON(pj, { raiz: raizPlugin, versao: c.VERSAO, dados: process.env.CLAUDE_PLUGIN_DATA || null, em: new Date().toISOString() });
+        // §21: atualizacao do plugin (fluxo oficial) => manifesto refeito a partir da raiz do plugin
+        // (o hash do bloco do CLAUDE.md global continua o da ultima instalacao/conserto)
+        // so quando a pasta/versao MUDOU em relacao a conhecida (a 1a conversa depois do instalar-plugin nao "abencoa" nada)
+        const conhecida = atualP.raiz || cfg.raizPlugin;
+        if (cfg.modoPlugin && (c.norm(conhecida) !== c.norm(raizPlugin) || (atualP.versao && atualP.versao !== c.VERSAO))) { try { const ig = require('./lib/integridade'); ig.gravarManifesto(ig.gerarManifesto(raizPlugin, { origem: 'plugin', modoPlugin: true, manterClaudeMd: true })); } catch (e) { c.log('erros', 'integridade plugin: ' + e.message); } }
+      }
     } catch (e) { c.log('erros', 'plugin.json: ' + e.message); }
   }
   const modelo = path.join(c.P.base, 'modelo-escritorio');
@@ -128,6 +135,13 @@ c.rodarHook('sessao-inicio', (ent) => {
     // modo auto ja configurado, mas a sessao abriu em Manual (plano/empresa pode nao liberar): no maximo 1x por dia
     const arqD = path.join(c.P.estado, 'diagnostico.json'); const estD = c.lerJSON(arqD, {}) || {};
     problemas = problemas.filter((p) => !(p.id === 'modo-auto' && p.jaConfigurado && estD.modoAvisadoEm && Date.now() - Date.parse(estD.modoAvisadoEm) < 864e5));
+    // §21 integridade: aviso UMA vez por conversa (resume/clear/compact da mesma conversa nao repetem a mesma diferenca)
+    const pInt = problemas.find((p) => p.id === 'integridade');
+    if (pInt && ent.session_id) {
+      const ss = c.lerSessao(ent.session_id);
+      if (ss.avisoIntegridade === pInt.marca) problemas = problemas.filter((p) => p !== pInt);
+      else { ss.avisoIntegridade = pInt.marca; c.gravarSessao(ent.session_id, ss); }
+    }
     if (problemas.some((p) => p.id === 'modo-auto' && p.jaConfigurado)) estD.modoAvisadoEm = new Date().toISOString();
     estD.ultimo = { em: new Date().toISOString(), problemas: problemas.map((p) => p.id) };
     c.gravarJSON(arqD, estD);
