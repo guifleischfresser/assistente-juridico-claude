@@ -2139,6 +2139,205 @@ console.log('\n12o. Skill de terceiros: auditoria local antes de instalar (quare
   t('terceiros: /habilidades cita auditar e instalar-terceiro (fluxo em references/terceiros.md); contexto fixo continua 3.869; script instalado', /\*\*auditar /.test(hab) && /\*\*instalar-terceiro /.test(hab) && fs.existsSync(path.join(RAIZ, 'skills', 'habilidades', 'references', 'terceiros.md')) && mp12.fixo === 3869 && fs.existsSync(path.join(CL12, 'advogado', 'scripts', 'auditar-skill.js')) && fs.existsSync(path.join(CL12, 'advogado', 'scripts', 'lib', 'auditoria.js')), mp12.fixo);
 }
 
+console.log('\n12p. Anonimização: segunda passada local com Ollama (--ia-local, opt-in, só loopback; Roadmap item 9, parte 2)');
+{
+  const LA = require(path.join(RAIZ, 'scripts', 'lib', 'anonimizar.js'));
+  const OL = require(path.join(RAIZ, 'scripts', 'lib', 'ollama.js'));
+  const FALSO = path.join(__dirname, 'ollama-falso.js');
+  const R12 = path.join(TMP, 'anon-ia'); const CL12 = path.join(R12, '.claude'); const ESC12 = path.join(R12, 'ESCRITORIO');
+  const B12 = path.join(CL12, 'advogado'); const ANZ = path.join(B12, 'scripts', 'anonimizar.js');
+  const env12 = Object.assign({}, process.env, { CLAUDE_CONFIG_DIR: CL12 }); delete env12.OLLAMA_HOST; delete env12.ADVOGADO_IA_LOCAL_TIMEOUT_MS;
+  const run12 = (args, extra) => { const y = spawnSync(process.execPath, [ANZ].concat(args), { env: Object.assign({}, env12, extra || {}), encoding: 'utf8', cwd: R12 }); return { code: y.status, out: (y.stdout || '') + (y.stderr || '') }; };
+  fs.mkdirSync(R12, { recursive: true });
+  r = spawnSync(process.execPath, [path.join(RAIZ, 'scripts', 'instalar.js'), '--escritorio', ESC12, '--nome', 'Dra. Helena Costa Ribeiro'], { env: env12, encoding: 'utf8' });
+  t('IA local: instalador leva o scripts/lib/ollama.js', r.status === 0 && fs.existsSync(path.join(B12, 'scripts', 'lib', 'ollama.js')), r.stderr);
+
+  // servidores falsos (processos a parte: a suite e sincrona) em 127.0.0.1:0
+  const dormir = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+  const servidores = []; let nSrv = 0;
+  const subir = (modo, achados, destino) => {
+    const id = ++nSrv; const arqP = path.join(R12, 'srv' + id + '.porta'); const arqL = path.join(R12, 'srv' + id + '.log'); const arqA = path.join(R12, 'srv' + id + '.achados.json');
+    fs.writeFileSync(arqA, JSON.stringify(achados || []));
+    const filho = require('child_process').spawn(process.execPath, [FALSO, modo, arqP, arqL, arqA].concat(destino ? [String(destino)] : []), { stdio: 'ignore' });
+    servidores.push(filho);
+    for (let i = 0; i < 100 && !fs.existsSync(arqP); i++) dormir(50);
+    const porta = fs.existsSync(arqP) ? JSON.parse(fs.readFileSync(arqP, 'utf8')).porta : 0;
+    const pedidos = () => (fs.existsSync(arqL) ? fs.readFileSync(arqL, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
+    return { porta, pedidos };
+  };
+
+  const casoI = path.join(ESC12, 'CASOS', 'Ativos', '2026-caso-iota'); fs.mkdirSync(path.join(casoI, 'documentos'), { recursive: true });
+  fs.writeFileSync(path.join(casoI, 'DOSSIE.md'), '# DOSSIÊ\n- Cliente: Roberto Almeida Campos\n');
+  const RELATO = 'Autor: Roberto Almeida Campos, brasileiro, CPF 123.456.789-09.\nA testemunha Ottoni Quintanilha Zwicker viu tudo na Padaria Estrela do Sul.\nO imóvel fica na Quadra 7, Lote 3 do Loteamento Bosque Azul.\nVoto do Rel. Min. Carlos Eduardo Lima no Tribunal de Justiça do Paraná.\n';
+  fs.writeFileSync(path.join(casoI, 'documentos', 'relato.md'), RELATO);
+  const copiaI = path.join(casoI, 'anonimizado', 'documentos', 'relato.md');
+  const limpar = () => { fs.rmSync(path.join(casoI, '_anonimizacao'), { recursive: true, force: true }); fs.rmSync(path.join(casoI, 'anonimizado'), { recursive: true, force: true }); };
+  const lerCopia = () => (fs.existsSync(copiaI) ? fs.readFileSync(copiaI, 'utf8') : null);
+  const tabelaI = () => JSON.parse(fs.readFileSync(path.join(casoI, '_anonimizacao', 'tabela.json'), 'utf8'));
+  const REAIS = ['Ottoni', 'Quintanilha', 'Zwicker', 'Padaria Estrela', 'Bosque Azul', 'Roberto', '123.456.789-09'];
+  const semReais = (txt) => !REAIS.some((x) => txt.includes(x));
+  const SAIDA_REGRAS = 'Autor: [PARTE_A], brasileiro, CPF [CPF_1].\nA testemunha Ottoni Quintanilha Zwicker viu tudo na Padaria Estrela do Sul.\nO imóvel fica na Quadra 7, Lote 3 do Loteamento Bosque Azul.\nVoto do Rel. Min. Carlos Eduardo Lima no Tribunal de Justiça do Paraná.\n';
+  const SAIDA_IA = 'Autor: [PARTE_A], brasileiro, CPF [CPF_1].\nA testemunha [PARTE_B] viu tudo na [PARTE_C].\nO imóvel fica na [ENDERECO_1].\nVoto do Rel. Min. Carlos Eduardo Lima no Tribunal de Justiça do Paraná.\n';
+  const ACHADOS = [
+    { tipo: 'nome', texto: 'Ottoni Quintanilha Zwicker' }, { tipo: 'empresa', texto: 'Padaria Estrela do Sul' }, { tipo: 'endereco', texto: 'Quadra 7, Lote 3 do Loteamento Bosque Azul' },
+    { tipo: 'nome', texto: 'Fulano Inventado Silva' },                 // alucinado (nao esta no texto)
+    { tipo: 'nome', texto: 'Roberto Almeida Campos' }, { tipo: 'nome', texto: 'Roberto Almeida' }, { tipo: 'nome', texto: '[PARTE_A], brasileiro' }, // ja trocado pelas regras
+    { tipo: 'nome', texto: 'Carlos Eduardo Lima' },                    // magistrado
+    { tipo: 'nome', texto: 'Tribunal de Justiça do Paraná' },          // tribunal
+    { tipo: 'nome', texto: 'Silva ' + 'Pereira '.repeat(40) },         // tamanho absurdo
+    { tipo: 'cpf', texto: '123.456.789-09' }, { tipo: 'nome', texto: 42 }, null, 'lixo',
+  ];
+
+  // --- 1. sem a flag: saida identica a de antes (versao anterior gerada pelo codigo de main) ---
+  limpar();
+  const srvOk = subir('ok', ACHADOS);
+  const pBase = run12(['preparar', 'caso iota']); const sBase = run12(['simular', 'caso iota']); const aBase = run12(['aplicar', 'caso iota']);
+  const norm = (x) => x.replace(new RegExp(B12.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '<BASE>');
+  t('sem --ia-local: preparar/simular/aplicar e a cópia saem iguais aos de antes, byte a byte (e o servidor falso, ligado, não recebe nada)',
+    norm(pBase.out) === '🔒 Anonimização LIGADA no caso Ativos/2026-caso-iota. Tabela criada com 2 dado(s) (2 novo(s)): 1 parte(s), 1 CPF. Li 2 arquivo(s) do caso para achar os dados.\nA tabela (com os dados reais) ficou só na pasta do caso: ' + path.join('Ativos/2026-caso-iota', '_anonimizacao', 'tabela.json') + ' — eu não leio esse arquivo; o advogado pode abrir para conferir.\nPróximo passo: node "<BASE>' + path.sep + 'scripts' + path.sep + 'anonimizar.js" aplicar "2026-caso-iota"\n'
+    && sBase.out === '🔎 Simulação (nada foi gravado) em 1 documento do caso 2026-caso-iota: 1 nome e 1 CPF virariam marcadores.\n'
+    && aBase.out.startsWith('🔒 Anonimizei 1 documento do caso 2026-caso-iota: 1 nome e 1 CPF viraram marcadores. A tabela ficou só na pasta do caso.\nCópias para trabalhar (leia só estas):\n- anonimizado/documentos/relato.md\n⚠️ A detecção de nomes não é perfeita')
+    && !/IA local|🤖/.test(pBase.out + sBase.out + aBase.out) && lerCopia() === SAIDA_REGRAS && srvOk.pedidos().length === 0, norm(pBase.out + sBase.out + aBase.out));
+  limpar();
+
+  // --- 2. resposta valida: simular (nada gravado), aplicar, idempotencia, ida e volta ---
+  const sim = run12(['simular', 'caso iota', '--ia-local', '--porta', String(srvOk.porta)]);
+  t('simular --ia-local (resposta válida): conta "N achado(s) pela IA local — confira a prévia", sem nenhum dado real, e não grava cópia nem tabela', sim.code === 0 && /🤖 3 achado\(s\) pela IA local — confira a prévia\./.test(sim.out) && semReais(sim.out) && !fs.existsSync(path.join(casoI, '_anonimizacao')) && !fs.existsSync(path.join(casoI, 'anonimizado')), sim.out);
+  const prep = run12(['preparar', 'caso iota', '--ia-local', '--porta', String(srvOk.porta)]);
+  const apl = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvOk.porta)]);
+  const tb = tabelaI();
+  t('aplicar --ia-local: nome sem rótulo, razão social e endereço viram marcador; magistrado, tribunal, alucinado, repetido das regras e tamanho absurdo ficam de fora (cópia exata)', apl.code === 0 && lerCopia() === SAIDA_IA, lerCopia());
+  t('aplicar: resumo com a contagem da IA, a frase "a detecção não é perfeita" e nenhum dado real; tabela continua versao 1 com origem "ia-local" só nos 3 achados da IA', /🤖 3 achado\(s\) pela IA local — confira a prévia/.test(apl.out) && /A detecção de nomes não é perfeita/.test(apl.out) && semReais(apl.out + prep.out) && tb.versao === 1 && tb.entradas.filter((e) => e.origem === 'ia-local').length === 3 && tb.entradas.filter((e) => e.origem == null).length === 2 && JSON.stringify(Object.keys(tb)) === JSON.stringify(Object.keys(LA.novaTabela('x'))), apl.out);
+  const ped = srvOk.pedidos().map((x) => x.prompt).join('\n');
+  t('só o texto que sobrou das regras vai ao modelo: o CPF e o nome já trocados não saem do computador (só marcadores)', srvOk.pedidos().length >= 3 && !/123\.456\.789-09|Roberto|Almeida Campos/.test(ped) && /\[PARTE_A\]/.test(ped) && /Ottoni Quintanilha Zwicker/.test(ped) && srvOk.pedidos().every((x) => x.metodo === 'POST' && x.url === '/api/generate'));
+  const aplDeNovo = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvOk.porta)]); const tb2 = tabelaI();
+  const simDepois = run12(['simular', 'caso iota', '--ia-local', '--porta', String(srvOk.porta)]);
+  t('idempotência: simular e aplicar contam o mesmo; aplicar de novo dá a mesma cópia e as mesmas entradas; simular depois de aplicar conta igual', lerCopia() === SAIDA_IA && tb2.entradas.map((e) => e.id + ':' + e.origem).join() === tb.entradas.map((e) => e.id + ':' + e.origem).join() && /3 achado\(s\) pela IA local/.test(aplDeNovo.out + simDepois.out) && /3 achado/.test(sim.out) && /3 achado/.test(simDepois.out), aplDeNovo.out);
+  const volta = path.join(R12, 'volta-iota.md'); const rv = run12(['reverter', copiaI, '--saida', volta, '--caso', 'caso iota']);
+  t('ida e volta: reverter a cópia com marcadores da IA devolve o original byte a byte', rv.code === 0 && fs.readFileSync(volta, 'utf8') === RELATO, rv.out);
+  // rotulo, DOSSIE ou --nome confirmam o achado da IA e apagam a origem
+  run12(['preparar', 'caso iota', '--nome', 'Padaria Estrela do Sul']);
+  const tb3 = tabelaI(); const pad = tb3.entradas.find((e) => e.original === 'Padaria Estrela do Sul'); const ott = tb3.entradas.find((e) => /Ottoni/.test(e.original));
+  t('--nome confirma o achado da IA (origem some, mesmo marcador); os outros continuam "ia-local"', pad && pad.origem == null && pad.id === 'PARTE_C' && ott && ott.origem === 'ia-local');
+  limpar();
+
+  // --- 3. ida e volta com CRLF e acentos em NFD (CLI, sem Ollama real) ---
+  const casoK = path.join(ESC12, 'CASOS', 'Ativos', '2026-caso-kappa'); fs.mkdirSync(path.join(casoK, 'documentos'), { recursive: true });
+  const TEXTO_K = ('Relato\r\n\r\nA testemunha Ottoni Quintanilha Zwicker disse que o imóvel fica na Quadra 7, Lote 3 do Loteamento Bosque Azul.\r\nOTTONI QUINTANILHA ZWICKER voltou à Padaria Estrela do Sul.\r\nO Rel. Min. Carlos Eduardo Lima votou.\r\n').normalize('NFD');
+  fs.writeFileSync(path.join(casoK, 'documentos', 'relato.md'), TEXTO_K);
+  run12(['preparar', 'caso kappa', '--ia-local', '--porta', String(srvOk.porta)]);
+  const aK = run12(['aplicar', 'caso kappa', '--ia-local', '--porta', String(srvOk.porta)]);
+  const copiaK = path.join(casoK, 'anonimizado', 'documentos', 'relato.md'); const cK = fs.existsSync(copiaK) ? fs.readFileSync(copiaK, 'utf8') : '';
+  const voltaK = path.join(R12, 'volta-kappa.md'); const rvK = run12(['reverter', copiaK, '--saida', voltaK, '--caso', 'caso kappa']);
+  t('IA local com CRLF, NFD e grafia em CAIXA ALTA: a mesma pessoa vira [PARTE_x] e [PARTE_x#2]; reverter devolve o original byte a byte', aK.code === 0 && /\[PARTE_[A-Z]#2\]/.test(cK) && !/Ottoni|OTTONI|Zwicker|Padaria|Bosque/i.test(cK.normalize('NFC')) && /Rel\. Min\. Carlos Eduardo Lima/.test(cK.normalize('NFC')) && rvK.code === 0 && fs.readFileSync(voltaK, 'utf8') === TEXTO_K, cK + rvK.out);
+
+  // --- 4. falhas do Ollama: aviso simples, so as regras, codigo 0 ---
+  const AVISO = 'IA local indisponível; usei só as regras. Para ligar: instale o Ollama e baixe um modelo.';
+  const soRegras = (x, av) => x.code === 0 && x.out.includes('⚠️ ' + (av || AVISO)) && lerCopia() === SAIDA_REGRAS && !/🤖/.test(x.out) && semReais(x.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const fechada = run12(['aplicar', 'caso iota', '--ia-local', '--porta', '1']);
+  t('Ollama parado (porta fechada): avisa em pt-BR, usa só as regras e sai com código 0', soRegras(fechada), fechada.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const srvSem = subir('semmodelo');
+  const semModelo = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvSem.porta), '--modelo', 'modelo-que-nao-existe']);
+  t('Ollama sem o modelo (404): mesmo aviso, só as regras, código 0 (e o --modelo escolhido é o que vai no pedido)', soRegras(semModelo) && srvSem.pedidos().length === 1, semModelo.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const srvQ = subir('quebrado');
+  const quebrado = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvQ.porta)]);
+  t('JSON quebrado do modelo: descartado sem erro; só as regras, código 0, sem achado da IA', quebrado.code === 0 && srvQ.pedidos().length >= 1 && lerCopia() === SAIDA_REGRAS && !/🤖/.test(quebrado.out) && semReais(quebrado.out), quebrado.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const srvL = subir('lento'); const t0 = Date.now();
+  const lento = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvL.porta)], { ADVOGADO_IA_LOCAL_TIMEOUT_MS: '400' });
+  t('timeout: o Ollama que não responde é abandonado (aviso próprio de tempo esgotado, só as regras, código 0), sem esperar de novo a cada pedaço', soRegras(lento, OL.AVISO_TIMEOUT) && Date.now() - t0 < 20000 && srvL.pedidos().length === 1, lento.out + ' ' + (Date.now() - t0) + 'ms');
+
+  // --- 5. host nao-loopback: recusado ANTES de abrir conexao (segundo servidor falso nunca recebe nada) ---
+  limpar(); run12(['preparar', 'caso iota']);
+  const sentinela = subir('sentinela'); const sp = String(sentinela.porta);
+  const AVISO_H = OL.AVISO_HOST;
+  const recusado = (x) => x.code === 0 && x.out.includes('⚠️ ' + AVISO_H) && lerCopia() === SAIDA_REGRAS && !/🤖/.test(x.out);
+  const porFlag = run12(['aplicar', 'caso iota', '--ia-local', '--host', 'localhost', '--porta', sp]);
+  limpar(); run12(['preparar', 'caso iota']);
+  const porEnv = run12(['aplicar', 'caso iota', '--ia-local'], { OLLAMA_HOST: 'localhost:' + sp });
+  limpar(); run12(['preparar', 'caso iota']);
+  const porEnvIp = run12(['aplicar', 'caso iota', '--ia-local'], { OLLAMA_HOST: 'http://192.0.2.7:11434' });
+  limpar(); run12(['preparar', 'caso iota']);
+  const porEnvOutro = run12(['aplicar', 'caso iota', '--ia-local', '--porta', sp, '--host', '0.0.0.0']);
+  t('host não-loopback (flag --host, OLLAMA_HOST com nome ou IP de fora, 0.0.0.0) é recusado com aviso e código 0; o servidor sentinela nunca recebe requisição', recusado(porFlag) && recusado(porEnv) && recusado(porEnvIp) && recusado(porEnvOutro) && sentinela.pedidos().length === 0, porFlag.out + porEnv.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const srvR = subir('redireciona', [], sentinela.porta);
+  const redir = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvR.porta)]);
+  t('redirecionamento nunca é seguido: o Ollama que manda para outro endereço vira "indisponível" e o destino nunca recebe requisição', soRegras(redir) && srvR.pedidos().length === 1 && sentinela.pedidos().length === 0, redir.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const portaRuim = run12(['aplicar', 'caso iota', '--ia-local', '--porta', 'abc']);
+  t('--porta inválida: aviso claro (não "instale o Ollama"), só as regras, código 0', portaRuim.code === 0 && portaRuim.out.includes('⚠️ ' + OL.AVISO_PORTA) && lerCopia() === SAIDA_REGRAS, portaRuim.out);
+  limpar(); run12(['preparar', 'caso iota']);
+  const srvX = subir('lixo');
+  const lixo = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvX.porta)]);
+  t('servidor que responde 200 com lixo (não é Ollama): tratado como indisponível, com aviso, só as regras, código 0', soRegras(lixo), lixo.out);
+  // --host explicito vale no lugar de uma OLLAMA_HOST estranha (e a variavel de fora continua recusada sozinha)
+  limpar(); run12(['preparar', 'caso iota']);
+  const hostExp = run12(['aplicar', 'caso iota', '--ia-local', '--host', '127.0.0.1', '--porta', String(srvOk.porta)], { OLLAMA_HOST: 'http://servidor-de-fora.exemplo/api' });
+  t('--host/--porta explícitos (loopback) valem no lugar de uma OLLAMA_HOST estranha: a variável não é usada, nada sai do computador', hostExp.code === 0 && lerCopia() === SAIDA_IA && !/IA local recusada/.test(hostExp.out), hostExp.out);
+  // resposta cortada pelo limite do modelo => leitura parcial avisada
+  limpar(); run12(['preparar', 'caso iota']);
+  const srvC = subir('cortada', ACHADOS);
+  const cortada = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvC.porta)]);
+  t('resposta cortada pelo limite do modelo (done_reason "length"): o que veio vale e o aviso diz que a IA leu só parte', cortada.code === 0 && cortada.out.includes('⚠️ ' + OL.AVISO_PARCIAL) && lerCopia() === SAIDA_IA, cortada.out);
+  // a IA olha todos os documentos antes de gravar copias: nome achado so no 2o tambem vale no 1o
+  limpar(); run12(['preparar', 'caso iota']);
+  fs.writeFileSync(path.join(casoI, 'documentos', 'a-outro.md'), 'Nota: Ottoni Quintanilha Zwicker ligou ontem.\n');
+  const srvV = subir('vazio-no-1o', ACHADOS);
+  const doisDocs = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvV.porta)]);
+  const copiaA = path.join(casoI, 'anonimizado', 'documentos', 'a-outro.md');
+  t('aplicar --ia-local: a IA lê todos os documentos antes de gravar qualquer cópia (nome achado só no 2º também sai da cópia do 1º)', doisDocs.code === 0 && fs.existsSync(copiaA) && !/Ottoni|Zwicker/.test(fs.readFileSync(copiaA, 'utf8')) && lerCopia() === SAIDA_IA, doisDocs.out + (fs.existsSync(copiaA) ? fs.readFileSync(copiaA, 'utf8') : ''));
+  fs.rmSync(path.join(casoI, 'documentos', 'a-outro.md'), { force: true });
+  // texto em varios pedacos e o Ollama para depois do 1o: o que o 1o achou vale e o aviso diz que foi parcial
+  limpar(); run12(['preparar', 'caso iota']);
+  const longo = RELATO + ('Parágrafo de enchimento sem dado pessoal nenhum para ocupar espaço no pedido ao modelo local.\n').repeat(60) + 'Fim.\n';
+  fs.writeFileSync(path.join(casoI, 'documentos', 'relato.md'), longo);
+  const srvP = subir('lento-depois-do-1o', ACHADOS);
+  const parcial = run12(['aplicar', 'caso iota', '--ia-local', '--porta', String(srvP.porta)], { ADVOGADO_IA_LOCAL_TIMEOUT_MS: '400' });
+  t('Ollama que para no meio de um texto longo: os achados dos pedaços já lidos são aplicados, o aviso diz que foi parcial (e não "indisponível"), código 0', parcial.code === 0 && lerCopia() === SAIDA_IA + longo.slice(RELATO.length) && parcial.out.includes('⚠️ ' + OL.AVISO_PARCIAL) && /🤖 3 achado/.test(parcial.out) && srvP.pedidos().length === 2, parcial.out + srvP.pedidos().length);
+  fs.writeFileSync(path.join(casoI, 'documentos', 'relato.md'), RELATO);
+  limpar();
+
+  // --- 6. lib/ollama.js e validarAchadosIA (unidades) ---
+  const antesEnv = process.env.OLLAMA_HOST; delete process.env.OLLAMA_HOST;
+  const alvos = [OL.resolverAlvo({}), OL.resolverAlvo({ host: '::1', porta: 5 }), OL.resolverAlvo({ host: 'localhost' }), OL.resolverAlvo({ host: '10.0.0.5' }), OL.resolverAlvo({ host: '127.0.0.2' }), OL.resolverAlvo({ porta: 70000 }), OL.resolverAlvo({ porta: 'abc' })];
+  process.env.OLLAMA_HOST = 'https://api.exemplo.com:443'; const ev1 = OL.resolverAlvo({});
+  process.env.OLLAMA_HOST = 'http://127.0.0.1:12345'; const ev2 = OL.resolverAlvo({});
+  process.env.OLLAMA_HOST = 'http://x:80/p'; const ev3 = OL.resolverAlvo({ host: '127.0.0.1' }); const ev4 = OL.resolverAlvo({ porta: 5 });
+  if (antesEnv == null) delete process.env.OLLAMA_HOST; else process.env.OLLAMA_HOST = antesEnv;
+  t('lib/ollama: só 127.0.0.1 e ::1 (porta 1–65535); localhost, outros IPs, 127.0.0.2, OLLAMA_HOST de fora e porta inválida são recusados', alvos[0].host === '127.0.0.1' && alvos[0].porta === 11434 && alvos[1].host === '::1' && alvos[1].porta === 5 && alvos.slice(2).every((a) => a.recusa) && ev1.recusa === 'host' && ev2.host === '127.0.0.1' && ev2.porta === 12345 && ev3.host === '127.0.0.1' && ev3.porta === 11434 && ev4.recusa === 'host', JSON.stringify(alvos));
+  const grande = ('Linha de texto com algumas palavras para o teste de pedaços.\n').repeat(400) + 'x'.repeat(5000);
+  const pcs = OL.pedacos(grande, 3000, 200);
+  t('lib/ollama: texto grande vai em pedaços de no máximo 3.000 caracteres; começa e termina no texto e cada pedaço repete o fim do anterior (nome na fronteira não se perde)', pcs.length > 5 && pcs.every((x) => x.length <= 3000) && grande.startsWith(pcs[0]) && grande.endsWith(pcs[pcs.length - 1]) && pcs.slice(1).every((x, i) => { const a = pcs[i]; const k = x.slice(0, 20); return a.length > 200 && a.slice(-250).includes(k); }) && OL.pedacos(grande, 3000, 0).join('') === grande);
+  t('lib/ollama: usa só o módulo http (sem https, fetch, net, dns, child_process ou telemetria) e nenhum log do texto', (() => { const f = fs.readFileSync(path.join(RAIZ, 'scripts', 'lib', 'ollama.js'), 'utf8').replace(/\/\*[\s\S]*?\*\//, ''); return /require\('http'\)/.test(f) && !/require\('(https|net|dns|tls|child_process|fs)'\)|fetch\(|XMLHttpRequest|WebSocket|console\.|c\.log|appendFile|writeFile/.test(f); })());
+  const BASE_V = 'Voto do Rel. Min. Carlos Eduardo Lima.\nConversei com Ottoni Quintanilha Zwicker e com a Bosque Azul Comércio de Roupas.\nHELENA COSTA RIBEIRO assina.\nRua das Acácias, 120 fica longe.\n';
+  const val = (b, o) => LA.validarAchadosIA(b, BASE_V, o || { proprios: ['Dra. Helena Costa Ribeiro'] }).map((x) => x.tipo + ':' + x.valor);
+  t('validarAchadosIA: aceita o que está literalmente no texto; descarta magistrado, o próprio advogado (mesmo em CAIXA ALTA), alucinado, tipo desconhecido, não-objeto, marcador, uma palavra só e tamanho absurdo', JSON.stringify(val([
+    { tipo: 'nome', texto: 'Ottoni Quintanilha Zwicker' }, { tipo: 'empresa', texto: 'Bosque Azul Comércio de Roupas' }, { tipo: 'Endereço', texto: 'Rua das Acácias, 120' },
+    { tipo: 'nome', texto: 'Carlos Eduardo Lima' }, { tipo: 'nome', texto: 'Helena Costa Ribeiro' }, { tipo: 'nome', texto: 'Maria Inventada Souza' }, { tipo: 'cpf', texto: 'Ottoni Quintanilha' },
+    { tipo: 'nome', texto: 'Ottoni' }, { tipo: 'nome', texto: '[PARTE_A] Zwicker' }, { tipo: 'nome', texto: 'A'.repeat(300) }, null, 7, { tipo: 'nome' }, { tipo: 5, texto: 'Ottoni Quintanilha' },
+  ])) === JSON.stringify(['nome:Ottoni Quintanilha Zwicker', 'nome:Bosque Azul Comércio de Roupas', 'endereco:Rua das Acácias, 120']) && val('lixo').length === 0 && val(null).length === 0, JSON.stringify(val([{ tipo: 'nome', texto: 'Helena Costa Ribeiro' }])));
+  t('validarAchadosIA: "Relator: X" e "Desembargador, X" (pontuação depois do cargo) também são magistrado; razão social começando por Banco/Empresa passa', LA.validarAchadosIA([{ tipo: 'nome', texto: 'Carlos Alberto Souza' }, { tipo: 'nome', texto: 'João Pedro Silva' }, { tipo: 'empresa', texto: 'Banco Pan Financeira' }], 'Relator: Carlos Alberto Souza.\nDesembargador, João Pedro Silva.\nO Banco Pan Financeira cobrou.\n', { proprios: [] }).map((x) => x.valor).join() === 'Banco Pan Financeira');
+  t('validarAchadosIA: acima do teto, o corte é pela posição no texto (os do fim não são sacrificados pela ordem do modelo)', (() => { const nomes = Array.from({ length: 320 }, (_, i) => 'Fulano' + String.fromCharCode(97 + (i % 26)) + String.fromCharCode(97 + Math.floor(i / 26)) + ' Quintanilha'); const base = nomes.join('\n'); const v = LA.validarAchadosIA(nomes.slice().reverse().map((n) => ({ tipo: 'nome', texto: n })), base, { proprios: [] }); return v.length === 300 && v[0].valor === nomes[0] && v[299].valor === nomes[299]; })());
+  t('validarAchadosIA aceita rótulos comuns do modelo (pessoa física/jurídica, nome completo, organização, endereço completo)', LA.validarAchadosIA([{ tipo: 'pessoa física', texto: 'Ottoni Quintanilha Zwicker' }, { tipo: 'Pessoa Jurídica', texto: 'Bosque Azul Comércio de Roupas' }, { tipo: 'endereço completo', texto: 'Rua das Acácias, 120' }], BASE_V, { proprios: [] }).length === 3);
+  t('validarAchadosIA: tipo herdado do Object.prototype ("constructor", "__proto__", "toString") não passa e nada é gravado sem tipo', LA.validarAchadosIA([{ tipo: 'constructor', texto: 'Ottoni Quintanilha Zwicker' }, { tipo: '__proto__', texto: 'Ottoni Quintanilha Zwicker' }, { tipo: 'toString', texto: 'Ottoni Quintanilha Zwicker' }], BASE_V, { proprios: [] }).length === 0);
+  t('validarAchadosIA: descarta o nome que também aparece depois de Rel./Min./Desembargador (um só magistrado no texto basta) e tribunal/vara/juízo', LA.validarAchadosIA([{ tipo: 'nome', texto: 'Ottoni Quintanilha Zwicker' }], 'Ottoni Quintanilha Zwicker é parte; o Des. Ottoni Quintanilha Zwicker relatou.', { proprios: [] }).length === 0 && LA.validarAchadosIA([{ tipo: 'nome', texto: 'Vara Cível de Londrina' }, { tipo: 'nome', texto: 'Superior Tribunal de Justiça' }], 'Vara Cível de Londrina e Superior Tribunal de Justiça', { proprios: [] }).length === 0);
+  const xi = LA.anonimizarTexto('Falei com Ottoni Quintanilha Zwicker.\r\nOTTONI QUINTANILHA ZWICKER foi à Padaria Estrela do Sul.\r\n'.normalize('NFD'), (() => { const tt = LA.novaTabela('t'); LA.adicionar(tt, 'nome', 'Ottoni Quintanilha Zwicker').origem = 'ia-local'; return tt; })(), { proprios: [] });
+  t('reverterTexto(anonimizarTexto(x)) === x com entrada "ia-local" (NFD, CRLF, CAIXA ALTA)', (() => { const tt = LA.novaTabela('t'); LA.adicionar(tt, 'nome', 'Ottoni Quintanilha Zwicker').origem = 'ia-local'; const x = 'Falei com Ottoni Quintanilha Zwicker.\r\nOTTONI QUINTANILHA ZWICKER foi à Padaria Estrela do Sul.\r\n'.normalize('NFD'); const a = LA.anonimizarTexto(x, tt, { proprios: [] }); return LA.reverterTexto(a.texto, tt).texto === x && a.trocas.every((y) => y.ia) && !/Ottoni/i.test(a.texto); })() && xi.trocas.length === 2);
+  t('resumoIA: só a contagem, nunca o nome; vazio quando a IA não achou nada', LA.resumoIA([{ id: 'PARTE_B', tipo: 'nome', ia: true }, { id: 'PARTE_B', tipo: 'nome', ia: true }, { id: 'ENDERECO_1', tipo: 'endereco', ia: true }, { id: 'PARTE_A', tipo: 'nome' }]) === '2 achado(s) pela IA local — confira a prévia' && LA.resumoIA([{ id: 'PARTE_A', tipo: 'nome' }]) === '');
+
+  // --- 7. texto: descricao da skill intacta, nada de bypass, documentacao ---
+  const skA = fs.readFileSync(path.join(RAIZ, 'skills', 'anonimizar', 'SKILL.md'), 'utf8'); const det = fs.readFileSync(path.join(RAIZ, 'skills', 'anonimizar', 'references', 'detalhes.md'), 'utf8');
+  const descA = (skA.match(/^description:\s*"?(.*?)"?\s*$/m) || [])[1] || '';
+  t('descrição da /anonimizar continua com 157 caracteres; detalhes.md explica --ia-local (só loopback, aviso, "confira a prévia")', descA.length === 157 && /--ia-local/.test(det) && /127\.0\.0\.1/.test(det) && /confira a prévia/.test(det) && /IA local indisponível/.test(det), String(descA.length));
+  const novos = [path.join(RAIZ, 'scripts', 'lib', 'ollama.js'), FALSO, path.join(RAIZ, 'skills', 'anonimizar', 'references', 'detalhes.md')].map((f) => fs.readFileSync(f, 'utf8')).join('\n');
+  t('nenhuma instrução de --dangerously-skip-permissions nem de bypassPermissions nos arquivos novos', !/dangerously-skip-permissions|bypassPermissions/i.test(novos));
+  for (const sv of servidores) { try { sv.kill(); } catch (e) { /* */ } }
+}
+
 console.log('\n13. Desinstalação');
 r = node(path.join(RAIZ, 'scripts', 'instalar.js'), ['--desinstalar']);
 const st3 = JSON.parse(fs.readFileSync(path.join(CL, 'settings.json'), 'utf8'));

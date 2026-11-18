@@ -21,6 +21,14 @@
 - O script diz quantos nomes achou assim — "2 nome(s) achado(s) pelo dicionário — confira na cópia" — sem mostrar quais. Repita a frase e peça ao advogado para conferir na cópia. Se algum não era pessoa, ele pode rodar `ANZ aplicar "<caso>" --sem-dicionario` (volta ao comportamento antigo) ou corrigir à mão.
 - `ANZ simular "<caso>"` mostra a contagem antes, sem gravar nada.
 
+## Segunda passada com IA local (opcional: `--ia-local`)
+- Só quando o advogado pede: `ANZ simular "<caso>" --ia-local` (e o mesmo em `preparar` e `aplicar`; `--modelo <nome>`, `--porta <n>` e `--host 127.0.0.1|::1` são opcionais). Sem a flag, nada muda.
+- Primeiro rodam as regras de sempre (CPF, CNPJ, OAB, RG, telefone, e-mail, CEP, processo, dicionário). Depois um modelo do **Ollama deste computador** olha só o que sobrou, atrás de nomes sem rótulo, endereços e razões sociais. O texto real só vai para `127.0.0.1` (ou `::1`), nunca para a internet; qualquer outro endereço (variável `OLLAMA_HOST`, `--host`, redirecionamento) é recusado antes de abrir conexão. Nada é gravado em log.
+- Para um modelo diferente do padrão (`qwen2.5:7b`) use `--modelo`; texto muito longo ou modelo lento: `ADVOGADO_IA_LOCAL_TIMEOUT_MS` (padrão 120000) aumenta a espera por pedido.
+- Sem Ollama, parado ou sem o modelo: o script diz "IA local indisponível; usei só as regras. Para ligar: instale o Ollama e baixe um modelo." e segue só com as regras (código 0). Repita isso ao advogado em palavras simples. Se o texto for longo e o Ollama parar no meio (ou passar de ~120 mil caracteres), o aviso diz que a IA leu só parte do documento: o que ela achou até ali vale, o resto foi só pelas regras.
+- A resposta do modelo não é confiável: só vale o que aparece escrito igual no texto, não é juiz, tribunal nem o próprio escritório e não mexe no que as regras já acharam. O que passa entra na tabela com `origem: "ia-local"` (um rótulo, o DOSSIE ou `--nome` confirmam).
+- O resumo diz "N achado(s) pela IA local — confira a prévia" (só a contagem, nunca o nome). Peça ao advogado para revisar a prévia do `simular` e a cópia: o modelo erra para os dois lados.
+
 ## Onde fica cada coisa
 - Tabela (dados reais): `<caso>/_anonimizacao/tabela.json` — só na pasta do caso, nunca global.
 - Cópias anonimizadas: `<caso>/anonimizado/` (mesmo caminho do original; PDF/Word/página viram `.md`). O original não é tocado.
