@@ -307,6 +307,96 @@ function detectar(texto, opcoes) {
   return out;
 }
 
+// ---------- segunda passada local com Ollama (opt-in, --ia-local; rede so em lib/ollama.js, so loopback) ----------
+// O modelo so ve o texto que as regras ja processaram (CPF, nomes conhecidos etc. ja viraram marcador) e responde
+// {tipo,texto}. Resposta NAO confiavel: so entra o que aparece literalmente, nao e magistrado/tribunal/escritorio,
+// nao pega marcador e tem tamanho razoavel. O que passa vira entrada com origem "ia-local" (um rotulo, o DOSSIE
+// ou --nome confirmam e apagam o campo); a troca em si e a de sempre (anonimizarTexto, reversivel).
+const TIPO_IA = new Map([['nome', 'nome'], ['pessoa', 'nome'], ['pessoa_fisica', 'nome'], ['pessoa_juridica', 'nome'], ['nome_completo', 'nome'], ['empresa', 'nome'], ['organizacao', 'nome'], ['razao_social', 'nome'], ['pj', 'nome'], ['pf', 'nome'], ['endereco', 'endereco'], ['endereco_completo', 'endereco']]);
+const TRIBUNAL_RE = /(?:^| )(?:tribunal|supremo|vara|juizo|justica|turma|camara|desembargador[a]?|ministro|ministra|juiz|juiza|procuradoria|defensoria|ministerio publico|comarca)(?: |$)/;
+const MAX_ACHADOS_IA = 300;
+const letraNum = /[\p{L}\p{N}]/u;
+/** Posicoes (no texto original) das ocorrencias do valor, pela comparacao dobrada e com fronteira de palavra. */
+function ocorrenciasDe(base, dob, valor) {
+  const k = chaveNome(valor).replace(/[\s.,;:]+$/, ''); const s = dob.s; const out = [];
+  if (!k) return out;
+  let p = 0;
+  while ((p = s.indexOf(k, p)) >= 0) {
+    const f = p + k.length;
+    if (!(p > 0 && letraNum.test(s[p - 1])) && !(f < s.length && letraNum.test(s[f]))) out.push(dob.ini[p]);
+    p += 1;
+  }
+  return out;
+}
+/** A palavra antes de `ini` (mesma linha) indica magistrado? (e, se `lugar`, lugar/lei/logradouro/instituicao?) — mesmas listas do dicionario. */
+function contextoExcluido(base, ini, lugar) {
+  let ant = base.slice(Math.max(0, ini - 120), ini);
+  const nl = ant.lastIndexOf('\n'); if (nl >= 0) ant = ant.slice(nl + 1);
+  if (!/(?:^|[\s.(])$/.test(ant) && ant.length) return false;
+  let viuMeio = false;
+  for (let n = 0; n < 6; n++) {
+    ant = ant.replace(/[ \t.]+$/, '');
+    const m = ant.match(/([\p{L}][\p{L}\p{M}'’-]*)$/u); if (!m) return false;
+    const w = dobrarRapido(m[1]); ant = ant.slice(0, ant.length - m[1].length);
+    if (CONECTORES_DIC.has(w)) continue;
+    if (ANTES_MAGISTRADO.has(w)) return true;
+    if (!viuMeio && lugar && ANTES_LUGAR.has(w)) return true;
+    if (MEIO_MAGISTRADO.has(w)) { viuMeio = true; continue; }
+    return false;
+  }
+  return false;
+}
+/** Filtra a resposta do modelo (nao confiavel). Devolve [{tipo, valor, pos}] na ordem de aparicao no texto. */
+function validarAchadosIA(brutos, base, opcoes) {
+  if (!Array.isArray(brutos) || typeof base !== 'string') return [];
+  base = nfc(base);
+  const dob = dobrar(base); const proprios = nomesProprios(opcoes); const cits = trechosCitacao(base);
+  const vistos = new Set(); const out = [];
+  for (const b of brutos.slice(0, MAX_ACHADOS_IA * 2)) {
+    if (!b || typeof b.tipo !== 'string' || typeof b.texto !== 'string') continue;
+    const tipo = TIPO_IA.get(dobrarRapido(b.tipo).replace(/[^a-z]+/g, '_').replace(/^_|_$/g, '')); if (!tipo) continue;
+    const valor = nfc(b.texto).trim();
+    if (valor.length < 5 || valor.length > (tipo === 'endereco' ? 160 : 120)) continue; // tamanho absurdo
+    if (/[\r\n\[\]]/.test(valor) || !/\p{L}{2}/u.test(valor)) continue;                 // multilinha, marcador, sem letras
+    const palavras = valor.split(/\s+/);
+    if (palavras.length < 2 || palavras.length > 14) continue;
+    const chave = chaveNome(valor); if (vistos.has(chave)) continue; vistos.add(chave);
+    if (!base.includes(valor)) continue;                                                // alucinado: nao esta literalmente no texto
+    if (tipo === 'nome') {
+      if (PARE_DIC.test(dobrarRapido(palavras[0])) || TRIBUNAL_RE.test(chave) || EXCECOES_DIC.has(chave)) continue;
+      if (proprios.some((p) => contemPalavras(p, chave) || contemPalavras(chave, p))) continue; // o proprio advogado/escritorio
+    }
+    const oc = ocorrenciasDe(base, dob, valor); if (!oc.length) continue;
+    const fimV = valor.length;
+    if (oc.some((ini) => contextoExcluido(base, ini, tipo === 'nome') || cits.some(([a, f]) => ini >= a && ini + fimV <= f))) continue; // magistrado, lugar, citacao de julgado
+    out.push({ tipo, valor, pos: oc[0] });
+    if (out.length >= MAX_ACHADOS_IA) break;
+  }
+  return out.sort((a, b) => a.pos - b.pos);
+}
+/**
+ * Pergunta ao Ollama local o que as regras nao pegaram e acrescenta a `t` entradas com origem "ia-local".
+ * `ia`: estado compartilhado da execucao { host?, porta?, modelo?, timeoutMs?, off, aviso } (alterado aqui).
+ * Nunca lanca e nunca falha: sem Ollama (ou modelo) marca ia.off/ia.aviso e segue so com as regras.
+ * Devolve o numero de entradas novas.
+ */
+async function detectarIA(texto, t, opcoes, ia) {
+  if (!ia || ia.off) return 0;
+  const O = require('./ollama');
+  const clone = JSON.parse(JSON.stringify(t));
+  const base = nfc(anonimizarTexto(String(texto), clone, opcoes).texto); // so o que as regras deixaram
+  const r = await O.consultar(base, ia); // falha de rede/modelo volta como {indisponivel}; erro nosso nao e escondido
+  if (r.indisponivel) { ia.off = true; ia.aviso = r.aviso; return 0; }
+  ia.docsOk = (ia.docsOk || 0) + 1;
+  if (r.parcial) { ia.parcial = true; ia.avisoParcial = r.aviso; }
+  let n = 0;
+  for (const x of validarAchadosIA(r.achados, base, opcoes)) {
+    if (acharEntrada(t, x.tipo, chaveDe(x.tipo, x.valor))) continue;
+    criarEntrada(t, x.tipo, x.valor).origem = 'ia-local'; n++;
+  }
+  return n;
+}
+
 // ---------- entradas ----------
 function acharEntrada(t, tipo, chave) { return t.entradas.find((e) => e.tipo === tipo && (e.chave === chave || (e.chaves || []).includes(chave))); }
 function criarEntrada(t, tipo, original) {
@@ -424,7 +514,7 @@ function anonimizarTexto(texto, t, opcoes) {
     let i = e.formas.indexOf(forma);
     if (i < 0) { e.formas.push(forma); i = e.formas.length - 1; }
     out += texto.slice(ult, x.ini) + marcadorDe(e, i); ult = x.fim;
-    trocas.push(e.origem === 'dicionario' ? { id: e.id, tipo: e.tipo, dicionario: true } : { id: e.id, tipo: e.tipo });
+    trocas.push(e.origem === 'dicionario' ? { id: e.id, tipo: e.tipo, dicionario: true } : e.origem === 'ia-local' ? { id: e.id, tipo: e.tipo, ia: true } : { id: e.id, tipo: e.tipo });
   }
   out += texto.slice(ult);
   return { texto: out, trocas, novas };
@@ -527,6 +617,12 @@ function resumoDicionario(trocas) {
   return n ? n + ' nome(s) achado(s) pelo dicionário — confira na cópia' : '';
 }
 
+/** "N achado(s) pela IA local — confira a prévia" (so a contagem, nunca o nome), ou '' se nenhum. */
+function resumoIA(trocas) {
+  const n = new Set(trocas.filter((x) => x.ia).map((x) => x.id)).size;
+  return n ? n + ' achado(s) pela IA local — confira a prévia' : '';
+}
+
 // ---------- guardas (hooks) ----------
 const LIMITE_LEITURA = 3 * 1024 * 1024;
 const TEXTO_LEGIVEL = /\.(md|txt|markdown|csv|json|html?|xml|rtf)$/i;
@@ -588,6 +684,6 @@ module.exports = {
   tabelaDe, copiasDe, pastaDoCaso, ehDaTabela, dentroDasCopias, novaTabela, lerTabela, gravarTabela, ativa,
   dobrar, chaveDe, cpfValido, cnpjValido, detectar, adicionar, anonimizarTexto, reverterTexto, marcadores,
   valoresReais, contemReal, casosComTabela, caminhoCopia, lerParaAnonimizar, resumoContagem, resumoDicionario, limparNome,
-  detectarDicionario, dicionarioDisponivel, DIR_DADOS,
+  detectarDicionario, dicionarioDisponivel, DIR_DADOS, detectarIA, validarAchadosIA, resumoIA,
   avaliarLeitura, avaliarBusca, avaliarComando, avaliarGravacao,
 };
