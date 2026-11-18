@@ -89,7 +89,7 @@ function pedir(alvo, modelo, corpoPrompt, timeoutMs) {
         const partes = []; let n = 0;
         res.on('data', (b) => { n += b.length; if (n > MAX_RESPOSTA) { req.destroy(); return acabar({ ok: false, motivo: 'resposta-grande' }); } partes.push(b); });
         res.on('end', () => {
-          try { const j = JSON.parse(Buffer.concat(partes).toString('utf8')); acabar({ ok: true, resposta: j && j.response, cortada: !!(j && j.done_reason === 'length') }); } catch (e) { acabar({ ok: true, resposta: null }); }
+          try { const j = JSON.parse(Buffer.concat(partes).toString('utf8')); if (!j || typeof j.response !== 'string') return acabar({ ok: false, motivo: 'resposta-invalida' }); acabar({ ok: true, resposta: j.response, cortada: j.done_reason === 'length' }); } catch (e) { acabar({ ok: false, motivo: 'resposta-invalida' }); } // nao e um Ollama de verdade
         });
         res.on('error', () => acabar({ ok: false, motivo: 'erro' }));
       });

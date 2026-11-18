@@ -65,7 +65,7 @@ function estadoIA(op) {
 const avisoIA = (ia) => {
   if (!ia) return;
   if (ia.aviso) console.log('⚠️ ' + ia.aviso + (ia.docsOk ? ' (' + ia.docsOk + ' documento(s) já tinham passado pela IA antes de ela parar.)' : ''));
-  else if (ia.avisoParcial) console.log('⚠️ ' + ia.avisoParcial);
+  if (ia.avisoParcial) console.log('⚠️ ' + ia.avisoParcial);
 };
 const sha = (arq) => crypto.createHash('sha256').update(fs.readFileSync(arq)).digest('hex');
 const relCaso = (pasta, arq) => path.relative(pasta, arq).split(path.sep).join('/');
@@ -109,7 +109,7 @@ async function preparar(argv) {
   const ia = estadoIA(op);
   let t = A.lerTabela(x.pasta); const nova = !t;
   if (!t) t = A.novaTabela(x.rel);
-  const antes = t.entradas.length; const iaAntes = t.entradas.filter((e) => e.origem === 'ia-local').length;
+  const antes = t.entradas.length; let iaNovos = 0;
   t.ativa = true; t.caso = x.rel;
   for (const n of nomesDoDossie(x.pasta)) {
     if (/\d{3}/.test(n)) { A.anonimizarTexto(n, t, opAn); continue; }
@@ -123,14 +123,13 @@ async function preparar(argv) {
   for (const f of fontes) {
     if (!fs.existsSync(f)) continue;
     const r = A.lerParaAnonimizar(f); if (r.erro) continue;
-    if (ia) await A.detectarIA(r.texto, t, opAn, ia);
+    if (ia) iaNovos += await A.detectarIA(r.texto, t, opAn, ia);
     A.anonimizarTexto(r.texto, t, opAn); lidos++;
   }
   A.gravarTabela(x.pasta, t);
   const porTipo = {}; for (const e of t.entradas) porTipo[e.tipo] = (porTipo[e.tipo] || 0) + 1;
   console.log('🔒 Anonimização LIGADA no caso ' + x.rel + '. ' + (nova ? 'Tabela criada' : 'Tabela atualizada') + ' com ' + t.entradas.length + ' dado(s) (' + (t.entradas.length - antes) + ' novo(s)): ' + descrever(porTipo) + '. Li ' + lidos + ' arquivo(s) do caso para achar os dados.');
   console.log('A tabela (com os dados reais) ficou só na pasta do caso: ' + path.join(x.rel, A.PASTA_TABELA, 'tabela.json') + ' — eu não leio esse arquivo; o advogado pode abrir para conferir.');
-  const iaNovos = t.entradas.filter((e) => e.origem === 'ia-local').length - iaAntes;
   if (ia && iaNovos > 0) console.log('🤖 ' + iaNovos + ' achado(s) pela IA local — confira a prévia (rode o simular antes de aplicar).');
   avisoIA(ia);
   console.log('Próximo passo: node "' + path.join(c.P.base, 'scripts', 'anonimizar.js') + '" aplicar "' + x.nome + '"');

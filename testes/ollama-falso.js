@@ -4,7 +4,7 @@
 // grava {"porta":N} em <arquivo-porta> e atende POST /api/generate conforme o modo.
 // Uso: node ollama-falso.js <modo> <arquivo-porta> <arquivo-log> [<arquivo-achados.json>] [<porta-destino>]
 //  modos: ok (responde os achados do JSON) | quebrado (resposta que nao e JSON) | lento (nunca responde)
-//         | cortada (resposta com done_reason "length") | vazio-no-1o (1o pedido sem achados, os seguintes com) | lento-depois-do-1o (1o pedido ok, os seguintes nunca respondem) | semmodelo (404, como modelo nao baixado) | redireciona (302 para 127.0.0.1:<porta-destino>) | sentinela (so conta)
+//         | lixo (200 com corpo que nao e do Ollama) | cortada (resposta com done_reason "length") | vazio-no-1o (1o pedido sem achados, os seguintes com) | lento-depois-do-1o (1o pedido ok, os seguintes nunca respondem) | semmodelo (404, como modelo nao baixado) | redireciona (302 para 127.0.0.1:<porta-destino>) | sentinela (so conta)
 // Cada pedido recebido vira uma linha no log: {"modo","prompt"} (o teste confere o que foi enviado).
 const http = require('http');
 const fs = require('fs');
@@ -22,6 +22,7 @@ const srv = http.createServer((req, res) => {
     if (modo === 'redireciona') { res.writeHead(302, { Location: 'http://127.0.0.1:' + destino + '/api/generate' }); return res.end(); }
     res.writeHead(200, { 'Content-Type': 'application/json' });
     const n = fs.readFileSync(arqLog, 'utf8').split('\n').filter(Boolean).length;
+    if (modo === 'lixo') return res.end('<html>nao sou o ollama</html>');
     if (modo === 'cortada') return res.end(JSON.stringify({ model: 'falso', done: true, done_reason: 'length', response: JSON.stringify({ achados }) }));
     if (modo === 'vazio-no-1o' && n === 1) return res.end(JSON.stringify({ model: 'falso', done: true, response: '{"achados":[]}' }));
     if (modo === 'quebrado') return res.end(JSON.stringify({ response: '{"achados": [ {"tipo": "nome", "texto": ' }));

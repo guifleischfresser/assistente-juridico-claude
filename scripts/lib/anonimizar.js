@@ -332,10 +332,9 @@ function ocorrenciasDe(base, dob, valor) {
 function contextoExcluido(base, ini, lugar) {
   let ant = base.slice(Math.max(0, ini - 120), ini);
   const nl = ant.lastIndexOf('\n'); if (nl >= 0) ant = ant.slice(nl + 1);
-  if (!/(?:^|[\s.(])$/.test(ant) && ant.length) return false;
   let viuMeio = false;
   for (let n = 0; n < 6; n++) {
-    ant = ant.replace(/[ \t.]+$/, '');
+    ant = ant.replace(/[ \t.:,;–-]+$/, ''); // "Relator: X", "Desembargador, X"
     const m = ant.match(/([\p{L}][\p{L}\p{M}'’-]*)$/u); if (!m) return false;
     const w = dobrarRapido(m[1]); ant = ant.slice(0, ant.length - m[1].length);
     if (CONECTORES_DIC.has(w)) continue;
@@ -363,16 +362,15 @@ function validarAchadosIA(brutos, base, opcoes) {
     const chave = chaveNome(valor); if (vistos.has(chave)) continue; vistos.add(chave);
     if (!base.includes(valor)) continue;                                                // alucinado: nao esta literalmente no texto
     if (tipo === 'nome') {
-      if (PARE_DIC.test(dobrarRapido(palavras[0])) || TRIBUNAL_RE.test(chave) || EXCECOES_DIC.has(chave)) continue;
+      if ((PARE_DIC.test(dobrarRapido(palavras[0])) && !/^(banco|empresa)$/.test(dobrarRapido(palavras[0]))) || TRIBUNAL_RE.test(chave) || EXCECOES_DIC.has(chave)) continue;
       if (proprios.some((p) => contemPalavras(p, chave) || contemPalavras(chave, p))) continue; // o proprio advogado/escritorio
     }
     const oc = ocorrenciasDe(base, dob, valor); if (!oc.length) continue;
     const fimV = valor.length;
     if (oc.some((ini) => contextoExcluido(base, ini, tipo === 'nome') || cits.some(([a, f]) => ini >= a && ini + fimV <= f))) continue; // magistrado, lugar, citacao de julgado
     out.push({ tipo, valor, pos: oc[0] });
-    if (out.length >= MAX_ACHADOS_IA) break;
   }
-  return out.sort((a, b) => a.pos - b.pos);
+  return out.sort((a, b) => a.pos - b.pos).slice(0, MAX_ACHADOS_IA); // o corte vale pela posicao no texto, nao pela ordem do modelo
 }
 /**
  * Pergunta ao Ollama local o que as regras nao pegaram e acrescenta a `t` entradas com origem "ia-local".
