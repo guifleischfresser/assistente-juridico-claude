@@ -98,7 +98,7 @@ function preparar(argv) {
   const fontes = [path.join(x.pasta, 'DOSSIE.md')].concat(arquivosDoCaso(x.pasta));
   let lidos = 0;
   for (const f of fontes) {
-    if (!fs.existsSync(f) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(fs.realpathSync(f))) continue;
+    if (!fs.existsSync(f) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(cofre.realpath(f))) continue;
     const r = A.lerParaAnonimizar(f); if (r.erro) continue;
     A.anonimizarTexto(r.texto, t, opAn); lidos++;
   }
@@ -135,7 +135,7 @@ function aplicar(argv, simular) {
   for (const f of lista) {
     let r, soma;
     try {
-      if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(fs.realpathSync(f))) continue;
+      if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(cofre.realpath(f))) continue;
       r = A.lerParaAnonimizar(f);
       if (!simular && !r.erro) soma = sha(f);
     } catch (e) {

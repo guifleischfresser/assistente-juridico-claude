@@ -332,20 +332,19 @@ function prepararRunsRestaurados(md, tabela, bloqueio) {
 }
 
 function restaurarWord(entrada, saidaPedida, md, forcar) {
-  const esc = fs.realpathSync(cfg.escritorio);
-  const real = fs.realpathSync(entrada);
+  const esc = cofre.realpath(cfg.escritorio);
+  const real = cofre.realpath(entrada);
   const caso = A.pastaDoCaso(real, esc);
   if (!caso || !A.marcadores(md).length || !/\.md$/i.test(real)) {
     console.log('Use uma peça Markdown com marcadores dentro do caso a que ela pertence.');
     return 2;
   }
-  const lexical = cofre.seguro(esc, path.resolve(esc, path.relative(path.resolve(cfg.escritorio), path.resolve(entrada))));
+  const lexical = cofre.seguro(esc, cofre.naRaiz(esc, cfg.escritorio, entrada));
   if (norm(lexical).normalize('NFC') !== norm(real).normalize('NFC') || A.ehDaTabela(real) || fs.statSync(real).nlink !== 1) return 2;
   let saida = path.resolve(saidaPedida || real.replace(/\.md$/i, '-restaurado.docx'));
   if (!/\.docx$/i.test(saida)) return 2;
   if (!saida.toLowerCase().endsWith(cofre.SUFIXO_WORD)) saida = saida.replace(/\.docx$/i, cofre.SUFIXO_WORD);
-  const baseSaida = dentroDe(saida, esc) ? esc : path.resolve(cfg.escritorio);
-  const destino = cofre.seguro(esc, path.resolve(esc, path.relative(baseSaida, saida)));
+  const destino = cofre.seguro(esc, cofre.naRaiz(esc, cfg.escritorio, saida));
   if (!dentroDe(destino, caso) && !dentroDe(destino, path.join(esc, 'EXPORTADOS'))) {
     console.log('Escolha um destino dentro do próprio caso ou em EXPORTADOS.');
     return 2;
@@ -393,7 +392,7 @@ function cli() {
   const forcar = process.argv.includes('--forcar');
   const restaurar = process.argv.includes('--restaurar');
   if (!args[0]) { console.log('Uso: node exportar-docx.js <entrada.md> [saida.docx] [--forcar] [--restaurar]'); process.exit(1); }
-  if (cofre.ehSaidaProtegida(args[0]) || cofre.ehSaidaProtegida(fs.realpathSync(args[0]))) {
+  if (cofre.ehSaidaProtegida(args[0]) || cofre.ehSaidaProtegida(cofre.realpath(args[0]))) {
     console.log('Use a peça de trabalho com marcadores como entrada.');
     return 2;
   }
@@ -426,7 +425,7 @@ function cli() {
   }
   const saida = args[1] || args[0].replace(/\.md$/i, '') + '.docx';
   const comMarca = sum.bloqueio.length ? marcarSumulasCanceladas(md, path.dirname(args[0])).texto : md;
-  if (cofre.ehSaidaProtegida(saida) || cofre.ehSaidaProtegida(fs.existsSync(saida) ? fs.realpathSync(saida) : '')) return 2;
+  if (cofre.ehSaidaProtegida(saida) || cofre.ehSaidaProtegida(fs.existsSync(saida) ? cofre.realpath(saida) : '')) return 2;
   // memoria de estilo: aprende com o que o advogado mudou no .docx anterior e fotografa o novo rascunho
   let mem = null; try { mem = require('./memoria'); if (!(mem.ehPeca(saida) || mem.ehPeca(args[0]))) mem = null; } catch (e) { mem = null; }
   if (mem && fs.existsSync(saida)) { try { mem.aprenderEdicoes(saida); } catch (e) { /* */ } }

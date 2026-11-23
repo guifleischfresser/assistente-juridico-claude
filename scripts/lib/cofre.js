@@ -19,6 +19,16 @@ function stat(arq) {
   try { return fs.lstatSync(arq); } catch (e) { if (e.code === 'ENOENT') return null; throw e; }
 }
 
+const realpath = fs.realpathSync.native;
+
+// Aceita a grafia configurada da raiz ou a canônica, sem resolver atalhos abaixo dela.
+function naRaiz(raiz, configurada, alvo) {
+  const base = c.dentroDe(alvo, raiz) ? raiz : path.resolve(configurada);
+  const rel = path.relative(base, path.resolve(alvo));
+  if (path.isAbsolute(rel) || rel === '..' || rel.startsWith('..' + path.sep)) throw Error(MSG);
+  return path.resolve(raiz, rel);
+}
+
 // Verifica todos os componentes abaixo de uma raiz real, inclusive junções no Windows.
 function seguro(raiz, alvo) {
   const rel = path.relative(raiz, alvo);
@@ -28,20 +38,20 @@ function seguro(raiz, alvo) {
     if (process.platform === 'win32' && parte.includes(':')) throw Error(MSG);
     atual = path.join(atual, parte);
     const s = stat(atual);
-    if (s && (s.isSymbolicLink() || c.norm(atual).normalize('NFC') !== c.norm(fs.realpathSync(atual)).normalize('NFC'))) throw Error(MSG);
+    if (s && (s.isSymbolicLink() || path.relative(atual.normalize('NFC'), realpath(atual).normalize('NFC')) !== '')) throw Error(MSG);
   }
   return alvo;
 }
 
 function caminhos(pasta, escritorio = c.config().escritorio) {
-  const raiz = fs.realpathSync(escritorio);
-  const base = c.dentroDe(pasta, raiz) ? raiz : path.resolve(escritorio);
-  const rel = path.relative(base, path.resolve(pasta));
-  if (rel.split(path.sep).length !== 3 || rel.split(path.sep)[0] !== 'CASOS') throw Error(MSG);
-  const caso = seguro(raiz, path.resolve(raiz, rel));
+  const raiz = realpath(escritorio);
+  const pastaCaso = naRaiz(raiz, escritorio, pasta);
+  const rel = path.relative(raiz, pastaCaso);
+  if (rel.split(path.sep).length !== 3 || !c.dentroDe(pastaCaso, path.join(raiz, 'CASOS'))) throw Error(MSG);
+  const caso = seguro(raiz, pastaCaso);
   if (!stat(caso)?.isDirectory()) throw Error(MSG);
   const dir = seguro(caso, path.join(caso, '_anonimizacao'));
-  const claude = fs.realpathSync(c.P.claude);
+  const claude = realpath(c.P.claude);
   const chaves = seguro(claude, path.join(claude, PASTA_CHAVES));
   if (c.dentroDe(chaves, raiz)) throw Error(MSG);
   const permissoes = stat(chaves);
@@ -298,4 +308,4 @@ function verificarAntesDoDescarte(p) {
   if (p.bytes && chave) abrir(p.id, p.bytes, chave);
 }
 
-module.exports = { verificarAntesDoDescarte, cabecalhoPeca, separarPeca, gravarAtomico, sobTrava, hash, PASTA_CHAVES, SUFIXO_WORD, MSG, pastaChaves, ehSaidaProtegida, stat, seguro, caminhos, comTrava, ler, gravar, migrar };
+module.exports = { verificarAntesDoDescarte, cabecalhoPeca, separarPeca, gravarAtomico, sobTrava, hash, PASTA_CHAVES, SUFIXO_WORD, MSG, pastaChaves, ehSaidaProtegida, stat, realpath, naRaiz, seguro, caminhos, comTrava, ler, gravar, migrar };

@@ -15,7 +15,7 @@ const sha = (bytes) => crypto.createHash('sha256').update(bytes).digest('hex');
 const listar = (pasta) => cofre.stat(pasta) ? fs.readdirSync(pasta, { withFileTypes: true }) : [];
 
 function projetos() {
-  const raiz = fs.realpathSync(c.P.claude);
+  const raiz = cofre.realpath(c.P.claude);
   return cofre.seguro(raiz, path.join(raiz, 'projects'));
 }
 
@@ -30,7 +30,7 @@ function transcrito(base, arquivo, id) {
 }
 
 function pastaRecibos() {
-  const raiz = fs.realpathSync(c.P.claude);
+  const raiz = cofre.realpath(c.P.claude);
   return cofre.seguro(raiz, path.join(raiz, RECIBOS));
 }
 function recibo(arquivo) {
@@ -46,8 +46,7 @@ function registrarSessao(ent, fim) {
     const id = ent.session_id;
     if (typeof ent.transcript_path !== 'string' || !path.isAbsolute(ent.transcript_path)) return;
     const claude = path.dirname(base);
-    const raiz = c.dentroDe(ent.transcript_path, claude) ? claude : path.resolve(c.P.claude);
-    const arquivo = path.resolve(claude, path.relative(raiz, ent.transcript_path));
+    const arquivo = cofre.naRaiz(claude, c.P.claude, ent.transcript_path);
     const rel = path.relative(base, arquivo);
     if (!UUID.test(id || '') || rel.split(path.sep).length !== 2 || path.basename(arquivo) !== id + '.jsonl') return;
     cofre.seguro(base, arquivo);
@@ -55,7 +54,7 @@ function registrarSessao(ent, fim) {
     if (!fim) {
       if (cofre.stat(arq)) fs.unlinkSync(arq);
       if (ent.source === 'startup' && typeof ent.cwd === 'string' && path.isAbsolute(ent.cwd)) {
-        const cwd = fs.realpathSync(ent.cwd);
+        const cwd = cofre.realpath(ent.cwd);
         fs.mkdirSync(pastaRecibos(), { recursive: true, mode: 0o700 });
         fs.writeFileSync(inicio(arquivo), JSON.stringify({ cwd }), { flag: 'wx', mode: 0o600 });
       }
@@ -69,7 +68,7 @@ function registrarSessao(ent, fim) {
 
 // Registros do Claude Code são evidência de atividade. Um registro ilegível deixa a atividade incerta.
 function sessoesAtivas() {
-  const raiz = fs.realpathSync(c.P.claude);
+  const raiz = cofre.realpath(c.P.claude);
   const pasta = cofre.seguro(raiz, path.join(raiz, 'sessions'));
   const ids = new Set();
   for (const n of listar(pasta)) {
@@ -98,7 +97,7 @@ function evidencias(bytes, id, raiz, alvo) {
       if (v && ['cwd', 'file_path', 'notebook_path', 'path'].includes(chave) &&
           (path.isAbsolute(v) || typeof cwd === 'string' && path.isAbsolute(cwd))) {
         const local = path.isAbsolute(v) ? path.resolve(v) : path.resolve(cwd, v);
-        const real = cofre.stat(local) ? fs.realpathSync(local) : local;
+        const real = cofre.stat(local) ? cofre.realpath(local) : local;
         const rel = casos.casoDoArquivo(path.join(real, '_'), raiz);
         if (rel) {
           vistos.add(rel);
@@ -126,7 +125,7 @@ function evidencias(bytes, id, raiz, alvo) {
       if (r.sessionId !== id || typeof r.cwd !== 'string' || !path.isAbsolute(r.cwd)) {
         isolada = false;
       } else {
-        const local = cofre.stat(r.cwd) ? fs.realpathSync(r.cwd) : null;
+        const local = cofre.stat(r.cwd) ? cofre.realpath(r.cwd) : null;
         primeiroCwd ??= local || '';
         if (!local || !c.dentroDe(local, alvo.pasta)) isolada = false;
       }
@@ -137,7 +136,7 @@ function evidencias(bytes, id, raiz, alvo) {
 }
 
 function lerVinculosValidados() {
-  const raiz = fs.realpathSync(c.P.base);
+  const raiz = cofre.realpath(c.P.base);
   const arq = cofre.seguro(raiz, path.resolve(raiz, path.relative(path.resolve(c.P.base), casos.arqVinculos())));
   const s = cofre.stat(arq);
   if (!s) return {};
@@ -255,7 +254,7 @@ function descartar(caso, escritorio, acao) {
       }
       if (cofre.stat(p.dir) && !listar(p.dir).length) fs.rmdirSync(p.dir);
     } catch (e) { resultado.pendencias++; }
-    try { apagarHistoricos({ ...caso, pasta: p.caso }, fs.realpathSync(escritorio), resultado); }
+    try { apagarHistoricos({ ...caso, pasta: p.caso }, cofre.realpath(escritorio), resultado); }
     catch (e) { resultado.pendencias++; }
     registrar(resultado.pendencias ? 'pendente' : 'concluido');
     return resultado;

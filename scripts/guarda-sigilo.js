@@ -17,7 +17,7 @@ const cofre = require('./lib/cofre');
 const { RECIBOS, descartado } = require('./lib/descarte');
 const artefatosPrivados = new RegExp(cofre.PASTA_CHAVES + '|' + RECIBOS + '|_descarte\\.jsonl', 'i');
 const privado = (texto) => artefatosPrivados.test(texto) || cofre.ehSaidaProtegida(texto);
-const real = (alvo) => { try { return fs.realpathSync(alvo); } catch (e) { return alvo; } };
+const real = (alvo) => { try { return cofre.realpath(alvo); } catch (e) { return alvo; } };
 const msgPrivado = 'Use o terminal ou o Word fora da conversa para acessar os artefatos privados do caso.';
 
 const ENVIO = [
