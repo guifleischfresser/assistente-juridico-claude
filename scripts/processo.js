@@ -22,6 +22,7 @@ const k = require('./lib/casos');
 
 const a = process.argv.slice(2);
 const esc = c.config().escritorio;
+const descarte = require('./lib/descarte');
 const ler = (f, max) => { try { const t = fs.readFileSync(f, 'utf8'); return t.length > max ? t.slice(0, max) + '\n[…continua no arquivo]' : t; } catch (e) { return null; } };
 function unico(termo) {
   const r = k.buscar(termo, esc);
@@ -31,18 +32,58 @@ function unico(termo) {
 }
 
 switch (a[0]) {
+  case 'sessao-inicio':
+  case 'sessao-fim':
+    c.lerEntrada().then((ent) => descarte.registrarSessao(ent, a[0] === 'sessao-fim'));
+    break;
+  case 'encerrar':
+  case 'descartar': {
+    if (a.length !== 3 || a[2] !== '--confirmar') {
+      console.log('Execute no terminal local: processo.js ' + a[0] + ' "<fase/nome da pasta do caso>" --confirmar');
+      process.exitCode = 1;
+      break;
+    }
+    const alvo = k.listar(esc).find((x) => x.rel === a[1].replace(/\\/g, '/'));
+    if (!alvo) {
+      console.log('Indique a fase e o nome exatos da pasta do caso.');
+      process.exitCode = 3;
+      break;
+    }
+    try {
+      const r = descarte.descartar(alvo, esc, a[0]);
+      console.log('Históricos removidos: ' + r.historicos + '. Pendências preservadas: ' + r.pendencias + '.');
+      if (r.pendencias) {
+        if (r.sessoes.length) console.log('Conversas preservadas para revisão local: ' + [...new Set(r.sessoes)].join(', ') + '.');
+        console.log('Feche as conversas ativas e repita. Apague manualmente as conversas de projeto compartilhado ou sem prova de isolamento.');
+        process.exitCode = 2;
+      }
+    } catch (e) {
+      console.log('Descarte interrompido. Confira localmente os caminhos, as permissões e operações concorrentes antes de repetir.');
+      process.exitCode = 2;
+    }
+    break;
+  }
   case 'abrir': {
     const termo = a.slice(1).join(' ');
     if (!termo) { console.log('Uso: abrir <nome do caso ou número do processo>'); process.exit(1); }
     const x = unico(termo);
+    if (descarte.descartado(x.pasta)) {
+      console.log('A correspondência deste caso foi descartada. Consulte os documentos originais localmente.');
+      process.exit(2);
+    }
     let dossie = ler(path.join(x.pasta, 'DOSSIE.md'), 5000);
     let handoff = ler(path.join(x.pasta, 'HANDOFF.md'), 2500);
     // caso anonimizado: dossie e handoff chegam a conversa com marcadores (tabela so na pasta do caso)
-    const an = require('./lib/anonimizar'); const tab = an.lerTabela(x.pasta); const anonimo = !!(tab && tab.ativa !== false);
+    const an = require('./lib/anonimizar');
+    let tab;
+    try { tab = an.lerTabela(x.pasta); }
+    catch (e) { console.log(require('./lib/cofre').MSG); process.exit(2); }
+    const anonimo = !!(tab && tab.ativa !== false);
     if (anonimo) {
       if (dossie) dossie = an.anonimizarTexto(dossie, tab).texto;
       if (handoff) handoff = an.anonimizarTexto(handoff, tab).texto;
-      an.gravarTabela(x.pasta, tab);
+      try { an.gravarTabela(x.pasta, tab); }
+      catch (e) { console.log(require('./lib/cofre').MSG); process.exit(2); }
     }
     let pecas = []; try { pecas = fs.readdirSync(path.join(x.pasta, 'pecas')).filter((f) => /\.(md|docx)$/i.test(f)).sort().reverse().slice(0, 6); } catch (e) { /* */ }
     const autos = fs.existsSync(path.join(x.pasta, 'autos-md', 'INDICE.md'));
@@ -62,7 +103,11 @@ switch (a[0]) {
     // o que ja saiu da maquina neste caso (registro local _saida/; uma linha, sem nomes de arquivo)
     try { const ls = require('./lib/saida').linhaProcesso(x.pasta); if (ls) console.log('\n' + ls); } catch (e) { c.log('erros', 'saida abrir: ' + e.message); }
     console.log('\nAutos convertidos: ' + (autos ? 'sim (autos-md/INDICE.md)' : 'não — use /preparar-autos se precisar ler o processo'));
-    if (anonimo) console.log('\n🔒 Caso ANONIMIZADO: leia só as cópias em anonimizado/ (dossiê acima já com marcadores), escreva a peça com os marcadores ([PARTE_A], [CPF_1]…) e nunca abra _anonimizacao/. Dados reais só no fim: /anonimizar reverter <peça>.');
+    if (anonimo) console.log('\n🔒 Caso ANONIMIZADO: leia só as cópias em anonimizado/ (dossiê acima já com marcadores), escreva a peça com os marcadores ([PARTE_A], [CPF_1]…) e nunca abra _anonimizacao/. Dados reais só no Word, com exportação local e --restaurar.');
+    if (anonimo) {
+      const cofre = require('./lib/cofre');
+      console.log('Mantenha este comentário no início da peça: ' + cofre.cabecalhoPeca(cofre.caminhos(x.pasta).id));
+    }
     console.log('\nRegras desta conversa: trabalhe só neste caso; leia outros casos apenas se o advogado pedir; anotações do cliente vão para o DOSSIE.md deste caso (processo.js anotar), nunca para MEMORIA/.');
     break;
   }
@@ -104,5 +149,5 @@ switch (a[0]) {
     console.log('⚖️ Foro de ' + x.rel + ': ' + cl.descreverContexto(cl.foroDoCaso(x.pasta)) + ' — os prazos deste caso passam a usar esse calendário forense.');
     break;
   }
-  default: console.log('Uso: processo.js abrir <caso> | listar | anotar <caso> "<texto>" | atual | foro <caso> [--tribunal X] [--comarca Y]'); process.exit(1);
+  default: console.log('Uso: processo.js abrir <caso> | listar | anotar <caso> "<texto>" | atual | encerrar/descartar "<fase/nome>" --confirmar | foro <caso> [--tribunal X] [--comarca Y]'); process.exit(1);
 }

@@ -484,17 +484,22 @@ Feriados estaduais/municipais e suspensões por tribunal/comarca (antigo Roadmap
 
 ## 17. Anonimização opcional antes do envio (antigo Roadmap item 3)
 
-Pseudonimização **reversível, por caso e opt-in**: o assistente lê cópias com marcadores; a tabela de correspondência fica só na pasta do caso; a reversão devolve os dados reais no rascunho final. Tudo local, sem rede, Node puro.
+A pseudonimização é reversível, por caso e opt-in. O assistente trabalha com marcadores e a restauração ocorre em memória na exportação local para Word. O recurso usa Node puro.
 
 ### 17.1 Arquivos e comandos (`scripts/anonimizar.js`, `scripts/lib/anonimizar.js`, skill `/anonimizar`)
 | Item | Onde |
 |---|---|
-| Tabela (dados reais) | `CASOS/<fase>/<caso>/_anonimizacao/tabela.json` — `{"tipo":"tabela-anonimizacao","versao":1,"caso","ativa","contadores","entradas":[{id,tipo,chave,chaves?,original,formas[]}],"documentos":{rel:{sha256,copia,em}}}` |
-| Cópias anonimizadas | `<caso>/anonimizado/<mesmo caminho relativo>` (`.md/.txt` mantêm o nome; `.pdf/.docx/.html` → `<nome>.<ext>.md` via `lib/extrair.js`); arquivo de fora do caso → `anonimizado/<nome>` |
-| Versão com dados reais | `<peça>-dados-reais.md` ao lado da peça (anterior → `_versoes/`); `--saida` muda |
+| Cofre | `<caso>/_anonimizacao/cofre.json` com envelope v2, ID aleatório de 128 bits, AES-256-GCM, nonce aleatório de 12 bytes por gravação e tag de 16 bytes. O conteúdo preserva a tabela v1, IDs, variantes, metadados e hashes de documentos. |
+| Chave | 32 bytes aleatórios por caso, em `CLAUDE_CONFIG_DIR/advogado-cofre-chaves/` (padrão `~/.claude`), fora do escritório. Diretório `0700` e chave `0600` em Unix. No Windows vale a ACL herdada do perfil. |
+| Cópias anonimizadas | `<caso>/anonimizado/`, com o caminho relativo dos originais. PDF, Word e HTML viram cópias Markdown. |
+| Word restaurado | `<peça>-restaurado.docx` no próprio caso ou em `EXPORTADOS/`, sem sobrescrita. |
 
-- `preparar <caso>`: liga (`ativa: true`) e alimenta a tabela com DOSSIE (`Cliente`, `Parte contrária`, `Partes`, rótulos processuais e `Anonimizar também:`), `--nome/--cpf/--cnpj/--processo/--rg/--email/--telefone/--endereco/--cep` e os detectores rodando sobre DOSSIE, `documentos/` e `autos-md/` (sem gravar cópias). `aplicar <caso> [arquivos]` exige `ativa` (código 2 senão). `simular <caso> [arquivos]` conta o que viraria marcador sem gravar cópia nem tabela (funciona com a anonimização desligada; usa uma cópia da tabela ou só o DOSSIE). `preparar/aplicar/simular` aceitam `--sem-dicionario` (§17.3). `reverter`, `conferir`, `estado`, `desligar` (mantém a tabela). Saídas nunca trazem dado real; códigos 0/1/2/3 como os outros scripts.
-- Regra estreita `Bash/PowerShell(node "…/anonimizar.js" *)` no instalador; `doutor` confere o script (FERRAMENTAS); empacotamento e plugin pegam o arquivo — e o dicionário `scripts/lib/dados/*.txt` — pelo `git ls-files`/pasta `scripts/`; desinstalar remove a regra (filtro `advogado/scripts`) e nunca toca tabelas nem cópias (ficam no ESCRITORIO).
+- `preparar` liga a anonimização e alimenta a tabela. `aplicar` exige anonimização ativa. `simular` conta o que viraria marcador. Os três aceitam `--sem-dicionario` (§17.3). `conferir` valida marcadores, `estado` mostra a situação e `desligar` mantém o cofre para exportação.
+- `lib/cofre.js` usa o ID do cabeçalho no nome `<id>.key` e nos dados autenticados (AAD). Cópias e mudanças de volume preservam o vínculo. Para recuperar em outro perfil, recoloque a chave do backup na pasta privada descrita acima, com as mesmas permissões. Execute esse procedimento fora da sessão do assistente.
+- Travas locais por caminho e por ID registram PID e identificador do dono. Após dez minutos, o comando pode recuperar uma trava cujo dono tenha terminado. Um ID provisório em `cofre-id-pendente` precede a publicação da chave e permite retomá-la em caso de interrupção. A revisão da tabela evita sobrescrever mudanças concorrentes.
+- `anonimizar.js migrar <caso>` valida o legado, publica e abre o cofre antes de remover `tabela.json`. Uma repetição só remove um legado residual se o conteúdo autenticado for idêntico. Revise os antigos `*-dados-reais.md`, saídas personalizadas, `_versoes/` e backups. O subcomando antigo `reverter` orienta a exportação local.
+
+- Regra estreita `Bash/PowerShell(node "…/anonimizar.js" *)` no instalador; `doutor` confere o script (FERRAMENTAS); empacotamento e plugin pegam o arquivo — e o dicionário `scripts/lib/dados/*.txt` — pelo `git ls-files`/pasta `scripts/`; desinstalar remove a regra (filtro `advogado/scripts`) e preserva cofre, chave e cópias.
 
 ### 17.2 Marcadores, estabilidade e reversão determinística
 - Tipos → prefixos: nome `PARTE_<A,B,…,Z,AA…>`; `CPF_n`, `CNPJ_n`, `PROCESSO_n` (CNJ), `RG_n`, `EMAIL_n`, `TELEFONE_n`, `ENDERECO_n`, `CEP_n`. Contadores por caso, criados na ordem de aparição (DOSSIE primeiro: o cliente costuma ser `[PARTE_A]`).
@@ -513,22 +518,28 @@ Pseudonimização **reversível, por caso e opt-in**: o assistente lê cópias c
   - Desempenho: `ocorrenciasTabela` passou de um `indexOf` por chave para uma varredura única indexada pela 1ª palavra (mesmo resultado e ordem); 3 MB com o dicionário custam ~+0,1 s, e ~+0,6 s mesmo com 3,4 mil nomes distintos (o `indexOf` levaria ~4 s).
 - **Não perfeita** (documentado ao advogado em toda aplicação): apelido, sobrenome solto ("o Sr. Silva"), nome sozinho, nome raro fora do dicionário (prenome ou sobrenome — o dicionário cobre os mais frequentes; prenome estrangeiro ou sobrenome raro no fim pode ficar de fora: "Maria Souza Zwicker" vira "[PARTE_A] Zwicker"), doutrinador citado sem título (vira marcador; reversível). Juiz/advogado/tribunal não são trocados. O nome da pasta do caso aparece em `/processo`. Remédio: a linha `Anonimizar também:` no DOSSIE (escrita pelo advogado, fora da conversa) ou `--nome "Nome|Variante"` (variantes separadas por `|` são a mesma parte).
 
-### 17.4 Guardas (todas fail-open, como os outros hooks)
+### 17.4 Guardas
 - **Por que `ask` e não `deny` no original:** a decisão é do advogado (ele pode querer que o Claude veja um trecho real), e o `deny` cego quebraria fluxos legítimos (`/preparar-autos`, conferência). O hook só pergunta quando o arquivo está num caso com `ativa: true`, fora de `anonimizado/`, e **contém** algum dado da tabela (texto ≤ 3 MB, comparação dobrada para nomes e por dígitos para documentos) ou é binário (PDF/Word/imagem). Peças só com marcadores passam livres. Para isso a `guarda-sigilo` passou a ouvir `Read|NotebookRead|Grep` (mesmo grupo de `PreToolUse`, sem hook novo; o doutor acusa matcher antigo e `/consertar` religa).
 - **Grep**: só pergunta em modo conteúdo (`output_mode: content` ou `-A/-B/-C`) — `files_with_matches`/`count` mostram só nomes. Pergunta se o caminho está no caso fora das cópias ou é ancestral de caso anonimizado ligado.
-- **Tabela**: `deny` sempre (mesmo com a anonimização desligada) em Read/Grep para caminho com segmento `_anonimizacao` (qualquer caixa, NFC) e em comando Bash/PowerShell que cite `_anonimizacao` (o próprio `anonimizar.js` nunca precisa do caminho). Defesa em profundidade: `Read(**/_anonimizacao/**)` em `permissions.deny`.
+- **Artefatos privados:** `guarda-sigilo.js` nega acessos diretos à chave, ao cofre e ao `*-restaurado.docx` por Read/Grep e a comandos com referência explícita. A configuração do instalador também nega leituras diretas dessas classes de arquivos. Restauração e descarte são comandos do terminal do advogado. O hook detecta referências explícitas em comandos Bash/PowerShell. As guardas dependem do Claude Code e de caminhos identificáveis e a ACL do perfil protege contra outros usuários do sistema, onde disponível.
 - **PostToolUse**: depois de uma leitura autorizada do original, injeta o lembrete de continuar com marcadores.
 - **guarda-escrita** (antes de tudo): gravar na pasta da tabela → deny; texto com a assinatura `tabela-anonimizacao` (ou estrutura `formas`/`original` + marcadores) em qualquer outro arquivo → deny ("tabela fora da pasta do caso"); se o destino é harness (CLAUDE.md, skills, `*/memory/*`, `MEMORIA/**`, `habilidades/`, perfil de escrita) e o texto contém dado real de **qualquer** tabela do escritório → deny (complementa o filtro de CPF/CNJ formatado, que não pegava nomes).
-- Leituras de originais por terminal (`cat`, scripts) não são interceptadas — limitação aceita (seria parsing frágil de shell); a pasta da tabela é.
+- A detecção em Bash/PowerShell não cobre comandos indiretos, cópias renomeadas ou ferramentas fora do harness. Mantenha os Word restaurados no diretório local protegido.
 
 ### 17.5 Integrações
 - `processo.js abrir`: com a anonimização ligada, DOSSIE e HANDOFF saem com marcadores (entradas novas entram na tabela) e uma linha "🔒 Caso ANONIMIZADO…".
-- `exportar-docx.js`: marcador restante → código 2 (antes da checagem de citações); `--forcar` exporta e grifa os marcadores (como `[NÃO VERIFICADO]`). `checar-peca.js`: seção "Anonimização" com a contagem.
+- `exportar-docx.js --restaurar` exige peça com marcadores no caminho real do caso, chave e cofre válidos e correspondência para todo marcador, mesmo com `--forcar`. O comentário `advogado-caso` no início da peça precisa corresponder ao ID autenticado do cofre. O exportador verifica citações, súmulas e texto oculto após resolver os marcadores e publica o Word por renomeação de um temporário privado na pasta de destino. Insere os valores como texto dos runs do Word, em memória, sem passar o documento restaurado para a memória de estilo. Sem restauração, `--forcar` continua grifando os marcadores. `checar-peca.js` mostra a contagem e orienta a exportação local.
 - Instruções: linha no CLAUDE.md global, no `AGENTS.md` (Codex/Cursor, onde não há hooks) e em `/formatar-peca`; `/ajuda` e README.
 
 ### 17.6 Contexto fixo e testes
-- `/anonimizar` é listada (descrição de 157 caracteres) para o Claude reconhecer o pedido em linguagem natural; corpo de ~2,4 mil caracteres e detalhes em `references/detalhes.md`. Contexto fixo **3.539 → 3.710** (25 skills); o teste de limite foi ajustado para ≤ 3.710 por esse motivo (CHANGELOG). Alternativa considerada: `disable-model-invocation: true` (custo zero), descartada porque o advogado costuma pedir sem o `/`.
+- `/anonimizar` é listada para o Claude reconhecer o pedido em linguagem natural; corpo de ~2,4 mil caracteres e detalhes em `references/detalhes.md`. Contexto fixo **3.539 → 3.710** (25 skills); o teste de limite foi ajustado para ≤ 3.710 por esse motivo (CHANGELOG). Alternativa considerada: `disable-model-invocation: true` (custo zero), descartada porque o advogado costuma pedir sem o `/`.
 - Suíte 12g (+31): instalação/inventário, opt-in, cópias sem dado real, todos os tipos com e sem formatação, acento/maiúsculas/NFD, estabilidade entre documentos, casos separados, ida e volta idêntica, órfão, exportação barrada/`--forcar`, `checar-peca`, perguntas e negativas do hook, PostToolUse, guarda-escrita (tabela fora do caso, dado real na memória), `/processo`, `estado`, `desligar`.
+
+### 17.7 Encerramento e descarte locais
+
+- `processo.js encerrar|descartar "<fase/nome-da-pasta>" --confirmar` exige o identificador exato do caso. Os dois comandos removem chave, cofre e tabela legada, incluindo resíduos reconhecíveis de gravação. O registro `<caso>/_descarte.jsonl` contém somente data, ação e resultado. Uma tentativa registrada impede a recriação silenciosa da correspondência, pois rascunhos existentes dependem dos IDs anteriores.
+- `lib/descarte.js` examina somente transcritos reconhecíveis de `CLAUDE_CONFIG_DIR/projects`. Verifica caminho real, UUID, vínculo existente em `sessoes-casos.json`, conteúdo atribuído ao caso e prova de encerramento para a versão atual do transcrito. SessionStart registra o diretório real no início de uma conversa nova e invalida a prova de encerramento ao iniciar ou retomar. Para exclusão, o projeto precisa corresponder ao diretório inicial no caso ou em uma subpasta, e o transcrito precisa confirmar o isolamento. SessionEnd registra a impressão digital local do transcrito. Menções e vínculos servem para localizar pendências e detectar divergências.
+- Sessões em diretório compartilhado, ativas, mistas, antigas sem prova de início isolado e encerramento, duplicadas, com índice que as menciona, com subagentes ou com caminho inseguro ficam pendentes. O descarte preserva os originais, Word exportados e o registro de saída do §20. Feche as sessões antes de executar e evite reabri-las durante o descarte. A exclusão local não garante limpeza de backups, versões anteriores, caches, snapshots do sistema ou dados enviados a serviços externos.
 
 ## 18. Registro de consentimento do cliente por caso (antigo Roadmap item 3; não lançado)
 
@@ -587,6 +598,8 @@ O advogado baixa ou cola uma skill de terceiro e pede para instalar. Nada vai di
 
 ## 19. Roadmap
 
+Prioridade do Guilherme, item 1 implementado no §17. Cofre por caso, restauração exclusiva no Word e descarte local com revisão de históricos pendentes.
+
 1. Teste em uma máquina Windows real (PS 5.1, winget, SmartScreen, OneDrive).
 2. Fontes verificáveis: MCPs locais de DataJud/CNJ e de jurisprudência dos tribunais, sempre com aprovação explícita (a v0.5 já confere julgados por WebFetch nos sites autorizados; falta busca estruturada por tribunal).
 3. Canal de atualização opt-in, assinado.
@@ -610,7 +623,7 @@ Complementa a `/anonimizar` (§17, **o que** vai para a API) e o `/consentimento
 - **Uma linha JSON por evento, só acréscimo** (`appendFileSync`); JSONL e não JSON único porque o hook roda a cada ferramenta: acrescentar uma linha é barato e nunca reescreve o histórico.
 - `arquivo` é o caminho **relativo ao caso** (`/` como separador; `.` = a própria pasta). Nunca conteúdo, trecho ou hash do texto. `sessao` = 8 primeiros caracteres do id da conversa. `em`/`data` no horário/dia **local** (`lib/prazos.agora()` + getters locais; às 23h30 em São Paulo sai o dia de hoje, não o de amanhã em UTC).
 - `tipo`: `copia-anonimizada` (dentro de `anonimizado/`), `derivado` (`autos-md/`, `pecas/`, `DOSSIE.md`, `HANDOFF.md`, `mapa-de-teses*`, `_consentimento/`), `original` (o resto) e `internet` (WebFetch/WebSearch com caso aberto na conversa: guarda só o site do WebFetch, nunca a pesquisa nem o endereço completo). `_saida/` e `_anonimizacao/` nunca entram.
-- `anonimizacao` (tabela ativa) e `copiaDisponivel` (há `t.documentos[rel].copia` ou `caminhoCopia()` existente) vêm **só por leitura** das funções exportadas de `lib/anonimizar` (nenhuma mudança nela); `consentimento` = `autorizado` | `exige-anonimizacao` | `sem-registro` | `revogado` | `nao-autorizado` | `ilegivel`, por `lib/consentimento.situacao()`. Ferramenta `mcp__*` ganha `externo: true`.
+- `anonimizacao` (tabela ativa) e `copiaDisponivel` (há `t.documentos[rel].copia` ou `caminhoCopia()` existente) vêm por leitura da API de `lib/anonimizar`, que abre o cofre do caso; `consentimento` = `autorizado` | `exige-anonimizacao` | `sem-registro` | `revogado` | `nao-autorizado` | `ilegivel`, por `lib/consentimento.situacao()`. Ferramenta `mcp__*` ganha `externo: true`.
 - **Dedup:** uma linha por arquivo/sessão/tipo (chave `sessao|tipo|arquivo|site`), conferida no próprio arquivo (não no estado da sessão: sobrevive a `/clear` e a estado apagado). Outra conversa = linha nova.
 - **Registro estragado** (linha que não é evento nosso, ou última linha cortada): o hook não grava (nem por cima nem no fim), anota em `logs/erros.log` e segue; `resumo`/`estado` dizem que há linhas ilegíveis.
 
@@ -635,6 +648,8 @@ Complementa a `/anonimizar` (§17, **o que** vai para a API) e o `/consentimento
 - `guarda-escrita.js` 0c (logo após o 0b do consentimento): Write/Edit em `_saida/registro.jsonl` (qualquer caixa) → deny; texto com a assinatura `"reg":"registro-saida"` em qualquer outro arquivo (memória, CLAUDE.md, skills, escritório) → deny. `guarda-sigilo.js`: comando de terminal que cita `_saida` e apaga/move/reescreve (`rm`, `mv`, `>`, `sed -i`, `Remove-Item`, `Set-Content`…) → deny; ler continua livre.
 - Sem skill nova: contexto fixo continua **3.869** caracteres. Instruções no corpo da `/processo`, em `skills/consentimento/references/o-que-saiu-da-maquina.md` (apontada pelo corpo da `/consentimento`), uma linha no CLAUDE.md global e uma no AGENTS.md gerado (lá: "aqui nada é anotado").
 - Fora deste passo (PR #12 mexe nos arquivos): item no `doutor` e menção no `/ajuda` (§19 item 10).
+
+Os comandos de encerramento e descarte do §17 preservam `_saida/registro.jsonl` e seus resumos. O registro informa envios anteriores mesmo após a exclusão de uma transcrição local. A exportação restaurada ocorre fora do Claude Code e não envia conteúdo ao modelo.
 
 ### 20.5 Testes
 - Suíte 12n (+24, sandbox próprio): regras no instalador e no modo plugin; Read de original sem anonimização; Read de original com cópia disponível (destaque); Read da cópia e do DOSSIE; Grep (filenames e modo conteúdo) e Bash citando o caso (absoluto e `CASOS/…`); outro caso não vaza (prefixo); dedup na mesma sessão e linha nova em outra; consentimento ausente/revogado/exige anonimização no evento; registro corrompido intacto + log; 23h30 em São Paulo; WebFetch/WebSearch com caso aberto (site, sem pesquisa); `resumo` sem CPF/CNJ/nome do DOSSIE e com marcador em caso anonimizado; `--json`; `--desde`; `exportar`; `estado` sem nomes; `/processo abrir`; guarda-escrita e terminal; entrada malformada (fail-open); `mcp__*` externo; contexto fixo ≤ 3.869, AGENTS.md/CLAUDE.md; desinstalador remove a regra e não toca `_saida/`. Verde também com `TZ=America/Sao_Paulo` e relógio falso.

@@ -24,6 +24,7 @@ const CONVERTE_EXT = /\.(pdf|docx|html?)$/i;
 
 // ---------- caminhos e caso ----------
 const nfc = (s) => String(s || '').normalize('NFC');
+const cofre = require('./cofre');
 const tabelaDe = (pastaCaso) => path.join(pastaCaso, PASTA_TABELA, 'tabela.json');
 const copiasDe = (pastaCaso) => path.join(pastaCaso, PASTA_COPIAS);
 /** Pasta do caso (CASOS/<fase>/<caso>) que contem o arquivo, ou null. Tolera NFD (macOS) e caixa (Windows). */
@@ -44,14 +45,14 @@ function novaTabela(rel) {
   return { tipo: ASSINATURA, versao: 1, caso: rel || '', ativa: true, criadaEm: new Date().toISOString(), atualizadaEm: null, contadores: {}, entradas: [], documentos: {} };
 }
 function lerTabela(pastaCaso) {
-  const t = c.lerJSON(tabelaDe(pastaCaso), null);
-  if (!t || t.tipo !== ASSINATURA || !Array.isArray(t.entradas)) return null;
+  const t = cofre.ler(pastaCaso);
+  if (!t) return null;
   t.contadores = t.contadores || {}; t.documentos = t.documentos || {};
   return t;
 }
-function gravarTabela(pastaCaso, t) {
+function gravarTabela(pastaCaso, t, aposGravar) {
   t.atualizadaEm = new Date().toISOString();
-  c.gravarJSON(tabelaDe(pastaCaso), t);
+  cofre.gravar(pastaCaso, t, aposGravar);
 }
 function ativa(pastaCaso) { const t = lerTabela(pastaCaso); return !!(t && t.ativa !== false); }
 
@@ -492,7 +493,7 @@ function contemReal(texto, t) {
 function casosComTabela(esc) {
   const out = [];
   try {
-    for (const k of require('./casos').listar(esc)) if (fs.existsSync(tabelaDe(k.pasta))) out.push(k);
+    for (const k of require('./casos').listar(esc)) if (fs.existsSync(tabelaDe(k.pasta)) || fs.existsSync(path.join(k.pasta, PASTA_TABELA, 'cofre.json'))) out.push(k);
   } catch (e) { /* */ }
   return out;
 }
@@ -530,7 +531,7 @@ function resumoDicionario(trocas) {
 // ---------- guardas (hooks) ----------
 const LIMITE_LEITURA = 3 * 1024 * 1024;
 const TEXTO_LEGIVEL = /\.(md|txt|markdown|csv|json|html?|xml|rtf)$/i;
-const MSG_TABELA = 'A tabela de anonimização guarda os dados REAIS do cliente: só o próprio /anonimizar mexe nela, e o assistente nunca a lê nem copia. Trabalhe com os marcadores ([PARTE_A], [CPF_1]…) e, no fim, use /anonimizar reverter.';
+const MSG_TABELA = 'A correspondência fica no cofre local. Trabalhe com os marcadores ([PARTE_A], [CPF_1]…). Para gerar o Word final, o advogado executa exportar-docx.js com --restaurar no terminal local. Para proteger uma tabela antiga, use anonimizar.js migrar.';
 
 /** Leitura de arquivo (Read): {decisao:'deny'|'ask', motivo} ou null. Fail-open: erro => null. */
 function avaliarLeitura(arquivo, esc) {

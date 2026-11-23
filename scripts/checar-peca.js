@@ -69,7 +69,7 @@ function relatorio(r) {
   if (r.emoji) L.push('- ' + r.emoji + ' emoji(s) — remover.');
   if (r.restosMd) L.push('- ' + r.restosMd + ' resto(s) de formatação técnica (tabela/código) — revisar.');
   L.push('- Parágrafo médio: ' + r.media + ' palavras' + (r.perfilMedia ? ' (seu estilo: ~' + r.perfilMedia + ')' : ''));
-  if (r.anonimos) L.push('', '## Anonimização', '- ' + r.anonimos + ' marcador(es) de anonimização ([PARTE_A], [CPF_1]…). Antes do Word: /anonimizar reverter (gera a versão -dados-reais); a exportação recusa marcador restante.');
+  if (r.anonimos) L.push('', '## Anonimização', '- ' + r.anonimos + ' marcador(es) de anonimização ([PARTE_A], [CPF_1]…). Para restaurar no Word, execute exportar-docx.js com --restaurar no terminal local.');
   if (r.consentimento && r.consentimento.length) L.push('', '## Consentimento do cliente', r.consentimento.map((a) => '- ' + a).join('\n'));
   if (r.preencher.length) L.push('', '## Campos a preencher (' + r.preencher.length + ')', '- ' + Array.from(new Set(r.preencher)).join(', '));
   if (r.tipo) L.push('', '## Requisitos mínimos (' + r.tipo + ')', r.faltando.length ? r.faltando.map((f) => '- ❓ não encontrei: ' + f).join('\n') : '- Todos os itens básicos parecem presentes.');

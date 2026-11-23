@@ -24,7 +24,10 @@
       "Read(**/.env)",
       "Read(**/*.pfx)",
       "Read(**/*.p12)",
-      "Read(**/_anonimizacao/**)"
+      "Read(**/_anonimizacao/**)",
+      "Read(**/advogado-cofre-chaves/**)",
+      "Read(**/advogado-fim-de-sessao/**)",
+      "Read(**/*-restaurado.docx)"
     ],
     "additionalDirectories": [
       "{{ESCRITORIO}}",
@@ -34,7 +37,8 @@
   "hooks": {
     "SessionStart": [
       { "matcher": "startup|resume|clear|compact", "hooks": [
-        { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/sessao-inicio.js"], "timeout": 20, "statusMessage": "Preparando o escritório..." }
+        { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/sessao-inicio.js"], "timeout": 20, "statusMessage": "Preparando o escritório..." },
+        { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/processo.js", "sessao-inicio"], "timeout": 10 }
       ] }
     ],
     "UserPromptSubmit": [
@@ -57,7 +61,8 @@
     ],
     "SessionEnd": [
       { "hooks": [
-        { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/memoria.js", "reflexao", "--automatica", "--fim"], "timeout": 30 }
+        { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/memoria.js", "reflexao", "--automatica", "--fim"], "timeout": 30 },
+        { "type": "command", "command": "node", "args": ["{{BASE}}/scripts/processo.js", "sessao-fim"], "timeout": 30 }
       ] }
     ],
     "Stop": [

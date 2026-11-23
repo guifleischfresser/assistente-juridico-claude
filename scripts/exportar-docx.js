@@ -6,7 +6,7 @@
  * texto justificado; citacao longa (linha iniciada por ">") com recuo de 4 cm, fonte 10, espaco simples;
  * numero de pagina no rodape. Sem dependencias (zip proprio). Pandoc/python-docx sao opcionais.
  *
- * Uso: node exportar-docx.js <entrada.md> [saida.docx] [--forcar]
+ * Uso: node exportar-docx.js <entrada.md> [saida.docx] [--forcar] [--restaurar]
  * Marcacoes aceitas: # Titulo centralizado | ## Secao | ### Subsecao | **negrito** | *italico*
  *   > citacao longa | - item / 1. item / a) item | <!-- centralizar --> antes de um paragrafo
  *   <!-- sem-recuo --> | <!-- quebra-pagina -->.  "[NAO VERIFICADO]" e "[PREENCHER ...]" saem grifados.
@@ -26,7 +26,9 @@
 const fs = require('fs');
 const path = require('path');
 const { criarZip } = require('./lib/zip');
-const { config } = require('./lib/comum');
+const { config, dentroDe, norm } = require('./lib/comum');
+const A = require('./lib/anonimizar');
+const cofre = require('./lib/cofre');
 
 const cfg = config();
 const F = Object.assign({ fonte: 'Times New Roman', tamanho: 12, entrelinhas: 1.5, recuoPrimeiraLinhaCm: 1.25, recuoCitacaoCm: 4 }, cfg.formatacao || {});
@@ -46,19 +48,20 @@ const reInline = (op) => {
 function runs(texto, base, op) {
   base = base || {};
   texto = texto.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '$1 ($2)').replace(/`([^`]+)`/g, '$1');
+  const render = op?.restaurar || run;
   const out = [];
   const re = new RegExp(reInline(op).source, 'g');
   let ult = 0, m;
   while ((m = re.exec(texto))) {
-    if (m.index > ult) out.push(run(texto.slice(ult, m.index), base));
+    if (m.index > ult) out.push(render(texto.slice(ult, m.index), base));
     const t = m[0];
-    if (t.startsWith('**')) out.push(run(t.slice(2, -2), Object.assign({}, base, { b: true })));
-    else if (t.startsWith('*') || t.startsWith('_')) out.push(run(t.slice(1, -1), Object.assign({}, base, { i: true })));
-    else if (t.startsWith('[🔴') || t.startsWith('[⚠️ SÚMULA')) out.push(run(t, Object.assign({}, base, { grifo: 'red', b: true })));
-    else out.push(run(t, Object.assign({}, base, { grifo: true, b: true })));
+    if (t.startsWith('**')) out.push(render(t.slice(2, -2), Object.assign({}, base, { b: true })));
+    else if (t.startsWith('*') || t.startsWith('_')) out.push(render(t.slice(1, -1), Object.assign({}, base, { i: true })));
+    else if (t.startsWith('[🔴') || t.startsWith('[⚠️ SÚMULA')) out.push(render(t, Object.assign({}, base, { grifo: 'red', b: true })));
+    else out.push(render(t, Object.assign({}, base, { grifo: true, b: true })));
     ult = m.index + t.length;
   }
-  if (ult < texto.length) out.push(run(texto.slice(ult), base));
+  if (ult < texto.length) out.push(render(texto.slice(ult), base));
   return out.join('');
 }
 function run(t, o) {
@@ -232,7 +235,7 @@ function checarAnonimizacao(md, entrada, forcar, oQue) {
   const restantes = require('./lib/anonimizar').marcadores(md);
   if (!restantes.length || forcar) return { restantes, recusa: null };
   return { restantes, recusa: ['❌ Exportação interrompida: ' + (oQue || 'a peça') + ' ainda tem ' + restantes.length + ' marcador(es) de anonimização no lugar de dados reais (ex.: ' + Array.from(new Set(restantes.map((m) => m.marcador))).slice(0, 5).join(', ') + ', linha ' + restantes[0].linha + ').',
-    'Devolva os dados reais antes: node "' + path.join(__dirname, 'anonimizar.js') + '" reverter "' + entrada + '" e exporte o arquivo -dados-reais. (Para exportar mesmo assim, com os marcadores grifados: --forcar)'] };
+    'Para devolver os dados no Word, execute localmente: node "' + path.join(__dirname, 'exportar-docx.js') + '" "' + entrada + '" --restaurar. Para exportar com os marcadores grifados: --forcar.'] };
 }
 const avisoMarcadoresForcados = (n) => '⚠️ ' + n + ' marcador(es) de anonimização foram para o Word (grifados em amarelo) porque você usou --forcar. Troque pelos dados reais antes de protocolar.';
 /**
@@ -268,20 +271,135 @@ function gravarDocx(md, saida, op) {
   const corpoXml = converter(md, op);
   // defesa em profundidade: o Word gerado tambem nao pode ter run invisivel
   const ocXml = inj.ocultoNoDocx(corpoXml).concat(inj.detectarInvisiveis(corpoXml).map((m) => ({ motivo: m })));
-  if (ocXml.length) return inj.avisoGravacao(ocXml, 'no Word que eu ia gerar') + ' (Não gerei o arquivo.)';
-  fs.writeFileSync(saida, montarDocx(corpoXml));
+  if (ocXml.length) return op?.restaurar ? 'Texto oculto no Word.' :
+    inj.avisoGravacao(ocXml, 'no Word que eu ia gerar') + ' (Não gerei o arquivo.)';
+  const docx = montarDocx(corpoXml);
+  if (op?.restaurar) {
+    cofre.gravarAtomico(saida, docx, '.advogado-restaurado.docx-', true);
+  } else {
+    if (cofre.ehSaidaProtegida(saida)) throw Error('Reserve o sufixo -restaurado.docx para a exportação com --restaurar.');
+    fs.writeFileSync(saida, docx);
+  }
   return null;
 }
 
-if (require.main === module) {
+// Mantém os marcadores fora da gramática Markdown. Os valores entram só nos runs de texto.
+function prepararRunsRestaurados(md, tabela, bloqueio) {
+  let prefixo = '\uE000';
+  while (md.includes(prefixo) || tabela.entradas.some((e) => e.formas.some((v) => v.includes(prefixo)))) prefixo += '\uE000';
+  const valores = [];
+  const marcas = [...new Set(bloqueio.map((x) => x.sumula.fimTribunal))].sort((a, b) => a - b);
+  let bruto = 0;
+  let pos = 0;
+  let indice = 0;
+  let texto = '';
+  const token = (valor) => prefixo + (valores.push(valor) - 1) + '\uE001';
+  const emitir = (trecho, literal) => {
+    const fim = pos + trecho.length;
+    let inicio = 0;
+    while (indice < marcas.length && marcas[indice] <= fim) {
+      const corte = marcas[indice++] - pos;
+      const antes = trecho.slice(inicio, corte);
+      texto += (literal && antes ? token(antes) : antes) + token(null);
+      inicio = corte;
+    }
+    const resto = trecho.slice(inicio);
+    texto += literal && resto ? token(resto) : resto;
+    pos = fim;
+  };
+  for (const m of A.marcadores(md)) {
+    emitir(md.slice(bruto, m.ini), false);
+    emitir(A.reverterTexto(m.marcador, tabela).texto, true);
+    bruto = m.fim;
+  }
+  emitir(md.slice(bruto), false);
+  const tokens = new RegExp(prefixo + '(\\d+)\uE001', 'g');
+  const grifos = new RegExp(prefixo + '|\\[⚠️ SÚMULA CANCELADA\\]|\\[(?:N[ÃA]O VERIFICAD[OA]|A VERIFICAR)[^\\]\\r\\n]*\\]', 'gi');
+  const restaurar = (trecho, estilo) => {
+    const restaurado = trecho.replace(tokens, (_, i) => valores[Number(i)] ?? prefixo);
+    let xml = '';
+    let fim = 0;
+    for (const m of restaurado.matchAll(grifos)) {
+      if (m.index > fim) xml += run(restaurado.slice(fim, m.index), estilo);
+      const avisoInserido = m[0] === prefixo;
+      const sumula = avisoInserido || m[0].toUpperCase() === SUMULA_CANCELADA;
+      xml += run(avisoInserido ? ' ' + SUMULA_CANCELADA : m[0], { ...estilo, b: true, grifo: sumula ? 'red' : true });
+      fim = m.index + m[0].length;
+    }
+    return xml + (fim < restaurado.length ? run(restaurado.slice(fim), estilo) : '');
+  };
+  return { texto, restaurar };
+}
+
+function restaurarWord(entrada, saidaPedida, md, forcar) {
+  const esc = cofre.realpath(cfg.escritorio);
+  const real = cofre.realpath(entrada);
+  const caso = A.pastaDoCaso(real, esc);
+  if (!caso || !A.marcadores(md).length || !/\.md$/i.test(real)) {
+    console.log('Use uma peça Markdown com marcadores dentro do caso a que ela pertence.');
+    return 2;
+  }
+  const lexical = cofre.seguro(esc, cofre.naRaiz(esc, cfg.escritorio, entrada));
+  if (norm(lexical).normalize('NFC') !== norm(real).normalize('NFC') || A.ehDaTabela(real) || fs.statSync(real).nlink !== 1) return 2;
+  let saida = path.resolve(saidaPedida || real.replace(/\.md$/i, '-restaurado.docx'));
+  if (!/\.docx$/i.test(saida)) return 2;
+  if (!saida.toLowerCase().endsWith(cofre.SUFIXO_WORD)) saida = saida.replace(/\.docx$/i, cofre.SUFIXO_WORD);
+  const destino = cofre.seguro(esc, cofre.naRaiz(esc, cfg.escritorio, saida));
+  if (!dentroDe(destino, caso) && !dentroDe(destino, path.join(esc, 'EXPORTADOS'))) {
+    console.log('Escolha um destino dentro do próprio caso ou em EXPORTADOS.');
+    return 2;
+  }
+  return cofre.comTrava(caso, (p) => {
+    const vinculada = cofre.separarPeca(md, p.id);
+    if (vinculada === null) {
+      console.log('O vínculo da peça está ausente ou não corresponde ao cofre deste caso.');
+      return 2;
+    }
+    const t = cofre.ler(caso, true);
+    if (!t) throw Error(cofre.MSG);
+    const r = A.reverterTexto(vinculada, t);
+    if (r.orfaos.length || A.marcadores(r.texto).length) {
+      console.log('Restauração interrompida. Confira os marcadores da peça no caso correto.');
+      return 2;
+    }
+    if (recusaOculto(r.texto)) {
+      console.log('Restauração interrompida por texto oculto.');
+      return 3;
+    }
+    const cits = require('./lib/citacoes').analisarCitacoes(r.texto, path.dirname(real), cfg.escritorio);
+    const sumReal = checarSumulas(r.texto, cits, forcar);
+    if (sumReal.recusa ||
+        !forcar && cits.some((x) => x.problema || x.tipo === 'jurisprudencia' && !x.verificada && !x.marcada)) {
+      console.log('Restauração interrompida pela checagem de citações. Revise a peça localmente.');
+      return 2;
+    }
+    const bloqueio = sumReal.bloqueio.filter((x) => !r.texto.slice(x.sumula.fimTribunal, x.sumula.fimTribunal + 40).includes(SUMULA_CANCELADA));
+    const { texto, restaurar } = prepararRunsRestaurados(vinculada, t, bloqueio);
+    const nomeTrava = 'word-' + cofre.hash(norm(destino).normalize('NFC'));
+    if (cofre.sobTrava(p.chaves, nomeTrava, () => gravarDocx(texto, destino, { grifarSumulas: true, restaurar }))) {
+      console.log('Restauração interrompida por texto oculto no Word.');
+      return 3;
+    }
+    console.log('Word restaurado gerado localmente com o sufixo -restaurado.docx.');
+    if (sumReal.bloqueio.length) console.log('Súmulas canceladas grifadas no Word. Revise localmente.');
+    if (sumReal.avaliadas.some((x) => x.sumula.nivel !== 'bloqueio')) console.log('Há avisos sobre súmulas. Confira as citações localmente.');
+    return 0;
+  });
+}
+
+function cli() {
   const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
   const forcar = process.argv.includes('--forcar');
-  if (!args[0]) { console.log('Uso: node exportar-docx.js <entrada.md> [saida.docx] [--forcar]'); process.exit(1); }
+  const restaurar = process.argv.includes('--restaurar');
+  if (!args[0]) { console.log('Uso: node exportar-docx.js <entrada.md> [saida.docx] [--forcar] [--restaurar]'); process.exit(1); }
+  if (cofre.ehSaidaProtegida(args[0]) || cofre.ehSaidaProtegida(cofre.realpath(args[0]))) {
+    console.log('Use a peça de trabalho com marcadores como entrada.');
+    return 2;
+  }
   const md = fs.readFileSync(args[0], 'utf8');
-  // v0.6: nunca exportar peca com texto oculto (nem com --forcar): fonte branca/minuscula, vanish, largura zero
   const oculto = recusaOculto(md);
-  if (oculto) { console.log(oculto); process.exit(3); }
-  // anonimizacao: o Word e a versao final; marcador que sobrou e dado que faltou devolver
+  if (oculto) { console.log(restaurar ? 'Exportação interrompida por texto oculto na peça.' : oculto); process.exit(3); }
+  if (restaurar) return restaurarWord(args[0], args[1], md, forcar);
   const anon = checarAnonimizacao(md, args[0], forcar);
   if (anon.recusa) { anon.recusa.forEach((l) => console.log(l)); process.exit(2); }
   const restantes = anon.restantes;
@@ -306,10 +424,11 @@ if (require.main === module) {
     process.exit(2);
   }
   const saida = args[1] || args[0].replace(/\.md$/i, '') + '.docx';
+  const comMarca = sum.bloqueio.length ? marcarSumulasCanceladas(md, path.dirname(args[0])).texto : md;
+  if (cofre.ehSaidaProtegida(saida) || cofre.ehSaidaProtegida(fs.existsSync(saida) ? cofre.realpath(saida) : '')) return 2;
   // memoria de estilo: aprende com o que o advogado mudou no .docx anterior e fotografa o novo rascunho
   let mem = null; try { mem = require('./memoria'); if (!(mem.ehPeca(saida) || mem.ehPeca(args[0]))) mem = null; } catch (e) { mem = null; }
   if (mem && fs.existsSync(saida)) { try { mem.aprenderEdicoes(saida); } catch (e) { /* */ } }
-  const comMarca = sum.bloqueio.length ? marcarSumulasCanceladas(md, path.dirname(args[0])).texto : md;
   const recusa = gravarDocx(comMarca, saida, sum.bloqueio.length ? { grifarSumulas: true } : undefined);
   if (recusa) { console.log(recusa); process.exit(3); }
   if (mem) { try { mem.registrarRascunho(saida); } catch (e) { /* */ } }
@@ -318,5 +437,12 @@ if (require.main === module) {
   if (restantes.length) console.log(avisoMarcadoresForcados(restantes.length));
   sum.avisos.forEach((l) => console.log(l));
   console.log('✅ Documento gerado: ' + saida + (marcadas ? '\n⚠️ Atenção: ' + marcadas + ' citação(ões) marcadas [NÃO VERIFICADO] (grifadas em amarelo). Confira antes de protocolar.' : ''));
+}
+if (require.main === module) {
+  try { process.exitCode = cli(); }
+  catch (e) {
+    console.log('Exportação interrompida. Confira a peça, o cofre local e se o destino é válido e está livre.');
+    process.exitCode = 2;
+  }
 }
 module.exports = { converter, montarDocx, celulas, larguras, LARGURA_UTIL, recusaOculto, checarAnonimizacao, avisoMarcadoresForcados, gravarDocx, checarSumulas, marcarSumulasCanceladas, SUMULA_CANCELADA };

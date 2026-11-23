@@ -22,9 +22,9 @@
 - `ANZ simular "<caso>"` mostra a contagem antes, sem gravar nada.
 
 ## Onde fica cada coisa
-- Tabela (dados reais): `<caso>/_anonimizacao/tabela.json` — só na pasta do caso, nunca global.
+- Cofre cifrado: `<caso>/_anonimizacao/cofre.json`. A chave exclusiva do caso fica no diretório de configuração local do Claude, fora do escritório.
 - Cópias anonimizadas: `<caso>/anonimizado/` (mesmo caminho do original; PDF/Word/página viram `.md`). O original não é tocado.
-- Versão com dados reais: `<peça>-dados-reais.md`, ao lado da peça com marcadores (versão anterior vai para `_versoes/`).
+- Word com dados reais: `<peça>-restaurado.docx`, gerado em memória pelo comando local `exportar-docx.js "<peça.md>" --restaurar`. Os antigos `*-dados-reais.md` e suas versões exigem revisão local.
 
 ## O que as guardas fazem (caso com anonimização LIGADA)
 - Abrir um arquivo do caso fora de `anonimizado/` que tenha dado real (ou PDF/Word original): o Claude Code **pergunta** ao advogado. Se ele aceitar, vem um lembrete para continuar só com marcadores.
@@ -36,5 +36,5 @@
 ## Limites (diga com franqueza)
 - A detecção de nomes é heurística: nome sozinho (só "Maria"), apelido, sobrenome solto ("o Sr. Silva") e nome raro que não está no dicionário (prenome estrangeiro, sobrenome incomum — "Maria Souza Zwicker" pode virar "[PARTE_A] Zwicker") podem escapar; um doutrinador citado sem título pode virar marcador (a reversão devolve). Nome de juiz, advogado e tribunal não é trocado. O advogado revisa as cópias; o que escapou entra com `Anonimizar também:` no DOSSIE ou `--nome "Nome|Silva"` (variantes separadas por `|` viram a mesma parte).
 - O nome da pasta do caso (ex.: `silva-x-banco`) continua aparecendo; escolha nomes neutros se isso importar.
-- Leituras pelo terminal (cat, scripts) de arquivos originais não passam pela pergunta; só a pasta da tabela é bloqueada no terminal.
+- Leituras pelo terminal (cat, scripts) de arquivos originais não passam pela pergunta; referências diretas ao cofre, à chave e ao Word restaurado são bloqueadas nas ferramentas do assistente.
 - O que o advogado escrever na conversa continua indo para a Anthropic, como sempre.

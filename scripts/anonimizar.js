@@ -3,7 +3,7 @@
 /*
  * Anonimizacao opcional por caso: troca nomes das partes, CPF/CNPJ, nº CNJ, RG, e-mails, telefones,
  * enderecos e CEPs por marcadores estaveis ([PARTE_A], [CPF_1], [PROCESSO_1]...) ANTES de o assistente
- * ler o documento, e devolve os dados reais no rascunho final. Tudo local; a tabela fica SO na pasta do caso.
+ * ler o documento, e restaura os dados reais apenas na exportação local para Word.
  * Uso: node anonimizar.js preparar <caso> [--nome "Nome|Outra grafia"]... [--cpf X] [--endereco "..."] [--sem-dicionario]
  *        cria/atualiza a tabela (DOSSIE: Cliente, Parte contrária, "Anonimizar também:" + o que os
  *        documentos do caso mostrarem) e LIGA a anonimização do caso
@@ -13,12 +13,10 @@
  *                                         so conta o que viraria marcador (nao grava copia nem tabela)
  *        Nomes soltos ("conversei com Maria Souza") sao achados por um dicionario local de prenomes e
  *        sobrenomes (scripts/lib/dados); --sem-dicionario volta a usar so rotulo/qualificacao/sufixo.
- *      node anonimizar.js reverter <arquivo> [--saida <arq>] [--caso <caso>]
- *                                         grava <arquivo>-dados-reais.md com os dados reais (marcador sem
- *                                         correspondencia fica como esta e e avisado; codigo 2)
+ *      node anonimizar.js migrar <caso>   protege a tabela antiga no cofre local
  *      node anonimizar.js conferir <arquivo> [--caso <caso>]   marcadores que restam / sem correspondencia
  *      node anonimizar.js estado [<caso>]
- *      node anonimizar.js desligar <caso>   (a tabela continua, para reverter o que ja foi escrito)
+ *      node anonimizar.js desligar <caso>   (o cofre continua disponível para exportação)
  * Nunca imprime dado real (a saida vai para a conversa). Codigos: 0 ok, 1 uso, 2 recusa/pendencia, 3 caso.
  */
 const fs = require('fs');
@@ -27,6 +25,7 @@ const crypto = require('crypto');
 const c = require('./lib/comum');
 const k = require('./lib/casos');
 const A = require('./lib/anonimizar');
+const cofre = require('./lib/cofre');
 
 const esc = () => c.config().escritorio;
 const ROTULOS_DOSSIE = /^(Cliente|Clientes|Parte contrária|Partes contrárias|Partes|Autora?|Réu|Ré|Requerente|Requerid[oa]|Reclamante|Reclamad[oa]|Exequente|Executad[oa]|Representante(?: legal)?|Anonimizar também)$/i;
@@ -73,7 +72,7 @@ function arquivosDoCaso(pasta) {
     let ns = []; try { ns = fs.readdirSync(d, { withFileTypes: true }); } catch (e) { return; }
     for (const n of ns.sort((p, q) => p.name.localeCompare(q.name))) {
       const a = path.join(d, n.name);
-      if (n.isDirectory()) { if (!/^(_|\.)/.test(n.name) && n.name !== A.PASTA_COPIAS) andar(a); } else if (A.TEXTO_EXT.test(n.name) || A.CONVERTE_EXT.test(n.name)) out.push(a);
+      if (n.isDirectory()) { if (!/^(_|\.)/.test(n.name) && n.name !== A.PASTA_COPIAS) andar(a); } else if (n.isFile() && (A.TEXTO_EXT.test(n.name) || A.CONVERTE_EXT.test(n.name))) out.push(a);
     }
   };
   for (const sub of ['documentos', 'autos-md']) andar(path.join(pasta, sub));
@@ -99,14 +98,14 @@ function preparar(argv) {
   const fontes = [path.join(x.pasta, 'DOSSIE.md')].concat(arquivosDoCaso(x.pasta));
   let lidos = 0;
   for (const f of fontes) {
-    if (!fs.existsSync(f)) continue;
+    if (!fs.existsSync(f) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(cofre.realpath(f))) continue;
     const r = A.lerParaAnonimizar(f); if (r.erro) continue;
     A.anonimizarTexto(r.texto, t, opAn); lidos++;
   }
   A.gravarTabela(x.pasta, t);
   const porTipo = {}; for (const e of t.entradas) porTipo[e.tipo] = (porTipo[e.tipo] || 0) + 1;
   console.log('🔒 Anonimização LIGADA no caso ' + x.rel + '. ' + (nova ? 'Tabela criada' : 'Tabela atualizada') + ' com ' + t.entradas.length + ' dado(s) (' + (t.entradas.length - antes) + ' novo(s)): ' + descrever(porTipo) + '. Li ' + lidos + ' arquivo(s) do caso para achar os dados.');
-  console.log('A tabela (com os dados reais) ficou só na pasta do caso: ' + path.join(x.rel, A.PASTA_TABELA, 'tabela.json') + ' — eu não leio esse arquivo; o advogado pode abrir para conferir.');
+  console.log('A correspondência está protegida no cofre local.');
   console.log('Próximo passo: node "' + path.join(c.P.base, 'scripts', 'anonimizar.js') + '" aplicar "' + x.nome + '"');
 }
 function descrever(porTipo) {
@@ -120,8 +119,10 @@ function aplicar(argv, simular) {
   const cmd = simular ? 'simular' : 'aplicar';
   const opAn = { dicionario: !op['sem-dicionario'] };
   if (!pos.length) { console.log('Uso: ' + cmd + ' <caso> [arquivo ...] [--sem-dicionario]'); process.exit(1); }
-  // o caso e o 1º argumento; o resto, arquivos (se existirem)
-  const arquivos = pos.slice(1).filter((p) => fs.existsSync(p));
+  // Preserve nomes de caso sem aspas quando não há arquivos explícitos.
+  const outros = pos.slice(1);
+  const temArquivos = outros.some((p) => /[\\/.]/.test(p) || fs.existsSync(p));
+  const arquivos = outros.length && !temArquivos && k.buscar(pos.join(' '), esc()).length ? [] : outros;
   const termo = arquivos.length ? pos[0] : pos.join(' ');
   const x = unico(termo);
   let t = A.lerTabela(x.pasta);
@@ -130,21 +131,36 @@ function aplicar(argv, simular) {
   const lista = arquivos.length ? arquivos.map((p) => path.resolve(p)) : arquivosDoCaso(x.pasta);
   if (!lista.length) { console.log('Não achei documentos em ' + x.rel + '/documentos nem em autos-md/. Indique os arquivos: ' + cmd + ' "' + x.nome + '" <arquivo>'); process.exit(2); }
   if (opAn.dicionario && !A.dicionarioDisponivel()) console.log('⚠️ O dicionário de nomes (scripts/lib/dados) não foi encontrado: só os nomes com rótulo ou qualificação serão trocados. Rode o /consertar para reinstalar.');
-  const trocas = [], feitos = [], falhas = [];
+  const trocas = [], feitos = [], falhas = [], copias = new Map();
   for (const f of lista) {
-    if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta)) continue;
-    const r = A.lerParaAnonimizar(f);
+    let r, soma;
+    try {
+      if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(cofre.realpath(f))) continue;
+      r = A.lerParaAnonimizar(f);
+      if (!simular && !r.erro) soma = sha(f);
+    } catch (e) {
+      falhas.push(path.basename(f) + (e.code === 'ENOENT' ? ': arquivo ausente' : ': leitura indisponível'));
+      continue;
+    }
     if (r.erro) { falhas.push(path.basename(f) + ': ' + r.erro); continue; }
     const an = A.anonimizarTexto(r.texto, t, opAn);
     const destino = A.caminhoCopia(f, x.pasta);
     if (simular) { trocas.push(...an.trocas); feitos.push(relCaso(x.pasta, destino)); continue; }
-    c.garantirDir(path.dirname(destino));
-    fs.writeFileSync(destino, an.texto, 'utf8');
     const chave = c.dentroDe(f, x.pasta) ? relCaso(x.pasta, f) : 'externo/' + path.basename(f);
-    t.documentos[chave] = { sha256: sha(f), copia: relCaso(x.pasta, destino), em: new Date().toISOString() };
+    const registro = { sha256: soma, copia: relCaso(x.pasta, destino), em: new Date().toISOString() };
+    copias.set(destino, { texto: an.texto, chave, registro });
     trocas.push(...an.trocas); feitos.push(relCaso(x.pasta, destino));
   }
-  if (!simular) A.gravarTabela(x.pasta, t);
+  if (!simular && copias.size) A.gravarTabela(x.pasta, t, (pasta, id) => {
+    for (const { texto, chave, registro } of copias.values()) {
+      const destino = cofre.seguro(pasta, path.join(pasta, registro.copia));
+      const dir = path.dirname(destino);
+      fs.mkdirSync(dir, { recursive: true });
+      const quebra = texto.includes('\r\n') ? '\r\n' : '\n';
+      cofre.gravarAtomico(destino, cofre.cabecalhoPeca(id) + quebra + texto, '.anonimizar-');
+      t.documentos[chave] = registro;
+    }
+  });
   if (!feitos.length) { console.log('Nenhum documento ' + (simular ? 'legível' : 'anonimizado') + ' em ' + x.rel + (falhas.length ? ': ' + falhas.join('; ') : '.')); process.exit(2); }
   const dic = A.resumoDicionario(trocas);
   if (simular) {
@@ -153,7 +169,8 @@ function aplicar(argv, simular) {
     if (falhas.length) console.log('Não consegui ler: ' + falhas.join('; '));
     return;
   }
-  console.log('🔒 Anonimizei ' + feitos.length + ' documento' + (feitos.length > 1 ? 's' : '') + ' do caso ' + x.nome + ': ' + A.resumoContagem(trocas) + '. A tabela ficou só na pasta do caso.');
+  console.log('🔒 Anonimizei ' + feitos.length + ' documento' + (feitos.length > 1 ? 's' : '') + ' do caso ' + x.nome + ': ' + A.resumoContagem(trocas) + '. A correspondência está no cofre local.');
+  console.log('Mantenha o comentário advogado-caso da cópia no início da peça.');
   console.log('Cópias para trabalhar (leia só estas):\n' + feitos.slice(0, 30).map((f) => '- ' + f).join('\n') + (feitos.length > 30 ? '\n- … e mais ' + (feitos.length - 30) : ''));
   if (dic) console.log('🔎 ' + dic + ' (nomes sem rótulo, reconhecidos por prenome + sobrenome; se algum não for pessoa, avise o advogado).');
   if (falhas.length) console.log('Não consegui ler: ' + falhas.join('; '));
@@ -170,28 +187,17 @@ function tabelaPara(arquivo, op) {
   return { pasta, t };
 }
 
-function reverter(argv) {
-  const { pos, op } = opcoes(argv);
-  const arq = pos[0];
-  if (!arq || !fs.existsSync(arq)) { console.log('Uso: reverter <arquivo com marcadores> [--saida <arquivo>] [--caso <caso>]'); process.exit(1); }
-  const { pasta, t } = tabelaPara(arq, op);
-  const texto = fs.readFileSync(arq, 'utf8');
-  const r = A.reverterTexto(texto, t);
-  const ext = path.extname(arq) || '.md';
-  const saida = op.saida && typeof op.saida[0] === 'string' ? path.resolve(op.saida[0]) : path.join(path.dirname(arq), path.basename(arq, ext).replace(/-dados-reais$/, '') + '-dados-reais' + ext);
-  if (c.norm(saida) === c.norm(arq)) { console.log('A saída não pode ser o próprio arquivo com marcadores (ele continua sendo o rascunho de trabalho). Use outro --saida.'); process.exit(1); }
-  if (A.ehDaTabela(saida)) { console.log('Não gravo nada dentro da pasta da tabela.'); process.exit(2); }
-  if (fs.existsSync(saida)) c.versionar(saida, path.join(esc(), '_versoes'), esc());
-  fs.writeFileSync(saida, r.texto, 'utf8');
-  const rel = c.dentroDe(saida, pasta) ? relCaso(pasta, saida) : saida;
-  console.log('✅ Devolvi ' + r.trocados + ' dado(s) real(is) em ' + rel + ' (o rascunho com marcadores ficou como estava). Não leio esse arquivo: ele tem os dados do cliente.');
-  if (r.orfaos.length) {
-    console.log('⚠️ ' + r.orfaos.length + ' marcador(es) sem correspondência na tabela deste caso — deixei como estão, não inventei nada:');
-    r.orfaos.slice(0, 15).forEach((m) => console.log('  - ' + m.marcador + ' (linha ' + m.linha + ')'));
-    console.log('Corrija no rascunho (troque pelo marcador certo ou pelo dado) e reverta de novo. A exportação para Word recusa enquanto sobrar marcador.');
-    process.exit(2);
-  }
-  console.log('Para gerar o Word: node "' + path.join(c.P.base, 'scripts', 'exportar-docx.js') + '" "' + saida + '"');
+function reverter() {
+  console.log('Para restaurar os dados, execute localmente: node exportar-docx.js "<peça com marcadores.md>" --restaurar');
+  process.exitCode = 2;
+}
+
+function migrar(argv) {
+  const { pos } = opcoes(argv);
+  if (!pos.length) { console.log('Uso: migrar <caso>'); process.exit(1); }
+  const x = unico(pos.join(' '));
+  console.log(cofre.migrar(x.pasta) ? 'Migração concluída. A correspondência foi validada no cofre.' : 'Nenhuma correspondência antiga a migrar.');
+  console.log('Revise localmente os arquivos *-dados-reais.md antigos e suas versões em _versoes, inclusive saídas personalizadas e backups.');
 }
 
 function conferir(argv) {
@@ -218,7 +224,7 @@ function estado(argv) {
   const t = A.lerTabela(x.pasta);
   if (!t) { console.log('O caso ' + x.rel + ' não está anonimizado (a anonimização é opcional: /anonimizar ' + x.nome + ').'); return; }
   const porTipo = {}; for (const e of t.entradas) porTipo[e.tipo] = (porTipo[e.tipo] || 0) + 1;
-  console.log('Caso ' + x.rel + ': anonimização ' + (t.ativa === false ? 'desligada (a tabela continua para reverter)' : 'LIGADA') + '. Tabela: ' + descrever(porTipo) + '. Marcadores: ' + t.entradas.map((e) => '[' + e.id + ']').slice(0, 40).join(' '));
+  console.log('Caso ' + x.rel + ': anonimização ' + (t.ativa === false ? 'desligada (o cofre continua para exportar)' : 'LIGADA') + '. Tabela: ' + descrever(porTipo) + '. Marcadores: ' + t.entradas.map((e) => '[' + e.id + ']').slice(0, 40).join(' '));
   const docs = Object.entries(t.documentos || {});
   if (docs.length) console.log('Documentos:\n' + docs.map(([o, d]) => { const abs = o.startsWith('externo/') ? null : path.join(x.pasta, o); const mudou = abs && fs.existsSync(abs) && sha(abs) !== d.sha256; return '- ' + d.copia + (mudou ? ' ⚠️ o original mudou depois — rode aplicar de novo' : '') + (fs.existsSync(path.join(x.pasta, d.copia)) ? '' : ' (cópia apagada)'); }).join('\n'));
 }
@@ -229,13 +235,13 @@ function desligar(argv) {
   const t = A.lerTabela(x.pasta);
   if (!t) { console.log('O caso ' + x.rel + ' não está anonimizado.'); return; }
   t.ativa = false; A.gravarTabela(x.pasta, t);
-  console.log('Anonimização desligada no caso ' + x.rel + '. A tabela continua na pasta do caso (para reverter rascunhos já escritos com marcadores); para religar: preparar "' + x.nome + '".');
+  console.log('Anonimização desligada no caso ' + x.rel + '. O cofre continua disponível para exportar peças com marcadores; para religar: preparar "' + x.nome + '".');
 }
 
 if (require.main === module) {
   const [cmd, ...resto] = process.argv.slice(2);
-  const f = { preparar, aplicar, simular: (a) => aplicar(a, true), reverter, conferir, estado, desligar }[cmd];
-  if (!f) { console.log('Uso: anonimizar.js preparar <caso> | aplicar <caso> [arquivo...] [--sem-dicionario] | simular <caso> [arquivo...] | reverter <arquivo> [--saida X] | conferir <arquivo> | estado [<caso>] | desligar <caso>'); process.exit(1); }
-  f(resto);
+  const f = { preparar, aplicar, simular: (a) => aplicar(a, true), reverter, migrar, conferir, estado, desligar }[cmd];
+  if (!f) { console.log('Uso: anonimizar.js preparar <caso> | aplicar <caso> [arquivo...] [--sem-dicionario] | simular <caso> [arquivo...] [--sem-dicionario] | migrar <caso> | conferir <arquivo> [--caso <caso>] | estado [<caso>] | desligar <caso>'); process.exit(1); }
+  try { f(resto); } catch (e) { console.log(cofre.MSG); process.exitCode = 2; }
 }
 module.exports = { nomesDoDossie, arquivosDoCaso };
