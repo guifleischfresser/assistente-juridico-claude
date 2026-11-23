@@ -1129,6 +1129,8 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   const tabA = path.join(casoA, '_anonimizacao', 'cofre.json'); const tabB = path.join(casoB, '_anonimizacao', 'cofre.json');
   const lerTab = (caso) => JSON.parse(run8(['-e', 'console.log(JSON.stringify(require(process.argv[1]).lerTabela(process.argv[2])))', SC8('lib/anonimizar.js'), caso]).out);
   const legadoA = path.join(path.dirname(tabA), 'tabela.json');
+  const semVinculo = (txt) => txt.replace(/^<!-- advogado-caso: [a-f0-9]{32} -->\r?\n/, '');
+  const vincularPeca = (cofre, texto) => '<!-- advogado-caso: ' + JSON.parse(fs.readFileSync(cofre, 'utf8')).id + ' -->\n' + texto;
   const chaveDe = (caso) => run8(['-e', 'console.log(require(process.argv[1]).caminhos(process.argv[2]).chave)', SC8('lib/cofre.js'), caso]).out.trim();
   const shaArq = (f) => require('crypto').createHash('sha256').update(fs.readFileSync(f)).digest('hex');
   const shaIni = shaArq(path.join(casoA, 'documentos', 'inicial.md'));
@@ -1151,7 +1153,7 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   // ida e volta identica (CRLF, NFD, grafias)
   const tabelaInicial = lerTab(casoA);
   const biblioteca = require(path.join(RAIZ, 'scripts', 'lib', 'anonimizar.js'));
-  const volta = (copia, orig) => biblioteca.reverterTexto(copia, tabelaInicial).texto === orig;
+  const volta = (copia, orig) => biblioteca.reverterTexto(semVinculo(copia), tabelaInicial).texto === orig;
   t('reverter em memória: ida e volta idêntica byte a byte (CRLF, NFD e grafias)', volta(iniAn, inicialA) && volta(procAn, procA) && volta(decAn, decisaoA));
   const nEntA = tabelaInicial.entradas.length;
   const nonceInicial = JSON.parse(fs.readFileSync(tabA, 'utf8')).nonce;
@@ -1167,9 +1169,9 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
 
   // peca escrita com marcadores: reverter, orfao, exportar
   const pecaA = path.join(casoA, 'pecas', '2026-10-28_inicial_v1.md');
-  fs.writeFileSync(pecaA, '# PETIÇÃO INICIAL\n\n[PARTE_A], inscrito no CPF sob o nº [CPF_1], em face de [PARTE_B], processo [PROCESSO_1].\n\nTestemunha: [PARTE_Z].\n\nTermos em que, pede deferimento.\n');
+  fs.writeFileSync(pecaA, vincularPeca(tabA, '# PETIÇÃO INICIAL\n\n[PARTE_A], inscrito no CPF sob o nº [CPF_1], em face de [PARTE_B], processo [PROCESSO_1].\n\nTestemunha: [PARTE_Z].\n\nTermos em que, pede deferimento.\n'));
   r = run8([AN, 'conferir', pecaA]);
-  t('conferir: conta os marcadores e aponta o sem correspondência', r.code === 2 && /\[PARTE_Z\] \(linha 5\)/.test(r.out), r.out);
+  t('conferir: conta os marcadores e aponta o sem correspondência', r.code === 2 && /\[PARTE_Z\] \(linha 6\)/.test(r.out), r.out);
   r = run8([AN, 'reverter', pecaA]);
   const realA = path.join(casoA, 'pecas', '2026-10-28_inicial_v1-dados-reais.md');
   t('comando antigo orienta a exportação local sem criar Markdown real', r.code === 2 && /--restaurar/.test(r.out) && !fs.existsSync(realA) && !REAIS.test(r.out), r.out);
@@ -1243,7 +1245,7 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
 
   // /processo e estado
   r = run8([PR8, 'abrir', 'caso alfa']);
-  t('/processo abrir em caso anonimizado: dossiê já com marcadores e a regra do caso', r.code === 0 && /Cliente: \[PARTE_A\] · Parte contrária: \[PARTE_B\]/.test(r.out) && /Caso ANONIMIZADO/.test(r.out) && !/Silva|Exemplo|Ribeiro|0001234/.test(r.out), r.out.slice(0, 800));
+  t('/processo abrir em caso anonimizado: dossiê já com marcadores e a regra do caso', r.code === 0 && /Cliente: \[PARTE_A\] · Parte contrária: \[PARTE_B\]/.test(r.out) && /Caso ANONIMIZADO/.test(r.out) && r.out.includes(vincularPeca(tabA, '').trim()) && !/Silva|Exemplo|Ribeiro|0001234/.test(r.out), r.out.slice(0, 800));
   r = run8([AN, 'estado']); const r2 = run8([AN, 'estado', 'caso alfa']);
   t('estado: lista os casos anonimizados e os documentos, sem dado real', /2026-caso-alfa: LIGADA/.test(r.out) && /2026-caso-beta: LIGADA/.test(r.out) && !/gama/.test(r.out) && /anonimizado\/documentos\/inicial\.md/.test(r2.out) && !REAIS.test(r.out + r2.out), r.out + r2.out);
   r = run8([AN, 'desligar', 'caso alfa']);
@@ -1256,25 +1258,38 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   const tabelaC = biblioteca.novaTabela('Ativos/2026-caso-gama');
   biblioteca.adicionar(tabelaC, 'nome', 'Pedro Alves Moura|PEDRO ALVES MOURA|P. Alves & Moura');
   biblioteca.adicionar(tabelaC, 'nome', 'Marca\u200b Sintética');
+  biblioteca.adicionar(tabelaC, 'nome', 'Súmula 469 do STJ');
+  biblioteca.adicionar(tabelaC, 'nome', 'REsp 9.876.543/SP');
+  biblioteca.adicionar(tabelaC, 'nome', '[NÃO VERIFICADO]');
   tabelaC.documentos['documentos/contrato.md'] = { sha256: 'sintetico', copia: 'anonimizado/documentos/contrato.md', em: '2026-01-01' };
   const legadoBytes = '\uFEFF' + JSON.stringify(tabelaC, null, 2) + '\r\n';
   fs.mkdirSync(path.dirname(legadoC));
   fs.writeFileSync(legadoC, legadoBytes);
-  const chaveC = chaveDe(casoC);
+  const idC = 'c'.repeat(32);
+  const chaveC = path.join(CL8, 'advogado-cofre-chaves', idC + '.key');
+  const reservaC = path.join(path.dirname(legadoC), 'cofre-id-pendente');
+  const materialC = require('crypto').randomBytes(32);
+  fs.writeFileSync(reservaC, idC, { mode: 0o600 });
   const simularFalha = run8(['-e', `
     const fs = require('fs');
     const rename = fs.renameSync;
     fs.renameSync = (a, b) => { if (b.endsWith('cofre.json')) throw Error('falha sintética'); rename(a, b); };
     try { require(process.argv[1]).migrar(process.argv[2]); } catch { process.exitCode = 2; }
   `, SC8('lib/cofre.js'), casoC]);
-  t('falha parcial na migração preserva o legado byte a byte e libera chave e temporário', simularFalha.code === 2 &&
-    fs.readFileSync(legadoC, 'utf8') === legadoBytes && !fs.existsSync(chaveC) && !fs.existsSync(cofreC) &&
-    fs.readdirSync(path.dirname(legadoC)).length === 1, simularFalha.out + simularFalha.err);
+  t('falha parcial na migração preserva o legado e deixa somente a reserva retomável', simularFalha.code === 2 &&
+    fs.readFileSync(legadoC, 'utf8') === legadoBytes && !fs.existsSync(cofreC) &&
+    fs.readdirSync(path.dirname(legadoC)).sort().join() === 'cofre-id-pendente,tabela.json', simularFalha.out + simularFalha.err);
+  // Estado persistido de uma interrupção após publicar a chave e antes do cofre.
+  fs.writeFileSync(reservaC, idC, { mode: 0o600 });
+  fs.writeFileSync(chaveC, materialC, { mode: 0o600 });
+  t('estado intermediário mantém tabela legada legível e chave intacta', JSON.stringify(lerTab(casoC)) === JSON.stringify(tabelaC) &&
+    fs.readFileSync(legadoC, 'utf8') === legadoBytes && !fs.existsSync(cofreC));
   const migrou = run8([AN, 'migrar', 'caso gama']);
   const shaMigrado = fs.existsSync(cofreC) && shaArq(cofreC);
   const migrouDeNovo = run8([AN, 'migrar', 'caso gama']);
   t('migração idempotente preserva IDs, variantes e metadados e orienta revisar as versões em claro', migrou.code === 0 &&
     migrouDeNovo.code === 0 && shaMigrado && shaArq(cofreC) === shaMigrado && !fs.existsSync(legadoC) &&
+    fs.readFileSync(chaveC).equals(materialC) && !fs.existsSync(reservaC) &&
     JSON.stringify(lerTab(casoC)) === JSON.stringify(tabelaC) && /_versoes/.test(migrou.out), migrou.out + migrouDeNovo.out);
   fs.writeFileSync(legadoC, legadoBytes.replace('PEDRO', 'P. PEDRO'));
   r = run8([AN, 'migrar', 'caso gama']);
@@ -1293,34 +1308,92 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   t('revisão obsoleta não sobrescreve alteração concorrente', concorrencia.code === 2 && lerTab(casoC).metaConcorrencia === 'primeira');
   fs.mkdirSync(chaveC.replace(/\.key$/, '.lock'));
   r = run8([AN, 'preparar', 'caso gama']);
-  fs.rmdirSync(chaveC.replace(/\.key$/, '.lock'));
   t('trava já detida impede gravação concorrente', r.code === 2 && lerTab(casoC).metaConcorrencia === 'primeira');
+
+  const travaC = chaveC.replace(/\.key$/, '.lock');
+  const donoVivo = path.join(travaC, process.pid + '-a');
+  const antigo8 = new Date('2000-01-01T00:00:00Z');
+  fs.writeFileSync(donoVivo, '');
+  fs.utimesSync(travaC, antigo8, antigo8);
+  t('trava antiga de dono vivo continua protegendo o cofre', run8([AN, 'preparar', 'caso gama']).code === 2);
+  fs.unlinkSync(donoVivo);
+  const pidExtinto = spawnSync(process.execPath, ['-e', '']).pid;
+  fs.writeFileSync(path.join(travaC, pidExtinto + '-b'), '');
+  fs.utimesSync(travaC, antigo8, antigo8);
+  t('trava antiga de dono extinto é recuperada', run8([AN, 'preparar', 'caso gama']).code === 0 && !fs.existsSync(travaC));
 
   const pecaC = path.join(casoC, 'pecas', 'teste.md');
   const wordC = path.join(casoC, 'pecas', 'teste-restaurado.docx');
   const exportarC = (...args) => run8([SC8('exportar-docx.js'), pecaC, '--restaurar', ...args]);
-  fs.writeFileSync(pecaC, '_Autor: [parte_a#3]_');
+  const escreverC = (texto) => fs.writeFileSync(pecaC, vincularPeca(cofreC, texto));
+  escreverC('_Autor: [parte_a#3]_');
   r = exportarC();
   const xmlC = fs.existsSync(wordC) ? require('../scripts/lib/zip').lerZip(wordC).get('word/document.xml').toString() : '';
   t('variante minúscula em itálico restaura valor literal escapado no XML', r.code === 0 && /<w:i\/>/.test(xmlC) &&
     /P\. Alves &amp; Moura/.test(xmlC) && !/\[parte_a/i.test(xmlC) && !r.out.includes('Moura'), r.out + r.err);
   if (fs.existsSync(wordC)) fs.unlinkSync(wordC);
-  fs.writeFileSync(pecaC, '[PARTE_B]');
+  escreverC('[PARTE_B]');
   r = exportarC('--forcar');
   t('texto oculto originado na correspondência retorna diagnóstico sem dado real', r.code === 3 && /texto oculto/.test(r.out) &&
     !/Marca|Sintética/.test(r.out + r.err) && !fs.existsSync(wordC), r.out + r.err);
-  fs.writeFileSync(pecaC, '[PARTE_A] cita o REsp 9.876.543/SP.');
+  escreverC('[PARTE_A] cita o [PARTE_D].');
   r = exportarC();
-  t('restauração preserva recusa de jurisprudência sem fonte', r.code === 2 && /sem fonte/.test(r.out) &&
+  t('restauração preserva recusa de jurisprudência sem fonte', r.code === 2 && /checagem de citações/.test(r.out) &&
     !/Pedro|Moura|9\.876\.543/.test(r.out + r.err) && !fs.existsSync(wordC), r.out + r.err);
 
-  const bytesB = fs.readFileSync(tabB);
-  fs.copyFileSync(cofreC, tabB);
+  escreverC('[PARTE_A] cita o [PARTE_D] [PARTE_E].');
+  r = exportarC();
+  const xmlCit = fs.existsSync(wordC) ? require('../scripts/lib/zip').lerZip(wordC).get('word/document.xml').toString() : '';
+  t('citação e aviso revelados na restauração geram grifo amarelo sem exibir dados no terminal', r.code === 0 &&
+    /<w:highlight w:val="yellow"\/><\/w:rPr><w:t[^>]*>\[NÃO VERIFICADO\]/.test(xmlCit) &&
+    !/Pedro|Moura|9\.876\.543/.test(r.out + r.err), r.out + r.err);
+  if (fs.existsSync(wordC)) fs.unlinkSync(wordC);
+
+  escreverC('Aplica-se **a [PARTE_C]** ao caso.');
+  r = exportarC();
+  t('súmula cancelada revelada na restauração impede exportação e não aparece na saída', r.code === 2 &&
+    !/469|STJ/.test(r.out + r.err) && !fs.existsSync(wordC), r.out + r.err);
+  r = exportarC('--forcar');
+  const xmlSum = fs.existsSync(wordC) ? require('../scripts/lib/zip').lerZip(wordC).get('word/document.xml').toString() : '';
+  t('súmula cancelada revelada na restauração sai grifada mesmo dentro de negrito', r.code === 0 &&
+    /Súmula 469 do STJ/.test(xmlSum) && /<w:highlight w:val="red"\/><\/w:rPr><w:t[^>]*> \[⚠️ SÚMULA CANCELADA\]/.test(xmlSum) &&
+    !/469|STJ/.test(r.out + r.err), r.out + r.err);
+  if (fs.existsSync(wordC)) fs.unlinkSync(wordC);
+  escreverC('[PARTE_A]');
+  const falhaWord = run8(['-e', `
+    const fs = require('fs');
+    const rename = fs.renameSync;
+    fs.renameSync = (a, b) => { if (b.endsWith('-restaurado.docx')) throw Error('falha sintética'); rename(a, b); };
+    process.argv = [process.execPath, ...process.argv.slice(1), '--restaurar'];
+    require('module').runMain(process.argv[1]);
+  `, SC8('exportar-docx.js'), pecaC]);
+  t('falha na publicação do Word limpa o temporário e permite repetir', falhaWord.code === 2 &&
+    !fs.readdirSync(path.dirname(wordC)).some((f) => f.includes('restaurado')) && exportarC().code === 0 &&
+    (process.platform === 'win32' || (fs.statSync(wordC).mode & 0o777) === 0o600), falhaWord.out + falhaWord.err);
+
   const pecaB = path.join(casoB, 'pecas', 'teste.md');
-  fs.writeFileSync(pecaB, '[PARTE_A]');
+  fs.copyFileSync(pecaA, pecaB);
   r = run8([SC8('exportar-docx.js'), pecaB, '--restaurar', '--forcar']);
-  t('cofre copiado para outro caso não autentica com a chave desse caso', r.code === 2 && !fs.existsSync(pecaB.replace(/\.md$/, '-restaurado.docx')));
-  fs.writeFileSync(tabB, bytesB);
+  t('minuta de A copiada para B é recusada mesmo com marcadores válidos em B', r.code === 2 &&
+    /vínculo/.test(r.out) && !fs.existsSync(pecaB.replace(/\.md$/, '-restaurado.docx')), r.out);
+  fs.writeFileSync(pecaB, '[PARTE_A]');
+  r = run8([SC8('exportar-docx.js'), pecaB, '--restaurar']);
+  t('minuta sem vínculo é recusada', r.code === 2 && /vínculo/.test(r.out), r.out);
+  const copiaCaso = path.join(ESC8, 'CASOS', 'Ativos', 'backup-caso-alfa');
+  fs.cpSync(casoA, copiaCaso, { recursive: true });
+  const minutaBackup = path.join(copiaCaso, 'pecas', path.basename(pecaA));
+  const rxBackup = run8([SC8('exportar-docx.js'), minutaBackup, '--restaurar']);
+  t('pasta copiada abre o cofre e restaura o Word com a mesma chave', rxBackup.code === 0 &&
+    chaveDe(copiaCaso) === chaveA && fs.existsSync(minutaBackup.replace(/\.md$/, '-restaurado.docx')), rxBackup.out);
+  fs.rmSync(copiaCaso, { recursive: true, force: true });
+
+  for (const cmd of ['aplicar', 'simular']) {
+    const inexistente = path.join(casoA, 'documentos', 'ausente.md');
+    r = run8([AN, cmd, 'caso alfa', inexistente, path.join(casoA, 'documentos', 'inicial.md')]);
+    const soAusente = run8([AN, cmd, 'caso alfa', inexistente]);
+    t(cmd + ' informa arquivo ausente por item e processa os demais', r.code === 0 &&
+      /ausente\.md: arquivo ausente/.test(r.out) && soAusente.code === 2 && /ausente\.md: arquivo ausente/.test(soAusente.out), r.out);
+  }
 
   const vizinho = casoA + '-recurso';
   fs.mkdirSync(vizinho);
@@ -1330,8 +1403,12 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   const vinculos8 = {};
   function historico(n, opts = {}) {
     const id = '8fa30000-0000-4000-8000-' + String(n).padStart(12, '0');
-    const arq = path.join(pastaCompartilhada, id + '.jsonl');
-    const cwd = opts.cwd || ESC8;
+    const cwd = opts.cwd || casoA;
+    const projeto = opts.compartilhada ? pastaCompartilhada :
+      path.join(CL8, 'projects', fs.realpathSync(cwd).replace(/[^a-zA-Z0-9-]/g, '-'));
+    fs.mkdirSync(projeto, { recursive: true });
+    const arq = path.join(projeto, id + '.jsonl');
+    if (!opts.semInicio) run8([PR8, 'sessao-inicio'], { session_id: id, transcript_path: arq, cwd, source: 'startup' });
     const linha = (type, content) => JSON.stringify({ sessionId: id, cwd, type, message: { content } });
     const linhas = [linha('assistant', [{ type: 'tool_use', id: 'abc', name: 'Bash', input: { command: 'node processo.js abrir "caso alfa"' } }]),
       linha('user', [{ type: 'tool_result', tool_use_id: 'abc', content: 'CASO_ATIVO=' + (opts.ativado || casoA) }])];
@@ -1343,7 +1420,9 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   }
   const fechado8 = historico(1);
   const ativo8 = historico(2, { ativo: true });
-  const misto8 = historico(3, { misto: true });
+  const misto8 = historico(3, { cwd: ESC8, compartilhada: true, misto: true });
+  const compartilhadoA = historico(7, { cwd: ESC8, compartilhada: true });
+  const semProva8 = historico(8, { semInicio: true });
   const vizinho8 = historico(4, { cwd: vizinho, ativado: vizinho, vinculo: relA + '-recurso' });
   const retomado8 = historico(5);
   const pidAtivo8 = historico(6);
@@ -1379,9 +1458,10 @@ console.log('\n12g. Anonimização opcional por caso (pseudonimização reversí
   r = run8([PR8, 'encerrar', relA]);
   t('encerrar sem confirmação preserva cofre, chave, legado e histórico', r.code === 1 && [tabA, chaveA, legadoA, fechado8.arq].every(fs.existsSync) && !fs.existsSync(audit8));
   r = run8([PR8, 'descartar', relA, '--confirmar']);
-  t('descarta histórico inequivocamente vinculado em projeto compartilhado e preserva ativo, reaberto, misto, prefixo e junção', r.code === 2 &&
+  t('descarta somente histórico comprovadamente isolado e preserva conversas do escritório, ativas, reabertas e sem início comprovado', r.code === 2 &&
     /Históricos removidos: 1/.test(r.out) && !fs.existsSync(fechado8.arq) &&
-    [ativo8.arq, misto8.arq, retomado8.arq, pidAtivo8.arq, vizinho8.arq, intocado8].every(fs.existsSync), r.out + r.err);
+    [ativo8.arq, misto8.arq, compartilhadoA.arq, semProva8.arq, retomado8.arq, pidAtivo8.arq, vizinho8.arq, intocado8].every(fs.existsSync) &&
+    [misto8.id, compartilhadoA.id, semProva8.id].every((id) => r.out.includes(id)), r.out + r.err);
   t('descarta chave, cofre e legado. Preserva registro de saída e trilha sem nomes, caminhos ou conteúdo', [tabA, chaveA, legadoA].every((f) => !fs.existsSync(f)) &&
     shaArq(registroSaida) === shaSaida && !REAIS.test(r.out + r.err) && fs.readFileSync(audit8, 'utf8').trim().split('\n').every((linha) => {
       const evento = JSON.parse(linha);
@@ -1930,10 +2010,10 @@ console.log('\n12l. Anonimização: nomes sem rótulo pelo dicionário local de 
   const cpD = fs.existsSync(copiaD) ? fs.readFileSync(copiaD, 'utf8').normalize('NFC') : '';
   t('aplicar (padrão: dicionário ligado): nomes soltos viram marcador; exclusões e config.nome intactos; resumo "N nome(s) achado(s) pelo dicionário — confira na cópia" sem nome real', r.code === 0 && /🔎 2 nome\(s\) achado\(s\) pelo dicionário — confira na cópia/.test(r.out) && !/Souza|PEREIRA|Roberto|Aparecida/.test(r.out) && /conversei com \[PARTE_B(#\d+)?\] e com \[PARTE_C(#\d+)?\]\. Maria disse/.test(cpD) && cpD.includes(cit) && cpD.includes(lug) && cpD.includes('Dra. Helena Costa Ribeiro'), r.out + cpD);
   const tabD = () => JSON.parse(run12(['-e', 'console.log(JSON.stringify(require(process.argv[1]).lerTabela(process.argv[2])))', SC12('lib/anonimizar.js'), casoD]).out);
-  t('restauração da correspondência em memória preserva NFD e CRLF', LA.reverterTexto(fs.readFileSync(copiaD, 'utf8'), tabD()).texto === relato);
+  t('restauração da correspondência em memória preserva NFD e CRLF', LA.reverterTexto(fs.readFileSync(copiaD, 'utf8').replace(/^<!-- advogado-caso: [a-f0-9]{32} -->\r?\n/, ''), tabD()).texto === relato);
   run12([SC12('anonimizar.js'), 'preparar', 'caso epsilon', '--sem-dicionario']);
   r = run12([SC12('anonimizar.js'), 'aplicar', 'caso epsilon', '--sem-dicionario']);
-  t('aplicar --sem-dicionario: cópia igual à saída anterior e sem a linha do dicionário', r.code === 0 && fs.readFileSync(path.join(casoE, 'anonimizado', 'documentos', 'ata.md'), 'utf8') === SAIDA_ANTERIOR && !/achado\(s\) pelo dicionário/.test(r.out), r.out);
+  t('aplicar --sem-dicionario: cópia igual à saída anterior e sem a linha do dicionário', r.code === 0 && fs.readFileSync(path.join(casoE, 'anonimizado', 'documentos', 'ata.md'), 'utf8').replace(/^<!-- advogado-caso: [a-f0-9]{32} -->\r?\n/, '') === SAIDA_ANTERIOR && !/achado\(s\) pelo dicionário/.test(r.out), r.out);
   // guardas: o dicionario nao e dado de cliente
   const novoDic = path.join(B12, 'scripts', 'lib', 'dados', 'prenomes-extra.txt');
   const dicTxt = fs.readFileSync(path.join(DD, 'prenomes.txt'), 'utf8') + fs.readFileSync(path.join(DD, 'sobrenomes.txt'), 'utf8');

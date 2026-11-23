@@ -53,7 +53,8 @@ switch (a[0]) {
       const r = descarte.descartar(alvo, esc, a[0]);
       console.log('Históricos removidos: ' + r.historicos + '. Pendências preservadas: ' + r.pendencias + '.');
       if (r.pendencias) {
-        console.log('Feche as conversas ativas e repita. Revise itens ambíguos ou arquivos inacessíveis localmente.');
+        if (r.sessoes.length) console.log('Conversas preservadas para revisão local: ' + [...new Set(r.sessoes)].join(', ') + '.');
+        console.log('Feche as conversas ativas e repita. Apague manualmente as conversas de projeto compartilhado ou sem prova de isolamento.');
         process.exitCode = 2;
       }
     } catch (e) {
@@ -103,6 +104,10 @@ switch (a[0]) {
     try { const ls = require('./lib/saida').linhaProcesso(x.pasta); if (ls) console.log('\n' + ls); } catch (e) { c.log('erros', 'saida abrir: ' + e.message); }
     console.log('\nAutos convertidos: ' + (autos ? 'sim (autos-md/INDICE.md)' : 'não — use /preparar-autos se precisar ler o processo'));
     if (anonimo) console.log('\n🔒 Caso ANONIMIZADO: leia só as cópias em anonimizado/ (dossiê acima já com marcadores), escreva a peça com os marcadores ([PARTE_A], [CPF_1]…) e nunca abra _anonimizacao/. Dados reais só no Word, com exportação local e --restaurar.');
+    if (anonimo) {
+      const cofre = require('./lib/cofre');
+      console.log('Mantenha este comentário no início da peça: ' + cofre.cabecalhoPeca(cofre.caminhos(x.pasta).id));
+    }
     console.log('\nRegras desta conversa: trabalhe só neste caso; leia outros casos apenas se o advogado pedir; anotações do cliente vão para o DOSSIE.md deste caso (processo.js anotar), nunca para MEMORIA/.');
     break;
   }

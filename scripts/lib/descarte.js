@@ -38,17 +38,27 @@ function recibo(arquivo) {
   return cofre.seguro(pasta, path.join(pasta, sha(c.norm(arquivo)) + '.json'));
 }
 
+const inicio = (arquivo) => recibo(arquivo).replace(/\.json$/, '.inicio.json');
+
 function registrarSessao(ent, fim) {
   try {
     const base = projetos();
     const id = ent.session_id;
-    const arquivo = path.resolve(fs.realpathSync(c.P.claude), path.relative(path.resolve(c.P.claude), ent.transcript_path));
+    if (typeof ent.transcript_path !== 'string' || !path.isAbsolute(ent.transcript_path)) return;
+    const claude = path.dirname(base);
+    const raiz = c.dentroDe(ent.transcript_path, claude) ? claude : path.resolve(c.P.claude);
+    const arquivo = path.resolve(claude, path.relative(raiz, ent.transcript_path));
     const rel = path.relative(base, arquivo);
     if (!UUID.test(id || '') || rel.split(path.sep).length !== 2 || path.basename(arquivo) !== id + '.jsonl') return;
     cofre.seguro(base, arquivo);
     const arq = recibo(arquivo);
     if (!fim) {
       if (cofre.stat(arq)) fs.unlinkSync(arq);
+      if (ent.source === 'startup' && typeof ent.cwd === 'string' && path.isAbsolute(ent.cwd)) {
+        const cwd = fs.realpathSync(ent.cwd);
+        fs.mkdirSync(pastaRecibos(), { recursive: true, mode: 0o700 });
+        fs.writeFileSync(inicio(arquivo), JSON.stringify({ cwd }), { flag: 'wx', mode: 0o600 });
+      }
       return;
     }
     const { bytes } = transcrito(base, arquivo, id);
@@ -78,21 +88,10 @@ function sessoesAtivas() {
   return ids;
 }
 
-function casoDoCaminho(valor, raiz, alvo) {
-  if (typeof valor !== 'string' || !path.isAbsolute(valor)) return null;
-  const rel = casos.casoDoArquivo(path.join(valor, 'DOSSIE.md'), raiz);
-  if (rel !== alvo.rel) return rel;
-  const real = fs.realpathSync(valor);
-  if (!c.dentroDe(real, alvo.pasta) || path.relative(valor, real)) throw Error();
-  return rel;
-}
-
 function evidencias(bytes, id, raiz, alvo) {
   const vistos = new Set();
-  let aberta = false;
-  const aberturas = new Set();
-  let conversa = false;
-  let compartilhada = false;
+  let primeiroCwd;
+  let isolada = true;
   let ambigua = false;
   const visitar = (v, chave, cwd) => {
     if (typeof v === 'string') {
@@ -103,7 +102,7 @@ function evidencias(bytes, id, raiz, alvo) {
         const rel = casos.casoDoArquivo(path.join(real, '_'), raiz);
         if (rel) {
           vistos.add(rel);
-          if (rel === alvo.rel) cofre.seguro(alvo.pasta, local);
+          if (rel === alvo.rel) cofre.seguro(alvo.pasta, real);
         }
       }
       if (/(?:^|[\s"'\\/])\.\.[\\/]/.test(v)) ambigua = true;
@@ -124,35 +123,17 @@ function evidencias(bytes, id, raiz, alvo) {
     const r = JSON.parse(linha);
     if (!r || typeof r.type !== 'string' || r.sessionId && r.sessionId !== id || r.isSidechain) ambigua = true;
     if (r?.type === 'user' || r?.type === 'assistant') {
-      conversa = true;
-      if (r.sessionId !== id || typeof r.cwd !== 'string' || !path.isAbsolute(r.cwd)) ambigua = true;
-      const conteudo = r.message?.content;
-      for (const bloco of Array.isArray(conteudo) ? conteudo : []) {
-        if (bloco?.type === 'tool_use' && ['Bash', 'PowerShell'].includes(bloco.name) &&
-            /processo\.js["']?\s+abrir\b/i.test(bloco.input?.command || '')) aberturas.add(bloco.id);
-        if (bloco?.type !== 'tool_result' || bloco.is_error || !aberturas.has(bloco.tool_use_id)) continue;
-        const trechos = Array.isArray(bloco.content) ? bloco.content.map((t) => t?.text || '') : [bloco.content];
-        let confirmada = false;
-        for (const trecho of trechos) {
-          if (typeof trecho !== 'string') continue;
-          for (const m of trecho.matchAll(/^CASO_ATIVO=([^\r\n]+)/gm)) {
-            const rel = casoDoCaminho(m[1].trim(), raiz, alvo);
-            if (!rel) ambigua = true;
-            else { vistos.add(rel); aberta ||= rel === alvo.rel; confirmada = true; }
-          }
-        }
-        if (confirmada) aberturas.delete(bloco.tool_use_id);
-      }
-      const rel = casoDoCaminho(r.cwd, raiz, alvo);
-      if (rel) vistos.add(rel);
-      else {
-        compartilhada = true;
-        if (!r.cwd || !c.dentroDe(alvo.pasta, r.cwd) || path.relative(r.cwd, fs.realpathSync(r.cwd))) ambigua = true;
+      if (r.sessionId !== id || typeof r.cwd !== 'string' || !path.isAbsolute(r.cwd)) {
+        isolada = false;
+      } else {
+        const local = cofre.stat(r.cwd) ? fs.realpathSync(r.cwd) : null;
+        primeiroCwd ??= local || '';
+        if (!local || !c.dentroDe(local, alvo.pasta)) isolada = false;
       }
     }
     visitar(r, null, r?.cwd);
   }
-  return { vistos, conversa, ambigua: ambigua || aberturas.size > 0 || compartilhada && !aberta };
+  return { vistos, primeiroCwd, isolada, ambigua };
 }
 
 function lerVinculosValidados() {
@@ -201,27 +182,37 @@ function apagarHistoricos(alvo, raiz, resultado) {
       const hist = transcrito(base, arquivo, id);
       const ev = evidencias(hist.bytes, id, raiz, alvo);
       if (vinculo !== alvo.rel && !ev.vistos.has(alvo.rel)) continue;
+      const origem = inicio(arquivo);
+      const sOrigem = cofre.stat(origem);
+      const cwd = sOrigem?.isFile() && sOrigem.nlink === 1 && c.lerJSON(origem, null)?.cwd;
+      // O cwd registrado no startup deve corresponder ao projeto e ao início do transcrito.
+      const projeto = typeof cwd === 'string' && cwd.replace(/[^a-zA-Z0-9-]/g, '-');
+      const isolada = projeto === path.basename(pasta) && cwd === ev.primeiroCwd &&
+        ev.isolada && c.dentroDe(cwd, alvo.pasta);
       const marca = recibo(arquivo);
       const reg = cofre.stat(marca);
       const encerrada = reg?.isFile() && reg.nlink === 1 && c.lerJSON(marca, null)?.sha256 === sha(hist.bytes);
       const indice = path.join(pasta, 'sessions-index.json');
-      if (vinculo !== alvo.rel || !ev.conversa || !ev.vistos.has(alvo.rel) || ev.vistos.size !== 1 || ev.ambigua ||
+      if (vinculo !== alvo.rel || !isolada || !ev.vistos.has(alvo.rel) || ev.vistos.size !== 1 || ev.ambigua ||
           repetidos.get(id) !== 1 || !encerrada || ativos.has(id) ||
           cofre.stat(path.join(pasta, id)) || emIndice(pasta, indice, id)) {
         resultado.pendencias++;
+        resultado.sessoes.push(id);
         continue;
       }
       // O vínculo atual, a prova de encerramento e o conteúdo precisam continuar iguais.
       const agora = transcrito(base, arquivo, id);
       if (hist.s.dev !== agora.s.dev || hist.s.ino !== agora.s.ino || !agora.bytes.equals(hist.bytes) ||
           lerVinculosValidados()[id]?.caso !== alvo.rel || c.lerJSON(recibo(arquivo), null)?.sha256 !== sha(agora.bytes) ||
-          sessoesAtivas().has(id) || cofre.stat(path.join(pasta, id)) || emIndice(pasta, indice, id)) throw Error();
+          c.lerJSON(origem, null)?.cwd !== cwd || sessoesAtivas().has(id) || cofre.stat(path.join(pasta, id)) || emIndice(pasta, indice, id)) throw Error();
       fs.unlinkSync(arquivo);
       resultado.historicos++;
       fs.unlinkSync(marca);
+      fs.unlinkSync(origem);
     } catch (e) {
       // Arquivo ilegível ou inseguro: a atribuição não pode ser concluída.
       resultado.pendencias++;
+      resultado.sessoes.push(id);
     }
   }
 }
@@ -238,19 +229,25 @@ function descartado(pasta) { return !!cofre.stat(reciboDescarte(pasta)); }
 
 function descartar(caso, escritorio, acao) {
   return cofre.comTrava(caso.pasta, (p) => {
-    const resultado = { historicos: 0, pendencias: 0 };
+    const resultado = { historicos: 0, pendencias: 0, sessoes: [] };
     const arq = cofre.seguro(p.caso, reciboDescarte(p.caso));
     const s = cofre.stat(arq);
     if (s && (!s.isFile() || s.nlink !== 1)) throw Error();
     const registrar = (estado) => fs.appendFileSync(arq, JSON.stringify({
       data: isoLocal(new Date()), acao, resultado: estado,
     }) + '\n', { mode: 0o600 });
+    cofre.verificarAntesDoDescarte(p);
     registrar('iniciado');
     const removerComRegistro = (arq) => {
-      try { remover(arq); } catch (e) { resultado.pendencias++; }
+      try { remover(arq); return true; } catch (e) { resultado.pendencias++; return false; }
     };
-    removerComRegistro(p.chave);
-    removerComRegistro(p.cofre);
+    const chaveRemovida = !p.chave || removerComRegistro(p.chave);
+    const temporarioRemovido = !p.chave || removerComRegistro(p.chave + '.tmp');
+    // Preserve o ID para uma nova tentativa se a chave ou seu temporário ainda existirem.
+    if (chaveRemovida && temporarioRemovido) {
+      removerComRegistro(p.cofre);
+      removerComRegistro(p.pendente);
+    }
     removerComRegistro(p.legado);
     try {
       for (const n of listar(p.dir)) {

@@ -48,7 +48,7 @@ const reInline = (op) => {
 function runs(texto, base, op) {
   base = base || {};
   texto = texto.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '$1 ($2)').replace(/`([^`]+)`/g, '$1');
-  const render = (texto, estilo) => run(op?.restaurar ? op.restaurar(texto) : texto, estilo);
+  const render = op?.restaurar || run;
   const out = [];
   const re = new RegExp(reInline(op).source, 'g');
   let ult = 0, m;
@@ -275,10 +275,7 @@ function gravarDocx(md, saida, op) {
     inj.avisoGravacao(ocXml, 'no Word que eu ia gerar') + ' (Não gerei o arquivo.)';
   const docx = montarDocx(corpoXml);
   if (op?.restaurar) {
-    const fd = fs.openSync(saida, 'wx', 0o600);
-    try { fs.writeFileSync(fd, docx); }
-    catch (e) { fs.closeSync(fd); fs.unlinkSync(saida); throw e; }
-    fs.closeSync(fd);
+    cofre.gravarAtomico(saida, docx, '.advogado-restaurado.docx-', true);
   } else {
     if (cofre.ehSaidaProtegida(saida)) throw Error('Reserve o sufixo -restaurado.docx para a exportação com --restaurar.');
     fs.writeFileSync(saida, docx);
@@ -287,22 +284,54 @@ function gravarDocx(md, saida, op) {
 }
 
 // Mantém os marcadores fora da gramática Markdown. Os valores entram só nos runs de texto.
-function prepararRunsRestaurados(md, tabela) {
+function prepararRunsRestaurados(md, tabela, bloqueio) {
   let prefixo = '\uE000';
-  while (md.includes(prefixo)) prefixo += '\uE000';
+  while (md.includes(prefixo) || tabela.entradas.some((e) => e.formas.some((v) => v.includes(prefixo)))) prefixo += '\uE000';
   const valores = [];
-  let fim = 0;
+  const marcas = [...new Set(bloqueio.map((x) => x.sumula.fimTribunal))].sort((a, b) => a - b);
+  let bruto = 0;
+  let pos = 0;
+  let indice = 0;
   let texto = '';
+  const token = (valor) => prefixo + (valores.push(valor) - 1) + '\uE001';
+  const emitir = (trecho, literal) => {
+    const fim = pos + trecho.length;
+    let inicio = 0;
+    while (indice < marcas.length && marcas[indice] <= fim) {
+      const corte = marcas[indice++] - pos;
+      const antes = trecho.slice(inicio, corte);
+      texto += (literal && antes ? token(antes) : antes) + token(null);
+      inicio = corte;
+    }
+    const resto = trecho.slice(inicio);
+    texto += literal && resto ? token(resto) : resto;
+    pos = fim;
+  };
   for (const m of A.marcadores(md)) {
-    texto += md.slice(fim, m.ini) + prefixo + valores.length + '\uE001';
-    valores.push(A.reverterTexto(m.marcador, tabela).texto);
-    fim = m.fim;
+    emitir(md.slice(bruto, m.ini), false);
+    emitir(A.reverterTexto(m.marcador, tabela).texto, true);
+    bruto = m.fim;
   }
+  emitir(md.slice(bruto), false);
   const tokens = new RegExp(prefixo + '(\\d+)\uE001', 'g');
-  return { texto: texto + md.slice(fim), restaurar: (trecho) => trecho.replace(tokens, (_, i) => valores[Number(i)]) };
+  const grifos = new RegExp(prefixo + '|\\[⚠️ SÚMULA CANCELADA\\]|\\[(?:N[ÃA]O VERIFICAD[OA]|A VERIFICAR)[^\\]\\r\\n]*\\]', 'gi');
+  const restaurar = (trecho, estilo) => {
+    const restaurado = trecho.replace(tokens, (_, i) => valores[Number(i)] ?? prefixo);
+    let xml = '';
+    let fim = 0;
+    for (const m of restaurado.matchAll(grifos)) {
+      if (m.index > fim) xml += run(restaurado.slice(fim, m.index), estilo);
+      const avisoInserido = m[0] === prefixo;
+      const sumula = avisoInserido || m[0].toUpperCase() === SUMULA_CANCELADA;
+      xml += run(avisoInserido ? ' ' + SUMULA_CANCELADA : m[0], { ...estilo, b: true, grifo: sumula ? 'red' : true });
+      fim = m.index + m[0].length;
+    }
+    return xml + (fim < restaurado.length ? run(restaurado.slice(fim), estilo) : '');
+  };
+  return { texto, restaurar };
 }
 
-function restaurarWord(entrada, saidaPedida, md, comMarca, forcar, sum) {
+function restaurarWord(entrada, saidaPedida, md, forcar) {
   const esc = fs.realpathSync(cfg.escritorio);
   const real = fs.realpathSync(entrada);
   const caso = A.pastaDoCaso(real, esc);
@@ -321,10 +350,15 @@ function restaurarWord(entrada, saidaPedida, md, comMarca, forcar, sum) {
     console.log('Escolha um destino dentro do próprio caso ou em EXPORTADOS.');
     return 2;
   }
-  return cofre.comTrava(caso, () => {
+  return cofre.comTrava(caso, (p) => {
+    const vinculada = cofre.separarPeca(md, p.id);
+    if (vinculada === null) {
+      console.log('O vínculo da peça está ausente ou não corresponde ao cofre deste caso.');
+      return 2;
+    }
     const t = cofre.ler(caso, true);
     if (!t) throw Error(cofre.MSG);
-    const r = A.reverterTexto(md, t);
+    const r = A.reverterTexto(vinculada, t);
     if (r.orfaos.length || A.marcadores(r.texto).length) {
       console.log('Restauração interrompida. Confira os marcadores da peça no caso correto.');
       return 2;
@@ -335,17 +369,21 @@ function restaurarWord(entrada, saidaPedida, md, comMarca, forcar, sum) {
     }
     const cits = require('./lib/citacoes').analisarCitacoes(r.texto, path.dirname(real), cfg.escritorio);
     const sumReal = checarSumulas(r.texto, cits, forcar);
-    if (sumReal.recusa || sumReal.bloqueio.length > sum.bloqueio.length ||
+    if (sumReal.recusa ||
         !forcar && cits.some((x) => x.problema || x.tipo === 'jurisprudencia' && !x.verificada && !x.marcada)) {
       console.log('Restauração interrompida pela checagem de citações. Revise a peça localmente.');
       return 2;
     }
-    const { texto, restaurar } = prepararRunsRestaurados(comMarca, t);
-    if (gravarDocx(texto, destino, { grifarSumulas: !!sum.bloqueio.length, restaurar })) {
+    const bloqueio = sumReal.bloqueio.filter((x) => !r.texto.slice(x.sumula.fimTribunal, x.sumula.fimTribunal + 40).includes(SUMULA_CANCELADA));
+    const { texto, restaurar } = prepararRunsRestaurados(vinculada, t, bloqueio);
+    const nomeTrava = 'word-' + cofre.hash(norm(destino).normalize('NFC'));
+    if (cofre.sobTrava(p.chaves, nomeTrava, () => gravarDocx(texto, destino, { grifarSumulas: true, restaurar }))) {
       console.log('Restauração interrompida por texto oculto no Word.');
       return 3;
     }
     console.log('Word restaurado gerado localmente com o sufixo -restaurado.docx.');
+    if (sumReal.bloqueio.length) console.log('Súmulas canceladas grifadas no Word. Revise localmente.');
+    if (sumReal.avaliadas.some((x) => x.sumula.nivel !== 'bloqueio')) console.log('Há avisos sobre súmulas. Confira as citações localmente.');
     return 0;
   });
 }
@@ -362,7 +400,8 @@ function cli() {
   const md = fs.readFileSync(args[0], 'utf8');
   const oculto = recusaOculto(md);
   if (oculto) { console.log(restaurar ? 'Exportação interrompida por texto oculto na peça.' : oculto); process.exit(3); }
-  const anon = checarAnonimizacao(md, args[0], forcar || restaurar);
+  if (restaurar) return restaurarWord(args[0], args[1], md, forcar);
+  const anon = checarAnonimizacao(md, args[0], forcar);
   if (anon.recusa) { anon.recusa.forEach((l) => console.log(l)); process.exit(2); }
   const restantes = anon.restantes;
   const { analisarCitacoes } = require('./lib/citacoes');
@@ -370,24 +409,23 @@ function cli() {
   const prob = todas.filter((x) => x.problema);
   if (prob.length && !forcar) {
     console.log('❌ Exportação interrompida: ' + prob.length + ' julgado(s) conferido(s) no original que NÃO conferem com a peça:');
-    if (!restaurar) prob.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + '): ' + (x.problema === 'inexistente' ? 'não existe' : 'trecho/conteúdo divergente') + ' — fonte: ' + (x.fonteRegistro || '?')));
+    prob.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + '): ' + (x.problema === 'inexistente' ? 'não existe' : 'trecho/conteúdo divergente') + ' — fonte: ' + (x.fonteRegistro || '?')));
     console.log('Corrija o trecho ou remova a citação (/verificar-citacoes). (Para exportar mesmo assim: --forcar)');
     process.exit(2);
   }
   // sumula cancelada citada como se valesse: recusa (codigo 2), salvo --forcar (sai grifada em vermelho)
   const sum = checarSumulas(md, todas, forcar);
-  if (sum.recusa) { (restaurar ? ['Exportação interrompida por súmula cancelada. Revise a peça.'] : sum.recusa).forEach((l) => console.log(l)); process.exit(2); }
+  if (sum.recusa) { sum.recusa.forEach((l) => console.log(l)); process.exit(2); }
   const pend = todas.filter((x) => !x.verificada && !x.marcada && !x.problema && x.tipo === 'jurisprudencia');
   const leis = todas.filter((x) => !x.verificada && !x.marcada && x.tipo === 'legislacao');
   if (pend.length && !forcar) {
     console.log('❌ Exportação interrompida: ' + pend.length + ' citação(ões) de JURISPRUDÊNCIA sem fonte e sem a marca [NÃO VERIFICADO]:');
-    if (!restaurar) pend.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + ')' + (x.semTexto ? ' (o arquivo salvo não tinha texto legível — veja `julgados.js situacao`)' : '')));
+    pend.slice(0, 15).forEach((x) => console.log('  - ' + x.texto + ' (linha ' + x.linha + ')' + (x.semTexto ? ' (o arquivo salvo não tinha texto legível — veja `julgados.js situacao`)' : '')));
     console.log('Rode /verificar-citacoes para marcar ou incluir a fonte. (Para exportar mesmo assim: --forcar)');
     process.exit(2);
   }
   const saida = args[1] || args[0].replace(/\.md$/i, '') + '.docx';
   const comMarca = sum.bloqueio.length ? marcarSumulasCanceladas(md, path.dirname(args[0])).texto : md;
-  if (restaurar) return restaurarWord(args[0], args[1], md, comMarca, forcar, sum);
   if (cofre.ehSaidaProtegida(saida) || cofre.ehSaidaProtegida(fs.existsSync(saida) ? fs.realpathSync(saida) : '')) return 2;
   // memoria de estilo: aprende com o que o advogado mudou no .docx anterior e fotografa o novo rascunho
   let mem = null; try { mem = require('./memoria'); if (!(mem.ehPeca(saida) || mem.ehPeca(args[0]))) mem = null; } catch (e) { mem = null; }

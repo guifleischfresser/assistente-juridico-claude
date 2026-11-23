@@ -531,7 +531,7 @@ function resumoDicionario(trocas) {
 // ---------- guardas (hooks) ----------
 const LIMITE_LEITURA = 3 * 1024 * 1024;
 const TEXTO_LEGIVEL = /\.(md|txt|markdown|csv|json|html?|xml|rtf)$/i;
-const MSG_TABELA = 'A tabela de anonimização guarda os dados REAIS do cliente: só o próprio /anonimizar mexe nela, e o assistente nunca a lê nem copia. Trabalhe com os marcadores ([PARTE_A], [CPF_1]…) e, no fim, use /anonimizar reverter.';
+const MSG_TABELA = 'A correspondência fica no cofre local. Trabalhe com os marcadores ([PARTE_A], [CPF_1]…). Para gerar o Word final, o advogado executa exportar-docx.js com --restaurar no terminal local. Para proteger uma tabela antiga, use anonimizar.js migrar.';
 
 /** Leitura de arquivo (Read): {decisao:'deny'|'ask', motivo} ou null. Fail-open: erro => null. */
 function avaliarLeitura(arquivo, esc) {

@@ -119,8 +119,10 @@ function aplicar(argv, simular) {
   const cmd = simular ? 'simular' : 'aplicar';
   const opAn = { dicionario: !op['sem-dicionario'] };
   if (!pos.length) { console.log('Uso: ' + cmd + ' <caso> [arquivo ...] [--sem-dicionario]'); process.exit(1); }
-  // o caso e o 1º argumento; o resto, arquivos (se existirem)
-  const arquivos = pos.slice(1).filter((p) => fs.existsSync(p));
+  // Preserve nomes de caso sem aspas quando não há arquivos explícitos.
+  const outros = pos.slice(1);
+  const temArquivos = outros.some((p) => /[\\/.]/.test(p) || fs.existsSync(p));
+  const arquivos = outros.length && !temArquivos && k.buscar(pos.join(' '), esc()).length ? [] : outros;
   const termo = arquivos.length ? pos[0] : pos.join(' ');
   const x = unico(termo);
   let t = A.lerTabela(x.pasta);
@@ -131,30 +133,31 @@ function aplicar(argv, simular) {
   if (opAn.dicionario && !A.dicionarioDisponivel()) console.log('⚠️ O dicionário de nomes (scripts/lib/dados) não foi encontrado: só os nomes com rótulo ou qualificação serão trocados. Rode o /consertar para reinstalar.');
   const trocas = [], feitos = [], falhas = [], copias = new Map();
   for (const f of lista) {
-    if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(fs.realpathSync(f))) continue;
-    const r = A.lerParaAnonimizar(f);
+    let r, soma;
+    try {
+      if (A.ehDaTabela(f) || A.dentroDasCopias(f, x.pasta) || cofre.ehSaidaProtegida(f) || cofre.ehSaidaProtegida(fs.realpathSync(f))) continue;
+      r = A.lerParaAnonimizar(f);
+      if (!simular && !r.erro) soma = sha(f);
+    } catch (e) {
+      falhas.push(path.basename(f) + (e.code === 'ENOENT' ? ': arquivo ausente' : ': leitura indisponível'));
+      continue;
+    }
     if (r.erro) { falhas.push(path.basename(f) + ': ' + r.erro); continue; }
     const an = A.anonimizarTexto(r.texto, t, opAn);
     const destino = A.caminhoCopia(f, x.pasta);
     if (simular) { trocas.push(...an.trocas); feitos.push(relCaso(x.pasta, destino)); continue; }
     const chave = c.dentroDe(f, x.pasta) ? relCaso(x.pasta, f) : 'externo/' + path.basename(f);
-    const registro = { sha256: sha(f), copia: relCaso(x.pasta, destino), em: new Date().toISOString() };
+    const registro = { sha256: soma, copia: relCaso(x.pasta, destino), em: new Date().toISOString() };
     copias.set(destino, { texto: an.texto, chave, registro });
     trocas.push(...an.trocas); feitos.push(relCaso(x.pasta, destino));
   }
-  if (!simular && copias.size) A.gravarTabela(x.pasta, t, (pasta) => {
+  if (!simular && copias.size) A.gravarTabela(x.pasta, t, (pasta, id) => {
     for (const { texto, chave, registro } of copias.values()) {
       const destino = cofre.seguro(pasta, path.join(pasta, registro.copia));
       const dir = path.dirname(destino);
       fs.mkdirSync(dir, { recursive: true });
-      const tmp = path.join(dir, '.anonimizar-' + crypto.randomUUID() + '.tmp');
-      const fd = fs.openSync(tmp, 'wx', 0o600);
-      try {
-        try { fs.writeFileSync(fd, texto); } finally { fs.closeSync(fd); }
-        fs.renameSync(tmp, destino);
-      } finally {
-        if (cofre.stat(tmp)) fs.unlinkSync(tmp);
-      }
+      const quebra = texto.includes('\r\n') ? '\r\n' : '\n';
+      cofre.gravarAtomico(destino, cofre.cabecalhoPeca(id) + quebra + texto, '.anonimizar-');
       t.documentos[chave] = registro;
     }
   });
@@ -167,6 +170,7 @@ function aplicar(argv, simular) {
     return;
   }
   console.log('🔒 Anonimizei ' + feitos.length + ' documento' + (feitos.length > 1 ? 's' : '') + ' do caso ' + x.nome + ': ' + A.resumoContagem(trocas) + '. A correspondência está no cofre local.');
+  console.log('Mantenha o comentário advogado-caso da cópia no início da peça.');
   console.log('Cópias para trabalhar (leia só estas):\n' + feitos.slice(0, 30).map((f) => '- ' + f).join('\n') + (feitos.length > 30 ? '\n- … e mais ' + (feitos.length - 30) : ''));
   if (dic) console.log('🔎 ' + dic + ' (nomes sem rótulo, reconhecidos por prenome + sobrenome; se algum não for pessoa, avise o advogado).');
   if (falhas.length) console.log('Não consegui ler: ' + falhas.join('; '));
@@ -192,7 +196,7 @@ function migrar(argv) {
   const { pos } = opcoes(argv);
   if (!pos.length) { console.log('Uso: migrar <caso>'); process.exit(1); }
   const x = unico(pos.join(' '));
-  console.log(cofre.migrar(x.pasta) ? 'Tabela antiga validada no cofre e removida.' : 'Nenhuma tabela antiga a migrar.');
+  console.log(cofre.migrar(x.pasta) ? 'Migração concluída. A correspondência foi validada no cofre.' : 'Nenhuma correspondência antiga a migrar.');
   console.log('Revise localmente os arquivos *-dados-reais.md antigos e suas versões em _versoes, inclusive saídas personalizadas e backups.');
 }
 
@@ -237,7 +241,7 @@ function desligar(argv) {
 if (require.main === module) {
   const [cmd, ...resto] = process.argv.slice(2);
   const f = { preparar, aplicar, simular: (a) => aplicar(a, true), reverter, migrar, conferir, estado, desligar }[cmd];
-  if (!f) { console.log('Uso: anonimizar.js preparar <caso> | aplicar <caso> [arquivo...] [--sem-dicionario] | simular <caso> [arquivo...] | migrar <caso> | conferir <arquivo> | estado [<caso>] | desligar <caso>'); process.exit(1); }
+  if (!f) { console.log('Uso: anonimizar.js preparar <caso> | aplicar <caso> [arquivo...] [--sem-dicionario] | simular <caso> [arquivo...] [--sem-dicionario] | migrar <caso> | conferir <arquivo> [--caso <caso>] | estado [<caso>] | desligar <caso>'); process.exit(1); }
   try { f(resto); } catch (e) { console.log(cofre.MSG); process.exitCode = 2; }
 }
 module.exports = { nomesDoDossie, arquivosDoCaso };
