@@ -17,7 +17,7 @@ Responda com esta tabela (ajuste se houver habilidades `auto-*` novas: liste-as 
 | `/mapa-de-teses` | Monto o mapa da defesa: cada pedido da inicial com valor, risco, teses e precedentes [A VERIFICAR]; puxo os valores da planilha do cálculo; exporto para Word com tabela |
 | `/verificar-citacoes` | Confiro se cada julgado existe e se o trecho citado bate com o original (internet só com sua permissão); o resto fica [NÃO VERIFICADO]. Aviso quando a peça cita súmula do STF, STJ ou TST cancelada ou superada, segundo uma lista local (sem internet); súmula cancelada trava o Word até você trocar ou confirmar |
 | `/erros` | Mostro os erros que você já corrigiu e que não posso repetir |
-| `/anonimizar` | Só se você pedir, por caso: troco nomes, CPF/CNPJ, nº do processo, e-mails, telefones e endereços por marcadores antes de ler, e no fim devolvo os dados reais na peça (a tabela fica só na pasta do caso) |
+| `/anonimizar` | Só se você pedir, por caso: troco nomes, CPF/CNPJ, nº do processo, e-mails, telefones e endereços por marcadores antes de ler, e o advogado restaura os dados no Word com exportação local |
 | `/consentimento` | Anoto que o cliente autorizou (ou revogou) o uso de IA no caso — data, quem, o que autorizou, forma e comprovante —, gero o termo para ele assinar e aviso quando um caso está sem autorização (o registro fica só na pasta do caso) |
 | `/formatar-peca` | Gero o .docx formatado (ABNT/forense) para protocolo |
 | `/prazos` | Mostro e calculo prazos em dias úteis |

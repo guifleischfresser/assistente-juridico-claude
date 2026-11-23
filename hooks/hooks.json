@@ -13,6 +13,15 @@
             ],
             "timeout": 20,
             "statusMessage": "Preparando o escritório..."
+          },
+          {
+            "type": "command",
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/processo.js",
+              "sessao-inicio"
+            ],
+            "timeout": 10
           }
         ]
       }
@@ -99,6 +108,15 @@
               "reflexao",
               "--automatica",
               "--fim"
+            ],
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/processo.js",
+              "sessao-fim"
             ],
             "timeout": 30
           }

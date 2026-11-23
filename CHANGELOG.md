@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+
+- A correspondência de anonimização agora usa um cofre AES-256-GCM por caso, com chave na configuração local do Claude. `anonimizar.js migrar` preserva IDs, variantes e metadados antes de remover a tabela em claro.
+- `exportar-docx.js --restaurar` gera o Word com os dados reais diretamente da peça com marcadores. O comando antigo `reverter` mostra a orientação para exportar. Revise cópias antigas e suas versões localmente.
+- `processo.js encerrar` e `descartar` exigem confirmação e removem o cofre, a chave, o legado e os históricos inequivocamente atribuídos ao caso. Sessões ativas, mistas ou ambíguas ficam pendentes. O registro do que saiu da máquina é preservado.
+
 **Foco: registro de consentimento do cliente por caso (Roadmap item 3, LGPD) — complementa a `/anonimizar`: saber, caso a caso, se o cliente autorizou o uso de IA, em que termos e quando revogou.**
 1. **`/consentimento` (skill nova, núcleo 26) + `scripts/consentimento.js` + `scripts/lib/consentimento.js`.** Subcomandos: `registrar <caso> --forma escrito|email|verbal` (data, quem autorizou — cliente ou representante, pelo nome do DOSSIE —, o que foi autorizado: uso de IA, envio de documentos ao Claude, anonimização obrigatória ou opcional; comprovante opcional, que precisa estar na pasta do caso), `modelo <caso>` (termo `.md` para o cliente assinar, com as opções para marcar), `revogar <caso>` e `estado [<caso>]`. Mensagem típica: "Anotei: o cliente do caso X autorizou o uso de IA em 29/10/2026, por escrito. O comprovante está na pasta do caso." A saída não traz dado do cliente além do nome que já está no DOSSIE (e nem ele em caso anonimizado).
 2. **Onde fica:** `<caso>/_consentimento/registro.json` — só na pasta do caso, nunca global, sem rede. Arquivo próprio (e não uma linha no DOSSIE) porque o histórico precisa ser só de acréscimo: registrar, revogar e gerar modelo acrescentam eventos; nada é apagado. Datas no dia local (às 23h30 em São Paulo o registro sai com a data de hoje, não a de amanhã em UTC). Arquivo estragado: o script não grava por cima.

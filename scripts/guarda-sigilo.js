@@ -11,6 +11,14 @@
 //   => "ask" (o advogado decide); a tabela com os dados reais (_anonimizacao/) => "deny" em Read/Grep/terminal.
 // - O que saiu da maquina: terminal que apaga, move ou reescreve <caso>/_saida/registro.jsonl => "deny" (ler e livre).
 const c = require('./lib/comum');
+const fs = require('fs');
+const path = require('path');
+const cofre = require('./lib/cofre');
+const { RECIBOS, descartado } = require('./lib/descarte');
+const artefatosPrivados = new RegExp(cofre.PASTA_CHAVES + '|' + RECIBOS + '|_descarte\\.jsonl', 'i');
+const privado = (texto) => artefatosPrivados.test(texto) || cofre.ehSaidaProtegida(texto);
+const real = (alvo) => { try { return fs.realpathSync(alvo); } catch (e) { return alvo; } };
+const msgPrivado = 'Use o terminal ou o Word fora da conversa para acessar os artefatos privados do caso.';
 
 const ENVIO = [
   /\bcurl\b[^|;&]*\s(-T|--upload-file|-d|--data(-\w+)?|-F|--form|-X\s*(POST|PUT|PATCH)|--request\s*(POST|PUT|PATCH))\b/i,
@@ -40,18 +48,34 @@ c.rodarHook('guarda-sigilo', (ent) => {
   const inp = ent.tool_input || {};
   const cfg = c.config();
 
+  if (/^mcp__/.test(nome) && privado(JSON.stringify(inp))) return negar(msgPrivado);
   if (nome === 'Read' || nome === 'NotebookRead' || nome === 'Grep') {
+    const alvo = path.resolve(ent.cwd || '.', inp.path || inp.file_path || inp.notebook_path || '.');
+    const destino = real(alvo);
     const an = require('./lib/anonimizar');
-    const r = nome === 'Grep' ? an.avaliarBusca(inp, ent.cwd, cfg.escritorio) : an.avaliarLeitura(inp.file_path || inp.notebook_path, cfg.escritorio);
-    if (!r) return {};
+    if (privado(alvo) || privado(destino) || an.ehDaTabela(destino) || privado(inp.glob || '') ||
+        nome === 'Grep' && (c.dentroDe(cofre.pastaChaves(), alvo) || c.dentroDe(real(cofre.pastaChaves()), destino))) return negar(msgPrivado);
+    const pasta = an.pastaDoCaso(destino, real(cfg.escritorio));
+    if (pasta && descartado(pasta) && !an.dentroDasCopias(destino, pasta)) {
+      return perguntar('a correspondência deste caso foi descartada. Aqui ainda pode haver dados do cliente.');
+    }
+    const r = nome === 'Grep' ? an.avaliarBusca(inp, ent.cwd, cfg.escritorio) : an.avaliarLeitura(destino, real(cfg.escritorio));
+    if (!r) {
+      if (pasta) {
+        try { an.lerTabela(pasta); }
+        catch (e) { return negar(cofre.MSG); }
+      }
+      return {};
+    }
     c.log('guardas', nome + ' ' + r.decisao + ' (anonimização)');
     return r.decisao === 'deny' ? negar(r.motivo) : perguntar(r.motivo);
   }
 
   if (nome === 'Bash' || nome === 'PowerShell') {
     const cmd = String(inp.command || '');
+    if (privado(cmd) || /exportar-docx\.js[\s\S]*--restaurar\b|processo\.js["']?\s+["']?(?:encerrar|descartar|sessao-inicio|sessao-fim)\b/i.test(cmd)) return negar(msgPrivado);
     const tab = require('./lib/anonimizar').avaliarComando(cmd);
-    if (tab) { c.log('guardas', 'negado acesso a tabela de anonimizacao'); return negar(tab.motivo); }
+    if (tab) { c.log('guardas', 'negado acesso a tabela de anonimizacao'); return negar(msgPrivado); }
     const sd = require('./lib/saida').avaliarComando(cmd);
     if (sd) { c.log('guardas', 'negado alterar o registro do que saiu da maquina'); return negar(sd.motivo); }
     if (APAGAR_MASSA.test(cmd) && (cmd.includes('ESCRITORIO') || c.dentroDe(ent.cwd || '', cfg.escritorio))) {
