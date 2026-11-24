@@ -53,6 +53,8 @@
 - `/habilidades` ganhou as linhas `auditar` e `instalar-terceiro` (fluxo em `references/terceiros.md`); nenhuma skill nova nem descrição alterada — contexto fixo continua **3.869** caracteres.
 - Testes: 445 na suíte (+14, seção 12o com sandbox próprio): skill limpa 🟢, uma fixture por tipo de achado, 🔴 não instala, 🟡 sem `--confirmo` não instala, arquivo alterado após auditar, zip-slip/symlink/gigante, colisão de nome, procedência, listar/remover/descartar, nada fora do sandbox, nenhum código da skill executado e contexto fixo 3.869. Verde também com `TZ=America/Sao_Paulo`.
 
+- **Pesquisa e conferência de jurisprudência:** cada afirmação sobre o julgado exige fonte acessível e frase literal de apoio. Busca sem resultado deixa a referência pendente.
+
 ## 0.8.0 — 2026-10-28
 **Foco: anonimização opcional antes do envio (Roadmap item 3) — pseudonimizar as partes por caso, só quando o advogado quiser, e devolver os dados reais no rascunho final, tudo no computador dele.**
 1. **`/anonimizar` (skill nova, núcleo 25) + `scripts/anonimizar.js` + `scripts/lib/anonimizar.js`.** Subcomandos: `preparar <caso>` (cria/atualiza a tabela e liga a anonimização do caso), `aplicar <caso> [arquivo…]` (cópias em `<caso>/anonimizado/`, original intacto; PDF/Word/página salva viram `.md`), `reverter <peça>` (grava `<peça>-dados-reais.md`), `conferir <peça>`, `estado [<caso>]` e `desligar <caso>`. Mensagem para o advogado: "Anonimizei 3 documentos do caso X: 4 nomes, 1 CPF … viraram marcadores. A tabela ficou só na pasta do caso." O script nunca imprime dado real (a saída vai para a conversa).
