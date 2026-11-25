@@ -17,4 +17,4 @@ Arquivo: $ARGUMENTS (se vazio, a última peça do caso atual).
    - Português: concordância, regência, crase, pontuação; clareza e concisão.
 3. Entregue um relatório curto: 🔴 graves (podem causar indeferimento, preclusão ou sanção), 🟡 importantes, 🟢 sugestões. Para cada item: trecho, problema, sugestão.
 4. Só altere o arquivo se o usuário pedir. Ao alterar, salve nova versão (`_v2`), nunca sobrescreva a anterior.
-5. Ofereça `/advogado-do-diabo` para peças de mérito.
+5. Ofereça `/advogado-do-diabo` para peças de mérito. Na entrega, leia `references/entrega.md` e encerre o relatório com as três listas do formato comum.
