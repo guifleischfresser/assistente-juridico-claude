@@ -24,4 +24,4 @@ Também aponte: citações sem fonte, afirmações sem documento, contradições
 - **Nota de risco** (baixo/médio/alto) em 1 linha.
 - **Top 5 ataques prováveis**, cada um com: ataque → onde a peça está vulnerável (citar trecho) → como blindar.
 - **Lista de verificação antes do protocolo** (5–10 itens marcáveis).
-Não altere arquivos. Termine dizendo que a decisão final é do advogado.
+Não altere arquivos. Diga que a decisão final é do advogado e encerre com as três listas do formato comum. Nesta etapa, leia `../revisar/references/entrega.md` (a partir da pasta desta skill) apenas para aplicar o formato de entrega.
