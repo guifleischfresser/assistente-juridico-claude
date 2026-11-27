@@ -1,0 +1,168 @@
+{
+  "data": [
+    {
+      "author_id": "803592179352485888",
+      "created_at": "2026-10-16T15:02:06.000Z",
+      "edit_history_tweet_ids": [
+        "2111110439903908074"
+      ],
+      "id": "2111110439903908074",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O plugin Legal no Claude Code ajuda na triagem de contratos. Exemplo fictício. Não substitui seu advogado.\n\nComenta HUB que eu te mando o passo a passo pra instalar esse plugin no Claude Code.\nhttps://t.co/Q079JtyaTW https://t.co/g0nR8GhVZ7",
+      "url": "https://x.com/fabioborgesia/status/2111110439903908074"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-09-22T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2102518302660551073"
+      ],
+      "id": "2102518302660551073",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 55,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Ctrl+C e Ctrl+V de andamento é trabalho pra robô, não pra advogado. O Atende Direito Sync automatiza isso via MCP. Claude Code lê direto da fonte e você ganha tempo pra pensar.",
+      "url": "https://x.com/dr_eduserafim/status/2102518302660551073"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-09-24T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2103243078765043799"
+      ],
+      "id": "2103243078765043799",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 19,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Advogado novo demorando semanas pra entender caso grande? No Atende Direito Sync, ele abre o Claude Code via MCP e o banco de dados vivo resume tudo em 1 minuto. Escalabilidade real.",
+      "url": "https://x.com/dr_eduserafim/status/2103243078765043799"
+    },
+    {
+      "author_id": "87695909",
+      "created_at": "2026-09-24T01:27:24.000Z",
+      "edit_history_tweet_ids": [
+        "2102932882079576525"
+      ],
+      "id": "2102932882079576525",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Hoje recebi um decisão positiva em um processo. Fiz a defesa sem advogado e usei o Claude Code para petição. \n\nO mundo esta mudando. E vai ser mais rapido que vocês imaginam. Advogado vai virar peça de museu.",
+      "url": "https://x.com/orafagrana/status/2102932882079576525"
+    },
+    {
+      "author_id": "1381413264526077954",
+      "created_at": "2026-10-15T15:27:23.000Z",
+      "edit_history_tweet_ids": [
+        "2110754417171399014"
+      ],
+      "id": "2110754417171399014",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 26,
+        "impression_count": 1070,
+        "like_count": 27,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 3
+      },
+      "text": "sou um rawlsiano. \n\nacredito que pessoas com o mesmo talento devem ter chances iguais de prosperar, independente da sua origem social \n\n(aliás, pelo o pouco que sei de China, acho que esse é um dos grandes motivos do sucesso deles)\n\neu sou extremamente otimista com IA pq acho https://t.co/0WlwBk1B3y",
+      "url": "https://x.com/berwerneck/status/2110754417171399014"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Ajudo empresários brasileiros nos EUA a escalar negócios com IA e automações.  \nCriador da Comunidade ME ENSINA AI e do evento IA para Negócios 🇺🇸🤖",
+        "id": "803592179352485888",
+        "name": "Fabio Borges",
+        "public_metrics": {
+          "followers_count": 7,
+          "following_count": 131,
+          "like_count": 5,
+          "listed_count": 0,
+          "media_count": 178,
+          "tweet_count": 209
+        },
+        "username": "fabioborgesia",
+        "verified": false
+      },
+      {
+        "description": "CEO @atendedireito\nI.A. aplicada para advogados e escritórios de advocacia.",
+        "id": "2157937978",
+        "name": "Eduardo Serafim | aDEVogado",
+        "public_metrics": {
+          "followers_count": 50,
+          "following_count": 177,
+          "like_count": 3471,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 259
+        },
+        "username": "dr_eduserafim",
+        "verified": false
+      },
+      {
+        "description": "",
+        "id": "87695909",
+        "name": "Rafa",
+        "public_metrics": {
+          "followers_count": 379,
+          "following_count": 149,
+          "like_count": 6938,
+          "listed_count": 5,
+          "media_count": 1729,
+          "tweet_count": 14726
+        },
+        "username": "orafagrana",
+        "verified": false
+      },
+      {
+        "description": "Founder @entaopublicai. Falo sobre criação de conteúdo, negócios e futebol 🐔",
+        "id": "1381413264526077954",
+        "name": "Bernardo Werneck",
+        "public_metrics": {
+          "followers_count": 9586,
+          "following_count": 4114,
+          "like_count": 16705,
+          "listed_count": 43,
+          "media_count": 447,
+          "tweet_count": 2925
+        },
+        "username": "berwerneck",
+        "verified": false
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2111110439903908074",
+    "oldest_id": "2102518302660551073",
+    "result_count": 5
+  }
+}

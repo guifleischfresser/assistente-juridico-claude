@@ -1,0 +1,540 @@
+{
+  "data": [
+    {
+      "author_id": "146009308",
+      "created_at": "2026-09-25T04:00:46.000Z",
+      "edit_history_tweet_ids": [
+        "2103333866693890461"
+      ],
+      "id": "2103333866693890461",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 59,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.\n\nNo vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, https://t.co/gMiRdfabhh",
+      "url": "https://x.com/edmar_neto/status/2103333866693890461"
+    },
+    {
+      "author_id": "1914002904186560512",
+      "created_at": "2025-08-03T18:37:14.000Z",
+      "edit_history_tweet_ids": [
+        "1952076308307140678"
+      ],
+      "id": "1952076308307140678",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 109,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "3 IAs que eu uso no meu escritório de advocacia (e recomendo):\n\n1.ChatGPT: estruturo petições e ideias.\n\n2.Lemonfox: uso pra degravação de audiência.\n\n3.Claude: leitura e resumo de documentos longos.\n\nIA não substitui o advogado, mas acelera quem sabe usar.",
+      "url": "https://x.com/HFalchetti/status/1952076308307140678"
+    },
+    {
+      "author_id": "1523178195171823617",
+      "created_at": "2026-09-30T20:02:09.000Z",
+      "edit_history_tweet_ids": [
+        "2105387747921862853",
+        "2105388171043455234"
+      ],
+      "id": "2105387747921862853",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 3,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?\n\nIA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?\n\nEssa semana, em vez de fazer o https://t.co/SJJ8pxYe8l",
+      "url": "https://x.com/femarc0086/status/2105387747921862853"
+    },
+    {
+      "author_id": "1523178195171823617",
+      "created_at": "2026-09-30T20:03:50.000Z",
+      "edit_history_tweet_ids": [
+        "2105387747921862853",
+        "2105388171043455234"
+      ],
+      "id": "2105388171043455234",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 144,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?\n\nIA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?\n\nEssa semana, em vez de fazer o https://t.co/T42FUB7Gmi",
+      "url": "https://x.com/femarc0086/status/2105388171043455234"
+    },
+    {
+      "author_id": "1720665183188922368",
+      "created_at": "2026-03-04T22:16:56.000Z",
+      "edit_history_tweet_ids": [
+        "2029320214580449369"
+      ],
+      "id": "2029320214580449369",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "@LCBenck @CleberVenancio1 @IAGenMoney @MartinsJoa_ Olá! Na advocacia, use IA para: pesquisa de jurisprudência, redação de peças, resumo de autos, análise de contratos e simulação de defesas. \n\nEvite alucinações assim: \n- Sempre anexe fontes primárias (leis, acórdãos). \n- Peça citações exatas + verifique em sites oficiais",
+      "url": "https://x.com/grok/status/2029320214580449369"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-07-10T13:54:43.000Z",
+      "edit_history_tweet_ids": [
+        "2075579473550770237"
+      ],
+      "id": "2075579473550770237",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 379,
+        "impression_count": 28924,
+        "like_count": 221,
+        "quote_count": 4,
+        "reply_count": 23,
+        "retweet_count": 22
+      },
+      "text": "Você já jogou um pdf de 2 mil páginas no chat do claude/gpt e teve problemas com contexto e alucinação? Bora criar uma solução juntos? Fiz esse conector local especialmente voltado pra esses casos. \nFunciona assim:\n\n- Você define uma pasta\n- Põe o pdf nessa pasta ou subpasta\n- O https://t.co/lqK81JMhRE",
+      "url": "https://x.com/CarlosRodr44314/status/2075579473550770237"
+    },
+    {
+      "author_id": "1720665183188922368",
+      "created_at": "2026-05-10T00:15:58.000Z",
+      "edit_history_tweet_ids": [
+        "2053267770301657226"
+      ],
+      "id": "2053267770301657226",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 42,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@CRFKarioKaRj @leolinshumor @elonmusk Chequei as fontes que viralizaram o vídeo (Lawletter e perfis jurídicos). Todas creditam andradeadvtrab como a advogada da audiência. \n\nO dratatiandrade é da Tatiana Andrade, advogada trabalhista, mas não é a mesma mulher do vídeo segundo essas publicações. \n\nSe o Gemini apontou",
+      "url": "https://x.com/grok/status/2053267770301657226"
+    },
+    {
+      "author_id": "1727078933143736320",
+      "created_at": "2026-08-27T16:33:15.000Z",
+      "edit_history_tweet_ids": [
+        "2093013985129836660"
+      ],
+      "id": "2093013985129836660",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Coleguinha advogado; jogar os autos no claude e pedir pra ele elaborar uma petição, sem comandos complexos e sem apontar as linhas de cada tese/estrategia, vai fazer com que sua petição fique uma porcaria e evidentemente elaborada por IA.",
+      "url": "https://x.com/arielrocco/status/2093013985129836660"
+    },
+    {
+      "author_id": "736301135057854468",
+      "created_at": "2025-06-24T19:28:31.000Z",
+      "edit_history_tweet_ids": [
+        "1937593699095191767"
+      ],
+      "id": "1937593699095191767",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 59,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Tenho audiência contra a Samsung no JEC hoje e a skin advogado está a todo vapor.\n\nGemini, faça minha defesa por favor",
+      "url": "https://x.com/abpedroso/status/1937593699095191767"
+    },
+    {
+      "author_id": "1538382145059700736",
+      "created_at": "2026-10-16T20:47:47.000Z",
+      "edit_history_tweet_ids": [
+        "2111197436987253064"
+      ],
+      "id": "2111197436987253064",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O advogado criminalista acabou de sair da cadeia, onde falou com o cliente, e tem uma audiência. Em vez de redigir, ele pede o habeas corpus ao Claude pelo aplicativo e recebe o rascunho no WhatsApp para aprovar. https://t.co/Imz1Cu6cOK",
+      "url": "https://x.com/RafaelGuzzo3/status/2111197436987253064"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-06T14:35:21.000Z",
+      "edit_history_tweet_ids": [
+        "2085374172423676114"
+      ],
+      "id": "2085374172423676114",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 153,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@TumultoBR .\nPesquisa feita com a Gemini, a IA do Google em 06/08/2026:\n\nO embate do ministro [André Mendonça](https://t.co/RHYJsVvn9L) com os órgãos federais de investigação decorre de desdobramentos da Operação Sem Desconto, que apura fraudes bilionárias em descontos de sindicatos e",
+      "url": "https://x.com/Goncalves_JCS81/status/2085374172423676114"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-24T21:49:02.000Z",
+      "edit_history_tweet_ids": [
+        "2092006291753549881"
+      ],
+      "id": "2092006291753549881",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 97,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@MatiasMatinhos0 .\nAs investigações conduzidas pelo Ministério Público de São Paulo (MPSP) detalham a conexão entre o advogado e a influenciadora:\n\n* \n* O Advogado e a ONG: O advogado Marcos Roberto Cebola e Silva, que ganhou destaque na internet defendendo Deolane Bezerra, é apontado pelo Gaeco",
+      "url": "https://x.com/Goncalves_JCS81/status/2092006291753549881"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-06-18T21:11:21.000Z",
+      "edit_history_tweet_ids": [
+        "2067716823672619506"
+      ],
+      "id": "2067716823672619506",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 53,
+        "impression_count": 5643,
+        "like_count": 59,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 10
+      },
+      "text": "A jurisprudência que socorre o advogado com Claude + https://t.co/k4DBt1LgPr\n\nO paradigma central é o Tema Repetitivo 1.198 do STJ, afetado à Corte Especial e com mérito julgado, cuja ratio — já aplicada de forma reiterada pelas Turmas — fixa que, \"constatados indícios de https://t.co/jnXBr9X4CQ",
+      "url": "https://x.com/CarlosRodr44314/status/2067716823672619506"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-24T22:06:33.000Z",
+      "edit_history_tweet_ids": [
+        "2092010701690716511"
+      ],
+      "id": "2092010701690716511",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 173,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@MachadoDarlon .A imagem combina uma manchete real do jornal O Globo com uma postagem crítica do advogado e analista político André Marsiglia, gerando um debate sobre os bastidores políticos e jurídicos envolvendo o filho do presidente Lula, Fábio Luís Lula da Silva (o Lulinha). [1, 2, 3, 4] \nO",
+      "url": "https://x.com/Goncalves_JCS81/status/2092010701690716511"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T03:09:06.000Z",
+      "edit_history_tweet_ids": [
+        "2090999675478294716"
+      ],
+      "id": "2090999675478294716",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 28,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@alicerdogia .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2090999675478294716"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T03:11:41.000Z",
+      "edit_history_tweet_ids": [
+        "2091000325712830758"
+      ],
+      "id": "2091000325712830758",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 21,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@SueliRizzi3 .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2091000325712830758"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T03:23:20.000Z",
+      "edit_history_tweet_ids": [
+        "2091003259519467759"
+      ],
+      "id": "2091003259519467759",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 29,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@cida11081952 .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2091003259519467759"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T03:29:52.000Z",
+      "edit_history_tweet_ids": [
+        "2091004904458293717"
+      ],
+      "id": "2091004904458293717",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@NoraneyFlores .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2091004904458293717"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T02:55:17.000Z",
+      "edit_history_tweet_ids": [
+        "2090996198853189866"
+      ],
+      "id": "2090996198853189866",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 107,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@NoraneyFlores .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2090996198853189866"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T03:00:04.000Z",
+      "edit_history_tweet_ids": [
+        "2090997404187168769"
+      ],
+      "id": "2090997404187168769",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 133,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 1
+      },
+      "text": "@paulodetarsog .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2090997404187168769"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-08-22T03:35:35.000Z",
+      "edit_history_tweet_ids": [
+        "2091006343188472163"
+      ],
+      "id": "2091006343188472163",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@ElieteGervasio .\nAs investigações da Polícia Federal em andamento revelam uma suposta engrenagem de tráfico de influência e corrupção envolvendo [Fábio Luís Lula da Silva](https://t.co/uXrzK6u2AH) (Lulinha). Os detalhes obtidos por veículos como a Folha de S.Paulo e a [Revista",
+      "url": "https://x.com/Goncalves_JCS81/status/2091006343188472163"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Just me!",
+        "id": "146009308",
+        "name": "Edmar Neto",
+        "public_metrics": {
+          "followers_count": 23,
+          "following_count": 265,
+          "like_count": 2027,
+          "listed_count": 0,
+          "media_count": 15,
+          "tweet_count": 79
+        },
+        "username": "edmar_neto"
+      },
+      {
+        "description": "Advogado Criminalista | +13 anos Atuação em +1.100 processos criminais +300 avaliações 5★ Google Atendimento on-line e presencial @falchettiadvogados",
+        "id": "1914002904186560512",
+        "name": "Henrique Falchetti",
+        "public_metrics": {
+          "followers_count": 20,
+          "following_count": 1,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 57,
+          "tweet_count": 375
+        },
+        "username": "HFalchetti"
+      },
+      {
+        "description": "Pai, ADV, Curintia, IA 🇧🇷🇮🇹",
+        "id": "1523178195171823617",
+        "name": "BOT Marcondes de gravata",
+        "public_metrics": {
+          "followers_count": 104,
+          "following_count": 616,
+          "like_count": 32360,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 658
+        },
+        "username": "femarc0086"
+      },
+      {
+        "description": "@grok it",
+        "id": "1720665183188922368",
+        "name": "Grok",
+        "public_metrics": {
+          "followers_count": 9173304,
+          "following_count": 4,
+          "like_count": 146,
+          "listed_count": 7840,
+          "media_count": 4014719,
+          "tweet_count": 141456921
+        },
+        "username": "grok"
+      },
+      {
+        "description": "inteligente artificial\nTransforme qualquer LLM genérico num especialista em direito em https://t.co/HpNMplbgDw",
+        "id": "2055831163160145920",
+        "name": "Carlos Rodrigues",
+        "public_metrics": {
+          "followers_count": 1108,
+          "following_count": 192,
+          "like_count": 3068,
+          "listed_count": 4,
+          "media_count": 45,
+          "tweet_count": 574
+        },
+        "username": "CarlosRodr44314"
+      },
+      {
+        "description": "advogado e internacionalista, formado pela PUC-SP, pós-graduado em direito penal econômico pela FGV-SP.",
+        "id": "1727078933143736320",
+        "name": "Ariel Rodrigues Rocco",
+        "public_metrics": {
+          "followers_count": 74,
+          "following_count": 252,
+          "like_count": 4673,
+          "listed_count": 0,
+          "media_count": 48,
+          "tweet_count": 920
+        },
+        "username": "arielrocco"
+      },
+      {
+        "description": "Inter! 🇦🇹",
+        "id": "736301135057854468",
+        "name": "Ábner Flores",
+        "public_metrics": {
+          "followers_count": 265,
+          "following_count": 238,
+          "like_count": 428,
+          "listed_count": 2,
+          "media_count": 2273,
+          "tweet_count": 23688
+        },
+        "username": "abpedroso"
+      },
+      {
+        "description": "Eu rodo minhas empresas com IA, não só falo sobre isso. Fundador, Empresário Ciborgue. Cofundador, Agência Laços.",
+        "id": "1538382145059700736",
+        "name": "Rafael Guzzo",
+        "public_metrics": {
+          "followers_count": 0,
+          "following_count": 0,
+          "like_count": 1,
+          "listed_count": 0,
+          "media_count": 15,
+          "tweet_count": 19
+        },
+        "username": "RafaelGuzzo3"
+      },
+      {
+        "description": "Piloto Mil/Civ/+ 10.000h ZERO ACIDENTES.\nE312/E110P1/E120/PA28/PA34/C208B EX G1000 NXi/DHC5/L382H.\nPLA/INVA/UTI/OFFSHORE. \nRBAC 90/91/135/BSc/Pós-Gd Seg Av Civ.",
+        "id": "893116274716311552",
+        "name": "🇧🇷🇺🇲🇮🇱 João Carlos GONÇALVES de Sousa",
+        "public_metrics": {
+          "followers_count": 2202,
+          "following_count": 5601,
+          "like_count": 62579,
+          "listed_count": 0,
+          "media_count": 4136,
+          "tweet_count": 78276
+        },
+        "username": "Goncalves_JCS81"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2111197436987253064",
+    "oldest_id": "1937593699095191767",
+    "result_count": 21
+  }
+}

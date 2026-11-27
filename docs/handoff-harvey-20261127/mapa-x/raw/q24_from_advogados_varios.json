@@ -1,0 +1,671 @@
+{
+  "data": [
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2025-12-02T13:00:05.000Z",
+      "edit_history_tweet_ids": [
+        "1995840395931250692"
+      ],
+      "id": "1995840395931250692",
+      "in_reply_to_user_id": "1481003379216297987",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 457,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1995603143456161796",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@tsu_node Acho que esse é o principal caso de uso de IA para quem não é da área da programação. No meu caso, cancelamos um serviço que gerenciava processos e prazos para advocacia e estou desenvolvendo um próprio porque é mil vezes mais barato pagar o claude code e desenvolver per se",
+      "url": "https://x.com/kurosawaadv/status/1995840395931250692"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-08-14T14:14:25.000Z",
+      "edit_history_tweet_ids": [
+        "2088268004844859396"
+      ],
+      "id": "2088268004844859396",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Se o advogado não possui um software de CRM, como ele faz para saber em que pé está o caso do cliente?\n\nAnota na agenda? Confia na memória? Lê a pasta ou processo quando o cliente pergunta? Tudo isso é muito inseguro e perigoso.\n\nDividindo meus pensamentos com o Claude, confessei",
+      "url": "https://x.com/iamleds/status/2088268004844859396"
+    },
+    {
+      "author_id": "1235768339219263488",
+      "created_at": "2026-10-04T17:08:32.000Z",
+      "edit_history_tweet_ids": [
+        "2106793603251232879"
+      ],
+      "id": "2106793603251232879",
+      "in_reply_to_user_id": "8642952",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 90,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2106752194254917829",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JorgeAraujo Para advogados: montei meu site profissional com o Claude Code\nAgora estou criando uma ferramenta própria de monitoramento de prazos dos meus processos, controle de contratos e honorários, etc\nVale a pena!",
+      "url": "https://x.com/gabriel_gfb92/status/2106793603251232879"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-07-30T13:28:59.000Z",
+      "edit_history_tweet_ids": [
+        "2082820754085740739"
+      ],
+      "id": "2082820754085740739",
+      "in_reply_to_user_id": "1536693901230321666",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2082228354175127938",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@RoundtableSpace @grok Sou advogado, uso gdrive para armazenamento das pastas dos meus clientes e uso Claude Code, Grok Build e outros para elaborar petições, contratos, controlar prazos etc. Como o Buzz pode ser útil para a minha atividade diária e workflows?",
+      "url": "https://x.com/iamleds/status/2082820754085740739"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-08-18T20:33:00.000Z",
+      "edit_history_tweet_ids": [
+        "2089812830866341979"
+      ],
+      "id": "2089812830866341979",
+      "in_reply_to_user_id": "50697116",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 40,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2089812828802654345",
+          "type": "replied_to"
+        }
+      ],
+      "text": "2/6\n\nO atalho parece eficiente: “GPT jurídico definitivo”, kit de petição, agente pronto, automação que promete resolver tudo.\n\nO custo escondido é alto: peças padronizadas, voz indistinguível e dependência permanente de fornecedor externo.",
+      "url": "https://x.com/odilonoliveira/status/2089812830866341979"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-06-16T10:56:55.000Z",
+      "edit_history_tweet_ids": [
+        "2066837417881932260"
+      ],
+      "id": "2066837417881932260",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Usar IA não é o mesmo que ser IA first.\n\nIA first não é colocar uma ferramenta nova em cima de um processo velho.\n\nNa advocacia, é redesenhar petições, atendimento, prazos e estratégia desde o começo, com IA, método e supervisão.\n\nAutomatizar erro antigo não é inovação.",
+      "url": "https://x.com/odilonoliveira/status/2066837417881932260"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-05-26T16:00:06.000Z",
+      "edit_history_tweet_ids": [
+        "2059303572316078265"
+      ],
+      "id": "2059303572316078265",
+      "public_metrics": {
+        "bookmark_count": 293,
+        "impression_count": 10461,
+        "like_count": 172,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 22
+      },
+      "text": "Colegas, após alguns apontamentos e feedbacks, eu atualizei a biblioteca de prompts jurídicos para IA: https://t.co/P9bgIo2p7K\n\nAgora são 41 prompts, com foco em uso prático, revisão humana e travas contra invenção de fatos, prazos, valores, documentos e jurisprudência.\n\nIncluí",
+      "url": "https://x.com/carloshsl_/status/2059303572316078265"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-14T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2110490834168656113"
+      ],
+      "id": "2110490834168656113",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 10,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "1/ Escritório pequeno precisa ganhar tempo com segurança. A IA pode ajudar a organizar documentos, resumir autos e preparar rascunhos. Prazos, fatos e fundamentos exigem conferência do advogado.",
+      "url": "https://x.com/odilonoliveira/status/2110490834168656113"
+    },
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2025-11-28T13:24:08.000Z",
+      "edit_history_tweet_ids": [
+        "1994396895423471878"
+      ],
+      "id": "1994396895423471878",
+      "in_reply_to_user_id": "10128472",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 170,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1994396310443839778",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@diegociconi @oalanicolas Se você tiver email de estudante, dá para pegar um ano grátis de google pro, que tem o gemini 3 pro no CLI. Considerando que sai de graça, vale a pena como substituto do Claude Code ou do Codex",
+      "url": "https://x.com/kurosawaadv/status/1994396895423471878"
+    },
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2025-12-31T23:07:31.000Z",
+      "edit_history_tweet_ids": [
+        "2006502509045756323"
+      ],
+      "id": "2006502509045756323",
+      "in_reply_to_user_id": "3239896262",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 157,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2006183209805959659",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@mweinbach Codex is the slow but methodic expert that solves every bug that the crazy and hyperactive genius, Claude Code, creates.",
+      "url": "https://x.com/kurosawaadv/status/2006502509045756323"
+    },
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2025-12-30T19:55:10.000Z",
+      "edit_history_tweet_ids": [
+        "2006091714940043601"
+      ],
+      "id": "2006091714940043601",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 67,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Credit where credit is due: o codex acabou de resolver um bug criado pelo claude code.",
+      "url": "https://x.com/kurosawaadv/status/2006091714940043601"
+    },
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2025-12-31T20:29:22.000Z",
+      "edit_history_tweet_ids": [
+        "2006462706216476893"
+      ],
+      "id": "2006462706216476893",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 75,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A integração de Claude Code como criador frenético de códigos e funções com Codex revisor metódico e pontual de bugs é a salvação",
+      "url": "https://x.com/kurosawaadv/status/2006462706216476893"
+    },
+    {
+      "author_id": "1265768638486851586",
+      "created_at": "2026-05-26T02:13:16.000Z",
+      "edit_history_tweet_ids": [
+        "2059095491992768982"
+      ],
+      "id": "2059095491992768982",
+      "in_reply_to_user_id": "969283886881656832",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 317,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2059069222609707207",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@carinabst Só deixar o Jusbrasil logado, Claude com autorização para usar Google Chrime e quebrar a pesquisa de jurisprudência como tarefa logo após a análise do contexto da petição",
+      "url": "https://x.com/advgabrielval/status/2059095491992768982"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-06-02T20:30:22.000Z",
+      "edit_history_tweet_ids": [
+        "2061908301672005724"
+      ],
+      "id": "2061908301672005724",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 59,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Qual expressão mais entrega que uma petição foi escrito por IA?\nEu começo:\n“Nesse sentido, cumpre destacar que...”",
+      "url": "https://x.com/odilonoliveira/status/2061908301672005724"
+    },
+    {
+      "author_id": "1725603993630466050",
+      "created_at": "2026-06-06T23:20:09.000Z",
+      "edit_history_tweet_ids": [
+        "2063400580475654589"
+      ],
+      "id": "2063400580475654589",
+      "public_metrics": {
+        "bookmark_count": 27,
+        "impression_count": 49596,
+        "like_count": 313,
+        "quote_count": 4,
+        "reply_count": 8,
+        "retweet_count": 6
+      },
+      "referenced_tweets": [
+        {
+          "id": "2062919593480368555",
+          "type": "quoted"
+        }
+      ],
+      "text": "Vi essa mensagem num balcão virtual de vara cível nesta semana. Ela não conseguia compreender a impossibilidade do servidor em protocolar a petição e repetiu essa mensagem diversas vezes.\n\nA IA não serve de absolutamente nada sem um profissional que saiba o que está fazendo. https://t.co/qnqAFCvmzn https://t.co/gQdj6LcauU",
+      "url": "https://x.com/AdvDoHardware/status/2063400580475654589"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-08-12T12:54:26.000Z",
+      "edit_history_tweet_ids": [
+        "2087523101609226643"
+      ],
+      "id": "2087523101609226643",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 161,
+        "like_count": 4,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2087502615600840931",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz @joocarlosteixe6 @juniordias Sinceramente, qual é o problema dessa marca? \n\nSe a manifestação/petição está coerente com o contexto dos autos, está revisada, pertinente, qual seria a justificativa para uma punição ou advertência por ser texto de IA?",
+      "url": "https://x.com/iamleds/status/2087523101609226643"
+    },
+    {
+      "author_id": "1725603993630466050",
+      "created_at": "2026-03-17T20:26:59.000Z",
+      "edit_history_tweet_ids": [
+        "2034003587785716041"
+      ],
+      "id": "2034003587785716041",
+      "public_metrics": {
+        "bookmark_count": 46,
+        "impression_count": 15918,
+        "like_count": 131,
+        "quote_count": 2,
+        "reply_count": 16,
+        "retweet_count": 5
+      },
+      "text": "Pedi para o Claude Pro fazer UMA petição. Eu tinha usado apenas 4% do limite destas 5 horas.\n\nO Claude não entregou a petição, acabou com meu limite até às 20h e ficou por isso mesmo.\n\nEssa imprecisão quanto ao uso de tokens é completamente absurda. https://t.co/tfZ141kbVW",
+      "url": "https://x.com/AdvDoHardware/status/2034003587785716041"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-05-17T23:29:30.000Z",
+      "edit_history_tweet_ids": [
+        "2056155177330073835"
+      ],
+      "id": "2056155177330073835",
+      "in_reply_to_user_id": "50697116",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 12,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2056154653679596025",
+          "type": "replied_to"
+        }
+      ],
+      "text": "4/ A primeira pergunta é técnica: isso poderia funcionar?\n\nSim, em tese. Especialmente se alguém copiasse o conteúdo bruto da petição e colasse em uma IA sem perceber o comando oculto.",
+      "url": "https://x.com/odilonoliveira/status/2056155177330073835"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-05-17T23:24:20.000Z",
+      "edit_history_tweet_ids": [
+        "2056153877972504784"
+      ],
+      "id": "2056153877972504784",
+      "in_reply_to_user_id": "50697116",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 18,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2056153498593411360",
+          "type": "replied_to"
+        }
+      ],
+      "text": "2/ Segundo as notícias, teria sido inserido em uma petição um comando oculto, em fonte branca sobre fundo branco, direcionado a sistemas de IA.\n\nPara humanos, invisível. Para máquinas, potencialmente legível.",
+      "url": "https://x.com/odilonoliveira/status/2056153877972504784"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-07-27T16:51:12.000Z",
+      "edit_history_tweet_ids": [
+        "2081784482382708851"
+      ],
+      "id": "2081784482382708851",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2081759844256645298",
+          "type": "quoted"
+        }
+      ],
+      "text": "Aqui está uma sacada simples e das melhores: “Apenas converse com o agente”.\n\n(a) reflita sobre o que você deseja do agente + (b) apenas converse com o agente é a chave para um uso melhor do Claude Code. https://t.co/QMaBJMdJqZ",
+      "url": "https://x.com/iamleds/status/2081784482382708851"
+    },
+    {
+      "author_id": "1725603993630466050",
+      "created_at": "2026-03-20T03:01:38.000Z",
+      "edit_history_tweet_ids": [
+        "2034827678436458678"
+      ],
+      "id": "2034827678436458678",
+      "public_metrics": {
+        "bookmark_count": 16,
+        "impression_count": 16234,
+        "like_count": 609,
+        "quote_count": 1,
+        "reply_count": 10,
+        "retweet_count": 17
+      },
+      "text": "Todo mundo diz: O advogado usou IA na petição inicial. Além de evidente, ficou terrível.\n\nO que o advogado faz?\n\nSolta uma \"nota à imprensa\" igualmente feita na IA.\n\nTem colega que não se ajuda.",
+      "url": "https://x.com/AdvDoHardware/status/2034827678436458678"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-22T17:13:47.000Z",
+      "edit_history_tweet_ids": [
+        "2102446271575609465"
+      ],
+      "id": "2102446271575609465",
+      "in_reply_to_user_id": "4222896442",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 9,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102446265015353706",
+          "type": "replied_to"
+        }
+      ],
+      "text": "5. Revise sua operação, skills, fluxos de trabalho… corte excessos, organize, limpe;\n\n6. https://t.co/as3afTlnd7 — instale essa skill no seu agente;",
+      "url": "https://x.com/iamleds/status/2102446271575609465"
+    },
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2026-02-09T23:30:13.000Z",
+      "edit_history_tweet_ids": [
+        "2021003733405139060"
+      ],
+      "id": "2021003733405139060",
+      "in_reply_to_user_id": "548625382",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 252,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2020977511983956045",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@freitashebert_ Concordo. Ainda acho difícil lançar mão de um workflow funcional, ainda que usando agentes e outras ferramentas mais funcionais como Codex ou Claude Code. \n \nUso muito, mas não como devs usam para operacional mil tarefas simultâneas. Acho que o custo de revisar ainda é alto.",
+      "url": "https://x.com/kurosawaadv/status/2021003733405139060"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-04-06T15:12:12.000Z",
+      "edit_history_tweet_ids": [
+        "2041172123834556508"
+      ],
+      "id": "2041172123834556508",
+      "in_reply_to_user_id": "2568462331",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2041171046296961058",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@rafaquint @oalanicolas Ah, não tinha entendido que era somente aos créditos extras! Eu migrei do Claude para o Codex na sexta-feira justamente pelo consumo excessivo, tomara que isso não aconteça novamente…",
+      "url": "https://x.com/carloshsl_/status/2041172123834556508"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-07-07T16:10:34.000Z",
+      "edit_history_tweet_ids": [
+        "2074526497633657014"
+      ],
+      "id": "2074526497633657014",
+      "in_reply_to_user_id": "1168158466600558598",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 116,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2074522111993938077",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@kbelo_bruno @CarlosRodr44314 Codex por muito. Migrei do Claude pro codex há 2 meses e foi a melhor decisão que tomei. Os limites são bem mais generosos que o Claude e o gpt-5.5 é excelente.\nInfelizmente o jusIA é péssimo é caro, você tomou um tombo nessa.",
+      "url": "https://x.com/carloshsl_/status/2074526497633657014"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "advogado empresarial e amante de filosofia",
+        "id": "1902799916323250176",
+        "name": "Kurosawa",
+        "public_metrics": {
+          "followers_count": 136,
+          "following_count": 97,
+          "like_count": 452,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 790
+        },
+        "username": "kurosawaadv"
+      },
+      {
+        "description": "me interesso em advocacia, IA, tecnologia, política, curiosidades, aleatoriedades.",
+        "id": "4222896442",
+        "name": "Lucas Eduardo Dias de Souza",
+        "public_metrics": {
+          "followers_count": 49,
+          "following_count": 130,
+          "like_count": 271,
+          "listed_count": 1,
+          "media_count": 55,
+          "tweet_count": 757
+        },
+        "username": "iamleds"
+      },
+      {
+        "description": "Advogado, empreendedor, Grêmio.",
+        "id": "1235768339219263488",
+        "name": "Gabriel 🇪🇪",
+        "public_metrics": {
+          "followers_count": 132,
+          "following_count": 659,
+          "like_count": 86177,
+          "listed_count": 0,
+          "media_count": 135,
+          "tweet_count": 5998
+        },
+        "username": "gabriel_gfb92"
+      },
+      {
+        "description": "Advogado criminalista em Campo Grande/MS. Defesa estratégica, processo penal, instituições e IA aplicada à advocacia.",
+        "id": "50697116",
+        "name": "Odilon Jr",
+        "public_metrics": {
+          "followers_count": 1196,
+          "following_count": 166,
+          "like_count": 304,
+          "listed_count": 15,
+          "media_count": 665,
+          "tweet_count": 8373
+        },
+        "username": "odilonoliveira"
+      },
+      {
+        "description": "Advogado 🇧🇷",
+        "id": "77767107",
+        "name": "Henrique",
+        "public_metrics": {
+          "followers_count": 400,
+          "following_count": 635,
+          "like_count": 74219,
+          "listed_count": 3,
+          "media_count": 54,
+          "tweet_count": 1255
+        },
+        "username": "carloshsl_"
+      },
+      {
+        "description": "AVE, AVE, CHRISTUS REX\n\nAdvogado católico.",
+        "id": "1265768638486851586",
+        "name": "Gabriel Valério 🇻🇦",
+        "public_metrics": {
+          "followers_count": 229,
+          "following_count": 285,
+          "like_count": 49267,
+          "listed_count": 2,
+          "media_count": 59,
+          "tweet_count": 8148
+        },
+        "username": "advgabrielval"
+      },
+      {
+        "description": "⚖ Advogado\n\n🎮 PC Gamer",
+        "id": "1725603993630466050",
+        "name": "Advogado do Hardware",
+        "public_metrics": {
+          "followers_count": 7741,
+          "following_count": 2036,
+          "like_count": 18725,
+          "listed_count": 7,
+          "media_count": 1324,
+          "tweet_count": 15583
+        },
+        "username": "AdvDoHardware"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2110490834168656113",
+    "oldest_id": "1994396895423471878",
+    "result_count": 25
+  }
+}

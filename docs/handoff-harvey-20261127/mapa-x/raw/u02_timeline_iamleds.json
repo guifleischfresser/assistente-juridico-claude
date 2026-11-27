@@ -1,0 +1,1244 @@
+{
+  "data": [
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-16T16:16:46.000Z",
+      "edit_history_tweet_ids": [
+        "2111129234202878097"
+      ],
+      "id": "2111129234202878097",
+      "in_reply_to_user_id": "1311355909147373570",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 9,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2111118148061798451",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@BorderleSint Muito massa a página. UI com Claude também? Quero muito fazer uma para meu escritório de advocacia.",
+      "url": "https://x.com/iamleds/status/2111129234202878097"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-16T16:06:25.000Z",
+      "edit_history_tweet_ids": [
+        "2111126628235448334"
+      ],
+      "id": "2111126628235448334",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 9,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110772859580895678",
+          "type": "quoted"
+        }
+      ],
+      "text": "Ótima aplicação para o Gemini 4 Argon em coisas práticas. A democratização do conhecimento dá mais um salto.\n\nInfelizmente, no Brasil, uma impressora 3D é artigo de luxo e ganhar em $janjacoin é um lixo. https://t.co/NvRpDr9zNs",
+      "url": "https://x.com/iamleds/status/2111126628235448334"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-16T02:25:09.000Z",
+      "edit_history_tweet_ids": [
+        "2110919948411564096"
+      ],
+      "id": "2110919948411564096",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 6,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110913353111462276",
+          "type": "quoted"
+        }
+      ],
+      "text": "Brutal. Fiquei assim 😵 https://t.co/1qGYiQe0Xo",
+      "url": "https://x.com/iamleds/status/2110919948411564096"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-12T22:36:19.000Z",
+      "edit_history_tweet_ids": [
+        "2109775199235342774"
+      ],
+      "id": "2109775199235342774",
+      "in_reply_to_user_id": "1008499278757625856",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 112,
+        "like_count": 4,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2109648019519881360",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@LitiganteDeBF Muito bem dito. É loucura o que está acontecendo com a advocacia! \n\nMeu time imprime na impressora do escritório. Prepara o processo para protocolo direto no site do TJ (deixa no ponto só de revisar e assinar). Responde clientes. Elabora peças. Tá sinistro! https://t.co/4gViVWFKQT",
+      "url": "https://x.com/iamleds/status/2109775199235342774"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-11T16:50:19.000Z",
+      "edit_history_tweet_ids": [
+        "2109325737312301131"
+      ],
+      "id": "2109325737312301131",
+      "in_reply_to_user_id": "2786813947",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 192,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2109298471014465641",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@willon Boa, Dr. Bem lembrado.",
+      "url": "https://x.com/iamleds/status/2109325737312301131"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-10T15:34:12.000Z",
+      "edit_history_tweet_ids": [
+        "2108944194370928723"
+      ],
+      "id": "2108944194370928723",
+      "in_reply_to_user_id": "56004463",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 78,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108907778450268323",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@glaucia_lemos86 @spacexai @poteto Uso na minha advocacia o plano de 500,00. Estou mal acostumado, porque ele consegue fazer tudo. A atualização de rotear no próprio computador foi bala demais. Compensa demais!",
+      "url": "https://x.com/iamleds/status/2108944194370928723"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-10T01:22:46.000Z",
+      "edit_history_tweet_ids": [
+        "2108729921497444809"
+      ],
+      "id": "2108729921497444809",
+      "in_reply_to_user_id": "2002099414870208512",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 93,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108728566040891432",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@filipesmach @acgfbr sem dúvida. rápido e prático.",
+      "url": "https://x.com/iamleds/status/2108729921497444809"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-10T01:21:08.000Z",
+      "edit_history_tweet_ids": [
+        "2108729509906104687"
+      ],
+      "id": "2108729509906104687",
+      "in_reply_to_user_id": "1544018633202061313",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 80,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108696138924834986",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@zoca_lucas @acgfbr sou adv, rodo o meu escritório todos os dias e o cursor pro+ (500,00) tem sobrado token.",
+      "url": "https://x.com/iamleds/status/2108729509906104687"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-09T01:54:08.000Z",
+      "edit_history_tweet_ids": [
+        "2108375429849493746"
+      ],
+      "id": "2108375429849493746",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 28,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108262476026397040",
+          "type": "quoted"
+        }
+      ],
+      "text": "🧠 https://t.co/CuVx2QM8tV",
+      "url": "https://x.com/iamleds/status/2108375429849493746"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-09T00:01:33.000Z",
+      "edit_history_tweet_ids": [
+        "2108347094117626198"
+      ],
+      "id": "2108347094117626198",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108245829530325307",
+          "type": "quoted"
+        }
+      ],
+      "text": "Google entra no mercado agêntico. \n\nCom o ecossistema Google (uso Drive e Docs como o database do escritório) o Gemini pode ser uma mão na roda.\n\nUm ponto a se pensar: não dá pra usar muitos agentes no dia a dia. É um só.\n\nE hoje, o meu é o @bot. https://t.co/TNQSwUS2ON",
+      "url": "https://x.com/iamleds/status/2108347094117626198"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-08T21:04:27.000Z",
+      "edit_history_tweet_ids": [
+        "2108302526173085982"
+      ],
+      "id": "2108302526173085982",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 9,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108171726412464173",
+          "type": "quoted"
+        }
+      ],
+      "text": "to read later https://t.co/pbjGWpXNXl",
+      "url": "https://x.com/iamleds/status/2108302526173085982"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-08T16:23:00.000Z",
+      "edit_history_tweet_ids": [
+        "2108231698597232874"
+      ],
+      "id": "2108231698597232874",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 10,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107837055099093197",
+          "type": "quoted"
+        }
+      ],
+      "text": "A rejeição veio para ficar. Olavo não esperava pelo elemento Janja. O castelo de areia do Lula está ruindo diante de nós, senhoras e senhores. https://t.co/A5Xvh3A5Cb https://t.co/vnt4ZVC4AI",
+      "url": "https://x.com/iamleds/status/2108231698597232874"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-06T17:54:22.000Z",
+      "edit_history_tweet_ids": [
+        "2107529916334125340"
+      ],
+      "id": "2107529916334125340",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 13,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107308018958528634",
+          "type": "quoted"
+        }
+      ],
+      "text": "Seria uma maravilha se tivéssemos uma execução assim por aqui. No Brasil, o calote é cultural. https://t.co/FoA8R0Tfed",
+      "url": "https://x.com/iamleds/status/2107529916334125340"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-02T18:11:19.000Z",
+      "edit_history_tweet_ids": [
+        "2106084629014811078"
+      ],
+      "id": "2106084629014811078",
+      "in_reply_to_user_id": "1640832837396955139",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 355,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2106083937864810908",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Razanur89 @interesting_aIl nice, bro!",
+      "url": "https://x.com/iamleds/status/2106084629014811078"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-01T16:15:43.000Z",
+      "edit_history_tweet_ids": [
+        "2105693151599997214"
+      ],
+      "id": "2105693151599997214",
+      "in_reply_to_user_id": "2786813947",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 12,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2105370119278895136",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@willon Nível submundo. Insanidade e imoralidade. Sociedade doente numa terra fértil. De dar dó. Afinal, o que o futuro nos reserva? Deus tenha misericórdia do Brasil.",
+      "url": "https://x.com/iamleds/status/2105693151599997214"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-10-01T14:48:13.000Z",
+      "edit_history_tweet_ids": [
+        "2105671130564768204"
+      ],
+      "id": "2105671130564768204",
+      "in_reply_to_user_id": "82246210",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 14,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2105457951519510912",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@leogarciagyn @Fitzgerald_Bar @souapenasV 🎯",
+      "url": "https://x.com/iamleds/status/2105671130564768204"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-30T23:54:24.000Z",
+      "edit_history_tweet_ids": [
+        "2105446193426043033"
+      ],
+      "id": "2105446193426043033",
+      "in_reply_to_user_id": "17657922",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 45,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2105393560518607003",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Fitzgerald_Bar @souapenasV Só jumento acha que foi um efeito 🦑 esse pico no BR. QUALQUER ZÉ que estivesse lá iria levar. Brasil é referência em matéria-prima. 2000-2012 foi o auge do crescimento chinês. O Brasil possivelmente foi o mais beneficiado pelo Superciclo. https://t.co/KBPs3cJLo1",
+      "url": "https://x.com/iamleds/status/2105446193426043033"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-29T18:40:16.000Z",
+      "edit_history_tweet_ids": [
+        "2105004752371327306"
+      ],
+      "id": "2105004752371327306",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 25,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2104937328342925508",
+          "type": "quoted"
+        }
+      ],
+      "text": "Desburocratização. No Brasil, essa palavra foi esquecida. https://t.co/2RxCktjFGI",
+      "url": "https://x.com/iamleds/status/2105004752371327306"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-29T16:35:47.000Z",
+      "edit_history_tweet_ids": [
+        "2104973424846151745"
+      ],
+      "id": "2104973424846151745",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2104667479960076292",
+          "type": "quoted"
+        }
+      ],
+      "text": "Sim, é isso que acabamos de ler. Esse é o nível das discussões. 🇧🇷 é um hospício. https://t.co/iy62zAYJJM",
+      "url": "https://x.com/iamleds/status/2104973424846151745"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-26T20:25:06.000Z",
+      "edit_history_tweet_ids": [
+        "2103943971580068113"
+      ],
+      "id": "2103943971580068113",
+      "in_reply_to_user_id": "4222896442",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 13,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103943381814817120",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Agora, a Controladoria já consegue entrar no e-SAJ do TJMS, por exemplo – como dá pra ver no canto superior direito da tela.\n\nAprendendo muito também.",
+      "url": "https://x.com/iamleds/status/2103943971580068113"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-26T20:22:46.000Z",
+      "edit_history_tweet_ids": [
+        "2103943381814817120"
+      ],
+      "id": "2103943381814817120",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 20,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Esse é o meu time no @bot. Faltam ajustes estéticos e outros operacionais, mas com um mês e pouco bastante coisa já foi desenvolvida.\n\nO time está mais rápido, eficaz e alinhado.\n\nO gargalo da restrição de IPs foi resolvido numa atualização recente. Curtindo muito! https://t.co/srFHjAzTbl",
+      "url": "https://x.com/iamleds/status/2103943381814817120"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-25T22:07:20.000Z",
+      "edit_history_tweet_ids": [
+        "2103607308697866650"
+      ],
+      "id": "2103607308697866650",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103502024256209332",
+          "type": "quoted"
+        }
+      ],
+      "text": "Bem-vindos a Idiocracy https://t.co/dOP2xp9B8a",
+      "url": "https://x.com/iamleds/status/2103607308697866650"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-24T12:09:21.000Z",
+      "edit_history_tweet_ids": [
+        "2103094435420770614"
+      ],
+      "id": "2103094435420770614",
+      "in_reply_to_user_id": "1990144439659237376",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103092103068655974",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@PadilhaSec @Doutrinadorg Contraditório é em processo judicial, o livre mercado é assim. Pessoas têm opiniões e marcas fazem estudo de mercado para anúncios. Você é burro.",
+      "url": "https://x.com/iamleds/status/2103094435420770614"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-24T02:36:02.000Z",
+      "edit_history_tweet_ids": [
+        "2102950154018177459"
+      ],
+      "id": "2102950154018177459",
+      "in_reply_to_user_id": "1229891964700512256",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102948650603426284",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@mynameisyahia that sounds solid! thanks for the answer.",
+      "url": "https://x.com/iamleds/status/2102950154018177459"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-09-24T02:24:29.000Z",
+      "edit_history_tweet_ids": [
+        "2102947249022267674"
+      ],
+      "id": "2102947249022267674",
+      "in_reply_to_user_id": "1229891964700512256",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 839,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102598835470246112",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@mynameisyahia bro, please! i’m a lawyer in Brazil. https://t.co/SWl3QA3Ush has a fuckin’ hCaptcha that blocks my entire work of scraping clients data. can https://t.co/oSrgCk6Ttn help me?",
+      "url": "https://x.com/iamleds/status/2102947249022267674"
+    }
+  ],
+  "includes": {
+    "tweets": [
+      {
+        "author_id": "1311355909147373570",
+        "created_at": "2026-10-16T15:32:43.000Z",
+        "edit_history_tweet_ids": [
+          "2111118148061798451"
+        ],
+        "id": "2111118148061798451",
+        "in_reply_to_user_id": "1311355909147373570",
+        "public_metrics": {
+          "bookmark_count": 4,
+          "impression_count": 256,
+          "like_count": 4,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2111118144664203567",
+            "type": "replied_to"
+          }
+        ],
+        "text": "https://t.co/xEiwrKjKqr"
+      },
+      {
+        "author_id": "1806359170830172162",
+        "created_at": "2026-10-15T16:40:40.000Z",
+        "edit_history_tweet_ids": [
+          "2110772859580895678"
+        ],
+        "id": "2110772859580895678",
+        "public_metrics": {
+          "bookmark_count": 2288,
+          "impression_count": 520864,
+          "like_count": 2622,
+          "quote_count": 62,
+          "reply_count": 112,
+          "retweet_count": 220
+        },
+        "text": "Plus up your furniture with 3D-printed accessories using Gemini 4 Argon.\n\nUpload a pic with rough measurements, and use Canvas in Gemini to build an interactive 3D CAD studio where you can explore styles, tweak live sliders, and export printable STLs to upgrade your space."
+      },
+      {
+        "author_id": "1311355909147373570",
+        "created_at": "2026-10-16T01:58:56.000Z",
+        "edit_history_tweet_ids": [
+          "2110913353111462276"
+        ],
+        "id": "2110913353111462276",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 1048,
+          "like_count": 19,
+          "quote_count": 1,
+          "reply_count": 2,
+          "retweet_count": 3
+        },
+        "text": "Ok. Isso foi para outro nível. https://t.co/ZyaGIxRGCc"
+      },
+      {
+        "author_id": "1008499278757625856",
+        "created_at": "2026-10-12T14:10:57.000Z",
+        "edit_history_tweet_ids": [
+          "2109648019519881360"
+        ],
+        "id": "2109648019519881360",
+        "public_metrics": {
+          "bookmark_count": 101,
+          "impression_count": 10777,
+          "like_count": 224,
+          "quote_count": 0,
+          "reply_count": 9,
+          "retweet_count": 3
+        },
+        "text": "Se você é advogado, peço encarecidamente que leia esse posts até o fim. De verdade mesmo.\n\nHistoricamente falando, profissionais liberais sempre tiveram uma boa margem de lucro. Isso porque o custo é baixo.\n\nDiferentemente de uma indústria, em que a margem é pequena porque é https://t.co/6Xlk98uAki"
+      },
+      {
+        "author_id": "2786813947",
+        "created_at": "2026-10-11T15:01:59.000Z",
+        "edit_history_tweet_ids": [
+          "2109298471014465641"
+        ],
+        "id": "2109298471014465641",
+        "public_metrics": {
+          "bookmark_count": 19,
+          "impression_count": 13222,
+          "like_count": 244,
+          "quote_count": 2,
+          "reply_count": 18,
+          "retweet_count": 14
+        },
+        "text": "Existe uma armadilha silenciosa na advocacia\n\nSempre tem alguma coisa para fazer. Um processo para olhar, uma tese para pesquisar, uma mensagem para responder\n\nPor isso, se você esperar o trabalho terminar para começar a viver, provavelmente vai esperar para sempre\n\nEu precisei https://t.co/IS6LHacuLi"
+      },
+      {
+        "author_id": "56004463",
+        "created_at": "2026-10-10T13:09:30.000Z",
+        "edit_history_tweet_ids": [
+          "2108907778450268323"
+        ],
+        "id": "2108907778450268323",
+        "public_metrics": {
+          "bookmark_count": 70,
+          "impression_count": 5512,
+          "like_count": 88,
+          "quote_count": 0,
+          "reply_count": 9,
+          "retweet_count": 3
+        },
+        "referenced_tweets": [
+          {
+            "id": "2108535583798657469",
+            "type": "quoted"
+          }
+        ],
+        "text": "Sensacional isso aqui tá!\n\nO time da @spacexai conseguiram me convencer de que o Grok Bot é fenomenal! O trabalho que o time da @poteto estão fazendo aqui é algo surreal. A experiência é super fluida!\n\nVou redirecionar os meus custos de assinatura que nao estou usando mais e https://t.co/x7HzTIdoUM"
+      },
+      {
+        "author_id": "2002099414870208512",
+        "created_at": "2026-10-10T01:17:23.000Z",
+        "edit_history_tweet_ids": [
+          "2108728566040891432"
+        ],
+        "id": "2108728566040891432",
+        "in_reply_to_user_id": "1851961065581563904",
+        "public_metrics": {
+          "bookmark_count": 2,
+          "impression_count": 865,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 2,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2108682352507416815",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@acgfbr Mas chega a ser melhor que o hermes?"
+      },
+      {
+        "author_id": "1544018633202061313",
+        "created_at": "2026-10-09T23:08:31.000Z",
+        "edit_history_tweet_ids": [
+          "2108696138924834986"
+        ],
+        "id": "2108696138924834986",
+        "in_reply_to_user_id": "1851961065581563904",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 1472,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 2,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2108682352507416815",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@acgfbr Qual plano vc usa? N sei qual assinar"
+      },
+      {
+        "author_id": "1807430231424421888",
+        "created_at": "2026-10-08T18:25:18.000Z",
+        "edit_history_tweet_ids": [
+          "2108262476026397040"
+        ],
+        "id": "2108262476026397040",
+        "public_metrics": {
+          "bookmark_count": 3911,
+          "impression_count": 206492,
+          "like_count": 3762,
+          "quote_count": 25,
+          "reply_count": 33,
+          "retweet_count": 314
+        },
+        "text": "Engenharia reversa de qualquer coisa.\n\nhttps://t.co/2ITlnZxDIe https://t.co/Esgtma8IEi"
+      },
+      {
+        "author_id": "1376638214920753154",
+        "created_at": "2026-10-08T17:19:09.000Z",
+        "edit_history_tweet_ids": [
+          "2108245829530325307"
+        ],
+        "id": "2108245829530325307",
+        "public_metrics": {
+          "bookmark_count": 1763,
+          "impression_count": 2155672,
+          "like_count": 3895,
+          "quote_count": 387,
+          "reply_count": 463,
+          "retweet_count": 341
+        },
+        "text": "Today at Google Cloud’s Gemini at Work event, we announced Gemini, a new single universal agent for work that has all of your business context and can be used for everything from knowledge work to answering questions, and content creation to coding, all from a single prompt box. https://t.co/2Z1PZg74Ui"
+      },
+      {
+        "article": {
+          "title": "Grok Bot + Opus 5.5: The Ultimate Agent Harness in 10 Steps  "
+        },
+        "author_id": "2060652518481235970",
+        "created_at": "2026-10-08T12:24:42.000Z",
+        "edit_history_tweet_ids": [
+          "2108171726412464173"
+        ],
+        "id": "2108171726412464173",
+        "public_metrics": {
+          "bookmark_count": 1513,
+          "impression_count": 245722,
+          "like_count": 774,
+          "quote_count": 16,
+          "reply_count": 52,
+          "retweet_count": 80
+        },
+        "text": "Grok Bot just got a serious brain upgrade\n\nWith Claude Opus 5.5 entering the stack, one Bot could run an entire AI team that researches, writes code, uses tools, verifies results, and delivers finished work\n\nHere's how to build it in 10 steps: https://t.co/SysbtXuqoJ"
+      },
+      {
+        "author_id": "350440122",
+        "created_at": "2026-10-07T14:14:50.000Z",
+        "edit_history_tweet_ids": [
+          "2107837055099093197"
+        ],
+        "id": "2107837055099093197",
+        "public_metrics": {
+          "bookmark_count": 109,
+          "impression_count": 207084,
+          "like_count": 1151,
+          "quote_count": 59,
+          "reply_count": 94,
+          "retweet_count": 118
+        },
+        "text": "Embora seja assunto proibido no Planalto, críticas a Janja crescem no entorno de Lula\n\nEntenda aqui o que dizem em reservado em Brasília:\n\nhttps://t.co/8mmC8mghNQ"
+      },
+      {
+        "author_id": "4817240983",
+        "created_at": "2026-10-06T03:12:38.000Z",
+        "edit_history_tweet_ids": [
+          "2107308018958528634"
+        ],
+        "id": "2107308018958528634",
+        "public_metrics": {
+          "bookmark_count": 9566,
+          "impression_count": 4244817,
+          "like_count": 62130,
+          "quote_count": 720,
+          "reply_count": 1387,
+          "retweet_count": 5876
+        },
+        "text": "アメリカのローン滞納者からの強制徴収が草なんよ\n\n容赦ねぇw https://t.co/BkBEhXNTW5"
+      },
+      {
+        "author_id": "1640832837396955139",
+        "created_at": "2026-10-02T18:08:34.000Z",
+        "edit_history_tweet_ids": [
+          "2106083937864810908"
+        ],
+        "id": "2106083937864810908",
+        "in_reply_to_user_id": "1485068728412913666",
+        "public_metrics": {
+          "bookmark_count": 182,
+          "impression_count": 407026,
+          "like_count": 10838,
+          "quote_count": 0,
+          "reply_count": 24,
+          "retweet_count": 54
+        },
+        "referenced_tweets": [
+          {
+            "id": "2106061647731405301",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@interesting_aIl Should have named it Prometheus for stealing the flame from the gods"
+      },
+      {
+        "author_id": "2786813947",
+        "created_at": "2026-09-30T18:52:06.000Z",
+        "edit_history_tweet_ids": [
+          "2105368836207698178",
+          "2105370119278895136"
+        ],
+        "id": "2105370119278895136",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 734,
+          "like_count": 19,
+          "quote_count": 0,
+          "reply_count": 4,
+          "retweet_count": 1
+        },
+        "text": "Eu votei pela primeira vez em 1990 e afirmo que\n\nNUCA VI CAMPANHAS TÃO ASQUEROSAS COMO AS ATUAIS\n\nPelo menos este ano (ainda) não teve suásticas feitas na pele com objetos cortantes https://t.co/OsznyCJEPa"
+      },
+      {
+        "author_id": "82246210",
+        "created_at": "2026-10-01T00:41:07.000Z",
+        "edit_history_tweet_ids": [
+          "2105457951519510912"
+        ],
+        "id": "2105457951519510912",
+        "in_reply_to_user_id": "4222896442",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 69,
+          "like_count": 1,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2105446193426043033",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@iamleds @Fitzgerald_Bar @souapenasV Pior que eles foram tão incompetentes que conseguiram ser o pais que menos cresceu dentre os emergentes. Além de não ter estruturado a econômia para longo prazo. Tanto que a bomba Já estourou no primeiro mandato da dilma"
+      },
+      {
+        "author_id": "17657922",
+        "created_at": "2026-09-30T20:25:15.000Z",
+        "edit_history_tweet_ids": [
+          "2105393560518607003"
+        ],
+        "id": "2105393560518607003",
+        "in_reply_to_user_id": "1168861327596642304",
+        "public_metrics": {
+          "bookmark_count": 9,
+          "impression_count": 6273,
+          "like_count": 226,
+          "quote_count": 0,
+          "reply_count": 9,
+          "retweet_count": 12
+        },
+        "referenced_tweets": [
+          {
+            "id": "2105380645065437423",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@souapenasV Mas nós ainda não nos recuperamos mesmo da catástrofe econômica da Dilma. Enquanto o mundo segue enriquecendo, nós ainda não superamos o nível de 2012. https://t.co/pswB5mgEN0"
+      },
+      {
+        "author_id": "763094579491008512",
+        "created_at": "2026-09-29T14:12:21.000Z",
+        "edit_history_tweet_ids": [
+          "2104937328342925508"
+        ],
+        "id": "2104937328342925508",
+        "public_metrics": {
+          "bookmark_count": 4558,
+          "impression_count": 3113780,
+          "like_count": 24921,
+          "quote_count": 338,
+          "reply_count": 626,
+          "retweet_count": 2794
+        },
+        "text": "🚨 NOW: The Trump administration is launching a Super Intelligence site that will let Americans change their last name after marriage in ONE SINGLE FORM — which usually requires HOURS or DAYS to fix every government document\n\n\"You'll be able to change your name right on the https://t.co/NYNNjop4pX"
+      },
+      {
+        "author_id": "14594813",
+        "created_at": "2026-09-28T20:20:04.000Z",
+        "edit_history_tweet_ids": [
+          "2104667479960076292"
+        ],
+        "id": "2104667479960076292",
+        "public_metrics": {
+          "bookmark_count": 96,
+          "impression_count": 215208,
+          "like_count": 2868,
+          "quote_count": 143,
+          "reply_count": 669,
+          "retweet_count": 362
+        },
+        "text": "Bispo da CNBB diz que Flávio deve explicar decisão 'perigosa' de decretar que 'Brasil é de Jesus Cristo'\n\nhttps://t.co/ioOKJnm8Yy"
+      },
+      {
+        "author_id": "4222896442",
+        "created_at": "2026-09-26T20:22:46.000Z",
+        "edit_history_tweet_ids": [
+          "2103943381814817120"
+        ],
+        "id": "2103943381814817120",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 20,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "text": "Esse é o meu time no @bot. Faltam ajustes estéticos e outros operacionais, mas com um mês e pouco bastante coisa já foi desenvolvida.\n\nO time está mais rápido, eficaz e alinhado.\n\nO gargalo da restrição de IPs foi resolvido numa atualização recente. Curtindo muito! https://t.co/srFHjAzTbl"
+      },
+      {
+        "author_id": "1387497871751196672",
+        "created_at": "2026-09-25T15:08:58.000Z",
+        "edit_history_tweet_ids": [
+          "2103502024256209332"
+        ],
+        "id": "2103502024256209332",
+        "public_metrics": {
+          "bookmark_count": 533,
+          "impression_count": 985138,
+          "like_count": 6614,
+          "quote_count": 405,
+          "reply_count": 606,
+          "retweet_count": 532
+        },
+        "text": "JUST IN: NVIDIA $NVDA CEO Jensen Huang says we're entering a \"low IQ era\" where children won't need to learn basic math."
+      },
+      {
+        "author_id": "1990144439659237376",
+        "created_at": "2026-09-24T12:00:05.000Z",
+        "edit_history_tweet_ids": [
+          "2103092103068655974"
+        ],
+        "id": "2103092103068655974",
+        "in_reply_to_user_id": "1102702616302239744",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 433,
+          "like_count": 1,
+          "quote_count": 0,
+          "reply_count": 2,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2102782835861995884",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@Doutrinadorg A Nissan deve estar agradecendo por nao ter um cliente como voce papo reto...\n\nimagina ter um cliente DOENTE que nao aceita o contraditório.\ngente igual vc tem mais é que ficar sem comprar nada, aliás, sumir..."
+      },
+      {
+        "author_id": "1229891964700512256",
+        "created_at": "2026-09-24T02:30:03.000Z",
+        "edit_history_tweet_ids": [
+          "2102948650603426284"
+        ],
+        "id": "2102948650603426284",
+        "in_reply_to_user_id": "4222896442",
+        "public_metrics": {
+          "bookmark_count": 3,
+          "impression_count": 598,
+          "like_count": 3,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 1
+        },
+        "referenced_tweets": [
+          {
+            "id": "2102947249022267674",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@iamleds first try https://t.co/Bst94fBJA4"
+      },
+      {
+        "author_id": "1229891964700512256",
+        "created_at": "2026-09-23T03:20:01.000Z",
+        "edit_history_tweet_ids": [
+          "2102598835470246112"
+        ],
+        "id": "2102598835470246112",
+        "public_metrics": {
+          "bookmark_count": 3107,
+          "impression_count": 232218,
+          "like_count": 1678,
+          "quote_count": 13,
+          "reply_count": 105,
+          "retweet_count": 73
+        },
+        "text": "Introducing Scrape Anything.\n\nwe merged all our scraping APIs into one\n\ninputs: websites, PDFs, DOCX, PPT, XLSX, 40 file types, anything.\n\ninto HTML, markdown, screenshots, images, JSON &amp; more\n\nGive us a URL, get your data\n\nNo need to worry about bot blocking, js rendering, https://t.co/ULLlNL3YTU"
+      }
+    ],
+    "users": [
+      {
+        "id": "4222896442",
+        "name": "Lucas Eduardo Dias de Souza",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2074992560720818176/-WVvp8Km_normal.jpg",
+        "username": "iamleds",
+        "verified": false
+      },
+      {
+        "id": "1311355909147373570",
+        "name": "Borderless 🌐",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2081537026499751936/hfpHjPTy_normal.jpg",
+        "username": "BorderleSint",
+        "verified": false
+      },
+      {
+        "id": "1806359170830172162",
+        "name": "Google Gemini",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1940093473564073984/jiafRcO0_normal.png",
+        "username": "GeminiApp",
+        "verified": true
+      },
+      {
+        "id": "1008499278757625856",
+        "name": "Litigante de boa fé",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2074604998768353280/tX3ZBVDp_normal.jpg",
+        "username": "LitiganteDeBF",
+        "verified": false
+      },
+      {
+        "id": "2786813947",
+        "name": "Christiano Willon",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2035542560438185984/dx-51lFu_normal.jpg",
+        "username": "willon",
+        "verified": false
+      },
+      {
+        "id": "56004463",
+        "name": "Glaucia Lemos 🌊🤿🐠",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1942250293133258752/3bKYVVS9_normal.jpg",
+        "username": "glaucia_lemos86",
+        "verified": false
+      },
+      {
+        "id": "2002099414870208512",
+        "name": "Filipe Machado",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2002101249714331648/BEsHu6yq_normal.jpg",
+        "username": "filipesmach",
+        "verified": false
+      },
+      {
+        "id": "1544018633202061313",
+        "name": "Lucas Zocaratto",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2095319307760947200/U1ao6TD7_normal.jpg",
+        "username": "zoca_lucas",
+        "verified": false
+      },
+      {
+        "id": "1807430231424421888",
+        "name": "CV.YH",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1849060173098229760/tgS51-gs_normal.jpg",
+        "username": "0xCVYH",
+        "verified": false
+      },
+      {
+        "id": "1376638214920753154",
+        "name": "Thomas Kurian",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1376639799822454789/GtBiOWEJ_normal.jpg",
+        "username": "ThomasOrTK",
+        "verified": false
+      },
+      {
+        "id": "2060652518481235970",
+        "name": "Morlex",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2060665433926086660/8PnnU2pY_normal.jpg",
+        "username": "0xMorlex",
+        "verified": false
+      },
+      {
+        "id": "350440122",
+        "name": "Diego Amorim",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2101014465420414976/yS6UmbNb_normal.jpg",
+        "username": "Diego1Amorim",
+        "verified": false
+      },
+      {
+        "id": "4817240983",
+        "name": "かみぱっぱ",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1710859533084663808/YpVWM9sE_normal.jpg",
+        "username": "kamipapa2",
+        "verified": false
+      },
+      {
+        "id": "1640832837396955139",
+        "name": "RAZANUR",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2001139118185517057/-qUwoH4w_normal.jpg",
+        "username": "Razanur89",
+        "verified": false
+      },
+      {
+        "id": "82246210",
+        "name": "Leonardo Garcia",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1860407597/369578_100001991706391_1520902399_n_normal.jpg",
+        "username": "leogarciagyn",
+        "verified": false
+      },
+      {
+        "id": "17657922",
+        "name": "Fitzgerald",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2052746743557541894/KkN2n5nQ_normal.jpg",
+        "username": "Fitzgerald_Bar",
+        "verified": false
+      },
+      {
+        "id": "763094579491008512",
+        "name": "Eric Daugherty",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1946702115037908992/NU6Ro1bl_normal.jpg",
+        "username": "EricLDaugh",
+        "verified": false
+      },
+      {
+        "id": "14594813",
+        "name": "Folha de S.Paulo",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1895068664161828864/Dsx8poRS_normal.jpg",
+        "username": "folha",
+        "verified": true
+      },
+      {
+        "id": "1387497871751196672",
+        "name": "Watcher.Guru",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1641221212578754562/DfiC0KW2_normal.png",
+        "username": "WatcherGuru",
+        "verified": true
+      },
+      {
+        "id": "1990144439659237376",
+        "name": "PadilhaSec",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1990419907943550976/Ma5W-1mx_normal.jpg",
+        "username": "PadilhaSec",
+        "verified": false
+      },
+      {
+        "id": "1229891964700512256",
+        "name": "Yahia Bakour",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1880738459876311040/ML-dZoFx_normal.jpg",
+        "username": "mynameisyahia",
+        "verified": false
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2111129234202878097",
+    "oldest_id": "2102947249022267674",
+    "result_count": 25
+  }
+}

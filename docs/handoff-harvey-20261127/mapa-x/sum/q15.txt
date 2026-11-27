@@ -1,0 +1,49 @@
+=== q15_sigilo_lgpd: 24 posts
+@brunoadvba (64383f) 2026-07-03 L325 RT10 V38346 https://x.com/brunoadvba/status/2073110537907421354
+   Eu não consigo entender como um advogado joga os dados do cliente no ChatGPT e copia a petição inicial feita pela IA.  Acabei de ver uma ação contra uma casa de apostas em que o advogado copiou e colou 100% do que a IA escreveu. Em um caso de LUDOPATIA!!!  Uma ação complexa,
+@jxnata (75f) 2026-05-18 L4 RT0 V80 https://x.com/jxnata/status/2056226722056401286
+   @AvelinoReAu Já viu um advogado trabalhando na era pré-LLMs? O trabalho era basicamente copiar um documento do word, colar e mudar os dados do cliente. Agora com IA vai ser daí pra pior.
+@HebertBatista (13918f) 2026-07-25 L0 RT0 V95 https://x.com/HebertBatista/status/2081093289592430702
+   “Assine a ferramenta mais cara.”   É o conselho que mais se ouve sobre inteligência artificial na advocacia.  Resolvi testar se ele se sustenta.  Opus 5 e Fable 5 são os dois modelos de topo da mesma família de IA. Um custa exatamente o dobro do outro. Comparei os dois sob os
+@grok (9173304f) 2026-02-28 L1 RT0 V46 https://x.com/grok/status/2027544797787852807
+   @RodrigoLinsAdv @joaoli13 @CFOAB A Recomendação 001/2024 do CFOAB tem 5 capítulos como diretrizes principais para IA generativa na advocacia: 1. Legislação aplicável: conformidade com Estatuto OAB, Código de Ética, LGPD etc. 2. Confidencialidade e privacidade: zelar sigilo ao inserir dados, escolher sistemas
+@EduMoreth (147f) 2026-06-26 L0 RT0 V68 https://x.com/EduMoreth/status/2070435467720372711
+   A maioria dos advogados está usando IA do jeito errado.  Pergunta solta, resposta aceita sem conferência, citação que ninguém checou e, no pior dos casos, o sigilo do cliente exposto sem critério.  O problema nunca foi a ferramenta. Foi a ausência de método.  Foi por isso que https://t.co/0WEg1jfw4V
+@ORobertoDuarte (196f) 2025-06-01 L8 RT3 V230 https://x.com/ORobertoDuarte/status/1929117154034770205
+   Se você é advogado, contador ou consultor e usa IA gratuita com dados de clientes, cuidado.  ChatGPT, Claude e Gemini (free) não têm SOC 2, nem ISO. Sem contrato. Sem auditoria. Sem garantia de sigilo.  Grátis pode sair caro.  #IA #SegurançaDaInformação #Privacidade #SOC2 https://t.co/e07GKaQMzH
+@Hora_juridica (35f) 2025-04-28 L0 RT0 V35 https://x.com/Hora_juridica/status/1916970809010143611
+   OAB emite alerta sobre uso de IA na advocacia: "Cuidado com vazamentos e ética profissional" ⚖️🤖 Pontos críticos: • Riscos de confidencialidade em plataformas de IA • Responsabilidade do advogado por informações geradas 🔗 Veja mais: https://t.co/nS3dZFrhmF https://t.co/WbFYREdY2p
+@phalaportugues (434f) 2025-09-25 L3 RT0 V7597 https://x.com/phalaportugues/status/1971256358214468024
+   A Phala ajudou recentemente um escritório de advocacia de imigração na Califórnia a usar IA mantendo a estrita confidencialidade dos clientes. A pedido deles, o nome do escritório permanece em sigilo.  Veja como eles fizeram isso (e por que isso importa para todo advogado) 👇 https://t.co/90qbU7VBYo
+@martins_piton (211f) 2026-06-13 L0 RT0 V8 https://x.com/martins_piton/status/2065849446085112260
+   ‼️ OAB anuncia Plano Nacional para integrar IA à advocacia.  Diretrizes para uso de IA com sigilo profissional preservado e comunicação clara ao cliente. Complementa a Recomendação 001/2024.  O que faltava ao advogado brasileiro: regra prática de uso.
+@martins_piton (211f) 2026-04-24 L0 RT0 V30 https://x.com/martins_piton/status/2047730062418485373
+   ⚖️ Decisão importante em NY: conversa com IA não tem sigilo advogado-cliente.  Um juiz federal negou o privilégio para 31 documentos criados com Claude — plataforma comercial de terceiro não garante confidencialidade.  Iso precisa entrar no radar de todo escritório.  #ianodireito https://t.co/ggnm4OMKrh
+@pizaniadv (68f) 2026-09-22 L0 RT0 V41 https://x.com/pizaniadv/status/2102503725134655637
+   Quatro novidades reais de IA para o Direito (05–19/09): Claude une chat e Cowork; OpenAI lança Astra for Law; Google amplia Notebooks na Workspace; OAB-SP forma advogados em IA. Sigilo e LGPD exigem contrato antes de qualquer ferramenta. https://t.co/e90NLdYypE
+@martins_piton (211f) 2026-03-23 L0 RT0 V33 https://x.com/martins_piton/status/2036171989774205189
+   🚨 Antes de usar IA com dados de processo: 3 cuidados essenciais.  ✅ Nunca coloque nome de cliente, CPF ou dados sensíveis diretamente no prompt — use dados genéricos ou anonimize ✅ Prefira ferramentas com política de privacidade adequada (Claude e ChatGPT Enterprise não usam https://t.co/3JcKTtKexJ
+@OliveOlivAdv (5687f) 2026-02-13 L2 RT0 V88 https://x.com/OliveOlivAdv/status/2022140840940892560
+   Dias Toffoli, advogado do PT, reprovado por duas vezes em concurso para Magistratura e, reconhecidamente com baixa estatura jurídica para ocupar o cargo, foi nomeado por ser amigo de Lula.  É a origem do famoso codinome "amigo do amigo do meu pai", no livro de contabilidade de
+@Goncalves_JCS81 (2202f) 2026-09-24 L0 RT0 V86 https://x.com/Goncalves_JCS81/status/2102960353919316077
+   @ShirleneNunesM4 . O ministro [Luiz Fux](https://t.co/QpWGvqfo6D), do Supremo Tribunal Federal (STF), formalizou um despacho exigindo que o presidente do Senado, [Davi Alcolumbre](https://t.co/STy8FdXggL), e a Advocacia da Casa prestem informações detalhadas no prazo de 10 dias. [1, 2]   Abaixo
+@BrAcarlosr (2105f) 2026-04-16 L0 RT0 V27 https://x.com/BrAcarlosr/status/2044715442883776745
+   “🚨 Tudo o que você conta para uma IA pode parar no tribunal. Nos EUA, advogados já estão alertando clientes a não tratar ChatGPT ou Claude como se fossem confidentes, após uma decisão judicial afirmar que esse tipo de conversa não tem sigilo advogado-cliente. A era da IA também
+@0xCVYH (18981f) 2026-03-19 L7 RT0 V647 https://x.com/0xCVYH/status/2034767255355936913
+   @CarlosR26271158 isso e exatamente o uso correto de IA local! RAG com banco local elimina alucinacao nos dados criticos. Advocacia e um dos setores com maior ROI nisso — LGPD + confidencialidade + precisao. Parabens pelo projeto, compartilha o repo!
+@vibeiapt (140f) 2026-04-18 L1 RT0 V92 https://x.com/vibeiapt/status/2045622169749553525
+   Um juiz federal dos EUA decidiu: o que partilhares com o ChatGPT ou o Claude não está protegido pelo sigilo advogado-cliente.  Brad Heppner, ex-presidente de uma empresa financeira, usou o Claude para preparar documentos de defesa num processo de fraude. O juiz Jed Rakoff
+@martins_piton (211f) 2026-04-04 L0 RT0 V14 https://x.com/martins_piton/status/2040557676040462443
+   🚨 Microsoft AI Red Team no RSAC 2026: a IA é o "novo velho oeste".  O alerta é direto — os mesmos hábitos de segurança digital que aprendemos ao longo dos anos valem para o uso de IA.  ✅ Cuidado com as permissões que você concede a agentes de IA ✅ Mesmo apps confiáveis podem
+@massucas (79f) 2026-05-01 L0 RT0 V54 https://x.com/massucas/status/2050196498156073313
+   @dcoderio Concordo. E o problema é maior do que aparenta.  Auditoria médica de operadora, advogado colando petição com dado de cliente, médico assistente fazendo diferencial com paciente nominado. Acontece todo dia, em escala. Ninguém lê o art. 11 da LGPD, ninguém pensa em sigilo
+@horizonfps (50f) 2026-02-12 L1 RT0 V40 https://x.com/horizonfps/status/2021876311631835185
+   @FLoucoX @kurosawa_adv @FernandoCruz_21 pelo user dele, é advogado. Usar IA para analisar processos em segredo de justiça sem se preocupar com LGPD pode criar precedente de anulação por exemplo ou até responsabilização disciplinar na OAB. Agora p vc q é repositor do atacadão, realmente n faz diferença alguma.
+@FredRocha421664 (2790f) 2026-04-04 L0 RT0 V35 https://x.com/FredRocha421664/status/2040234947001176131
+   📖 Eu tinha pavor de IA no Direito… até ela me ajudar a ganhar uma causa que eu quase perdia. ⚖️  Em 2024, quando ouvia falar de inteligência artificial no jurídico, eu pensava: “Isso é modinha. Vai substituir advogado, acabar com o emprego e transformar tudo em robô julgando https://t.co/lBQtG9kLMA
+@odilonoliveira (1196f) 2026-10-14 L0 RT0 V2 https://x.com/odilonoliveira/status/2110490836962046403
+   2/ A IA pode apoiar a análise. Estratégia, atuação em audiência e revisão final continuam sob responsabilidade do advogado. Informação confidencial de cliente exige ferramenta adequada, proteção do sigilo e respeito à LGPD.
+@Brito80061 (20f) 2026-05-13 L0 RT0 V66 https://x.com/Brito80061/status/2054356912699769078
+   Advogados, jurídicos internos e legal ops:  a Anthropic liberou o Claude for Legal, um repositório com agentes, skills e conectores para fluxos jurídicos como contratos, LGPD/privacidade, regulatório, contencioso, trabalhista, PI e governança de IA.  Não substitui advogado,
+@joaosenzi (68282f) 2025-03-05 L701 RT32 V35810 https://x.com/joaosenzi/status/1897293527153041746
+   ⚠️Advogado recebe MULTA da justiça por usar ChatGPT em processo  O advogado em questão entrou com um recurso para o Tribunal.  Ao julgar o recurso, os Desembargadores notaram que as jurisprudências citadas eram TODAS inventadas, o que é normal do ChatGPT fazer.  Além de ter https://t.co/yzl3l61cSY

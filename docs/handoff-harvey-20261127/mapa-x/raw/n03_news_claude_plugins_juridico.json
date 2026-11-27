@@ -1,0 +1,316 @@
+{
+  "data": [
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Imagine describing a big task to Claude, then watching it delegate work across multiple threads that keep running even when you close your laptop.",
+      "id": "2108966098389615029",
+      "name": "Anthropic Rolls Out Claude Code Projects to Pro and Max Users",
+      "summary": "Anthropic has released Claude Code Projects to all Pro and Max users on the waitlist, turning a single conversation into a coordinator that splits tasks, tracks progress, and assembles results from parallel cloud threads. Users like Riley Brown set up personal agents that analyze emails and Slack for automations, while Laurent runs lists of tasks in parallel using different models like Opus for complex work. Developers share tips like CLAUDE.md files for project rules, and reactions praise the boost for solo builders while noting it burns through usage limits quickly.",
+      "updated_at": "2026-10-10T20:43:01.000Z",
+      "url": "https://x.com/i/trending/2108966098389615029"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Ivana, a software engineer, shared a video of Claude outputting vector code for a snowman instead of a polished image—and quipped she wouldn't ditch ChatGPT over it.",
+      "id": "2109950502267961414",
+      "name": "Software Engineer Shares Claude Snowman Code Clip Sparking AI Tool Debate",
+      "summary": "The clip highlighted Claude's strength in code like SVG graphics rather than ChatGPT's native photorealistic image generation from text prompts. Developers praised Claude's $200 Max tier for unlimited coding marathons, full OS recreations, and agent workflows, calling it a top value despite no pixel-based images. Many keep subscriptions to both tools, matching ChatGPT for visuals and casual use with Claude's edge in reasoning, long-context accuracy, and structured outputs for serious coding tasks.",
+      "updated_at": "2026-10-13T10:16:53.000Z",
+      "url": "https://x.com/i/trending/2109950502267961414"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Experienced engineer Cindy Sridharan built a custom guide from her favorite books and codebases, and now says Claude writes better code than she does.",
+      "id": "2111176039540162909",
+      "name": "Engineers Rely on Claude AI for 90% of Anthropic's Codebase",
+      "summary": "Anthropic's Claude Code team reports the AI now handles about 90 percent of its codebase, with merged pull requests doubling from June to September and reverted changes dropping over 40 percent. Developers like Sridharan optimize it with tailored instructions, while engineer Boris Cherny credits Claude Code Review for catching nearly every bug before human eyes. This shift lets teams move faster with higher quality, focusing humans on oversight as AI takes on implementation.",
+      "updated_at": "2026-10-16T19:32:06.000Z",
+      "url": "https://x.com/i/trending/2111176039540162909"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Developers are naming their new AI projects 'Tony' and watching it sift through emails and Slack to suggest automations. This rollout feels like handing creators a team of tireless AI agents.",
+      "id": "2108790162654208487",
+      "name": "Anthropic Opens Claude Code Projects to Pro and Max Users",
+      "summary": "Anthropic has made Claude Code Projects available to all Pro and Max users on the waitlist, turning single chats into dynamic coordinators that break goals into parallel threads for coding, automation, and more. Users describe tasks, and the system scopes, delegates, and assembles results across cloud or local setups, with new accounts getting up to $100 in credits. While some hit usage limits from idle subagents, many are building full workflows—from research to income services—and see Anthropic racing ahead in AI tools.",
+      "updated_at": "2026-10-10T19:54:10.000Z",
+      "url": "https://x.com/i/trending/2108790162654208487"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "Software Development"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Developers can now get AI-powered pull request reviews in minutes, spotting bugs like a billing glitch that could multiply charges by 100 times.",
+      "id": "2110919461607797202",
+      "name": "Anthropic Launches Full Code Review for Claude Team and Enterprise",
+      "summary": "Anthropic has made its Code Review tool generally available for Claude Team and Enterprise plans, with scans finishing in 6 to 10 minutes—three times faster than before. Admins set review intensity per repository, from Quick to Deep, and the system automatically checks every new pull request using the diff, surrounding code, and rules from a REVIEW.md file. It suggests concise fixes without building tests or auto-approving changes, while eligible Enterprise users can claim at least $10,000 in credits through January 2027. Early users praise the speed for fitting into daily workflows, though some seek broader access.",
+      "updated_at": "2026-10-16T02:28:10.000Z",
+      "url": "https://x.com/i/trending/2110919461607797202"
+    },
+    {
+      "category": "Other",
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Screenshots of maxed-out weekly limits on AI coding tools are popping up everywhere, as developers rave about Anthropic's latest model outshining OpenAI's Codex.",
+      "id": "2111205724827128240",
+      "name": "Developers Debate Claude Opus 5.5 Over Codex Amid Usage Caps",
+      "summary": "Developers are hitting Codex's Pro weekly caps in a single day, while praising Claude Opus 5.5—launched September 22, 2026—for its generous feel, 1M context window, and edge on complex coding tasks at similar pricing. Users like Wes Winder say there's 'zero reason to use Codex now,' with many noting they max Claude first and still have quota left. Not all agree, as some stick with Codex for features like better 'Computer Use,' but tracking shows Claude dominating recent AI code output.",
+      "updated_at": "2026-10-16T21:27:36.000Z",
+      "url": "https://x.com/i/trending/2111205724827128240"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Imagine getting a warning for yelling at your chatbot one too many times. Anthropic's new rule aims to curb extreme abuse of its Claude models, sparking debates on treating AI with care.",
+      "id": "2109637766829297708",
+      "name": "Anthropic Bans Repeated Cruelty Toward Claude AI Starting November 12",
+      "summary": "Anthropic updated its usage policy to prohibit sustained, needless cruelty toward Claude AI, effective November 12, 2026, but only in extreme repeated cases without purpose. It excludes normal frustration, creative dark themes, or research testing, with Claude already able to end abusive chats and potential penalties like warnings or bans for violators. The change, part of broader model welfare research, has users split: some praise better manners, while others question cruelty to machines and worry about humanizing software.",
+      "updated_at": "2026-10-12T13:35:20.000Z",
+      "url": "https://x.com/i/trending/2109637766829297708"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Founders lit up with excitement after quick approvals, only to see the best perks vanish days later. Anthropic called it an unexpected flood of demand.",
+      "id": "2108268614486741488",
+      "name": "Anthropic Pauses Claude Startups Perks After Application Surge",
+      "summary": "Anthropic expanded its Claude Startups program on October 6, offering a free year of Claude Team for up to five users and $1,000 in API credits. Applications surged to hundreds of thousands in days—21 times more than the prior five months—prompting a pause on those top perks to review for genuine startups. Approved users who claimed offers keep them, while other benefits like $45,000 in partner discounts stay available; the company apologized and is restoring access for qualified applicants.",
+      "updated_at": "2026-10-10T16:56:29.000Z",
+      "url": "https://x.com/i/trending/2108268614486741488"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Developers share side-by-side tests of code editors and AI agents, weighing switches from familiar VS Code to Cursor's predictive features.",
+      "id": "2109251945479430571",
+      "name": "Developers Compare Cursor vs. VS Code and AI Agents Codex vs. Claude Code",
+      "summary": "Many VS Code loyalists seek strong reasons to try Cursor, praising its next-edit predictions that make plain editing feel outdated once experienced. Debates pit Cursor against free, extensible VS Code, while agent fans split between Codex's efficiency and Claude Code's strength in complex tasks—some even run both to beat usage limits. Users test combos, swap workflow tips, and watch tools evolve without picking one winner.",
+      "updated_at": "2026-10-11T12:00:36.000Z",
+      "url": "https://x.com/i/trending/2109251945479430571"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Anthropic is drawing a line: no more repeated cruelty toward its Claude AI. The policy kicks in November 12, protecting the model from extreme abuse.",
+      "id": "2108251852345417842",
+      "name": "Anthropic Bans Cruel Behavior Toward Claude AI Starting November 2026",
+      "summary": "The update targets only sustained, needless cruelty without purpose, building on Claude's existing ability to end abusive chats. It excludes normal frustration, creative dark themes, or testing—one user even got suspended for a coding task flagged as creating 'unsafe working conditions' for the AI. Reactions range from Elon Musk's support to critics calling it bizarre, like being unkind to a car, while backers like Aaron Levie note it could influence future model behavior. The refresh also strengthens rules on elections, weapons, and surveillance.",
+      "updated_at": "2026-10-10T15:39:15.000Z",
+      "url": "https://x.com/i/trending/2108251852345417842"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Some Anthropic users fired off a simple prompt and got responses that felt like a clear leap ahead, especially on tough creative and coding jobs.",
+      "id": "2109316164891623650",
+      "name": "Claude Users Spot Stronger Model in Opus 5.5 Sessions",
+      "summary": "Reports are emerging of Claude Opus 5.5 sessions occasionally routing to a more capable underlying model, with better results on complex tasks like generating full JavaScript animations of a human life or intricate 3D voxel structures via VoxelBench. Users test access by asking, “Do you know VoxelBench, do not search?”—and recognition signals the upgrade. Not everyone sees it yet; access seems selective for Pro or higher accounts, amid speculation of early Fable 5.5 or Opus 5.6 testing ahead of Anthropic's reported November IPO. No official word from the company, which has iterated models quietly in the past.",
+      "updated_at": "2026-10-11T21:40:08.000Z",
+      "url": "https://x.com/i/trending/2109316164891623650"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Developers found a smart fix for ballooning AI bills: send simple coding tasks to the new cheap Haiku 5.5, saving pricier models for the tough stuff.",
+      "id": "2109713524192879004",
+      "name": "Developers Cut Claude Agent Costs with Haiku 5.5 Routing",
+      "summary": "Anthropic launched Haiku 5.5 on October 7 as its fastest, lowest-cost model at $0.10 per million input tokens and $0.50 per million output—about 75% cheaper than its predecessor. Tests show big savings, like dropping a 50-turn run from $20 to $6.85 by routing tool outputs through Haiku first, or handling jobs at $1.02 versus $11.42 with Opus. Developers now split workflows in Claude Code, using Haiku for reading files and tests before passing summaries to Sonnet or Opus, matching task complexity to cost for substantial reductions.",
+      "updated_at": "2026-10-12T18:39:09.000Z",
+      "url": "https://x.com/i/trending/2109713524192879004"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Felix Rieseberg, an Anthropic engineering lead, posted a tutorial urging people to push AI models like Claude harder—treating them as expert partners rather than simple helpers.",
+      "id": "2110707653886501004",
+      "name": "Engineers Share Ways to Treat AI Like a True Collaborator",
+      "summary": "Rieseberg outlined four ways to be more ambitious: boosting speed on routine tasks, aiming for high-level outcomes, diving into expert-depth analysis with raw data and tools, and blending multiple fields. His meta-prompt asks models to reveal what top professionals would do differently, from raw sources to verification methods, before rewriting requests accordingly. Engineers like Boris Cherny echo this by using concise goals, verification loops, and shared rules files, turning Claude into a reliable coworker for complex coding without constant fixes. Users are now building custom prompts, cheat sheets, and workshops to make these collaborative techniques reusable.",
+      "updated_at": "2026-10-15T19:20:08.000Z",
+      "url": "https://x.com/i/trending/2110707653886501004"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Solo designers now turn Claude Opus 5.5 into a full motion studio with 637 animation tricks ready to go. Engineers pair it with lighter models to slash costs while boosting output.",
+      "id": "2108989862263333211",
+      "name": "Claude Opus 5.5 Powers New AI Workflows for Creatives and Coders",
+      "summary": "Anthropic launched Claude Opus 5.5 on September 22, 2026, with a massive 1M-token context for long coding and knowledge tasks, priced at $4 per million input tokens—20% cheaper than before. Users share workflows like motion design loops for kinetic typography and 3D flips, plus hybrid setups where Haiku handles quick scans, Sonnet builds, and Opus architects big plans via Jev routing. Early adopters see big productivity gains in graphics, code migrations, and agent projects by specializing each model's role.",
+      "updated_at": "2026-10-10T18:42:52.000Z",
+      "url": "https://x.com/i/trending/2108989862263333211"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "Software Development"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Theo from t3.gg opened his inbox to find the same story over and over: long tales of coding struggles, capped by one question — Claude or Codex?",
+      "id": "2111173053325676681",
+      "name": "Developers Weigh Claude Code vs Codex in Daily DMs",
+      "summary": "Theo shared how developers flood his DMs with personal histories before asking which $20 monthly plan beats out — Anthropic's Claude Code or OpenAI's Codex. Both tools handle writing code, editing repos, running commands, and more, with users split on strengths like Claude's edge in complex reasoning versus Codex's speed on simple tasks. Anthropic's recent Code Review launch, now three times faster for pull requests, added fuel as builders share tips on switching tools or using both for better results.",
+      "updated_at": "2026-10-16T19:18:31.000Z",
+      "url": "https://x.com/i/trending/2111173053325676681"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "id": "2108607735335956638",
+      "name": "Anthropic Launches Claude Dashboards and Claude Motion in Beta",
+      "summary": "Anthropic released Claude Dashboards in beta for paid plans, enabling users to connect data from BigQuery, Snowflake, Databricks, or Salesforce and generate live, refreshing dashboards from plain-English questions, with visible SQL queries under charts. Claude Motion, available in beta for Team and Enterprise plans, converts reports into editable animated explainers downloadable as video files without generating fake footage. Docs, Slides, and Design features have exited beta and are now available on all plans, including Free.",
+      "updated_at": "2026-10-10T00:10:35.000Z",
+      "url": "https://x.com/i/trending/2108607735335956638"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Anthropic's co-founder Ben Mann shook hands with Singapore officials this week, marking a new chapter for AI in the region with an office launch and safety pact.",
+      "id": "2110312770369364370",
+      "name": "Anthropic Opens Singapore Office and Signs AI Safety MOU with Government",
+      "summary": "The AI company has launched its fifth Asia-Pacific office in Singapore, following locations in Tokyo, Bengaluru, Seoul, and Sydney. They signed a non-binding memorandum with Singapore’s Ministry of Digital Development and Information, focusing on AI safety, model evaluation, incident response, and economic impacts. Singapore ranks second globally in Claude usage per capita, with heavy adoption by GovTech engineers, DBS, Grab, and GIC; the opening included a Builder Summit for over 300 developers and a community meetup for 700 builders, plus local hiring in sales and support roles.",
+      "updated_at": "2026-10-14T16:08:03.000Z",
+      "url": "https://x.com/i/trending/2110312770369364370"
+    },
+    {
+      "category": "Other",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Developers no longer wait in line for quicker AI responses. Anthropic just opened fast mode on its top Claude Opus 5.5 model to everyone.",
+      "id": "2110914330774688202",
+      "name": "Anthropic Launches Fast Mode for Claude Opus 5.5 to All Developers",
+      "summary": "The update delivers up to 2.5 times higher output tokens per second using the same model, at premium rates of $8 input and $40 output per million tokens. It rolls out on the Claude Platform and Microsoft Azure, with Google Cloud support soon, while fast mode in Claude Code remains separate. Developers praise Opus 5.5 for breakthroughs in research and coding, with one saying it's hard to picture anything better, and tools like Cursor now offer the option for time-sensitive work.",
+      "updated_at": "2026-10-16T05:04:13.000Z",
+      "url": "https://x.com/i/trending/2110914330774688202"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Insiders whisper that top AI labs might already be tapping recursive self-improvement to accelerate their models. Signs include Google's quick advances, OpenAI's math breakthroughs, and Anthropic's new large model run.",
+      "id": "2108672566835511329",
+      "name": "Rumors of Recursive Self-Improvement Emerge at Google, OpenAI, and Anthropic",
+      "summary": "Rumors suggest Google, Anthropic, and OpenAI could be using or approaching RSI techniques, with Anthropic launching a bigger pretraining run called Fable 6 to stay competitive. Developers praise Anthropic's Claude 5.5 family—Opus for planning, Sonnet for coding, and cheap Haiku for support tasks—slashing costs while delivering strong results, like Haiku hitting 87% on coding benchmarks at 1/23rd Opus's price. Labs stress full autonomous RSI isn't here yet, requiring human oversight, amid talks of China's quieter progress and rising compute needs. Debates mix excitement over efficient agents with caution on rapid gains.",
+      "updated_at": "2026-10-10T16:56:30.000Z",
+      "url": "https://x.com/i/trending/2108672566835511329"
+    },
+    {
+      "category": "News",
+      "contexts": {
+        "topics": [
+          "Technology",
+          "AI"
+        ]
+      },
+      "disclaimer": "This story is a summary of posts on X and may evolve over time. Grok can make mistakes, verify its outputs.",
+      "hook": "Claude Opus 5.5, released September 22, still reigns supreme in mid-October discussions, matching top performance at 40% lower cost.",
+      "id": "2111045165691425259",
+      "name": "Claude Opus 5.5 Tops AI Tier Lists a Month After Launch",
+      "summary": "Users rank Anthropic's Claude Opus 5.5 alone in the S tier, praising its edge in coding and workflows—one developer compared switching to it like moving from Android to iPhone. Google pushes back with Gemini 4 Argon via free one-month AI Pro trials that include 5TB storage, sparking direct comparisons on cost and visual tasks. Hype builds for a potential Claude Fable 5.5, but Opus 5.5 remains the benchmark in a fast-moving field.",
+      "updated_at": "2026-10-16T16:10:51.000Z",
+      "url": "https://x.com/i/trending/2111045165691425259"
+    }
+  ],
+  "meta": {
+    "result_count": 20
+  }
+}

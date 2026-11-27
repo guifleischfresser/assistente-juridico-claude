@@ -1,0 +1,557 @@
+{
+  "data": [
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2026-01-24T21:26:59.000Z",
+      "edit_history_tweet_ids": [
+        "2015174516750565389"
+      ],
+      "id": "2015174516750565389",
+      "in_reply_to_user_id": "763583716966993920",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 139,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2015164452627157318",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@joocarlosteixe6 Pelo que entendi o resultado obtido depende tanto do modelo (Gemini, ChatGPT, Claude e suas versões) quanto do comando (prompt).\n\nOu seja, você precisa inserir bons comandos para obter bons resultados.  Em qualquer IA.",
+      "url": "https://x.com/lfgomide/status/2015174516750565389"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-10-24T19:55:02.000Z",
+      "edit_history_tweet_ids": [
+        "1981811693719368137"
+      ],
+      "id": "1981811693719368137",
+      "public_metrics": {
+        "bookmark_count": 394,
+        "impression_count": 15271,
+        "like_count": 355,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 12
+      },
+      "text": "GEMINI\nVocê pode anexar uma petição que considere bem escrita e lançar o seguinte PROMPT:\n\n\"Segue em anexo um modelo de petição. Resuma em 550 palavras um prompt para obter esse resultado. Seja claro nos comandos que devem ser dados para obter uma petição assim.\"\n\nFunciona 🤘",
+      "url": "https://x.com/lfgomide/status/1981811693719368137"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-10-13T20:29:47.000Z",
+      "edit_history_tweet_ids": [
+        "1977834170115371330"
+      ],
+      "id": "1977834170115371330",
+      "public_metrics": {
+        "bookmark_count": 716,
+        "impression_count": 25019,
+        "like_count": 583,
+        "quote_count": 4,
+        "reply_count": 6,
+        "retweet_count": 27
+      },
+      "text": "PROMPT para contrarrazões (Gemini)\n\nAtue como um advogado especialista em Direito Civil, Direito Público e Direito Processual.\n\nO objetivo é elaborar uma petição de contrarrazões ao recurso inominado apresentado em anexo.",
+      "url": "https://x.com/lfgomide/status/1977834170115371330"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-10T21:08:03.000Z",
+      "edit_history_tweet_ids": [
+        "1987990663653376371"
+      ],
+      "id": "1987990663653376371",
+      "public_metrics": {
+        "bookmark_count": 274,
+        "impression_count": 16816,
+        "like_count": 269,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 6
+      },
+      "text": "Se você não é um advogado experiente, não peça à IA para escrever uma petição por você.\n\nPeça ao chat dicas de como escrever.\n\nSegue o PROMPT 👇",
+      "url": "https://x.com/lfgomide/status/1987990663653376371"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-28T15:03:35.000Z",
+      "edit_history_tweet_ids": [
+        "1994421920847007898"
+      ],
+      "id": "1994421920847007898",
+      "public_metrics": {
+        "bookmark_count": 135,
+        "impression_count": 8550,
+        "like_count": 199,
+        "quote_count": 2,
+        "reply_count": 4,
+        "retweet_count": 8
+      },
+      "text": "Dica rápida de prompt para advogados:\n\nPrimeiro faça a pesquisa de legislação e julgados.\n\nDepois use a IA para estrutura, pedindo para montar os argumentos em tópicos lógicos.\n\nSe possível anexe um modelo de uma petição sua para orientar quanto ao estilo de escrita.",
+      "url": "https://x.com/lfgomide/status/1994421920847007898"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-04-25T20:46:53.000Z",
+      "edit_history_tweet_ids": [
+        "1915870150294966375"
+      ],
+      "id": "1915870150294966375",
+      "in_reply_to_user_id": "1164428357745938437",
+      "public_metrics": {
+        "bookmark_count": 24,
+        "impression_count": 2004,
+        "like_count": 32,
+        "quote_count": 1,
+        "reply_count": 2,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "1915825605842698665",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@RhuanBAdvogado O ChatGPT já faz pesquisa de jurisprudencia melhor. \n\nPra usar IA tem que deixar a preguiça de lado também. Informar como fazer a petição e o que não fazer ( por exemplo, inventar jurisprudencia).\n\nSugiro sempre aos advogados o Perplexity e a IA do Jusbrasil para pesquisa.",
+      "url": "https://x.com/lfgomide/status/1915870150294966375"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2026-01-20T15:43:52.000Z",
+      "edit_history_tweet_ids": [
+        "2013638618196177077"
+      ],
+      "id": "2013638618196177077",
+      "public_metrics": {
+        "bookmark_count": 649,
+        "impression_count": 30602,
+        "like_count": 430,
+        "quote_count": 2,
+        "reply_count": 4,
+        "retweet_count": 33
+      },
+      "text": "O Gemini sempre salva.\n\nEconomizei algumas horas com esse PROMPT\n\n\"Atue como advogado senior especialista em direito processual civil. O objetivo é escrever uma petição em nome da parte autora da ação, impugnando o laudo pericial apresentado pelo perito. Você deverá apresentar em https://t.co/Y069aZTyee",
+      "url": "https://x.com/lfgomide/status/2013638618196177077"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2026-05-15T14:30:49.000Z",
+      "edit_history_tweet_ids": [
+        "2055294836345909339"
+      ],
+      "id": "2055294836345909339",
+      "public_metrics": {
+        "bookmark_count": 389,
+        "impression_count": 36257,
+        "like_count": 382,
+        "quote_count": 3,
+        "reply_count": 15,
+        "retweet_count": 19
+      },
+      "referenced_tweets": [
+        {
+          "id": "2055292617714532726",
+          "type": "quoted"
+        }
+      ],
+      "text": "Gostei desse Prompt. \n\nUsar a IA para atuar como advogado da outra parte para analisar os pontos fracos da sua petição. \n\nJá fez isso? https://t.co/H1uaGsMLDr",
+      "url": "https://x.com/lfgomide/status/2055294836345909339"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-05T22:18:32.000Z",
+      "edit_history_tweet_ids": [
+        "1986196458681606398"
+      ],
+      "id": "1986196458681606398",
+      "in_reply_to_user_id": "279192994",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 369,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1986173469873307805",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Adv_Bicalho Experimente o Gemini, Claude e ChatGPT e veja qual gosta mais e usa a versão paga",
+      "url": "https://x.com/lfgomide/status/1986196458681606398"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-12-29T11:59:05.000Z",
+      "edit_history_tweet_ids": [
+        "2005609515363049673"
+      ],
+      "id": "2005609515363049673",
+      "public_metrics": {
+        "bookmark_count": 134,
+        "impression_count": 95602,
+        "like_count": 486,
+        "quote_count": 4,
+        "reply_count": 95,
+        "retweet_count": 4
+      },
+      "text": "Galera, o ChatGPT ficou para trás do Gemini, Claude e Grok.\n\nNão acham?",
+      "url": "https://x.com/lfgomide/status/2005609515363049673"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-06T15:25:34.000Z",
+      "edit_history_tweet_ids": [
+        "1986454921001029959"
+      ],
+      "id": "1986454921001029959",
+      "public_metrics": {
+        "bookmark_count": 252,
+        "impression_count": 9413,
+        "like_count": 283,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 10
+      },
+      "text": "PROMPT para o advogado adaptar o modelo da petição pronto:\n\n\"Atue como experiente advogado senior especialista em processo civil. Redija uma petição como este modelo (anexe), mas adapte para o caso cujas informações seguem abaixo (escreva ou anexe).\"",
+      "url": "https://x.com/lfgomide/status/1986454921001029959"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-12-09T17:41:31.000Z",
+      "edit_history_tweet_ids": [
+        "1998447935760031974"
+      ],
+      "id": "1998447935760031974",
+      "public_metrics": {
+        "bookmark_count": 235,
+        "impression_count": 10276,
+        "like_count": 344,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 23
+      },
+      "text": "Dica rápida de prompt para advogados:\n\nEspecifique se o texto deve ser \"combativo e persuasivo\" (para uma petição) ou \"neutro e analítico\" (para um parecer ou e-mail).\n\nNão são a mesma coisa.",
+      "url": "https://x.com/lfgomide/status/1998447935760031974"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-10-08T12:32:33.000Z",
+      "edit_history_tweet_ids": [
+        "1975902130742698450"
+      ],
+      "id": "1975902130742698450",
+      "public_metrics": {
+        "bookmark_count": 708,
+        "impression_count": 24271,
+        "like_count": 607,
+        "quote_count": 1,
+        "reply_count": 2,
+        "retweet_count": 27
+      },
+      "text": "Mais um PROMPT\n\n\"Atue como advogado especialista em direito civil e direito  processual. Em anexo algumas petições. Analise e incorpore o estilo de escrita e técnica.  Entenda como começar, desenvolver e concluir uma petição inicial. Em seguida vou te passar mais instruções\"",
+      "url": "https://x.com/lfgomide/status/1975902130742698450"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-05-13T18:29:52.000Z",
+      "edit_history_tweet_ids": [
+        "1922358650351370291"
+      ],
+      "id": "1922358650351370291",
+      "in_reply_to_user_id": "1215387597612179457",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 335,
+        "like_count": 4,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1922358647838900462",
+          "type": "replied_to"
+        }
+      ],
+      "text": "1. Peça ao ChatGPT para atuar como advogado especialista emdireito processual civil e informe que seu trabalho será elaborar uma petição de réplica argumentando pela tese da petição incial e refutando cada argumento da contestação.",
+      "url": "https://x.com/lfgomide/status/1922358650351370291"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-10-07T15:31:16.000Z",
+      "edit_history_tweet_ids": [
+        "1975584721682739212"
+      ],
+      "id": "1975584721682739212",
+      "in_reply_to_user_id": "1215387597612179457",
+      "public_metrics": {
+        "bookmark_count": 153,
+        "impression_count": 3508,
+        "like_count": 102,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 4
+      },
+      "referenced_tweets": [
+        {
+          "id": "1975548204164018627",
+          "type": "replied_to"
+        }
+      ],
+      "text": "PROMPT\n\natue como advogado especialista em direito civil e processual.  Analise a petição em anexo, compreenda a questão e a demanda. Incorpore o estilo de escrita dos títulos e parágrafos e o tom.\n\nUse o mesmo estilo de escrita das petições do autor e não use bullets nem emojis.",
+      "url": "https://x.com/lfgomide/status/1975584721682739212"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2026-07-22T22:23:25.000Z",
+      "edit_history_tweet_ids": [
+        "2080056144496611440"
+      ],
+      "id": "2080056144496611440",
+      "public_metrics": {
+        "bookmark_count": 283,
+        "impression_count": 18190,
+        "like_count": 268,
+        "quote_count": 2,
+        "reply_count": 5,
+        "retweet_count": 42
+      },
+      "text": "Como saber se o advogado da outra parte mandou um prompt injection na petição?\n\nVou deixar aqui 3 sites que me indicaram.\n\nRT pra divulgar https://t.co/ExlKKdaGW1",
+      "url": "https://x.com/lfgomide/status/2080056144496611440"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-18T19:48:58.000Z",
+      "edit_history_tweet_ids": [
+        "1990869864630681761"
+      ],
+      "id": "1990869864630681761",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 138
+      },
+      "referenced_tweets": [
+        {
+          "id": "1983614638853136688",
+          "type": "retweeted"
+        }
+      ],
+      "text": "RT @lfgomide: Parece óbvio.\n\nMas primeiro você tem que saber fazer uma petição.\n\nDepois você pode delegar pro ChatGPT.",
+      "url": "https://x.com/lfgomide/status/1990869864630681761"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-10-29T19:19:18.000Z",
+      "edit_history_tweet_ids": [
+        "1983614638853136688"
+      ],
+      "id": "1983614638853136688",
+      "public_metrics": {
+        "bookmark_count": 53,
+        "impression_count": 41193,
+        "like_count": 1745,
+        "quote_count": 17,
+        "reply_count": 9,
+        "retweet_count": 138
+      },
+      "text": "Parece óbvio.\n\nMas primeiro você tem que saber fazer uma petição.\n\nDepois você pode delegar pro ChatGPT.",
+      "url": "https://x.com/lfgomide/status/1983614638853136688"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2026-01-01T21:38:30.000Z",
+      "edit_history_tweet_ids": [
+        "2006842493518885234"
+      ],
+      "id": "2006842493518885234",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 23
+      },
+      "referenced_tweets": [
+        {
+          "id": "1998447935760031974",
+          "type": "retweeted"
+        }
+      ],
+      "text": "RT @lfgomide: Dica rápida de prompt para advogados:\n\nEspecifique se o texto deve ser \"combativo e persuasivo\" (para uma petição) ou \"neutro…",
+      "url": "https://x.com/lfgomide/status/2006842493518885234"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-03T23:47:46.000Z",
+      "edit_history_tweet_ids": [
+        "1985494140251930992"
+      ],
+      "id": "1985494140251930992",
+      "in_reply_to_user_id": "2682631134",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 85,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1985378188399120675",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@AugustoBraz4 O Gemini é mais completo.  A do Jusbrasil é excelente para pesquisar jurisprudência e modelos de petição",
+      "url": "https://x.com/lfgomide/status/1985494140251930992"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-05-13T20:40:08.000Z",
+      "edit_history_tweet_ids": [
+        "1922391431324319844"
+      ],
+      "id": "1922391431324319844",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 644,
+        "like_count": 23,
+        "quote_count": 1,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "Se o seu cliente te abençoar com um relato dos fatos detalhado você já tem 50%  do caminho andado pra fazer uma petição. \n\nSe souber usar IA, tem 95 %.",
+      "url": "https://x.com/lfgomide/status/1922391431324319844"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-07-31T13:39:08.000Z",
+      "edit_history_tweet_ids": [
+        "1950914126894542978"
+      ],
+      "id": "1950914126894542978",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 188,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "A advogada não sabe usar IA.\n\nMandou o estagiário fazer a petição. \n\nA petição saiu com jurisprudencia inventada.\n\nA advogada tomou multa de 10 salários. \n\nE jogou a culpa no estagiário... https://t.co/eN47gotPsL",
+      "url": "https://x.com/lfgomide/status/1950914126894542978"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-05-29T12:04:25.000Z",
+      "edit_history_tweet_ids": [
+        "1928059856126132475"
+      ],
+      "id": "1928059856126132475",
+      "in_reply_to_user_id": "1215387597612179457",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 348,
+        "like_count": 5,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1928059854091911431",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Para ajudar nas petições, recomendo fazer uma pesquisa sobre a questão na JUS IA (Jus BRasil) e Perplexity.\n\nDepois você pode pedir ao Chat GPT para fazer uma petição.\n\nSe tiver um agente treinado, melhor. Pesquise por Jurídico Ágil, tem várias opções de robôs jurídicos grátis.",
+      "url": "https://x.com/lfgomide/status/1928059856126132475"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-11-25T14:01:59.000Z",
+      "edit_history_tweet_ids": [
+        "1993319257258553382"
+      ],
+      "id": "1993319257258553382",
+      "public_metrics": {
+        "bookmark_count": 12,
+        "impression_count": 5817,
+        "like_count": 67,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "1993302498795569168",
+          "type": "quoted"
+        }
+      ],
+      "text": "Parece óbvio.\n\nMas primeiro você tem que pensar e saber fazer uma petição.\n\nDepois pode delegar para a IA.\n\nMas se você tem muito tempo sobrando, como o Lucio, pode fazer por conta própria todas as petições repetitivas.\n\nSeu cliente quer resultado.\n\nNão importa quem digita. https://t.co/NzPUCt01Rc",
+      "url": "https://x.com/lfgomide/status/1993319257258553382"
+    },
+    {
+      "author_id": "1215387597612179457",
+      "created_at": "2025-07-09T16:47:50.000Z",
+      "edit_history_tweet_ids": [
+        "1942989081471766802"
+      ],
+      "id": "1942989081471766802",
+      "in_reply_to_user_id": "93200276",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 71,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1942988251796500884",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@allanbrito_ Isso ainda é um problema. Mas tem solução. \n\nVocê pode ser específico para mandar que ela não invente jurisprudencia. \n\nMelhor ainda, você usa a IA para fazer a pesquisa primeiro.  Depois pede pra escrever  a petição.",
+      "url": "https://x.com/lfgomide/status/1942989081471766802"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado underground desde 2006 | Entusiasta da Inteligência Artificial",
+        "id": "1215387597612179457",
+        "name": "Luiz Felipe Gomide",
+        "public_metrics": {
+          "followers_count": 3701,
+          "following_count": 1035,
+          "like_count": 31064,
+          "listed_count": 9,
+          "media_count": 331,
+          "tweet_count": 8173
+        },
+        "username": "lfgomide"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2080056144496611440",
+    "oldest_id": "1915870150294966375",
+    "result_count": 25
+  }
+}

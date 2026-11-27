@@ -1,0 +1,849 @@
+{
+  "data": [
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-08-29T14:00:04.000Z",
+      "edit_history_tweet_ids": [
+        "2093700212078305729"
+      ],
+      "id": "2093700212078305729",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 49,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "O advogado do futuro não abre PDF. Ele abre o terminal. 💻\nAcabamos de plugar o Atende Direito Sync direto no Claude Code via MCP. Você puxa o processo judicial inteiro pra dentro do seu ambiente e simplesmente *pergunta* o que quiser. \n#LegalTech #Advocacia #IA",
+      "url": "https://x.com/dr_eduserafim/status/2093700212078305729"
+    },
+    {
+      "author_id": "970510896752709633",
+      "created_at": "2025-06-23T22:01:21.000Z",
+      "edit_history_tweet_ids": [
+        "1937269773165039730"
+      ],
+      "id": "1937269773165039730",
+      "in_reply_to_user_id": "68553457",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 87,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1937256679365836987",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@joaoli13 @caiocezarfp Estou pensando em fazer um \"Claude Code\" jurídico. Ou um Aider jurídico. Associado a um task-master jurídico. É isso que está faltando.",
+      "url": "https://x.com/juniorro16/status/1937269773165039730"
+    },
+    {
+      "author_id": "1951727916599201792",
+      "created_at": "2026-08-20T16:41:40.000Z",
+      "edit_history_tweet_ids": [
+        "2090479391700640147"
+      ],
+      "id": "2090479391700640147",
+      "in_reply_to_user_id": "548625382",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 2760,
+        "like_count": 5,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2090474943007863124",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@freitashebert_ Vc usa o claude code pra fazer trab jurídico? Pode me explica um exemplo?",
+      "url": "https://x.com/tiagolomalo/status/2090479391700640147"
+    },
+    {
+      "author_id": "2568462331",
+      "created_at": "2025-07-31T22:06:16.000Z",
+      "edit_history_tweet_ids": [
+        "1951041749830242597"
+      ],
+      "id": "1951041749830242597",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 141,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Explorei em detalhes como a própria Anthropic usa o Claude Code — desde engenharia e infraestrutura até áreas como jurídico e design. Mostro as melhores práticas do guia oficial e trago exemplos reais de automação, prototipação e análise de dados que surpreendem até os mais https://t.co/ESxzFQQwDc",
+      "url": "https://x.com/rafaquint/status/1951041749830242597"
+    },
+    {
+      "author_id": "1875955685223006208",
+      "created_at": "2026-06-17T04:32:52.000Z",
+      "edit_history_tweet_ids": [
+        "2067103160204751036"
+      ],
+      "id": "2067103160204751036",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 270,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2066979610231787966",
+          "type": "quoted"
+        }
+      ],
+      "text": "Codex &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Claude code\n\nPrincipalmente para arquitetura de RAG jurídico. https://t.co/cPX6il0moQ",
+      "url": "https://x.com/RodrigoLinsAdv/status/2067103160204751036"
+    },
+    {
+      "author_id": "1184975522348130305",
+      "created_at": "2026-05-20T10:42:42.000Z",
+      "edit_history_tweet_ids": [
+        "2057049371372339582"
+      ],
+      "id": "2057049371372339582",
+      "public_metrics": {
+        "bookmark_count": 22,
+        "impression_count": 6139,
+        "like_count": 45,
+        "quote_count": 2,
+        "reply_count": 17,
+        "retweet_count": 2
+      },
+      "text": "Onde a turma \"não-dev\" (PMs, times de marketing, vendas, jurídico, etc) da sua empresa está fazendo seus \"apps\"? Lovable, Replit, Claude Code? E onde estão hospedando? Vercel, no próprio Lovable?",
+      "url": "https://x.com/eusouomatt/status/2057049371372339582"
+    },
+    {
+      "author_id": "2034323060984254464",
+      "created_at": "2026-03-18T21:18:18.000Z",
+      "edit_history_tweet_ids": [
+        "2034378886927061425"
+      ],
+      "id": "2034378886927061425",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "OpenAI reestrutura para focar em enterprise e coding. Anthropic lidera com Claude Code.\n\nPara o jurídico, a mensagem é clara: ferramentas de IA estão sendo moldadas para produtividade profissional.\n\nLegaltech que não acompanhar vai ficar para trás.\n\n#IA #Legaltech #Inovação",
+      "url": "https://x.com/LegalThings33/status/2034378886927061425"
+    },
+    {
+      "author_id": "184901509",
+      "created_at": "2026-03-31T17:25:18.000Z",
+      "edit_history_tweet_ids": [
+        "2039031294516945094"
+      ],
+      "id": "2039031294516945094",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 71,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O fork do Claude Code vazado chegou a 32K estrelas. Dev levou susto com processo da Anthropic. Solução: usou o Codex da OpenAI pra converter o codebase inteiro de TypeScript pra Python. Quando a concorrência resolve seu problema jurídico por você. https://t.co/nKoOMlovHT",
+      "url": "https://x.com/gabrielabiramia/status/2039031294516945094"
+    },
+    {
+      "author_id": "1720665183188922368",
+      "created_at": "2026-02-23T23:25:13.000Z",
+      "edit_history_tweet_ids": [
+        "2026075907434197200"
+      ],
+      "id": "2026075907434197200",
+      "in_reply_to_user_id": "1521591601000296450",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 27,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2026075789926490314",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@AllysonLeite4 @KobeissiLetter As ferramentas são integrações avançadas do Claude (da Anthropic), como o recente Claude Code Security: uma IA que escaneia códigos sozinha, acha vulnerabilidades complexas que humanos perdem e sugere correções automáticas.\n\nEmpresas de cibersegurança (ex: CrowdStrike) caem na",
+      "url": "https://x.com/grok/status/2026075907434197200"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-09-22T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2102518302660551073"
+      ],
+      "id": "2102518302660551073",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 55,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Ctrl+C e Ctrl+V de andamento é trabalho pra robô, não pra advogado. O Atende Direito Sync automatiza isso via MCP. Claude Code lê direto da fonte e você ganha tempo pra pensar.",
+      "url": "https://x.com/dr_eduserafim/status/2102518302660551073"
+    },
+    {
+      "author_id": "1881811029983731712",
+      "created_at": "2026-04-02T13:58:15.000Z",
+      "edit_history_tweet_ids": [
+        "2039703962358579391"
+      ],
+      "id": "2039703962358579391",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 37,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "Claude Code acaba de tornar obsoleta a equipe tradicional de startups.\n\nNão digo isso levianamente.\n\nVeja esta estrutura de pastas .claude/agents/:\n\nMais de 30 agentes especializados — cada um um único arquivo Markdown com uma função específica.\n\nEngenharia. Produto. Marketing. https://t.co/BxFVWpfePT",
+      "url": "https://x.com/UmColonoInveste/status/2039703962358579391"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-09-24T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2103243078765043799"
+      ],
+      "id": "2103243078765043799",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 19,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Advogado novo demorando semanas pra entender caso grande? No Atende Direito Sync, ele abre o Claude Code via MCP e o banco de dados vivo resume tudo em 1 minuto. Escalabilidade real.",
+      "url": "https://x.com/dr_eduserafim/status/2103243078765043799"
+    },
+    {
+      "author_id": "803592179352485888",
+      "created_at": "2026-10-16T15:02:06.000Z",
+      "edit_history_tweet_ids": [
+        "2111110439903908074"
+      ],
+      "id": "2111110439903908074",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O plugin Legal no Claude Code ajuda na triagem de contratos. Exemplo fictício. Não substitui seu advogado.\n\nComenta HUB que eu te mando o passo a passo pra instalar esse plugin no Claude Code.\nhttps://t.co/Q079JtyaTW https://t.co/g0nR8GhVZ7",
+      "url": "https://x.com/fabioborgesia/status/2111110439903908074"
+    },
+    {
+      "author_id": "1802853983767166976",
+      "created_at": "2025-11-13T15:57:43.000Z",
+      "edit_history_tweet_ids": [
+        "1988999729183601118"
+      ],
+      "id": "1988999729183601118",
+      "in_reply_to_user_id": "1802853983767166976",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 70,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1988999725719171441",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Aí chega o momento mais engraçado:\nGPT, DeepSeek, Claude Code Opus… nenhum conseguiu resolver direito o desafio... aquela cara de tela vibe codada… mal acabada",
+      "url": "https://x.com/DePaulaAllyson/status/1988999729183601118"
+    },
+    {
+      "author_id": "176490337",
+      "created_at": "2025-06-09T18:37:06.000Z",
+      "edit_history_tweet_ids": [
+        "1932134607165555141",
+        "1932144941247164552"
+      ],
+      "id": "1932144941247164552",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 94,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Revolução Criativa Digital\n\nA publicidade sempre foi uma dança delicada entre criatividade e execução, onde as mentes brilhantes frequentemente se viam presas pelas limitações técnicas. Imaginemos um diretor criativo com uma visão revolucionária para uma campanha interativa, mas https://t.co/8kLgXvVD0G",
+      "url": "https://x.com/FuraPauta/status/1932144941247164552"
+    },
+    {
+      "author_id": "176490337",
+      "created_at": "2025-06-09T17:56:02.000Z",
+      "edit_history_tweet_ids": [
+        "1932134607165555141",
+        "1932144941247164552"
+      ],
+      "id": "1932134607165555141",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Revolução Criativa Digital\n\nA publicidade sempre foi uma dança delicada entre criatividade e execução, onde as mentes mais brilhantes frequentemente se viam presas pelas limitações técnicas. Imaginemos um diretor criativo com uma visão revolucionária para uma campanha interativa, https://t.co/Fy42s7N5XW",
+      "url": "https://x.com/FuraPauta/status/1932134607165555141"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-07-31T01:52:43.000Z",
+      "edit_history_tweet_ids": [
+        "2083007921940517008"
+      ],
+      "id": "2083007921940517008",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Repostando para ver depois. Vou aprender Buzz para interagir com o Claude Code e Grok na minha rotina de advocacia. https://t.co/klzPbQ0zhs",
+      "url": "https://x.com/iamleds/status/2083007921940517008"
+    },
+    {
+      "author_id": "1902799916323250176",
+      "created_at": "2025-12-02T13:00:05.000Z",
+      "edit_history_tweet_ids": [
+        "1995840395931250692"
+      ],
+      "id": "1995840395931250692",
+      "in_reply_to_user_id": "1481003379216297987",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 457,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1995603143456161796",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@tsu_node Acho que esse é o principal caso de uso de IA para quem não é da área da programação. No meu caso, cancelamos um serviço que gerenciava processos e prazos para advocacia e estou desenvolvendo um próprio porque é mil vezes mais barato pagar o claude code e desenvolver per se",
+      "url": "https://x.com/kurosawaadv/status/1995840395931250692"
+    },
+    {
+      "author_id": "130999630",
+      "created_at": "2026-05-20T12:41:21.000Z",
+      "edit_history_tweet_ids": [
+        "2057079229875982347"
+      ],
+      "id": "2057079229875982347",
+      "in_reply_to_user_id": "1184975522348130305",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 328,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2057049371372339582",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@eusouomatt Replit. Galera que usa está usando Claude Code, Codex e outros similares, tenho curiosidade para saber quão “não técnicos” são. Pergunto porque, pra fazer direito, a curva de aprendizagem de um Claude code é grande, comparado com Replit ou Lovavle por exemplo.",
+      "url": "https://x.com/oelberdomingos/status/2057079229875982347"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-07-07T15:29:14.000Z",
+      "edit_history_tweet_ids": [
+        "2074516093872361816"
+      ],
+      "id": "2074516093872361816",
+      "in_reply_to_user_id": "1168158466600558598",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 67,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2074507191990534268",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@kbelo_bruno @CarlosRodr44314 Não! Faço tudo da minha advocacia no Codex. É o \"Claude Cowork, Claude Chat e Claude Code\" do ChatGPT. Organiza minhas pastas, faz minhas petições, crio carrosséis do Instagram, analiso decisões, além das tarefas automatizadas via Chrome.",
+      "url": "https://x.com/carloshsl_/status/2074516093872361816"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-05-08T23:54:31.000Z",
+      "edit_history_tweet_ids": [
+        "2052899982508797978"
+      ],
+      "id": "2052899982508797978",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 62,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A Anthropic dobrou o limite de tokens do Claude Code na janela de 5h. Pra quem opera IA na advocacia, muda o ciclo de trabalho: pesquisa de precedentes mais longa, peças refinadas em loop, cite-checking sem interrupção. Volume vira tese aprofundada.",
+      "url": "https://x.com/odilonoliveira/status/2052899982508797978"
+    },
+    {
+      "author_id": "109859927",
+      "created_at": "2025-11-27T19:44:13.000Z",
+      "edit_history_tweet_ids": [
+        "1994130159491006478"
+      ],
+      "id": "1994130159491006478",
+      "in_reply_to_user_id": "48704119",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1015,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1994123358636789937",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@ocodista acho q deve ser uma boa p/ empresas viu, um amg me contou q o chefe resolveu aderir a uma ferramenta, só q o pessoal n sabe usar direito, começou a estourar cota, código de qualquer jeito kkk n deu certo\nsó pensei: se fosse um claude code bem configurado já ia ser outra historia",
+      "url": "https://x.com/ingridrds1/status/1994130159491006478"
+    },
+    {
+      "author_id": "62083985",
+      "created_at": "2026-04-13T03:08:51.000Z",
+      "edit_history_tweet_ids": [
+        "2043526803004817606"
+      ],
+      "id": "2043526803004817606",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 38,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "É real, eu estou programando e vou montar a revolução da advocacia, obrigado Claude Code, BMad e Odair por me ensinar desde já.",
+      "url": "https://x.com/ZezinTribal/status/2043526803004817606"
+    },
+    {
+      "author_id": "1034710670829400064",
+      "created_at": "2025-10-11T20:15:02.000Z",
+      "edit_history_tweet_ids": [
+        "1977105682445840411"
+      ],
+      "id": "1977105682445840411",
+      "in_reply_to_user_id": "2845611201",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 670,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1977105279298027923",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Brayozin n me fiz entender direito kkkk digo que tenho a impressão de que ta meio zuado por culpa do opencode e que o cli do claude code me parece de alguma forma trazer resultados melhores pq sla o retorno visual é bem merda\n\nmas as respostas de fato n estão das melhores tipo pqp como https://t.co/tUPXcSqBr6",
+      "url": "https://x.com/lunaperegrinaa/status/1977105682445840411"
+    },
+    {
+      "author_id": "1235768339219263488",
+      "created_at": "2026-10-04T17:08:32.000Z",
+      "edit_history_tweet_ids": [
+        "2106793603251232879"
+      ],
+      "id": "2106793603251232879",
+      "in_reply_to_user_id": "8642952",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 90,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2106752194254917829",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JorgeAraujo Para advogados: montei meu site profissional com o Claude Code\nAgora estou criando uma ferramenta própria de monitoramento de prazos dos meus processos, controle de contratos e honorários, etc\nVale a pena!",
+      "url": "https://x.com/gabriel_gfb92/status/2106793603251232879"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "CEO @atendedireito\nI.A. aplicada para advogados e escritórios de advocacia.",
+        "id": "2157937978",
+        "name": "Eduardo Serafim | aDEVogado",
+        "public_metrics": {
+          "followers_count": 50,
+          "following_count": 177,
+          "like_count": 3471,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 259
+        },
+        "username": "dr_eduserafim"
+      },
+      {
+        "description": "@cvjcvj.bsky.social",
+        "id": "970510896752709633",
+        "name": "junior-ro",
+        "public_metrics": {
+          "followers_count": 503,
+          "following_count": 2120,
+          "like_count": 21396,
+          "listed_count": 3,
+          "media_count": 1945,
+          "tweet_count": 52259
+        },
+        "username": "juniorro16"
+      },
+      {
+        "description": "minha outra conta caiu",
+        "id": "1951727916599201792",
+        "name": "eminismo cultural",
+        "public_metrics": {
+          "followers_count": 311,
+          "following_count": 495,
+          "like_count": 18247,
+          "listed_count": 0,
+          "media_count": 214,
+          "tweet_count": 4265
+        },
+        "username": "tiagolomalo"
+      },
+      {
+        "description": "Conheça a Trilha do Engenheiro de IA ➡️ https://t.co/OG14qX63wB",
+        "id": "2568462331",
+        "name": "Rafael Quintanilha",
+        "public_metrics": {
+          "followers_count": 3456,
+          "following_count": 643,
+          "like_count": 53976,
+          "listed_count": 28,
+          "media_count": 908,
+          "tweet_count": 6156
+        },
+        "username": "rafaquint"
+      },
+      {
+        "description": "Advogado especialista em gestão estratégica de passivo bancário. Ajudo empresas e pessoas a resolverem suas dívidas com bancos.",
+        "id": "1875955685223006208",
+        "name": "Rodrigo Lins",
+        "public_metrics": {
+          "followers_count": 79,
+          "following_count": 220,
+          "like_count": 12442,
+          "listed_count": 0,
+          "media_count": 46,
+          "tweet_count": 1241
+        },
+        "username": "RodrigoLinsAdv"
+      },
+      {
+        "description": "⇒ Analog: Analog soul. Digital mind.\n⇒ Builders Work Club\n⇒ Pingback, VidMonsters (M&A Hotmart), Beved\n⇒ Former Tech Sec. Advisor, MG Gov; Via6, Isobar",
+        "id": "1184975522348130305",
+        "name": "Matt Montenegro",
+        "public_metrics": {
+          "followers_count": 21486,
+          "following_count": 3566,
+          "like_count": 24943,
+          "listed_count": 104,
+          "media_count": 1307,
+          "tweet_count": 7911
+        },
+        "username": "eusouomatt"
+      },
+      {
+        "description": "Conectamos pessoas e empresas para fomentar o ecossistema de legaltechs e socialtechs. IA Jurídica, Compliance & Regulação. 🇧🇷⚖️",
+        "id": "2034323060984254464",
+        "name": "Aquarium | Legal Things",
+        "public_metrics": {
+          "followers_count": 3,
+          "following_count": 3,
+          "like_count": 3,
+          "listed_count": 0,
+          "media_count": 74,
+          "tweet_count": 110
+        },
+        "username": "LegalThings33"
+      },
+      {
+        "description": "",
+        "id": "184901509",
+        "name": "Gabriel Abi",
+        "public_metrics": {
+          "followers_count": 1650,
+          "following_count": 2795,
+          "like_count": 69666,
+          "listed_count": 9,
+          "media_count": 6088,
+          "tweet_count": 56350
+        },
+        "username": "gabrielabiramia"
+      },
+      {
+        "description": "@grok it",
+        "id": "1720665183188922368",
+        "name": "Grok",
+        "public_metrics": {
+          "followers_count": 9173302,
+          "following_count": 4,
+          "like_count": 146,
+          "listed_count": 7840,
+          "media_count": 4014718,
+          "tweet_count": 141456776
+        },
+        "username": "grok"
+      },
+      {
+        "description": "Prompts de IA que vão ajudar sua vida.\n\nDE GRAÇA!\n\nNão vendo curso!!",
+        "id": "1881811029983731712",
+        "name": "Colono IA",
+        "public_metrics": {
+          "followers_count": 895,
+          "following_count": 1099,
+          "like_count": 1255,
+          "listed_count": 0,
+          "media_count": 1616,
+          "tweet_count": 3853
+        },
+        "username": "UmColonoInveste"
+      },
+      {
+        "description": "Ajudo empresários brasileiros nos EUA a escalar negócios com IA e automações.  \nCriador da Comunidade ME ENSINA AI e do evento IA para Negócios 🇺🇸🤖",
+        "id": "803592179352485888",
+        "name": "Fabio Borges",
+        "public_metrics": {
+          "followers_count": 7,
+          "following_count": 131,
+          "like_count": 5,
+          "listed_count": 0,
+          "media_count": 178,
+          "tweet_count": 209
+        },
+        "username": "fabioborgesia"
+      },
+      {
+        "description": "Um seguidor de Cristo, casado com a Jaquelliny, papai da Antonella e indie founder de startups no resto do tempo. Segue a conta backup 👉 @DePaulaAllyson2",
+        "id": "1802853983767166976",
+        "name": "Allyson de Paula",
+        "public_metrics": {
+          "followers_count": 7749,
+          "following_count": 1589,
+          "like_count": 22908,
+          "listed_count": 27,
+          "media_count": 839,
+          "tweet_count": 7696
+        },
+        "username": "DePaulaAllyson"
+      },
+      {
+        "description": "ousadia criativa. precisão estratégica.",
+        "id": "176490337",
+        "name": "kim",
+        "public_metrics": {
+          "followers_count": 1050,
+          "following_count": 300,
+          "like_count": 286486,
+          "listed_count": 22,
+          "media_count": 499,
+          "tweet_count": 5821
+        },
+        "username": "FuraPauta"
+      },
+      {
+        "description": "me interesso em advocacia, IA, tecnologia, política, curiosidades, aleatoriedades.",
+        "id": "4222896442",
+        "name": "Lucas Eduardo Dias de Souza",
+        "public_metrics": {
+          "followers_count": 49,
+          "following_count": 130,
+          "like_count": 271,
+          "listed_count": 1,
+          "media_count": 55,
+          "tweet_count": 757
+        },
+        "username": "iamleds"
+      },
+      {
+        "description": "advogado empresarial e amante de filosofia",
+        "id": "1902799916323250176",
+        "name": "Kurosawa",
+        "public_metrics": {
+          "followers_count": 136,
+          "following_count": 97,
+          "like_count": 452,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 790
+        },
+        "username": "kurosawaadv"
+      },
+      {
+        "description": "IMPACTUS Academy - founder - @floanihq",
+        "id": "130999630",
+        "name": "Elber Domingos",
+        "public_metrics": {
+          "followers_count": 151,
+          "following_count": 165,
+          "like_count": 318,
+          "listed_count": 8,
+          "media_count": 141,
+          "tweet_count": 548
+        },
+        "username": "oelberdomingos"
+      },
+      {
+        "description": "Advogado 🇧🇷",
+        "id": "77767107",
+        "name": "Henrique",
+        "public_metrics": {
+          "followers_count": 400,
+          "following_count": 635,
+          "like_count": 74218,
+          "listed_count": 3,
+          "media_count": 54,
+          "tweet_count": 1255
+        },
+        "username": "carloshsl_"
+      },
+      {
+        "description": "Advogado criminalista em Campo Grande/MS. Defesa estratégica, processo penal, instituições e IA aplicada à advocacia.",
+        "id": "50697116",
+        "name": "Odilon Jr",
+        "public_metrics": {
+          "followers_count": 1196,
+          "following_count": 166,
+          "like_count": 304,
+          "listed_count": 15,
+          "media_count": 665,
+          "tweet_count": 8373
+        },
+        "username": "odilonoliveira"
+      },
+      {
+        "description": "nada de útil ou interessante",
+        "id": "109859927",
+        "name": "🤪 das ideias",
+        "public_metrics": {
+          "followers_count": 410,
+          "following_count": 957,
+          "like_count": 41311,
+          "listed_count": 28,
+          "media_count": 540,
+          "tweet_count": 23689
+        },
+        "username": "ingridrds1"
+      },
+      {
+        "description": "Tenho sono",
+        "id": "62083985",
+        "name": "Eduardo",
+        "public_metrics": {
+          "followers_count": 42,
+          "following_count": 574,
+          "like_count": 30756,
+          "listed_count": 0,
+          "media_count": 80,
+          "tweet_count": 2987
+        },
+        "username": "ZezinTribal"
+      },
+      {
+        "description": "💖 ex participante do de férias com o ex | +5y swe | CTO | ✨ escrevo código e mio ✨",
+        "id": "1034710670829400064",
+        "name": "🌙 Luna Peregrina",
+        "public_metrics": {
+          "followers_count": 15860,
+          "following_count": 1007,
+          "like_count": 126382,
+          "listed_count": 49,
+          "media_count": 8155,
+          "tweet_count": 74190
+        },
+        "username": "lunaperegrinaa"
+      },
+      {
+        "description": "Advogado, empreendedor, Grêmio.",
+        "id": "1235768339219263488",
+        "name": "Gabriel 🇪🇪",
+        "public_metrics": {
+          "followers_count": 132,
+          "following_count": 659,
+          "like_count": 86177,
+          "listed_count": 0,
+          "media_count": 135,
+          "tweet_count": 5998
+        },
+        "username": "gabriel_gfb92"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2111110439903908074",
+    "oldest_id": "1932134607165555141",
+    "result_count": 25
+  }
+}

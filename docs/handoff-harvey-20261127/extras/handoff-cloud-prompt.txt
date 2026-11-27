@@ -1,0 +1,70 @@
+Você está numa sessão na nuvem do Claude Code (claude.ai/code) para continuar o trabalho jurídico do Harvey, o assistente de IA jurídica do Guilherme Fleischfresser.
+
+Leia primeiro, com atenção, este pacote de handoff. Ele já está no GitHub, na branch `handoff/harvey-20261127` do repo público `guifleischfresser/assistente-juridico-claude`:
+
+- Árvore da branch: https://github.com/guifleischfresser/assistente-juridico-claude/tree/handoff/harvey-20261127
+- Documento mestre: https://github.com/guifleischfresser/assistente-juridico-claude/blob/handoff/harvey-20261127/docs/handoff-harvey-20261127/HANDOFF.md
+- Pasta completa: https://github.com/guifleischfresser/assistente-juridico-claude/tree/handoff/harvey-20261127/docs/handoff-harvey-20261127
+
+Faça checkout só para ler o pacote. Trabalho de código novo deve sair de um worktree limpo de `origin/main`, ou da branch do PR correspondente. Esta branch de handoff não deve ser mergeada em `main` e não deve virar PR, a menos que o Guilherme peça.
+
+## O que você precisa saber, em resumo
+
+1. O Harvey cuida do mod `assistente-juridico-claude` e do app `wrapadv`. Não mexe no app Life e não emite parecer fora de temas jurídicos.
+2. Regras do Guilherme: testes passando antes do PR; merge, tag e release só com a palavra explícita dele; nunca API paga, top-up ou uso extra; nunca `--dangerously-skip-permissions` nem `bypassPermissions`; nada sai para terceiros sem aprovação.
+3. No WrapAdv, o Claude nunca deixa `[PREENCHER]` nem opções A/B numa peça: busca os dados do caso e pergunta o que faltar, em lista numerada, antes de redigir. Para olhar outro caso, pede autorização, salvo se o advogado já mandou. Originais, provas e decisões não podem ser alterados.
+4. LGPD no mod: anonimização 100% local (regras + dicionário de nomes; segunda passada opcional com Ollama só em localhost). Cofre criptografado por caso, não `.env`. Dado real só volta no Word. Descarte registrado ao fechar o caso.
+5. CLIs disponíveis nos planos dele: Claude Code (`claude`, Claude Pro), Codex (`codex`) e Antigravity (`agy`). Gemini CLI está aposentado. No box, em 27/11/2026, `claude auth status` estava `loggedIn: false`; se for usar o CLI no box, alguém precisa rodar `claude auth login`.
+
+## Estado dos PRs (não mergear sem a palavra dele)
+
+assistente-juridico-claude, `origin/main` em `aea40a8` (PRs #7 a #14 já mergeados; última tag: v0.8.0). Abertos, mergear nesta ordem se ele autorizar:
+
+- PR #15 (claude/diario-20261117) — integridade do núcleo (SHA-256 local). CI verde.
+- PR #16 (claude/diario-20261118) — segunda passada de anonimização com Ollama, opt-in. CI verde.
+- PR #17 (codex/diario-20261123) — cofre LGPD, Word restaurado, descarte. CI falha no Windows (PowerShell 5.1 / Expand-Archive).
+- PR #18 (codex/diario-20261124) — `/verificar-citacoes` exige fonte e frase literal. Mesma falha de CI no Windows.
+- PR #19 (codex/diario-20261125) — entrega com listas Conferi / Não conferi / Assumi. Mesma falha de CI no Windows.
+
+wrapadv é privado: https://github.com/guifleischfresser/wrapadv — PRs abertos: nenhum. `origin/main` tem o PR #2 (modo demo + regra de perguntar antes de redigir). Não havia alteração local não enviada em 27/11/2026. Porém a branch `origin/claude/fase1-wrapadv` tem 25 commits (UI, ícone, atalho) que ainda não estão em `main`. Não mergear isso sem autorização. Faltam dois ajustes no CLAUDE.md: lista de perguntas explicitamente numerada; exceção explícita para quando o advogado já pediu para olhar outro caso.
+
+## Arquivos locais no box (caminhos absolutos)
+
+O conteúdo útil já foi copiado para `docs/handoff-harvey-20261127/` nesta branch. No box, os originais estão aqui:
+
+Prompts e handoff:
+- `/workspace/handoff-harvey-20261127.md`
+- `/workspace/prompts/` (usar só os `adv-diario-*` e `wrapadv-claudemd-perguntar.md`; ignorar `f13*` e `f20*`, que são do Life)
+- `/workspace/handoff-cloud-prompt.txt` (este texto)
+
+Monitor do X:
+- `/workspace/mapa-x/monitor/log.md`
+- `/workspace/mapa-x/monitor/seen_ids.json`
+- `/workspace/mapa-x/monitor/parse.py`
+- `/workspace/mapa-x/proc.py`
+- `/workspace/mapa-x/mapa-casos-ia-advocacia.md`
+- `/workspace/mapa-x/raw/` e `/workspace/mapa-x/sum/`
+
+Skills:
+- `/home/box/agent-data/workflows/claude-code-orchestrator/SKILL.md`
+- `/home/box/agent-data/workflows/x-digest/SKILL.md`
+
+Specs e extras:
+- `/workspace/specs/`
+- `/workspace/adv-20261123-ci.txt`
+- `/workspace/adv-calendario-meta/` (prompt, PR e medições; ignorar `pid` e `run`)
+
+Worktrees principais:
+- `/workspace/advogado-claude-repo` — PR #16 (`claude/diario-20261118`); tem um stash antigo do #17, não usar
+- `/workspace/advogado-claude-20261123` — PR #17
+- `/workspace/advogado-claude-20261124` — worktree suja alinhada a main; o código do PR #18 está em `origin/codex/diario-20261124`
+- `/workspace/advogado-claude-20261125` — PR #19
+- `/workspace/wt-handoff-harvey-20261127` — esta branch
+- `/workspace/wrapadv` — `claude/fase1-wrapadv`
+- `/workspace/wt-wrapadv-demo` — `feat/demo-pasta-raiz` (já em main)
+
+A lista completa, com o que cada caminho faz e o que ficou de fora (Life, zips, capturas do app privado, segredos), está na seção 6 do HANDOFF.md.
+
+## Como proceder
+
+Leia o HANDOFF.md inteiro. Depois confirme que entendeu o estado dos PRs #15 a #19, as regras do Guilherme e as pendências. Só então proponha o próximo passo (o mais natural é corrigir o CI do Windows, se ele autorizar). Não mergeie, não crie tag, não abra release, não use API paga e não altere as rotinas pausadas em 27/11/2026 sem a palavra dele.

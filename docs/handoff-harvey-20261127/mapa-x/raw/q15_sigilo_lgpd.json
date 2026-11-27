@@ -1,0 +1,763 @@
+{
+  "data": [
+    {
+      "author_id": "1237410071061114886",
+      "created_at": "2026-07-03T18:24:03.000Z",
+      "edit_history_tweet_ids": [
+        "2073110537907421354"
+      ],
+      "id": "2073110537907421354",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 35,
+        "impression_count": 38346,
+        "like_count": 325,
+        "quote_count": 3,
+        "reply_count": 20,
+        "retweet_count": 10
+      },
+      "text": "Eu não consigo entender como um advogado joga os dados do cliente no ChatGPT e copia a petição inicial feita pela IA.\n\nAcabei de ver uma ação contra uma casa de apostas em que o advogado copiou e colou 100% do que a IA escreveu. Em um caso de LUDOPATIA!!!\n\nUma ação complexa,",
+      "url": "https://x.com/brunoadvba/status/2073110537907421354"
+    },
+    {
+      "author_id": "1833355833104605184",
+      "created_at": "2026-05-18T04:13:48.000Z",
+      "edit_history_tweet_ids": [
+        "2056226722056401286"
+      ],
+      "id": "2056226722056401286",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 80,
+        "like_count": 4,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@AvelinoReAu Já viu um advogado trabalhando na era pré-LLMs? O trabalho era basicamente copiar um documento do word, colar e mudar os dados do cliente. Agora com IA vai ser daí pra pior.",
+      "url": "https://x.com/jxnata/status/2056226722056401286"
+    },
+    {
+      "author_id": "364888167",
+      "created_at": "2026-07-25T19:04:39.000Z",
+      "edit_history_tweet_ids": [
+        "2081093289592430702"
+      ],
+      "id": "2081093289592430702",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 95,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "“Assine a ferramenta mais cara.” \n\nÉ o conselho que mais se ouve sobre inteligência artificial na advocacia.\n\nResolvi testar se ele se sustenta.\n\nOpus 5 e Fable 5 são os dois modelos de topo da mesma família de IA. Um custa exatamente o dobro do outro. Comparei os dois sob os",
+      "url": "https://x.com/HebertBatista/status/2081093289592430702"
+    },
+    {
+      "author_id": "1720665183188922368",
+      "created_at": "2026-02-28T00:42:04.000Z",
+      "edit_history_tweet_ids": [
+        "2027544797787852807"
+      ],
+      "id": "2027544797787852807",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 46,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@RodrigoLinsAdv @joaoli13 @CFOAB A Recomendação 001/2024 do CFOAB tem 5 capítulos como diretrizes principais para IA generativa na advocacia: 1. Legislação aplicável: conformidade com Estatuto OAB, Código de Ética, LGPD etc. 2. Confidencialidade e privacidade: zelar sigilo ao inserir dados, escolher sistemas",
+      "url": "https://x.com/grok/status/2027544797787852807"
+    },
+    {
+      "author_id": "60213266",
+      "created_at": "2026-06-26T09:14:16.000Z",
+      "edit_history_tweet_ids": [
+        "2070435467720372711"
+      ],
+      "id": "2070435467720372711",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 68,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A maioria dos advogados está usando IA do jeito errado.\n\nPergunta solta, resposta aceita sem conferência, citação que ninguém checou e, no pior dos casos, o sigilo do cliente exposto sem critério.\n\nO problema nunca foi a ferramenta. Foi a ausência de método.\n\nFoi por isso que https://t.co/0WEg1jfw4V",
+      "url": "https://x.com/EduMoreth/status/2070435467720372711"
+    },
+    {
+      "author_id": "1593713747545178119",
+      "created_at": "2025-06-01T10:05:45.000Z",
+      "edit_history_tweet_ids": [
+        "1929117154034770205"
+      ],
+      "id": "1929117154034770205",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 230,
+        "like_count": 8,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 3
+      },
+      "text": "Se você é advogado, contador ou consultor e usa IA gratuita com dados de clientes, cuidado.\n\nChatGPT, Claude e Gemini (free) não têm SOC 2, nem ISO.\nSem contrato. Sem auditoria. Sem garantia de sigilo.\n\nGrátis pode sair caro.\n\n#IA #SegurançaDaInformação #Privacidade #SOC2 https://t.co/e07GKaQMzH",
+      "url": "https://x.com/ORobertoDuarte/status/1929117154034770205"
+    },
+    {
+      "author_id": "1821156119122673664",
+      "created_at": "2025-04-28T21:40:31.000Z",
+      "edit_history_tweet_ids": [
+        "1916970809010143611"
+      ],
+      "id": "1916970809010143611",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 35,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "OAB emite alerta sobre uso de IA na advocacia: \"Cuidado com vazamentos e ética profissional\" ⚖️🤖\nPontos críticos:\n• Riscos de confidencialidade em plataformas de IA\n• Responsabilidade do advogado por informações geradas\n🔗 Veja mais: https://t.co/nS3dZFrhmF https://t.co/WbFYREdY2p",
+      "url": "https://x.com/Hora_juridica/status/1916970809010143611"
+    },
+    {
+      "author_id": "1566074570465067010",
+      "created_at": "2025-09-25T16:51:54.000Z",
+      "edit_history_tweet_ids": [
+        "1971256358214468024"
+      ],
+      "id": "1971256358214468024",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 7597,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "A Phala ajudou recentemente um escritório de advocacia de imigração na Califórnia a usar IA mantendo a estrita confidencialidade dos clientes. A pedido deles, o nome do escritório permanece em sigilo.\n\nVeja como eles fizeram isso (e por que isso importa para todo advogado) 👇 https://t.co/90qbU7VBYo",
+      "url": "https://x.com/phalaportugues/status/1971256358214468024"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-06-13T17:31:04.000Z",
+      "edit_history_tweet_ids": [
+        "2065849446085112260"
+      ],
+      "id": "2065849446085112260",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 8,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "‼️ OAB anuncia Plano Nacional para integrar IA à advocacia.\n\nDiretrizes para uso de IA com sigilo profissional preservado e comunicação clara ao cliente. Complementa a Recomendação 001/2024.\n\nO que faltava ao advogado brasileiro: regra prática de uso.",
+      "url": "https://x.com/martins_piton/status/2065849446085112260"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-04-24T17:31:06.000Z",
+      "edit_history_tweet_ids": [
+        "2047730062418485373"
+      ],
+      "id": "2047730062418485373",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "⚖️ Decisão importante em NY: conversa com IA não tem sigilo advogado-cliente.\n\nUm juiz federal negou o privilégio para 31 documentos criados com Claude — plataforma comercial de terceiro não garante confidencialidade.\n\nIso precisa entrar no radar de todo escritório.\n\n#ianodireito https://t.co/ggnm4OMKrh",
+      "url": "https://x.com/martins_piton/status/2047730062418485373"
+    },
+    {
+      "author_id": "2043546953183629312",
+      "created_at": "2026-09-22T21:02:05.000Z",
+      "edit_history_tweet_ids": [
+        "2102503725134655637"
+      ],
+      "id": "2102503725134655637",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 41,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Quatro novidades reais de IA para o Direito (05–19/09): Claude une chat e Cowork; OpenAI lança Astra for Law; Google amplia Notebooks na Workspace; OAB-SP forma advogados em IA. Sigilo e LGPD exigem contrato antes de qualquer ferramenta. https://t.co/e90NLdYypE",
+      "url": "https://x.com/pizaniadv/status/2102503725134655637"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-03-23T20:03:27.000Z",
+      "edit_history_tweet_ids": [
+        "2036171989774205189"
+      ],
+      "id": "2036171989774205189",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 33,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "🚨 Antes de usar IA com dados de processo: 3 cuidados essenciais.\n\n✅ Nunca coloque nome de cliente, CPF ou dados sensíveis diretamente no prompt — use dados genéricos ou anonimize\n✅ Prefira ferramentas com política de privacidade adequada (Claude e ChatGPT Enterprise não usam https://t.co/3JcKTtKexJ",
+      "url": "https://x.com/martins_piton/status/2036171989774205189"
+    },
+    {
+      "author_id": "1125377462",
+      "created_at": "2026-02-13T02:48:40.000Z",
+      "edit_history_tweet_ids": [
+        "2022140840940892560"
+      ],
+      "id": "2022140840940892560",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 88,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Dias Toffoli, advogado do PT, reprovado por duas vezes em concurso para Magistratura e, reconhecidamente com baixa estatura jurídica para ocupar o cargo, foi nomeado por ser amigo de Lula.\n\nÉ a origem do famoso codinome \"amigo do amigo do meu pai\", no livro de contabilidade de",
+      "url": "https://x.com/OliveOlivAdv/status/2022140840940892560"
+    },
+    {
+      "author_id": "893116274716311552",
+      "created_at": "2026-09-24T03:16:34.000Z",
+      "edit_history_tweet_ids": [
+        "2102960353919316077"
+      ],
+      "id": "2102960353919316077",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 86,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@ShirleneNunesM4 .\nO ministro [Luiz Fux](https://t.co/QpWGvqfo6D), do Supremo Tribunal Federal (STF), formalizou um despacho exigindo que o presidente do Senado, [Davi Alcolumbre](https://t.co/STy8FdXggL), e a Advocacia da Casa prestem informações detalhadas no prazo de 10 dias. [1, 2] \n\nAbaixo",
+      "url": "https://x.com/Goncalves_JCS81/status/2102960353919316077"
+    },
+    {
+      "author_id": "60091907",
+      "created_at": "2026-04-16T09:52:05.000Z",
+      "edit_history_tweet_ids": [
+        "2044715442883776745"
+      ],
+      "id": "2044715442883776745",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 27,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "“🚨 Tudo o que você conta para uma IA pode parar no tribunal. Nos EUA, advogados já estão alertando clientes a não tratar ChatGPT ou Claude como se fossem confidentes, após uma decisão judicial afirmar que esse tipo de conversa não tem sigilo advogado-cliente. A era da IA também",
+      "url": "https://x.com/BrAcarlosr/status/2044715442883776745"
+    },
+    {
+      "author_id": "1807430231424421888",
+      "created_at": "2026-03-19T23:01:32.000Z",
+      "edit_history_tweet_ids": [
+        "2034767255355936913"
+      ],
+      "id": "2034767255355936913",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 647,
+        "like_count": 7,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@CarlosR26271158 isso e exatamente o uso correto de IA local! RAG com banco local elimina alucinacao nos dados criticos. Advocacia e um dos setores com maior ROI nisso — LGPD + confidencialidade + precisao. Parabens pelo projeto, compartilha o repo!",
+      "url": "https://x.com/0xCVYH/status/2034767255355936913"
+    },
+    {
+      "author_id": "1478821460953210892",
+      "created_at": "2026-04-18T21:55:05.000Z",
+      "edit_history_tweet_ids": [
+        "2045622169749553525"
+      ],
+      "id": "2045622169749553525",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 92,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Um juiz federal dos EUA decidiu: o que partilhares com o ChatGPT ou o Claude não está protegido pelo sigilo advogado-cliente.\n\nBrad Heppner, ex-presidente de uma empresa financeira, usou o Claude para preparar documentos de defesa num processo de fraude. O juiz Jed Rakoff",
+      "url": "https://x.com/vibeiapt/status/2045622169749553525"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-04-04T22:30:36.000Z",
+      "edit_history_tweet_ids": [
+        "2040557676040462443"
+      ],
+      "id": "2040557676040462443",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 14,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "🚨 Microsoft AI Red Team no RSAC 2026: a IA é o \"novo velho oeste\".\n\nO alerta é direto — os mesmos hábitos de segurança digital que aprendemos ao longo dos anos valem para o uso de IA.\n\n✅ Cuidado com as permissões que você concede a agentes de IA\n✅ Mesmo apps confiáveis podem",
+      "url": "https://x.com/martins_piton/status/2040557676040462443"
+    },
+    {
+      "author_id": "85073121",
+      "created_at": "2026-05-01T12:51:50.000Z",
+      "edit_history_tweet_ids": [
+        "2050196498156073313"
+      ],
+      "id": "2050196498156073313",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 54,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@dcoderio Concordo. E o problema é maior do que aparenta.\n\nAuditoria médica de operadora, advogado colando petição com dado de cliente, médico assistente fazendo diferencial com paciente nominado. Acontece todo dia, em escala. Ninguém lê o art. 11 da LGPD, ninguém pensa em sigilo",
+      "url": "https://x.com/massucas/status/2050196498156073313"
+    },
+    {
+      "author_id": "1323724514983841793",
+      "created_at": "2026-02-12T09:17:31.000Z",
+      "edit_history_tweet_ids": [
+        "2021876311631835185"
+      ],
+      "id": "2021876311631835185",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 40,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@FLoucoX @kurosawa_adv @FernandoCruz_21 pelo user dele, é advogado. Usar IA para analisar processos em segredo de justiça sem se preocupar com LGPD pode criar precedente de anulação por exemplo ou até responsabilização disciplinar na OAB. Agora p vc q é repositor do atacadão, realmente n faz diferença alguma.",
+      "url": "https://x.com/horizonfps/status/2021876311631835185"
+    },
+    {
+      "author_id": "1920244410593521664",
+      "created_at": "2026-04-04T01:08:11.000Z",
+      "edit_history_tweet_ids": [
+        "2040234947001176131"
+      ],
+      "id": "2040234947001176131",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 35,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "📖 Eu tinha pavor de IA no Direito… até ela me ajudar a ganhar uma causa que eu quase perdia. ⚖️\n\nEm 2024, quando ouvia falar de inteligência artificial no jurídico, eu pensava: “Isso é modinha. Vai substituir advogado, acabar com o emprego e transformar tudo em robô julgando https://t.co/lBQtG9kLMA",
+      "url": "https://x.com/FredRocha421664/status/2040234947001176131"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-14T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2110490836962046403"
+      ],
+      "id": "2110490836962046403",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "2/ A IA pode apoiar a análise. Estratégia, atuação em audiência e revisão final continuam sob responsabilidade do advogado. Informação confidencial de cliente exige ferramenta adequada, proteção do sigilo e respeito à LGPD.",
+      "url": "https://x.com/odilonoliveira/status/2110490836962046403"
+    },
+    {
+      "author_id": "887819339243675648",
+      "created_at": "2026-05-13T00:23:50.000Z",
+      "edit_history_tweet_ids": [
+        "2054356912699769078"
+      ],
+      "id": "2054356912699769078",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 66,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Advogados, jurídicos internos e legal ops: \na Anthropic liberou o Claude for Legal, um repositório com agentes, skills e conectores para fluxos jurídicos como contratos, LGPD/privacidade, regulatório, contencioso, trabalhista, PI e governança de IA.\n\nNão substitui advogado,",
+      "url": "https://x.com/Brito80061/status/2054356912699769078"
+    },
+    {
+      "author_id": "1256352543082516481",
+      "created_at": "2025-03-05T14:30:01.000Z",
+      "edit_history_tweet_ids": [
+        "1897293527153041746"
+      ],
+      "id": "1897293527153041746",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 38,
+        "impression_count": 35810,
+        "like_count": 701,
+        "quote_count": 9,
+        "reply_count": 29,
+        "retweet_count": 32
+      },
+      "text": "⚠️Advogado recebe MULTA da justiça por usar ChatGPT em processo\n\nO advogado em questão entrou com um recurso para o Tribunal.\n\nAo julgar o recurso, os Desembargadores notaram que as jurisprudências citadas eram TODAS inventadas, o que é normal do ChatGPT fazer.\n\nAlém de ter https://t.co/yzl3l61cSY",
+      "url": "https://x.com/joaosenzi/status/1897293527153041746"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advocacia para apostadores | OAB/BA 53.120",
+        "id": "1237410071061114886",
+        "name": "Bruno Rodrigues",
+        "public_metrics": {
+          "followers_count": 64383,
+          "following_count": 376,
+          "like_count": 23033,
+          "listed_count": 147,
+          "media_count": 2025,
+          "tweet_count": 9328
+        },
+        "username": "brunoadvba"
+      },
+      {
+        "description": "👨🏻‍💻 Building mobile apps in public",
+        "id": "1833355833104605184",
+        "name": "Jonatã Oliveira",
+        "public_metrics": {
+          "followers_count": 75,
+          "following_count": 145,
+          "like_count": 858,
+          "listed_count": 0,
+          "media_count": 74,
+          "tweet_count": 1049
+        },
+        "username": "jxnata"
+      },
+      {
+        "description": "Jurista",
+        "id": "364888167",
+        "name": "Hebert Batista (HB)",
+        "public_metrics": {
+          "followers_count": 13918,
+          "following_count": 2302,
+          "like_count": 18506,
+          "listed_count": 4,
+          "media_count": 353,
+          "tweet_count": 2954
+        },
+        "username": "HebertBatista"
+      },
+      {
+        "description": "@grok it",
+        "id": "1720665183188922368",
+        "name": "Grok",
+        "public_metrics": {
+          "followers_count": 9173304,
+          "following_count": 4,
+          "like_count": 146,
+          "listed_count": 7840,
+          "media_count": 4014718,
+          "tweet_count": 141456913
+        },
+        "username": "grok"
+      },
+      {
+        "description": "I defend freedom, truth, and human intelligence in an age ruled by artificial ones.\nLawyer, writer and AI professor. Teaching leaders to master tech.",
+        "id": "60213266",
+        "name": "Eduardo Moreth",
+        "public_metrics": {
+          "followers_count": 147,
+          "following_count": 135,
+          "like_count": 536,
+          "listed_count": 1,
+          "media_count": 368,
+          "tweet_count": 708
+        },
+        "username": "EduMoreth"
+      },
+      {
+        "description": "Turning accounting into an art of creating opportunities. Author, speaker, strategic consultant.",
+        "id": "1593713747545178119",
+        "name": "Roberto Dias Duarte",
+        "public_metrics": {
+          "followers_count": 196,
+          "following_count": 611,
+          "like_count": 808,
+          "listed_count": 3,
+          "media_count": 30,
+          "tweet_count": 639
+        },
+        "username": "ORobertoDuarte"
+      },
+      {
+        "description": "🔍 Notícias e Jurisprudências em Tempo Real\n📚 Educação Contínua\n🌐 Networking Exclusivo\n🔗 https://t.co/QG8U8MTpfE",
+        "id": "1821156119122673664",
+        "name": "HJUR- Hora Jurídica",
+        "public_metrics": {
+          "followers_count": 35,
+          "following_count": 1,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 925,
+          "tweet_count": 4421
+        },
+        "username": "Hora_juridica"
+      },
+      {
+        "description": "Perfil em português da @PhalaNetwork 🇧🇷🇵🇹",
+        "id": "1566074570465067010",
+        "name": "Phala | Português",
+        "public_metrics": {
+          "followers_count": 434,
+          "following_count": 91,
+          "like_count": 3388,
+          "listed_count": 2,
+          "media_count": 1627,
+          "tweet_count": 4096
+        },
+        "username": "phalaportugues"
+      },
+      {
+        "description": "👨🏻‍💼Defensor Público, 🏫Mestre em Direito e 👨🏻‍🏫 Professor",
+        "id": "1046055100345700352",
+        "name": "Marcelo Martins Piton",
+        "public_metrics": {
+          "followers_count": 211,
+          "following_count": 575,
+          "like_count": 3582,
+          "listed_count": 0,
+          "media_count": 445,
+          "tweet_count": 1227
+        },
+        "username": "martins_piton"
+      },
+      {
+        "description": "Advogado — Direito Tributário, Penal Econômico e Empresarial. OAB/BA 32.472. Escritório em Salvador/BA. Acervo de ferramentas jurídicas abertas.",
+        "id": "2043546953183629312",
+        "name": "Raphael Pizani | Advocacia",
+        "public_metrics": {
+          "followers_count": 68,
+          "following_count": 618,
+          "like_count": 890,
+          "listed_count": 0,
+          "media_count": 136,
+          "tweet_count": 1122
+        },
+        "username": "pizaniadv"
+      },
+      {
+        "description": "Advogado no Brasil 🇧🇷 e Europa 🇪🇺 \nLawyer in Brazil and Europe. No DM.\nAmo Deus, minha família e pátria\nLove God, my family and country.",
+        "id": "1125377462",
+        "name": "Manoel Oliveira",
+        "public_metrics": {
+          "followers_count": 5687,
+          "following_count": 7436,
+          "like_count": 646,
+          "listed_count": 2,
+          "media_count": 372,
+          "tweet_count": 4327
+        },
+        "username": "OliveOlivAdv"
+      },
+      {
+        "description": "Piloto Mil/Civ/+ 10.000h ZERO ACIDENTES.\nE312/E110P1/E120/PA28/PA34/C208B EX G1000 NXi/DHC5/L382H.\nPLA/INVA/UTI/OFFSHORE. \nRBAC 90/91/135/BSc/Pós-Gd Seg Av Civ.",
+        "id": "893116274716311552",
+        "name": "🇧🇷🇺🇲🇮🇱 João Carlos GONÇALVES de Sousa",
+        "public_metrics": {
+          "followers_count": 2202,
+          "following_count": 5601,
+          "like_count": 62579,
+          "listed_count": 0,
+          "media_count": 4136,
+          "tweet_count": 78276
+        },
+        "username": "Goncalves_JCS81"
+      },
+      {
+        "description": "Learning by building Web3 \nBuilder on Arc Testnet \nArcHive: https://t.co/zSbRq9bfdK\nArcDex: https://t.co/edcSneZkV8 \nBuild in Arc\n🇧🇷 pt-BR \nThe Wizards Of Ords",
+        "id": "60091907",
+        "name": "Antonio Carlos",
+        "public_metrics": {
+          "followers_count": 2105,
+          "following_count": 4182,
+          "like_count": 5938,
+          "listed_count": 2,
+          "media_count": 640,
+          "tweet_count": 10014
+        },
+        "username": "BrAcarlosr"
+      },
+      {
+        "description": "Caio Vicentino on YT. @YieldHackerPass - @gotasofficial - https://t.co/XpTkcm6ZQp - https://t.co/rqT09YELjb - https://t.co/jEmSuZfVOw - https://t.co/HcjE7kxFFA",
+        "id": "1807430231424421888",
+        "name": "CV.YH",
+        "public_metrics": {
+          "followers_count": 18981,
+          "following_count": 4325,
+          "like_count": 54561,
+          "listed_count": 127,
+          "media_count": 3974,
+          "tweet_count": 32472
+        },
+        "username": "0xCVYH"
+      },
+      {
+        "description": "O futuro está a ser escrito em código. \n\nVibeIA — a IA vai reescrever as regras. Todas.",
+        "id": "1478821460953210892",
+        "name": "Vibe IA",
+        "public_metrics": {
+          "followers_count": 140,
+          "following_count": 805,
+          "like_count": 6746,
+          "listed_count": 6,
+          "media_count": 19,
+          "tweet_count": 589
+        },
+        "username": "vibeiapt"
+      },
+      {
+        "description": "🫀 Dr. Massuca | Eco Fetal + USG\n📍 Itaberaí-GO | +20y XP\n💻 IA-Médica: Hype ≠ Realidade\nhttps://t.co/rym86RMED1\n📲 (62) 99660-2117",
+        "id": "85073121",
+        "name": "Dr. Massuca",
+        "public_metrics": {
+          "followers_count": 79,
+          "following_count": 92,
+          "like_count": 534,
+          "listed_count": 3,
+          "media_count": 124,
+          "tweet_count": 2050
+        },
+        "username": "massucas"
+      },
+      {
+        "description": "eletrônica, direito, swe",
+        "id": "1323724514983841793",
+        "name": "horizon",
+        "public_metrics": {
+          "followers_count": 50,
+          "following_count": 30,
+          "like_count": 277,
+          "listed_count": 0,
+          "media_count": 122,
+          "tweet_count": 991
+        },
+        "username": "horizonfps"
+      },
+      {
+        "description": "Análise de Política Nacional e Geopolítica | Direito + Contexto Internacional | BRICS e eleições 2026 \n\n📔A vida é curta demais para ler livros ruins",
+        "id": "1920244410593521664",
+        "name": "Fred Rocha",
+        "public_metrics": {
+          "followers_count": 2790,
+          "following_count": 4677,
+          "like_count": 30798,
+          "listed_count": 0,
+          "media_count": 1404,
+          "tweet_count": 12547
+        },
+        "username": "FredRocha421664"
+      },
+      {
+        "description": "Advogado criminalista em Campo Grande/MS. Defesa estratégica, processo penal, instituições e IA aplicada à advocacia.",
+        "id": "50697116",
+        "name": "Odilon Jr",
+        "public_metrics": {
+          "followers_count": 1196,
+          "following_count": 166,
+          "like_count": 304,
+          "listed_count": 15,
+          "media_count": 665,
+          "tweet_count": 8373
+        },
+        "username": "odilonoliveira"
+      },
+      {
+        "description": "",
+        "id": "887819339243675648",
+        "name": "Brito",
+        "public_metrics": {
+          "followers_count": 20,
+          "following_count": 468,
+          "like_count": 564,
+          "listed_count": 0,
+          "media_count": 10,
+          "tweet_count": 100
+        },
+        "username": "Brito80061"
+      },
+      {
+        "description": "Advogado de Influenciadores, Streamers e Youtubers - Direito Digital e Proteção de Dados - Ex-secretário geral de comissão LGBT da OAB/CE\n\n日本語の学生です。",
+        "id": "1256352543082516481",
+        "name": "João de Senzi",
+        "public_metrics": {
+          "followers_count": 68282,
+          "following_count": 1989,
+          "like_count": 10479,
+          "listed_count": 33,
+          "media_count": 1252,
+          "tweet_count": 11312
+        },
+        "username": "joaosenzi"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2110490836962046403",
+    "oldest_id": "1897293527153041746",
+    "result_count": 24
+  }
+}

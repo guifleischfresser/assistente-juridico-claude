@@ -1,0 +1,49 @@
+=== q28_limites_tokens: 24 posts
+@EauDeJordano (975f) 2026-09-21 L233 RT2 V18466 https://x.com/EauDeJordano/status/2102125104075354215
+   Mandei o claude analisar um processo e um contrato e acabou o plano PRO, mas ai já tá demais
+@marcusaraujobhz (5573f) 2026-09-23 L144 RT1 V7088 https://x.com/marcusaraujobhz/status/2102892491934413275
+   Hoje usei o Claude Opus 5.5 no plano pro e só para incluir uns ajustes em uma petição anterior que eu conferi, foram consumidos 56% do uso. Ou bebe mais que Opala 4.100 6 cilindros, ou estou usando do modo errado. No final deu tudo certo, mas achei beberão. \0/ https://t.co/fQpE4ru6mC
+@soucapi (4345f) 2026-10-09 L13 RT1 V1298 https://x.com/soucapi/status/2108664631845614024
+   MCP e Plugin para GPT do @CreathoonAI no inicio da de semana.  Será possivel criar Influencers Sintéticos e usar o Motion Swap pelo GPT/Codex ou Claude.    A melhoria e economia do processo será absurda.  Disponível apenas para o plano Pro e Agency inicialmente.
+@antoniojvrf (417f) 2026-06-23 L2 RT0 V227 https://x.com/antoniojvrf/status/2069412346770964742
+   @vedovelli74 @ClaudeDevs Concordo. Tenho exatamente a mesma percepção.  Não sei se o Claude está efetivamente consumindo muito mais tokens por trás dos panos ou se a Anthropic reduziu os limites práticos de uso dos planos Max x5 e x20 sem comunicar isso de forma clara, mas alguma coisa mudou.  Comecei a
+@femarc0086 (104f) 2026-09-30 L0 RT0 V3 https://x.com/femarc0086/status/2105387747921862853
+   Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?  IA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?  Essa semana, em vez de fazer o https://t.co/SJJ8pxYe8l
+@femarc0086 (104f) 2026-09-30 L0 RT0 V144 https://x.com/femarc0086/status/2105388171043455234
+   Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?  IA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?  Essa semana, em vez de fazer o https://t.co/T42FUB7Gmi
+@pedrocampos__ (6777f) 2026-09-09 L264 RT20 V13661 https://x.com/pedrocampos__/status/2097819335142019474
+   Poucos meses depois e muitas mudanças aconteceram. Hoje, com base no meu dia a dia, eu elencaria o uso de IA exclusivamente para ESTUDO para CONCURSOS PÚBLICOS assim:  1. NotebookLM segue sendo o melhor custo-benefício: GRATUITO, alimentado com os seus próprios materiais. Não tem https://t.co/I9CKg3jB2v
+@CarlosR26271158 (3229f) 2026-04-06 L328 RT22 V77551 https://x.com/CarlosR26271158/status/2041154896896946180
+   Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO
+@CarlosRodr44314 (1108f) 2026-06-18 L59 RT10 V5643 https://x.com/CarlosRodr44314/status/2067716823672619506
+   A jurisprudência que socorre o advogado com Claude + https://t.co/k4DBt1LgPr  O paradigma central é o Tema Repetitivo 1.198 do STJ, afetado à Corte Especial e com mérito julgado, cuja ratio — já aplicada de forma reiterada pelas Turmas — fixa que, "constatados indícios de https://t.co/jnXBr9X4CQ
+@paulocoutinhox (2863f) 2026-06-12 L2 RT0 V113 https://x.com/paulocoutinhox/status/2065469962454519965
+   🚨 A IA não está ficando cara… muitas vezes ela está sendo usada do jeito errado. 🤖💸  Quando começamos a usar modelos de IA de forma mais avançada, principalmente com agentes e subagentes, o consumo pode explodir muito rápido. 📈🔥  Olha esse cenário:  🤯 99% do uso veio de https://t.co/scPtqYNtWE
+@odilonoliveira (1196f) 2026-05-08 L0 RT0 V62 https://x.com/odilonoliveira/status/2052899982508797978
+   A Anthropic dobrou o limite de tokens do Claude Code na janela de 5h. Pra quem opera IA na advocacia, muda o ciclo de trabalho: pesquisa de precedentes mais longa, peças refinadas em loop, cite-checking sem interrupção. Volume vira tese aprofundada.
+@AdvDoHardware (7741f) 2026-03-17 L131 RT5 V15918 https://x.com/AdvDoHardware/status/2034003587785716041
+   Pedi para o Claude Pro fazer UMA petição. Eu tinha usado apenas 4% do limite destas 5 horas.  O Claude não entregou a petição, acabou com meu limite até às 20h e ficou por isso mesmo.  Essa imprecisão quanto ao uso de tokens é completamente absurda. https://t.co/tfZ141kbVW
+@opanteraos (295f) 2026-09-11 L0 RT0 V60 https://x.com/opanteraos/status/2098520104057151659
+   A Artificial Analysis publicou os novos comparativos de modelos com uma medida que desmonta a ilusão da tabela de preço fixa: os modelos de fronteira agora chegam com até seis níveis de esforço de raciocínio sobre os mesmos pesos, e o tempo por tarefa salta de 1,6 para 8,2 https://t.co/IhzMS6PrTZ
+@jusratio (1104f) 2026-05-20 L194 RT7 V10880 https://x.com/jusratio/status/2057101189028688258
+   Estamos construindo a fundação jurídica para a IA no Jusratio:  Não somos uma legaltech tradicional. Não somos um "ChatGPT do direito" empacotado. Somos a camada de inteligência jurídica que conecta os LLMs que o advogado já usa (Claude, ChatGPT, Gemini) a um corpus vivo de
+@dr_eduserafim (50f) 2026-09-01 L0 RT0 V47 https://x.com/dr_eduserafim/status/2094787362609909836
+   Ainda gasta milhões de tokens na IA para ler PDF? O Atende Direito Sync integra os autos via MCP direto no Claude Code. O processo vira um DB vivo. Chega de alucinação e custo alto!
+@elzobrito (2330f) 2026-02-17 L8 RT0 V986 https://x.com/elzobrito/status/2023761227537694729
+   Uma coisa muito irritante do Claude, frequentemente vejo ele trabalhar em um arquivo, como você pode ver na imagem abaixo:  Porém durante esse processo ele erra e recomeça várias vezes, como na próxima imagem  O que me irrita disso é que o consumo de tokens aumenta https://t.co/HvjgrD5i6N
+@kazzkiq (3917f) 2025-06-22 L20 RT1 V3819 https://x.com/kazzkiq/status/1936834843972624860
+   Agora deu pra rodar o teste completo!  Nível da task: Super simples (estagiário/JR) Modelo usado: Claude 4 Sonnet  O processo todo levou em torno de 3 minutos.  Tarefas executadas: 1. Encontrar o repositório na máquina (VPS) 2. Entender o projeto 3. Identificar quais arquivos https://t.co/Qcbe4v6yB6 https://t.co/YbCkQQV8jf
+@alyssondreyffus (92f) 2026-03-17 L1 RT0 V883 https://x.com/alyssondreyffus/status/2034007762187735237
+   @AdvDoHardware A verdade é que o Claude é um fanfarrão. Limites indecentes e sem transparência nenhuma. Hoje mais cedo mandei um processo de 60 páginas pra analisar e ele recusou. E a Anthopic ainda tem a pachorra de dizer que a janela de contexto é de 1M de tokens.
+@nicollascruzz (4f) 2026-09-19 L0 RT0 V18 https://x.com/nicollascruzz/status/2101245763397239158
+   ☕ Café com Dicas  Um bom café precisa de um processo consistente. O desenvolvimento com IA também.  Já conheces o ECC (Everything Claude Code)? É um conjunto de ferramentas open source que dá aos agentes de programação com IA processos estruturados, memória persistente e https://t.co/AnyN3ihaiU
+@exchurchgurl (117f) 2026-09-24 L4 RT0 V145 https://x.com/exchurchgurl/status/2103212914375049259
+   eu tinha que fazer memoriais de um processo mas tava cheia de demanda pedi pro claude ele nao fez pq cheguei no limite de uso eu esqueci de fazer dps o julgamento foi hoje espero que o advogado tenha arrasado sem os memoriais e fique quietinho sobre isso https://t.co/x7yhfogRVq
+@paulocoutinhox (2863f) 2026-05-28 L0 RT0 V50 https://x.com/paulocoutinhox/status/2060135508236238954
+   🚨🤖 Agora dá pra ver a IA pensando… e gastando tokens ao vivo no Cursor e no VS Code! 🧠💸  A nova versão do plugin do Claude Code para Cursor e VS Code começou a mostrar algo que muita gente não percebia: a quantidade de tokens consumidos enquanto a IA executa ações dentro do https://t.co/1cc0ExMMqd
+@gkpacker (10056f) 2026-09-30 L345 RT5 V25891 https://x.com/gkpacker/status/2105309931196776833
+   It's over  Aqui na empresa utilizam o Claude Enterprise, que a partir de Outubro será cobrado via pricing de API  Definiram algumas faixas de limite, a do meu time é de $900 em tokens/mês  O lado bom é que eu só tenho utilizado Opus low/medium pra quase tudo hoje em dia -
+@maelnihil (247f) 2026-03-31 L1 RT1 V316 https://x.com/maelnihil/status/2039124944320156058
+   @etiopiamid @giovannibassi ¹ Abre a documentação do Minimax sobre como configurar ele no claude code https://t.co/c8DtTFTQ6W  ² Adquira algum plano do Minimax (não tem limite semanal só de 5hrs), eu uso o plano highspeed (2x speed tokens por segundo) pq depois de 2 meses usando me convenceu que é
+@namcios (41513f) 2026-06-19 L43 RT6 V8168 https://x.com/namcios/status/2067959978128814140
+   COMO CONSTRUIR UM AGENTE DE IA QUE SOBREVIVE EM PRODUÇÃO  Viralizou um post no Reddit explicando "como construir seu primeiro agente de IA." Dezenas de milhares de upvotes, repostado em todo lugar.  O guia é bom... prum projetinho de fim de semana.  Ele te ensina a montar um https://t.co/P2rOQi9KeD

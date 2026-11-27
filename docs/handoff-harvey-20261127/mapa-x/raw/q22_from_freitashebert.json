@@ -1,0 +1,565 @@
+{
+  "data": [
+    {
+      "author_id": "548625382",
+      "created_at": "2026-08-20T16:24:00.000Z",
+      "edit_history_tweet_ids": [
+        "2090474943007863124"
+      ],
+      "id": "2090474943007863124",
+      "in_reply_to_user_id": "1951727916599201792",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 14623,
+        "like_count": 57,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2090474393700823292",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@tiagolomalo O Claude Code tá lento e burro. Bizarro",
+      "url": "https://x.com/freitashebert_/status/2090474943007863124"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-03-30T15:36:39.000Z",
+      "edit_history_tweet_ids": [
+        "2038641564604408055"
+      ],
+      "id": "2038641564604408055",
+      "in_reply_to_user_id": "1489440037519429637",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 473,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2038638946079379853",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@PiratinhadoTiet Uso pouco o Cowork. Fico entre o chat e o Claude Code mesmo",
+      "url": "https://x.com/freitashebert_/status/2038641564604408055"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-03-30T16:29:53.000Z",
+      "edit_history_tweet_ids": [
+        "2038654960330523002"
+      ],
+      "id": "2038654960330523002",
+      "in_reply_to_user_id": "1256352543082516481",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 271,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2038653976854282540",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@joaosenzi Eu também não consigo abandonar o chatgpt, pelo menos não por enquanto.\n\nVocê confia nele como gate keeper até para o Claude Code?",
+      "url": "https://x.com/freitashebert_/status/2038654960330523002"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-03-30T16:21:22.000Z",
+      "edit_history_tweet_ids": [
+        "2038652815363449094"
+      ],
+      "id": "2038652815363449094",
+      "in_reply_to_user_id": "1256352543082516481",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1087,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2038644438008836234",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@joaosenzi Cara, depois que o Claude Code deu uns dois vacilos, eu só uso ele com redundância. Dependendo do trabalho, eu jogo o que ele disse no chat e depois coloco a resposta do chat nele 😆",
+      "url": "https://x.com/freitashebert_/status/2038652815363449094"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-05-21T23:53:43.000Z",
+      "edit_history_tweet_ids": [
+        "1925339253216612823"
+      ],
+      "id": "1925339253216612823",
+      "public_metrics": {
+        "bookmark_count": 26,
+        "impression_count": 2783,
+        "like_count": 51,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 3
+      },
+      "text": "Caso interessante sobre IA na prática jurídica. \n\nTenho dentro do ChatGPT e do Claude o chamado \"professor de penal\", que consiste, em resumo, em um agente PHD em processo penal e penal que me auxilia quando quero aprofundar em discussões.  \n\nPara testá-los, resolvi dar um https://t.co/BKxxohxVGo",
+      "url": "https://x.com/freitashebert_/status/1925339253216612823"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-04-16T22:40:46.000Z",
+      "edit_history_tweet_ids": [
+        "1912637318466306094"
+      ],
+      "id": "1912637318466306094",
+      "public_metrics": {
+        "bookmark_count": 84,
+        "impression_count": 8255,
+        "like_count": 80,
+        "quote_count": 0,
+        "reply_count": 10,
+        "retweet_count": 18
+      },
+      "text": "🤖⚖️ Levando em conta tudo o que aprendi utilizando diariamente inteligência artificial há pelo menos dois anos, esse é um conciso passo a passo que vejo como ideal para profissionais do direito (advogados, juízes, promotores, assessores, etc) economizarem tempo no dia a dia sem https://t.co/CaPm1TZwTz",
+      "url": "https://x.com/freitashebert_/status/1912637318466306094"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-01-20T19:16:28.000Z",
+      "edit_history_tweet_ids": [
+        "2013692118422724663"
+      ],
+      "id": "2013692118422724663",
+      "in_reply_to_user_id": "1217182778309169154",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 120,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2013679275455484354",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@iuscorvandi @lfgomide O ChatGPT e o Claude possuem os projetos. Já o Gemini, possui os \"Gems\".\n\nTodos eles são agentes internos que você pode instruir uma vez só, sem a necessidade de iniciar um novo chat com um prompt toda vez que for tratar de um assunto.\n\nDá pra ter um \"agente\" (muitas aspas, pois",
+      "url": "https://x.com/freitashebert_/status/2013692118422724663"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-05-07T23:57:05.000Z",
+      "edit_history_tweet_ids": [
+        "2052538240754717124"
+      ],
+      "id": "2052538240754717124",
+      "public_metrics": {
+        "bookmark_count": 11,
+        "impression_count": 4243,
+        "like_count": 52,
+        "quote_count": 4,
+        "reply_count": 5,
+        "retweet_count": 2
+      },
+      "text": "Estamos finalizando a primeira fase do Habias, nosso agente de IA focado em defesa criminal, e os resultados são muito animadores.\n\nVou deixar 4 exemplos de respostas logo abaixo, mas é importante deixar consignado o que já conseguimos:\n\n1) Um agente de IA que mitiga ao máximo a https://t.co/QRXGsBXTIO",
+      "url": "https://x.com/freitashebert_/status/2052538240754717124"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-03-11T15:23:07.000Z",
+      "edit_history_tweet_ids": [
+        "1899481215318503453"
+      ],
+      "id": "1899481215318503453",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 779,
+        "like_count": 7,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1899430284350616025",
+          "type": "quoted"
+        }
+      ],
+      "text": "Dario Amodei, CEO da Anthropic (dona do Claude, que é a melhor LLM de escrita - jurídica, inclusive), dizendo que 90% dos códigos passarão a ser escritos por IA nos próximos meses.\n\nJá estamos no futuro.\n\nSe você ainda não usa ou estuda IA, está na hora de começar... https://t.co/B7TSeK5z8t",
+      "url": "https://x.com/freitashebert_/status/1899481215318503453"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-07-24T21:51:01.000Z",
+      "edit_history_tweet_ids": [
+        "2080772768606376442"
+      ],
+      "id": "2080772768606376442",
+      "public_metrics": {
+        "bookmark_count": 21,
+        "impression_count": 2636,
+        "like_count": 58,
+        "quote_count": 1,
+        "reply_count": 2,
+        "retweet_count": 5
+      },
+      "text": "Decisão importantíssima do min. Ribeiro Dantas, da Quinta Turma do STJ, reconhecendo a possibilidade de manejo de apelação adesiva pela defesa no processo penal.\n\nDecisão publicada no dia 6.7.2026 e já disponível no Habias, o agente de IA da defesa. https://t.co/xdqOUbtxSZ",
+      "url": "https://x.com/freitashebert_/status/2080772768606376442"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-05-21T23:27:51.000Z",
+      "edit_history_tweet_ids": [
+        "2057604312486793314"
+      ],
+      "id": "2057604312486793314",
+      "public_metrics": {
+        "bookmark_count": 33,
+        "impression_count": 7725,
+        "like_count": 72,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 2
+      },
+      "text": "A pergunta do momento é se Deolane, presa por organização criminosa, lavagem, etc, pode ter a prisão domiciliar deferida por ser mãe de uma criança de 9 anos.\n\nPerguntei ao Habias (nosso agente de IA de defesa) se há casos recentes com esse contexto.\n\nA resposta: vários. https://t.co/znVCcAyqRJ",
+      "url": "https://x.com/freitashebert_/status/2057604312486793314"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-07-13T23:28:41.000Z",
+      "edit_history_tweet_ids": [
+        "1944539508021604632"
+      ],
+      "id": "1944539508021604632",
+      "in_reply_to_user_id": "548625382",
+      "public_metrics": {
+        "bookmark_count": 84,
+        "impression_count": 10064,
+        "like_count": 102,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 2
+      },
+      "referenced_tweets": [
+        {
+          "id": "1944538173364674733",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Para quem interessar, aqui o que fiz para sair do zero e alcançar um conhecimento razoável de tudo aquilo que eu precisava saber.\n\n1) Primeiro, fiz o que sempre faço: criar assistentes dentro das LLM´s (GPT personalizado no ChatGPT, Gem no Gemini e Projeto no Claude).\n\n2) Em",
+      "url": "https://x.com/freitashebert_/status/1944539508021604632"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-07-13T23:23:22.000Z",
+      "edit_history_tweet_ids": [
+        "1944538173364674733"
+      ],
+      "id": "1944538173364674733",
+      "public_metrics": {
+        "bookmark_count": 1183,
+        "impression_count": 70081,
+        "like_count": 985,
+        "quote_count": 5,
+        "reply_count": 32,
+        "retweet_count": 57
+      },
+      "text": "Uma dica de IA pra galera do Direito:\n\nPrecisei estudar um tema de direito civil que nunca tive contato (anulação de matrícula de imóvel particular adquirido a título de terra devoluta) para resolver um problema familiar.\n\nColoquei meus estagiários premium (ChatGPT, Claude, https://t.co/M6vga7Ly2e",
+      "url": "https://x.com/freitashebert_/status/1944538173364674733"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-03-25T00:10:10.000Z",
+      "edit_history_tweet_ids": [
+        "2036596466668511650"
+      ],
+      "id": "2036596466668511650",
+      "public_metrics": {
+        "bookmark_count": 19,
+        "impression_count": 8492,
+        "like_count": 56,
+        "quote_count": 0,
+        "reply_count": 4,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2036504745947324451",
+          "type": "quoted"
+        }
+      ],
+      "text": "Aproveitamos a prisão do Bolsonaro para fazer um teste de fogo com o agente de IA favorável à defesa que estamos testando.\n\nPedimos as decisões do STF mais recentes sobre o assunto e o resultado foi surpreendente.\n\nA resposta foi consistente e taxa de alucinação foi zero. https://t.co/5IFO9yvBni https://t.co/5iDNIpg8en",
+      "url": "https://x.com/freitashebert_/status/2036596466668511650"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-10-23T17:04:10.000Z",
+      "edit_history_tweet_ids": [
+        "1981406303634219469"
+      ],
+      "id": "1981406303634219469",
+      "public_metrics": {
+        "bookmark_count": 6,
+        "impression_count": 3084,
+        "like_count": 27,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 4
+      },
+      "text": "ISSO AQUI É GRAVÍSSIMO. Se você é um entusiasta desses novos navegadores de internet com IA (vide o que a dona do ChatGPT lançou essa semana), sugiro que repense o uso por enquanto.\n\nEm suma: golpistas estão espalhando “prompts maliciosos” na internet, principalmente em imagens e",
+      "url": "https://x.com/freitashebert_/status/1981406303634219469"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-02-09T21:49:22.000Z",
+      "edit_history_tweet_ids": [
+        "2020978356565512345"
+      ],
+      "id": "2020978356565512345",
+      "in_reply_to_user_id": "548625382",
+      "public_metrics": {
+        "bookmark_count": 16,
+        "impression_count": 3008,
+        "like_count": 24,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2020977511983956045",
+          "type": "replied_to"
+        }
+      ],
+      "text": "E um plus: quem acha que usar IA se resume a abrir ChatGPT, Gemini, Notebook LM, Claude, etc, e interagir com os modelos (apesar de já estar bem à frente das pessoas que nem isso fazem) ainda está MUITO atrasado.\n\nUma coisa é usar os chats. Outra é usar os modelos dentro do seu",
+      "url": "https://x.com/freitashebert_/status/2020978356565512345"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-04-01T21:30:48.000Z",
+      "edit_history_tweet_ids": [
+        "2039455462320484502"
+      ],
+      "id": "2039455462320484502",
+      "public_metrics": {
+        "bookmark_count": 9,
+        "impression_count": 2697,
+        "like_count": 27,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 1
+      },
+      "text": "Essa pesquisa sobre IA feita com juízes federais dos EUA revelam coisas importantes:\n\n1) 61,6% dos juízes usa IA, embora apenas 5,4% use diariamente\n\n2) Os que usam preferem ferramentas de IA criadas para o contexto jurídico, e não as \"comuns\" (Claude, ChatGPT, etc). https://t.co/YaqAvSdmmC",
+      "url": "https://x.com/freitashebert_/status/2039455462320484502"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-04-01T21:32:24.000Z",
+      "edit_history_tweet_ids": [
+        "2039455865854456283"
+      ],
+      "id": "2039455865854456283",
+      "in_reply_to_user_id": "548625382",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 839,
+        "like_count": 15,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2039455462320484502",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Fui xingado ontem, mas permaneço com a tese de que os modelos gerais de IA (Claude, GPT, Gemini) são excelentes para um primeiro passo no direito, mas estão muito longe do que profissionais do direito precisam.\n\nA verdadeira evolução vem com ferramentas que reúnem IA + contexto",
+      "url": "https://x.com/freitashebert_/status/2039455865854456283"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-09-21T14:12:54.000Z",
+      "edit_history_tweet_ids": [
+        "2102038363691741403"
+      ],
+      "id": "2102038363691741403",
+      "public_metrics": {
+        "bookmark_count": 7,
+        "impression_count": 9671,
+        "like_count": 34,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102034957107331502",
+          "type": "quoted"
+        }
+      ],
+      "text": "Os chats de ferramentas de IA generativa, assim como o Whatsapp, emails, sms, documentos em nuvens, fotos de celulares, etc, também são meios de obtenção de provas, podendo ser acessados mediante autorização judicial.\n\nO que tem que ser discutido (discussão essa que é travada há https://t.co/9vWxznXnHN https://t.co/AhzHFEs20G",
+      "url": "https://x.com/freitashebert_/status/2102038363691741403"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2026-03-30T19:05:59.000Z",
+      "edit_history_tweet_ids": [
+        "2038694243288424818"
+      ],
+      "id": "2038694243288424818",
+      "in_reply_to_user_id": "1092201074226798592",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 614,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2038689359734493430",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@rafaelobitten Embora já soubesse da existência dele antes do lançamento oficial no Brasil, comecei a usar o Claude no dia que ele chegou aqui. Sempre acompanhei os americanos em relação a marketing e isso facilitou em IA.\n\nO Notebook LM eu cheguei a usar com VPN depois que vi o Tiago Forte",
+      "url": "https://x.com/freitashebert_/status/2038694243288424818"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-04-19T15:46:31.000Z",
+      "edit_history_tweet_ids": [
+        "1913620232666546412"
+      ],
+      "id": "1913620232666546412",
+      "public_metrics": {
+        "bookmark_count": 103,
+        "impression_count": 3438,
+        "like_count": 75,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 9
+      },
+      "text": "Com o ChatGPT, você pode ter um professor PHD que te ajuda a estudar e a responder às dúvidas mais capciosas sobre direito penal e processo penal de forma assertiva e aprofundada.\n\nPara isso, utilize o seguinte prompt:\n\n####\n\nVocê é um assistente de IA especializado em direito https://t.co/zYgh0kEaUB",
+      "url": "https://x.com/freitashebert_/status/1913620232666546412"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-06-16T02:40:12.000Z",
+      "edit_history_tweet_ids": [
+        "1934440846763446333"
+      ],
+      "id": "1934440846763446333",
+      "in_reply_to_user_id": "308506971",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 214,
+        "like_count": 4,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1934402675975598371",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@HelioTelho @AdvDoHardware Bem fácil responder essa, né. Ao agente público está permitido fazer tudo o que a lei permite, enquanto ao cidadão está permitido fazer o que a lei não proíbe. A lei permite ao agente público fazer o que você perguntou?",
+      "url": "https://x.com/freitashebert_/status/1934440846763446333"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-04-11T17:49:28.000Z",
+      "edit_history_tweet_ids": [
+        "1910752071718232398"
+      ],
+      "id": "1910752071718232398",
+      "public_metrics": {
+        "bookmark_count": 8,
+        "impression_count": 7742,
+        "like_count": 124,
+        "quote_count": 5,
+        "reply_count": 33,
+        "retweet_count": 17
+      },
+      "text": "Não há como não afirmar, sob uma perspectiva imparcial e sóbria, que a cassação de @Glauber_Braga é um exagero completo.\n\nNo dia dos fatos, eu já havia falado sobre a impossibilidade de se manter qualquer um se manter inerte diante das provocações que Gabriel Costenaro externou https://t.co/azxIuJDAC5",
+      "url": "https://x.com/freitashebert_/status/1910752071718232398"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-04-30T12:52:33.000Z",
+      "edit_history_tweet_ids": [
+        "1917562717293945144"
+      ],
+      "id": "1917562717293945144",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 26,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@rcleme @EnioViterbo Sim.\n\n\"As condutas descritas nesta Lei constituem crime de abuso de autoridade quando praticadas pelo agente com a finalidade específica de prejudicar outrem ou beneficiar a si mesmo ou a terceiro, ou, ainda, por mero capricho ou satisfação pessoal.\n\n§ 2º  A divergência na",
+      "url": "https://x.com/freitashebert_/status/1917562717293945144"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-03-27T20:00:09.000Z",
+      "edit_history_tweet_ids": [
+        "1905349138843115752"
+      ],
+      "id": "1905349138843115752",
+      "public_metrics": {
+        "bookmark_count": 26,
+        "impression_count": 3624,
+        "like_count": 100,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 7
+      },
+      "text": "\"O desconhecimento da idade da vítima (no crime de estupro de vulnerável) pode excluir o dolo do agente quanto à condição de vulnerabilidade, caracterizando erro de tipo\".\n\nDecisão da Quinta Turma do STJ no AgRg no REsp 2078419, publicado em 27.2.2025. https://t.co/wRXm8XtPIQ",
+      "url": "https://x.com/freitashebert_/status/1905349138843115752"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado. Criador do Síntese Criminal e do Habias. Mineiro. UFF.",
+        "id": "548625382",
+        "name": "Hebert Freitas 🔎",
+        "public_metrics": {
+          "followers_count": 9552,
+          "following_count": 709,
+          "like_count": 9746,
+          "listed_count": 26,
+          "media_count": 2244,
+          "tweet_count": 13786
+        },
+        "username": "freitashebert_"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2102038363691741403",
+    "oldest_id": "1899481215318503453",
+    "result_count": 25
+  }
+}

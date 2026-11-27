@@ -1,0 +1,768 @@
+{
+  "data": [
+    {
+      "author_id": "82647603",
+      "created_at": "2026-03-13T15:43:10.000Z",
+      "edit_history_tweet_ids": [
+        "2032482607628451907"
+      ],
+      "id": "2032482607628451907",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@leitoranny @tretasjuridicas Eu uso o gpt mesmo, normalmente so preciso de um rascunho.",
+      "url": "https://x.com/Priscyllalot/status/2032482607628451907"
+    },
+    {
+      "author_id": "1440655506381545477",
+      "created_at": "2026-03-13T14:04:27.000Z",
+      "edit_history_tweet_ids": [
+        "2032457765830971765"
+      ],
+      "id": "2032457765830971765",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@Priscyllalot @tretasjuridicas Qual o nome dessa IA?",
+      "url": "https://x.com/leitoranny/status/2032457765830971765"
+    },
+    {
+      "author_id": "224235452",
+      "created_at": "2026-03-08T19:52:31.000Z",
+      "edit_history_tweet_ids": [
+        "2030733420196732940"
+      ],
+      "id": "2030733420196732940",
+      "lang": "en",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@re_c4stello @Rocky_Neto @tretasjuridicas Notebook LM, no caso?",
+      "url": "https://x.com/Junnyelson/status/2030733420196732940"
+    },
+    {
+      "author_id": "1592485261857931271",
+      "created_at": "2026-03-08T19:18:43.000Z",
+      "edit_history_tweet_ids": [
+        "2030724913980465218"
+      ],
+      "id": "2030724913980465218",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@Rocky_Neto @tretasjuridicas Eu sempre faço upload em pdf. e arquivo separado de cada depoimento. Ele mostra exatamente como foi perguntado e respondido, com todos os erros de português e gírias, etc. Com relação à arquivo de WhatsApp, não utilizei ainda, mas acredito que deva funcionar da mesma forma.",
+      "url": "https://x.com/re_c4stello/status/2030724913980465218"
+    },
+    {
+      "author_id": "998187209168707585",
+      "created_at": "2026-03-08T14:23:00.000Z",
+      "edit_history_tweet_ids": [
+        "2030650494842978443"
+      ],
+      "id": "2030650494842978443",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 6,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@re_c4stello @tretasjuridicas Consegue separar quem fala igual o Word? Aceita arquivo do formato WhatsApp direto?",
+      "url": "https://x.com/Rocky_Neto/status/2030650494842978443"
+    },
+    {
+      "author_id": "1592485261857931271",
+      "created_at": "2026-03-08T14:17:15.000Z",
+      "edit_history_tweet_ids": [
+        "2030649048244387938"
+      ],
+      "id": "2030649048244387938",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "@Rocky_Neto @tretasjuridicas Notebook, do google. Vc consegue juntar os mp4. de cada depoimento e ele, além de fazer um resumo, traz o que foi literalmente dito por cada depoente. Muito bom!",
+      "url": "https://x.com/re_c4stello/status/2030649048244387938"
+    },
+    {
+      "author_id": "16619691",
+      "created_at": "2026-03-08T01:42:26.000Z",
+      "edit_history_tweet_ids": [
+        "2030459094146969647"
+      ],
+      "id": "2030459094146969647",
+      "lang": "und",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Cérebro by God Systens",
+      "url": "https://x.com/EvertonStaub/status/2030459094146969647"
+    },
+    {
+      "author_id": "61822736",
+      "created_at": "2026-03-07T23:57:43.000Z",
+      "edit_history_tweet_ids": [
+        "2030432742001791347"
+      ],
+      "id": "2030432742001791347",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 107,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Eu uso o chat para discutir estratégias, o Gemini para transcrever vídeos de até 15 min e o jus ia do jus Brasil para pesquisar precedentes",
+      "url": "https://x.com/androiderc93/status/2030432742001791347"
+    },
+    {
+      "author_id": "1821508180158861312",
+      "created_at": "2026-03-07T20:10:51.000Z",
+      "edit_history_tweet_ids": [
+        "2030375647462236175"
+      ],
+      "id": "2030375647462236175",
+      "lang": "en",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 4,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@agiacomolli_ @tretasjuridicas Proof was missing for me too great results, no showcase. Dashboard doubled inquiries. Built for this: https://t.co/n4Fr3aG6L8",
+      "url": "https://x.com/AIWonder94/status/2030375647462236175"
+    },
+    {
+      "author_id": "1932868769258614784",
+      "created_at": "2026-03-07T15:40:45.000Z",
+      "edit_history_tweet_ids": [
+        "2030307672541515912"
+      ],
+      "id": "2030307672541515912",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 59,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@Priscyllalot @tretasjuridicas Isso é muito verdade.",
+      "url": "https://x.com/AlvesPedro49447/status/2030307672541515912"
+    },
+    {
+      "author_id": "2884878700",
+      "created_at": "2026-03-07T14:00:24.000Z",
+      "edit_history_tweet_ids": [
+        "2030282421468279182"
+      ],
+      "id": "2030282421468279182",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 262,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Leitura de PDF,  desenvolvimento de argumentos e petições.  Muitas vezes os 3 juntos.",
+      "url": "https://x.com/dudasanjedi/status/2030282421468279182"
+    },
+    {
+      "author_id": "998187209168707585",
+      "created_at": "2026-03-07T13:40:43.000Z",
+      "edit_history_tweet_ids": [
+        "2030277467357757641"
+      ],
+      "id": "2030277467357757641",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 29,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@re_c4stello @tretasjuridicas Usa qual?",
+      "url": "https://x.com/Rocky_Neto/status/2030277467357757641"
+    },
+    {
+      "author_id": "1382018586122846219",
+      "created_at": "2026-03-07T12:38:59.000Z",
+      "edit_history_tweet_ids": [
+        "2030261931643121748"
+      ],
+      "id": "2030261931643121748",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 281,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Revisão de texto e petições simples.",
+      "url": "https://x.com/LukeMurdock13/status/2030261931643121748"
+    },
+    {
+      "author_id": "64279095",
+      "created_at": "2026-03-07T12:11:19.000Z",
+      "edit_history_tweet_ids": [
+        "2030254969509536139"
+      ],
+      "id": "2030254969509536139",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 114,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@rafaguess @tretasjuridicas Como você usa?",
+      "url": "https://x.com/permah_/status/2030254969509536139"
+    },
+    {
+      "author_id": "1523178195171823617",
+      "created_at": "2026-03-07T11:37:13.000Z",
+      "edit_history_tweet_ids": [
+        "2030246385514070461"
+      ],
+      "id": "2030246385514070461",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 188,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas O plugin do Harvey dentro do Word… ajuda muito.",
+      "url": "https://x.com/femarc0086/status/2030246385514070461"
+    },
+    {
+      "author_id": "27226190",
+      "created_at": "2026-03-07T11:22:18.000Z",
+      "edit_history_tweet_ids": [
+        "2030242632396321151"
+      ],
+      "id": "2030242632396321151",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 191,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Qd tem que apresentar alegações finais orais em ação penal.",
+      "url": "https://x.com/vanessaglima_/status/2030242632396321151"
+    },
+    {
+      "author_id": "27226190",
+      "created_at": "2026-03-07T11:21:03.000Z",
+      "edit_history_tweet_ids": [
+        "2030242317785878645"
+      ],
+      "id": "2030242317785878645",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 433,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Eu uso para desenvolver argumentos e levantar teses.  Deixar a pet enxuta TB.\nQd coloco inicial e contestação. O agente aponta o que é incontroverso.",
+      "url": "https://x.com/vanessaglima_/status/2030242317785878645"
+    },
+    {
+      "author_id": "930077994160443392",
+      "created_at": "2026-03-07T11:00:13.000Z",
+      "edit_history_tweet_ids": [
+        "2030237076638007671"
+      ],
+      "id": "2030237076638007671",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 462,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Jurisprudência no JusIA e estrutura da inicial no GPT, ja mato um bom tempo nisso aí",
+      "url": "https://x.com/jsslc27/status/2030237076638007671"
+    },
+    {
+      "author_id": "1821508180158861312",
+      "created_at": "2026-03-07T09:26:40.000Z",
+      "edit_history_tweet_ids": [
+        "2030213532529066333"
+      ],
+      "id": "2030213532529066333",
+      "lang": "en",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 129,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@agiacomolli_ @tretasjuridicas I launched to silence once too. Fix wasn’t the product it was talking to 10 buyers BEFORE rebuilding. One convo showed they wanted outcome, not tool. Reframed offer sales followed. Talk first. Build second.",
+      "url": "https://x.com/AIWonder94/status/2030213532529066333"
+    },
+    {
+      "author_id": "82647603",
+      "created_at": "2026-03-07T03:23:21.000Z",
+      "edit_history_tweet_ids": [
+        "2030122100833358095"
+      ],
+      "id": "2030122100833358095",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 168,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@rafaguess @tretasjuridicas Como você usa? Eu tentei para estudo mas não me adaptei",
+      "url": "https://x.com/Priscyllalot/status/2030122100833358095"
+    },
+    {
+      "author_id": "950394723725971457",
+      "created_at": "2026-03-07T02:16:55.000Z",
+      "edit_history_tweet_ids": [
+        "2030105383994343469"
+      ],
+      "id": "2030105383994343469",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 59,
+        "impression_count": 1593,
+        "like_count": 33,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Gosto do https://t.co/IuYquOrftD para enviar a petição e receber jurisprudências prontas para usar. Ou integro no Claude Code para pesquisar jurisprudência durante a elaboração da peça.",
+      "url": "https://x.com/agiacomolli_/status/2030105383994343469"
+    },
+    {
+      "author_id": "74229680",
+      "created_at": "2026-03-07T02:07:43.000Z",
+      "edit_history_tweet_ids": [
+        "2030103066985279959"
+      ],
+      "id": "2030103066985279959",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 579,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Manifestações intermediárias.  Ajuda SUPER.",
+      "url": "https://x.com/weslleyllimaa_/status/2030103066985279959"
+    },
+    {
+      "author_id": "971109970442846208",
+      "created_at": "2026-03-07T01:53:34.000Z",
+      "edit_history_tweet_ids": [
+        "2030099508013490209"
+      ],
+      "id": "2030099508013490209",
+      "lang": "es",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 487,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Organizar tabela pro cotejo analítico",
+      "url": "https://x.com/083CaioCB/status/2030099508013490209"
+    },
+    {
+      "author_id": "1433238859714867200",
+      "created_at": "2026-03-07T01:49:24.000Z",
+      "edit_history_tweet_ids": [
+        "2030098457084461145"
+      ],
+      "id": "2030098457084461145",
+      "lang": "ca",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 486,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Pet de juntada",
+      "url": "https://x.com/EduBragaFilho/status/2030098457084461145"
+    },
+    {
+      "author_id": "1644214404399898628",
+      "created_at": "2026-03-07T01:28:07.000Z",
+      "edit_history_tweet_ids": [
+        "2030093100312408270"
+      ],
+      "id": "2030093100312408270",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 225,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@rafaguess @tretasjuridicas Pra que",
+      "url": "https://x.com/doutordragonov/status/2030093100312408270"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "save yourself first",
+        "id": "82647603",
+        "name": "Priscylla Lot",
+        "public_metrics": {
+          "followers_count": 119,
+          "following_count": 266,
+          "like_count": 23121,
+          "listed_count": 1,
+          "media_count": 117,
+          "tweet_count": 7213
+        },
+        "username": "Priscyllalot"
+      },
+      {
+        "description": "⚖️ | #studytwt",
+        "id": "1440655506381545477",
+        "name": "anny",
+        "public_metrics": {
+          "followers_count": 674,
+          "following_count": 134,
+          "like_count": 26706,
+          "listed_count": 3,
+          "media_count": 48,
+          "tweet_count": 2639
+        },
+        "username": "leitoranny"
+      },
+      {
+        "description": "",
+        "id": "224235452",
+        "name": "Pacheco_Junnyelson",
+        "public_metrics": {
+          "followers_count": 18,
+          "following_count": 156,
+          "like_count": 2179,
+          "listed_count": 0,
+          "media_count": 27,
+          "tweet_count": 1684
+        },
+        "username": "Junnyelson"
+      },
+      {
+        "description": "Conservadora, patriota, espiritualista e marombeira. 💪",
+        "id": "1592485261857931271",
+        "name": "Miss White Castle 🟩🟨🟦",
+        "public_metrics": {
+          "followers_count": 224,
+          "following_count": 579,
+          "like_count": 18522,
+          "listed_count": 0,
+          "media_count": 418,
+          "tweet_count": 4353
+        },
+        "username": "re_c4stello"
+      },
+      {
+        "description": "Advogado Tributarista \n\nhttps://t.co/OlVuOSVxNT\n\nAtendimento em todo o Brasil",
+        "id": "998187209168707585",
+        "name": "Rocky Neto Adv",
+        "public_metrics": {
+          "followers_count": 2831,
+          "following_count": 655,
+          "like_count": 8673,
+          "listed_count": 3,
+          "media_count": 205,
+          "tweet_count": 7983
+        },
+        "username": "Rocky_Neto"
+      },
+      {
+        "description": "🌞#X",
+        "id": "16619691",
+        "name": "PontudiVixta",
+        "public_metrics": {
+          "followers_count": 163,
+          "following_count": 2254,
+          "like_count": 42075,
+          "listed_count": 0,
+          "media_count": 82,
+          "tweet_count": 6510
+        },
+        "username": "EvertonStaub"
+      },
+      {
+        "description": "Era pra ser um perfil profissional, mas to sem saco, prefiro usar esse twitter para reclamar da vida",
+        "id": "61822736",
+        "name": "androide93",
+        "public_metrics": {
+          "followers_count": 221,
+          "following_count": 418,
+          "like_count": 40212,
+          "listed_count": 4,
+          "media_count": 64,
+          "tweet_count": 3491
+        },
+        "username": "androiderc93"
+      },
+      {
+        "description": "Daily AI case studies + plug-and-play prompts/hacks to build profitable businesses - no code needed. Non-tech founders only.        New breakdown every day ↓",
+        "id": "1821508180158861312",
+        "name": "AIWonder",
+        "public_metrics": {
+          "followers_count": 233,
+          "following_count": 101,
+          "like_count": 2668,
+          "listed_count": 1,
+          "media_count": 333,
+          "tweet_count": 3639
+        },
+        "username": "AIWonder94"
+      },
+      {
+        "description": "",
+        "id": "1932868769258614784",
+        "name": "Pedro Alves",
+        "public_metrics": {
+          "followers_count": 7,
+          "following_count": 58,
+          "like_count": 22806,
+          "listed_count": 1,
+          "media_count": 26,
+          "tweet_count": 3307
+        },
+        "username": "AlvesPedro49447"
+      },
+      {
+        "description": "Arranco a orelha pra não  ouvir besteira.\nAdvogado.  Programador. Falo de imposto, arte, cinema, música, livros, memes, etc.",
+        "id": "2884878700",
+        "name": "Van Grogue",
+        "public_metrics": {
+          "followers_count": 235,
+          "following_count": 722,
+          "like_count": 19712,
+          "listed_count": 1,
+          "media_count": 632,
+          "tweet_count": 11303
+        },
+        "username": "dudasanjedi"
+      },
+      {
+        "description": "Vós que entrais aqui, abandonai toda esperança. (Dante)",
+        "id": "1382018586122846219",
+        "name": "Luke Murdock",
+        "public_metrics": {
+          "followers_count": 32,
+          "following_count": 783,
+          "like_count": 21225,
+          "listed_count": 0,
+          "media_count": 47,
+          "tweet_count": 683
+        },
+        "username": "LukeMurdock13"
+      },
+      {
+        "description": "",
+        "id": "64279095",
+        "name": "eu mands",
+        "public_metrics": {
+          "followers_count": 52,
+          "following_count": 127,
+          "like_count": 138,
+          "listed_count": 2,
+          "media_count": 7,
+          "tweet_count": 664
+        },
+        "username": "permah_"
+      },
+      {
+        "description": "Pai, ADV, Curintia, IA 🇧🇷🇮🇹",
+        "id": "1523178195171823617",
+        "name": "BOT Marcondes de gravata",
+        "public_metrics": {
+          "followers_count": 104,
+          "following_count": 616,
+          "like_count": 32360,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 658
+        },
+        "username": "femarc0086"
+      },
+      {
+        "description": "🤔👩‍🎤👨‍👩‍👦‍👦⚖️🔫✝️\nRespondeu Jesus: O meu reino não é deste mundo\n\nJoão 18:36 .---\n\nNostr. npub1zp0ys9ysfyrjvuxpwhvyevgphkmluynreun7fg2jeuu9xtsjwa4shlqhhn",
+        "id": "27226190",
+        "name": "Van Lima",
+        "public_metrics": {
+          "followers_count": 407,
+          "following_count": 1266,
+          "like_count": 152471,
+          "listed_count": 2,
+          "media_count": 1474,
+          "tweet_count": 22736
+        },
+        "username": "vanessaglima_"
+      },
+      {
+        "description": "🇾🇪⚖️ advogada chata e gostosa",
+        "id": "930077994160443392",
+        "name": "Já",
+        "public_metrics": {
+          "followers_count": 194,
+          "following_count": 424,
+          "like_count": 34035,
+          "listed_count": 0,
+          "media_count": 196,
+          "tweet_count": 9400
+        },
+        "username": "jsslc27"
+      },
+      {
+        "description": "https://t.co/oZ69jhNzEP",
+        "id": "950394723725971457",
+        "name": "Anderson",
+        "public_metrics": {
+          "followers_count": 22,
+          "following_count": 188,
+          "like_count": 98,
+          "listed_count": 1,
+          "media_count": 5,
+          "tweet_count": 93
+        },
+        "username": "agiacomolli_"
+      },
+      {
+        "description": "- Sai daqui bolsominion ❌",
+        "id": "74229680",
+        "name": "Wesley Lima",
+        "public_metrics": {
+          "followers_count": 5768,
+          "following_count": 4904,
+          "like_count": 98165,
+          "listed_count": 176,
+          "media_count": 2122,
+          "tweet_count": 35549
+        },
+        "username": "weslleyllimaa_"
+      },
+      {
+        "description": "",
+        "id": "971109970442846208",
+        "name": "CaioCB",
+        "public_metrics": {
+          "followers_count": 133,
+          "following_count": 180,
+          "like_count": 22155,
+          "listed_count": 0,
+          "media_count": 38,
+          "tweet_count": 1260
+        },
+        "username": "083CaioCB"
+      },
+      {
+        "description": "Advogado Civilista e Trabalhista. Conto causos do cotidiano da advocacia. Aprendiz de concurseiro. um biscoito de vez enquanto.",
+        "id": "1433238859714867200",
+        "name": "Eduardo Braga Filho",
+        "public_metrics": {
+          "followers_count": 5654,
+          "following_count": 2771,
+          "like_count": 131498,
+          "listed_count": 2,
+          "media_count": 838,
+          "tweet_count": 9866
+        },
+        "username": "EduBragaFilho"
+      },
+      {
+        "description": "Advogado contra grandes corporações\nPostador de trivialidades e kibador\nkickboxer amador\njiujiteiro iniciante\ndefensor dos oprimidos\ncapoeirista aposentado",
+        "id": "1644214404399898628",
+        "name": "dr. Rēi Ther",
+        "public_metrics": {
+          "followers_count": 156,
+          "following_count": 570,
+          "like_count": 9713,
+          "listed_count": 0,
+          "media_count": 248,
+          "tweet_count": 4652
+        },
+        "username": "doutordragonov"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2032482607628451907",
+    "oldest_id": "2030093100312408270",
+    "result_count": 25
+  }
+}

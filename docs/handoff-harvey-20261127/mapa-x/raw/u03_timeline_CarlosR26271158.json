@@ -1,0 +1,927 @@
+{
+  "data": [
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-08-31T00:21:47.000Z",
+      "edit_history_tweet_ids": [
+        "2094219062037422331"
+      ],
+      "id": "2094219062037422331",
+      "public_metrics": {
+        "bookmark_count": 4,
+        "impression_count": 1635,
+        "like_count": 6,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "2094218313781907525",
+          "type": "quoted"
+        }
+      ],
+      "text": "Rapaziada essa é minha conta pessoal. Acompanha lá! https://t.co/RYu8FIL9iC",
+      "url": "https://x.com/CarlosR26271158/status/2094219062037422331"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-07-22T20:00:42.000Z",
+      "edit_history_tweet_ids": [
+        "2080020229313191987"
+      ],
+      "id": "2080020229313191987",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2428,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "2080017302515286083",
+          "type": "quoted"
+        }
+      ],
+      "text": "alo! https://t.co/TecD45VnBf",
+      "url": "https://x.com/CarlosR26271158/status/2080020229313191987"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-17T22:02:05.000Z",
+      "edit_history_tweet_ids": [
+        "2067367204312559774"
+      ],
+      "id": "2067367204312559774",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1689,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2067281630520312022",
+          "type": "quoted"
+        }
+      ],
+      "text": "Ora ora mas que surpresa kkkkkkk pqp https://t.co/AxyPfLkyFT",
+      "url": "https://x.com/CarlosR26271158/status/2067367204312559774"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-11T15:22:06.000Z",
+      "edit_history_tweet_ids": [
+        "2065092216297574825"
+      ],
+      "id": "2065092216297574825",
+      "public_metrics": {
+        "bookmark_count": 27,
+        "impression_count": 4853,
+        "like_count": 53,
+        "quote_count": 1,
+        "reply_count": 2,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "2065071351841329578",
+          "type": "quoted"
+        }
+      ],
+      "text": "Gemini + NotebookLM criam simulados para o “ENEM americano” e agora estão fazendo algo específico pra realidade brasileira. O google, com esses features e além do desconto de estudante para Google Pro, faz praticamente um serviço público. Tem meu respeito demais. https://t.co/H2lqjRt1Od",
+      "url": "https://x.com/CarlosR26271158/status/2065092216297574825"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-11T02:21:37.000Z",
+      "edit_history_tweet_ids": [
+        "2064895799109030289"
+      ],
+      "id": "2064895799109030289",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 1400,
+        "like_count": 5,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2064705517264552274",
+          "type": "quoted"
+        }
+      ],
+      "text": "usar isso aqui como break do pomodoro https://t.co/o5s6sbuLu1",
+      "url": "https://x.com/CarlosR26271158/status/2064895799109030289"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-10T16:43:03.000Z",
+      "edit_history_tweet_ids": [
+        "2064750200925700432"
+      ],
+      "id": "2064750200925700432",
+      "public_metrics": {
+        "bookmark_count": 5,
+        "impression_count": 1456,
+        "like_count": 29,
+        "quote_count": 0,
+        "reply_count": 7,
+        "retweet_count": 2
+      },
+      "text": "TRT 4 disponível no banco de dados do https://t.co/pqVTMyA6TL. TJMA, TJTO a caminho! TJGO dando trabalho demais, mas vai dar certo! Ta caminhando",
+      "url": "https://x.com/CarlosR26271158/status/2064750200925700432"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-09T19:24:18.000Z",
+      "edit_history_tweet_ids": [
+        "2064428393303781839"
+      ],
+      "id": "2064428393303781839",
+      "note_tweet": {
+        "text": "Doutor, considere assinar o Claude e inserir o novo modelo Fable na sua rotina de trabalho:  \n\nNo model card, há um benchmark que se chama \"GraphWalks\". Fazendo uma analogia: você joga uma pilha de 'inteiros teores' na frente dele e faz uma pergunta que só se responde cruzando vários ao mesmo tempo. Do tipo \"este acórdão aplica o Tema tal, que remete a uma súmula, que foi modulada por outro julgado, no fim, a tese se sustenta?\". A resposta não está num documento só; está espalhada, e ele precisa seguir a linha do raciocínio sem embaralhar os fundamentos nem perder um elo no meio do caminho.   \n\nA origem dele é uma reação a um problema: o teste clássico de contexto longo era o \"needle in a haystack\" (esconder um fato no meio de um texto gigante e pedir para o modelo achar). Os modelos de fronteira já saturaram isso, achar um fato isolado virou trivial. O GraphWalks (criado pela OpenAI, lançado junto com o GPT-4.1) ataca o caso mais difícil: E QUANDO a resposta não está num lugar só, mas exige integrar muitos fatos espalhados por toda a janela ao mesmo tempo? O Fable, no subconjunto BFS 256K, 91,1% vs 85,9% do Opus 4.8; e no BFS 1M, 79,4% vs 68,1%. No subconjunto Parents 1M, 97,5% vs 83,3% do Opus 4.8. Ou seja: quanto mais documentos você empilha e quanto mais a resposta exige cruzar entre eles (ementa de um acórdão que cita Tema de outro, p.ex.), maior a vantagem do Fable. A degradação em contexto longo, que costuma ser o calcanhar de Aquiles, é onde ele mais se destaca.  A combinação Fable + Jusratio parece muito boa. O  Fable é melhor em explorar um acervo bom e pior em recusar um acervo ruim, a regressão de missing-context é de 82% vs 91% do Opus 4.8. Ou seja, o Fable tende a tentar formular uma resposta ao invés de dizer que não sabe"
+      },
+      "public_metrics": {
+        "bookmark_count": 61,
+        "impression_count": 4575,
+        "like_count": 67,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 6
+      },
+      "text": "Doutor, considere assinar o Claude e inserir o novo modelo Fable na sua rotina de trabalho:  \n\nNo model card, há um benchmark que se chama \"GraphWalks\". Fazendo uma analogia: você joga uma pilha de 'inteiros teores' na frente dele e faz uma pergunta que só se responde cruzando https://t.co/BvpeJ5T3Wr",
+      "url": "https://x.com/CarlosR26271158/status/2064428393303781839"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-09T17:07:42.000Z",
+      "edit_history_tweet_ids": [
+        "2064394016272142451"
+      ],
+      "id": "2064394016272142451",
+      "note_tweet": {
+        "text": "assista àquele documentário esquisito que não contém legenda PT-BR no youtube agora com dublagem instantânea. Vá ao google ai studio. Nessa tela, escolha o novo modelo 3.5 live translate e o idioma-alvo (o modelo escuta qualquer idioma e traduz pro idioma-alvo). Depois, clique em \"share audio from tab\" e selecione a aba do navegador."
+      },
+      "public_metrics": {
+        "bookmark_count": 51,
+        "impression_count": 4071,
+        "like_count": 51,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 5
+      },
+      "referenced_tweets": [
+        {
+          "id": "2064369125447864674",
+          "type": "quoted"
+        }
+      ],
+      "text": "assista àquele documentário esquisito que não contém legenda PT-BR no youtube agora com dublagem instantânea. Vá ao google ai studio. Nessa tela, escolha o novo modelo 3.5 live translate e o idioma-alvo (o modelo escuta qualquer idioma e traduz pro idioma-alvo). Depois, clique em https://t.co/BwKNEKndUo https://t.co/laVqNgwgQL",
+      "url": "https://x.com/CarlosR26271158/status/2064394016272142451"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-08T13:38:35.000Z",
+      "edit_history_tweet_ids": [
+        "2063979000163189055"
+      ],
+      "id": "2063979000163189055",
+      "public_metrics": {
+        "bookmark_count": 10,
+        "impression_count": 2995,
+        "like_count": 40,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2063971428433563907",
+          "type": "quoted"
+        }
+      ],
+      "text": "conector de jurisprudência pra você utilizar com claude e perder o medo de usar IA por 20 pila por mês (!) https://t.co/6Wb5TbtbiG",
+      "url": "https://x.com/CarlosR26271158/status/2063979000163189055"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:27.000Z",
+      "edit_history_tweet_ids": [
+        "2062886016487178484"
+      ],
+      "id": "2062886016487178484",
+      "in_reply_to_user_id": "1745889464109477888",
+      "note_tweet": {
+        "text": "Conclusão: O Jusratio não acaba com a alucinação jurídica.  O que ele faz, e os números mostram, é tirar a IA da inutilidade. Sozinha, ela entrega uma resposta com precedente real e checável em ~16% das vezes. Com o Jusratio, ~62%. Cerca de 4× mais respostas aproveitáveis, e ~12× mais citações reais (390 contra 33). O caso mais gritante foi o Gemini. Sozinho, zero respostas úteis e confiáveis. Com Jusratio, 2 em cada 3.  \n\nComo o Jusratio faz o modelo citar muito mais precedente real, ele também expõe mais a erros de detalhe (relator, data ou tribunal trocado). Por isso a taxa de resposta insegura não caiu de forma linear. O modelo \"sozinho\" parece seguro, mas é seguro por ser inútil. Ele transforma a IA de \"segura mas inútil\" em \"útil e fundamentada\". Não dispensa o advogado conferir, a lei exige isso de qualquer jeito. O que muda é que a IA chega com precedente real na mão, em vez de chegar de mãos vazias ou inventando. Isso é um piloto, exploratório, só do cível. Sinal forte e de direção apenas."
+      },
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 525,
+        "like_count": 6,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2062886013744066857",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Conclusão: O Jusratio não acaba com a alucinação jurídica.  O que ele faz, e os números mostram, é tirar a IA da inutilidade. Sozinha, ela entrega uma resposta com precedente real e checável em ~16% das vezes. Com o Jusratio, ~62%. Cerca de 4× mais respostas aproveitáveis, e ~12×",
+      "url": "https://x.com/CarlosR26271158/status/2062886016487178484"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:26.000Z",
+      "edit_history_tweet_ids": [
+        "2062886013744066857"
+      ],
+      "id": "2062886013744066857",
+      "in_reply_to_user_id": "1745889464109477888",
+      "note_tweet": {
+        "text": "Na taxa de citação errada ou inventada, o cenário \"sozinho\" não é o pior. Ele erra pouco porque cita pouco. 5% de citação real quer dizer que ele quase não se compromete.  O Jusratio cita muito mais coisa real, e por isso também aparece em mais erros de detalhe, tipo uma data ou um relator trocado.  Os dois lados estão no gráfico."
+      },
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 541,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2062886010757795983",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Na taxa de citação errada ou inventada, o cenário \"sozinho\" não é o pior. Ele erra pouco porque cita pouco. 5% de citação real quer dizer que ele quase não se compromete.  O Jusratio cita muito mais coisa real, e por isso também aparece em mais erros de detalhe, tipo uma data ou https://t.co/9adpfZIgei",
+      "url": "https://x.com/CarlosR26271158/status/2062886013744066857"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:26.000Z",
+      "edit_history_tweet_ids": [
+        "2062886010757795983"
+      ],
+      "id": "2062886010757795983",
+      "in_reply_to_user_id": "1745889464109477888",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 323,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2062886008048210391",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Agora a medida do post anterior, a resposta útil-e-segura, na média dos 3 modelos:  Sozinho: 16% Com Jusratio: 62% https://t.co/S05JUzZVvy",
+      "url": "https://x.com/CarlosR26271158/status/2062886010757795983"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:25.000Z",
+      "edit_history_tweet_ids": [
+        "2062886008048210391"
+      ],
+      "id": "2062886008048210391",
+      "in_reply_to_user_id": "1745889464109477888",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 591,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2062886005422669934",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Das citações que cada cenário produziu, quantas eram reais e verificáveis?  Sozinho: 5% (33 citações reais) Com web: 15% (100) Com Jusratio: 41% (390)  33 contra 390. Sozinho, o modelo quase não entrega fundamento que dá pra checar https://t.co/BvG9NnKm87",
+      "url": "https://x.com/CarlosR26271158/status/2062886008048210391"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:24.000Z",
+      "edit_history_tweet_ids": [
+        "2062886005422669934"
+      ],
+      "id": "2062886005422669934",
+      "in_reply_to_user_id": "1745889464109477888",
+      "note_tweet": {
+        "text": "A medida principal é o que chamei de resposta \"útil-e-segura\". Uma resposta só conta se fizer as duas coisas ao mesmo tempo:  \n1. Útil: trazer pelo menos um precedente real, que existe e que dá pra conferir. \n2. Segura: não inventar nem errar feio nenhuma citação.  Por que as duas juntas? Porque é fácil ser \"seguro\" só se recusando a citar qualquer coisa. Um modelo que não cita nada nunca erra, e também não serve pra nada. Exigir as duas fecha essa brecha: o modelo tem que entregar E acertar.  (A ideia de medir utilidade junto com segurança vem de um estudo de Stanford sobre ferramentas jurídicas de IA, que achou ferramenta com pouca alucinação porém mais de 60% das respostas incompletas.)"
+      },
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 837,
+        "like_count": 7,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2062886003233157454",
+          "type": "replied_to"
+        }
+      ],
+      "text": "A medida principal é o que chamei de resposta \"útil-e-segura\". Uma resposta só conta se fizer as duas coisas ao mesmo tempo:  \n1. Útil: trazer pelo menos um precedente real, que existe e que dá pra conferir. \n2. Segura: não inventar nem errar feio nenhuma citação.  Por que as",
+      "url": "https://x.com/CarlosR26271158/status/2062886005422669934"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:24.000Z",
+      "edit_history_tweet_ids": [
+        "2062886003233157454"
+      ],
+      "id": "2062886003233157454",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "drive.google.com/file/d/1z_jDlA…",
+              "end": 542,
+              "expanded_url": "https://drive.google.com/file/d/1z_jDlAWArJB8YA1FNNX3_7A6kXltlcpn/view?usp=sharing",
+              "start": 519,
+              "url": "https://t.co/llbhpyPZoy"
+            }
+          ]
+        },
+        "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36 perguntas de direito civil e do consumidor.  Cada modelo rodou em 3 cenários: sozinho, com busca na web, e com o Jusratio.  Cada citação que eles deram foi conferida, uma a uma.  No total, foram 324 respostas e 2.248 citações conferidas.\n\nLink: https://t.co/llbhpyPZoy"
+      },
+      "public_metrics": {
+        "bookmark_count": 34,
+        "impression_count": 5078,
+        "like_count": 67,
+        "quote_count": 1,
+        "reply_count": 8,
+        "retweet_count": 2
+      },
+      "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36",
+      "url": "https://x.com/CarlosR26271158/status/2062886003233157454"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-04T12:39:16.000Z",
+      "edit_history_tweet_ids": [
+        "2062514521931981020"
+      ],
+      "id": "2062514521931981020",
+      "note_tweet": {
+        "text": "UTILIDADE PÚBLICA: se vc ver um DISCO VOADOR parado, SAIA da câmera do instagram e use a câmera do celular. Se usar iphone:\n1- zoom de 2x no máximo\n2- deixe o Modo Noite agir (ícone de lua amarelo aparece sozinho no escuro), mas não use o tempo automático: toque no ícone da lua e arraste o controle para o tempo máximo de exposição, quanto maior o tempo, mais luz é captada e menos ruído aparece. Use um tripé, um suporte pro celular permanecer estável\n3- Toque e segure no ponto que quer fotografar para travar foco e exposição\n4- Em Ajustes > Câmera > Formatos, deixe \"Alta Eficiência\" ativado e ligue o controle de resolução para fotos em 48MP de dia\n\nPara vídeo noturno\n\n1- Em Ajustes > Câmera > Gravar Vídeo, escolha 4K a 30 fps. Em pouca luz, 60 fps deixa entrar menos luz por quadro e gera muito ruído, então 30 ou 24 fps é o ideal. \n2- Na mesma tela, ative o \"FPS Automático em Pouca Luz\" (Auto Low Light FPS), que só funciona nos modos de 30 fps: quando o iPhone detecta cena escura, ele cai para 24 fps, reduzindo o ruído e melhorando a qualidade. \n3- Mantenha o vídeo HDR ativado e o formato em Alta Eficiência (HEVC).\n4- Mesma lógica da foto: tripé ou apoio, zoom no máximo 2x, e toque e segure na tela para travar foco/exposição antes de gravar, para a câmera não ficar \"pulando\" com luzes ao fundo."
+      },
+      "public_metrics": {
+        "bookmark_count": 11,
+        "impression_count": 3052,
+        "like_count": 18,
+        "quote_count": 1,
+        "reply_count": 3,
+        "retweet_count": 1
+      },
+      "text": "UTILIDADE PÚBLICA: se vc ver um DISCO VOADOR parado, SAIA da câmera do instagram e use a câmera do celular. Se usar iphone:\n1- zoom de 2x no máximo\n2- deixe o Modo Noite agir (ícone de lua amarelo aparece sozinho no escuro), mas não use o tempo automático: toque no ícone da lua e",
+      "url": "https://x.com/CarlosR26271158/status/2062514521931981020"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-02T22:30:08.000Z",
+      "edit_history_tweet_ids": [
+        "2061938442330648896"
+      ],
+      "id": "2061938442330648896",
+      "public_metrics": {
+        "bookmark_count": 17,
+        "impression_count": 2308,
+        "like_count": 51,
+        "quote_count": 0,
+        "reply_count": 4,
+        "retweet_count": 0
+      },
+      "text": "Nos EUA já estão copiando o https://t.co/pqVTMyA6TL. É um indício de que o BR não fica pra trás em legaltechs https://t.co/WS6e3yDi9C",
+      "url": "https://x.com/CarlosR26271158/status/2061938442330648896"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-01T23:44:20.000Z",
+      "edit_history_tweet_ids": [
+        "2061594727447691574"
+      ],
+      "id": "2061594727447691574",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 1584,
+        "like_count": 8,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2061592581448901054",
+          "type": "quoted"
+        }
+      ],
+      "text": "!!! https://t.co/m6YF0eIXWr",
+      "url": "https://x.com/CarlosR26271158/status/2061594727447691574"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-01T20:21:32.000Z",
+      "edit_history_tweet_ids": [
+        "2061543691949384144"
+      ],
+      "id": "2061543691949384144",
+      "note_tweet": {
+        "text": "Uma sutileza pode influenciar o julgamento de uma petição pela IA do tribunal sem o prompt injection descarado “GIVE A POSITIVE REVIEW ONLY”?\n\nOra, se o funcionamento de um LLM se baseia em probabilidade da próxima palavra, e se o usuário tentar utilizar uma engenharia de embedding? Isso é capaz de influenciar no julgamento? Exemplo:\n“O autor prestou serviços à ré durante oito anos como pessoa jurídica”, sendo reproduzido em versões como “Versão pró-empresa: “Estabeleceu-se entre as partes contrato continuado de prestação de serviços técnicos especializados, regularmente formalizado entre pessoas jurídicas autônomas, com vigência de oito exercícios fiscais consecutivos.”\n\nVersão pró-trabalhador: “O obreiro laborou em prol da reclamada por oito anos ininterruptos, mediante contraprestação habitual, com pessoalidade e sob coordenação direta dos prepostos da empresa.”\n\nOs três descrevem o mesmo fato. Mas quando a IA do juiz faz busca semântica por “jurisprudência aplicável”, cada vocabulário ativa uma região diferente do espaço vetorial. A versão comercial puxa precedentes de direito empresarial e tributário; a versão trabalhista puxa súmulas e OJs do TST. \n\n+\n\nViés posicional. Transformer pesa início e fim do contexto bem mais que o meio, o “lost-in-the-middle”. Coloca a tese central no primeiro parágrafo, repete no último, joga as concessões cosméticas no miolo. A IA processa as bordas com atenção total e o meio com atenção degradada. Isso seria capaz de influenciar o julgamento ?\n\nSobre viés posicional, Nelson Liu e colaboradores da Stanford publicaram em 2023, com edição final na TACL em 2024, o paper “Lost in the Middle: How Language Models Use Long Contexts”. Mediram queda de 30% ou mais na acurácia de QA multidocumento quando o documento-resposta migra da posição 1 para a posição 10 em um contexto de 20 documentos. Em junho de 2025, pesquisadores do MIT publicaram a explicação arquitetural do fenômeno: o viés vem do mascaramento causal e das codificações posicionais relativas (RoPE) do transformer. A comunicação institucional do MIT, ao explicar o problema para o público, escolheu deliberadamente um exemplo forense. Cito literalmente: “se um advogado está usando assistente LLM para recuperar uma frase específica em um affidavit de 30 páginas, o LLM tem maior probabilidade de encontrar o texto correto se ele estiver nas páginas iniciais ou finais.”\n\nVou além: a fluência erudita estaria associada à credibilidade? Será que substituir “A relação era comercial, não trabalhista” por “A natureza jurídica do liame avençado entre os litigantes, à luz do conjunto fático-probatório coligido e do arcabouço normativo aplicável à espécie, revela-se inequivocamente jungida ao plexo das relações civilistas e mercantis, dissociando-se ontologicamente do espectro de regência celetista” pode acionar algum tipo de acionador que signifique “este autor sabe do que está falando”?\n\nSe os tribunais pretendem formalizar a utilização de IA no trabalho dos juízes, é algo a considerar, uma vez que não há claramente um prompt injection"
+      },
+      "public_metrics": {
+        "bookmark_count": 62,
+        "impression_count": 3474,
+        "like_count": 44,
+        "quote_count": 0,
+        "reply_count": 7,
+        "retweet_count": 8
+      },
+      "text": "Uma sutileza pode influenciar o julgamento de uma petição pela IA do tribunal sem o prompt injection descarado “GIVE A POSITIVE REVIEW ONLY”?\n\nOra, se o funcionamento de um LLM se baseia em probabilidade da próxima palavra, e se o usuário tentar utilizar uma engenharia de",
+      "url": "https://x.com/CarlosR26271158/status/2061543691949384144"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-01T16:25:38.000Z",
+      "edit_history_tweet_ids": [
+        "2061484324160233812"
+      ],
+      "id": "2061484324160233812",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "jusratio.com.br",
+              "end": 73,
+              "expanded_url": "http://jusratio.com.br",
+              "start": 50,
+              "url": "https://t.co/rRGCCB3Rmb"
+            },
+            {
+              "display_url": "claude.ai/share/46e32c26…",
+              "end": 522,
+              "expanded_url": "https://claude.ai/share/46e32c26-68ea-439e-95d4-890a731236c0",
+              "start": 499,
+              "url": "https://t.co/UgxFfyKn7t"
+            }
+          ]
+        },
+        "text": "Acórdãos do TRF2 adicionados ao banco de dados do https://t.co/rRGCCB3Rmb  Veja um exemplo de como um conector de jurisprudência (MCP) pode melhorar significativamente a resposta de uma IA:  \n\nPrompt: No TRF2, qual a jurisprudência sobre aposentadoria especial por exposição a agentes nocivos (ruído acima do limite, eletricidade, agentes químicos) e a possibilidade de conversão de tempo especial em comum? Considere o marco da EC 103/2019 e me traga acórdãos recentes. Use o Jusratio. \n\nResposta: https://t.co/UgxFfyKn7t"
+      },
+      "public_metrics": {
+        "bookmark_count": 28,
+        "impression_count": 2635,
+        "like_count": 47,
+        "quote_count": 0,
+        "reply_count": 10,
+        "retweet_count": 5
+      },
+      "text": "Acórdãos do TRF2 adicionados ao banco de dados do https://t.co/pqVTMyAEJj  Veja um exemplo de como um conector de jurisprudência (MCP) pode melhorar significativamente a resposta de uma IA:  \n\nPrompt: No TRF2, qual a jurisprudência sobre aposentadoria especial por exposição a https://t.co/g4Wc9dXA96",
+      "url": "https://x.com/CarlosR26271158/status/2061484324160233812"
+    },
+    {
+      "article": {
+        "title": "Utilize o Jusratio dentro do Claude Cowork"
+      },
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-01T15:56:17.000Z",
+      "edit_history_tweet_ids": [
+        "2061476939580236075"
+      ],
+      "id": "2061476939580236075",
+      "public_metrics": {
+        "bookmark_count": 59,
+        "impression_count": 3058,
+        "like_count": 66,
+        "quote_count": 0,
+        "reply_count": 4,
+        "retweet_count": 1
+      },
+      "text": "https://t.co/AE6DIdScsU",
+      "url": "https://x.com/CarlosR26271158/status/2061476939580236075"
+    }
+  ],
+  "includes": {
+    "tweets": [
+      {
+        "author_id": "2055831163160145920",
+        "created_at": "2026-08-31T00:18:49.000Z",
+        "edit_history_tweet_ids": [
+          "2094218313781907525"
+        ],
+        "id": "2094218313781907525",
+        "in_reply_to_user_id": "28288790",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 1929,
+          "like_count": 2,
+          "quote_count": 1,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2094174400111108200",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@adv_pedromatos @rodolfoprado @clingeradv @talitismo @CarlosR26271158 Baita ferramenta. Pode ajudar bastante na pesquisa de jurisprudência e otimizar muito seu tempo e aumentar a produtividade. Fico no aguardo do feedback!"
+      },
+      {
+        "author_id": "2055831163160145920",
+        "created_at": "2026-07-22T19:49:04.000Z",
+        "edit_history_tweet_ids": [
+          "2080017156465426479",
+          "2080017302515286083"
+        ],
+        "id": "2080017302515286083",
+        "note_tweet": {
+          "entities": {
+            "urls": [
+              {
+                "display_url": "jusratio.com.br",
+                "end": 124,
+                "expanded_url": "http://jusratio.com.br",
+                "start": 101,
+                "url": "https://t.co/HpNMplaINY"
+              },
+              {
+                "display_url": "drive.google.com/file/d/1vtyDwz…",
+                "end": 931,
+                "expanded_url": "https://drive.google.com/file/d/1vtyDwz7Lzw7BP0duXZR0wuC3Be2IyeTz/view?usp=sharing",
+                "start": 908,
+                "url": "https://t.co/AsP1gRagST"
+              }
+            ]
+          },
+          "text": "Pessoal, preciso da opinião dos operadores do direito.\n\nEstamos desenvolvendo uma ferramenta nova no https://t.co/HpNMplaINY. Você pergunta como um ministro do STJ decide sobre um tema, ou como o próprio STJ vem decidindo, e ela devolve uma análise escrita: as linhas de entendimento organizadas por assunto e, no caso do tribunal, turma por turma. Cada afirmação vem acompanhada dos acórdãos que a sustentam, com link para o inteiro teor e trecho literal da própria ementa. Quando duas turmas decidem em sentidos opostos sobre o mesmo ponto, ela aponta a divergência e lista os paradigmas confrontados.\n\nA análise sai em uns 20 segundos e varre os acórdãos dos últimos 2 anos. Começamos pelo STJ, o STF vem em seguida.\n\nQueria saber três coisas. Essa análise te ajudaria a montar uma peça? Você confiaria no que está escrito, do jeito que está fundamentado? O que falta? O que acha do texto? Da estrutura?\n\nhttps://t.co/AsP1gRagST"
+        },
+        "public_metrics": {
+          "bookmark_count": 22,
+          "impression_count": 7722,
+          "like_count": 58,
+          "quote_count": 2,
+          "reply_count": 15,
+          "retweet_count": 3
+        },
+        "text": "Pessoal, preciso da opinião dos operadores do direito.\n\nEstamos desenvolvendo uma ferramenta nova no https://t.co/k4DBt1KIZT. Você pergunta como um ministro do STJ decide sobre um tema, ou como o próprio STJ vem decidindo, e ela devolve uma análise escrita: as linhas de"
+      },
+      {
+        "author_id": "61599733",
+        "created_at": "2026-06-17T16:22:03.000Z",
+        "edit_history_tweet_ids": [
+          "2067281630520312022"
+        ],
+        "id": "2067281630520312022",
+        "note_tweet": {
+          "text": "Dear my Brazillion new followers, I really don't want to disappoint, but I think you should know that it looks like RIO 397b might've just been an effort to embezzle funds. \n\nTimeline:\n1. Model training received funding of R$500K (~$100K USD).\n2. Initial model documentation claimed that it was a developed on top of Qwen 3.5 397b with further training and technological improvements.\n3. The model was a simple merge of 40% Nex N2 Pro and 60% Qwen 3.5 without further training.\n4. Model card readme was updated to admit that it was an Nex N2 Pro merge, while maintaining that additional training still took place, and they simply uploaded the wrong model. Then the previously uploaded model was removed from HF. \n5. The final model got lost, \"We tried to recover the final model, but it was not possible. It will be released only after the new training and all external validations are completed.\" So they'll have to redo it from scratch.\n\nTaken as a whole, it reads like \"We pocketed funding, delivered a fake result, were caught, and now promise to do the actual work.\"\n\nCitations in thread 👇\n\nDon't hate the messenger, but if I'm getting something wrong, do let me know below."
+        },
+        "public_metrics": {
+          "bookmark_count": 247,
+          "impression_count": 339080,
+          "like_count": 1473,
+          "quote_count": 72,
+          "reply_count": 102,
+          "retweet_count": 149
+        },
+        "referenced_tweets": [
+          {
+            "id": "2065796012820848699",
+            "type": "quoted"
+          }
+        ],
+        "text": "Dear my Brazillion new followers, I really don't want to disappoint, but I think you should know that it looks like RIO 397b might've just been an effort to embezzle funds. \n\nTimeline:\n1. Model training received funding of R$500K (~$100K USD).\n2. Initial model documentation https://t.co/yk7O2T1zg9"
+      },
+      {
+        "author_id": "913521757100769280",
+        "created_at": "2026-06-11T13:59:12.000Z",
+        "edit_history_tweet_ids": [
+          "2065071351841329578"
+        ],
+        "id": "2065071351841329578",
+        "note_tweet": {
+          "entities": {
+            "mentions": [
+              {
+                "end": 281,
+                "id": "56505125",
+                "start": 268,
+                "username": "GoogleChrome"
+              },
+              {
+                "end": 377,
+                "id": "1806359170830172162",
+                "start": 367,
+                "username": "GeminiApp"
+              }
+            ]
+          },
+          "text": "At our annual Google for Brazil event, we shared updates on how we're bringing new AI tools and features to Brazil:\n\n📍Ask Maps is coming to Brazil in Portuguese, so you can get your questions answered conversationally with a customized map.\n⚡We're expanding Gemini in @GoogleChrome to Brazil.\n📚Students can soon study for the ENEM exam with a dedicated experience on @GeminiApp and @NotebookLM.\n📅With new agentic capabilities on AI Mode in Search, we're helping people book and manage restaurant reservations through a conversational experience."
+        },
+        "public_metrics": {
+          "bookmark_count": 79,
+          "impression_count": 49689,
+          "like_count": 679,
+          "quote_count": 3,
+          "reply_count": 24,
+          "retweet_count": 52
+        },
+        "text": "At our annual Google for Brazil event, we shared updates on how we're bringing new AI tools and features to Brazil:\n\n📍Ask Maps is coming to Brazil in Portuguese, so you can get your questions answered conversationally with a customized map.\n⚡We're expanding Gemini in"
+      },
+      {
+        "author_id": "256876533",
+        "created_at": "2026-06-10T13:45:30.000Z",
+        "edit_history_tweet_ids": [
+          "2064705517264552274"
+        ],
+        "id": "2064705517264552274",
+        "note_tweet": {
+          "text": "I made a personal black hole that makes you take breaks 🕳️\n\nA shader for Ghostty that spawns a small black hole in your terminal - it drifts around, gravitationally lensing your text. The longer you work without stopping, the bigger it gets, until it's basically demanding you go touch grass\n\nTake a break and it quietly shrinks away"
+        },
+        "public_metrics": {
+          "bookmark_count": 5588,
+          "impression_count": 7255832,
+          "like_count": 18282,
+          "quote_count": 275,
+          "reply_count": 597,
+          "retweet_count": 1836
+        },
+        "text": "I made a personal black hole that makes you take breaks 🕳️\n\nA shader for Ghostty that spawns a small black hole in your terminal - it drifts around, gravitationally lensing your text. The longer you work without stopping, the bigger it gets, until it's basically demanding you go https://t.co/m3B6gPNgeM"
+      },
+      {
+        "author_id": "284333988",
+        "created_at": "2026-06-09T15:28:48.000Z",
+        "edit_history_tweet_ids": [
+          "2064369125447864674"
+        ],
+        "id": "2064369125447864674",
+        "public_metrics": {
+          "bookmark_count": 1051,
+          "impression_count": 477525,
+          "like_count": 4023,
+          "quote_count": 89,
+          "reply_count": 214,
+          "retweet_count": 342
+        },
+        "text": "Introducing Gemini 3.5 Flash Live Translate, our real time speech to speech translation model which supports more than 70 languages (both in and out), and is so natural.\n\nIt is available in the Gemini API, AI Studio, &amp; Google Translate right now + coming soon to Google Meet!! https://t.co/nDiaqrbHgF"
+      },
+      {
+        "author_id": "2520622946",
+        "created_at": "2026-06-08T13:08:29.000Z",
+        "edit_history_tweet_ids": [
+          "2063971428433563907"
+        ],
+        "id": "2063971428433563907",
+        "public_metrics": {
+          "bookmark_count": 1,
+          "impression_count": 3233,
+          "like_count": 3,
+          "quote_count": 1,
+          "reply_count": 0,
+          "retweet_count": 0
+        },
+        "text": "Pra quê jusbrasil quando vc usa Claude + JusRatio?\n\nParabéns @CarlosR26271158, excelente ferramenta"
+      },
+      {
+        "author_id": "1745889464109477888",
+        "created_at": "2026-06-05T13:15:26.000Z",
+        "edit_history_tweet_ids": [
+          "2062886013744066857"
+        ],
+        "id": "2062886013744066857",
+        "in_reply_to_user_id": "1745889464109477888",
+        "note_tweet": {
+          "text": "Na taxa de citação errada ou inventada, o cenário \"sozinho\" não é o pior. Ele erra pouco porque cita pouco. 5% de citação real quer dizer que ele quase não se compromete.  O Jusratio cita muito mais coisa real, e por isso também aparece em mais erros de detalhe, tipo uma data ou um relator trocado.  Os dois lados estão no gráfico."
+        },
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 541,
+          "like_count": 1,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2062886010757795983",
+            "type": "replied_to"
+          }
+        ],
+        "text": "Na taxa de citação errada ou inventada, o cenário \"sozinho\" não é o pior. Ele erra pouco porque cita pouco. 5% de citação real quer dizer que ele quase não se compromete.  O Jusratio cita muito mais coisa real, e por isso também aparece em mais erros de detalhe, tipo uma data ou https://t.co/9adpfZIgei"
+      },
+      {
+        "author_id": "1745889464109477888",
+        "created_at": "2026-06-05T13:15:26.000Z",
+        "edit_history_tweet_ids": [
+          "2062886010757795983"
+        ],
+        "id": "2062886010757795983",
+        "in_reply_to_user_id": "1745889464109477888",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 323,
+          "like_count": 1,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2062886008048210391",
+            "type": "replied_to"
+          }
+        ],
+        "text": "Agora a medida do post anterior, a resposta útil-e-segura, na média dos 3 modelos:  Sozinho: 16% Com Jusratio: 62% https://t.co/S05JUzZVvy"
+      },
+      {
+        "author_id": "1745889464109477888",
+        "created_at": "2026-06-05T13:15:25.000Z",
+        "edit_history_tweet_ids": [
+          "2062886008048210391"
+        ],
+        "id": "2062886008048210391",
+        "in_reply_to_user_id": "1745889464109477888",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 591,
+          "like_count": 3,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2062886005422669934",
+            "type": "replied_to"
+          }
+        ],
+        "text": "Das citações que cada cenário produziu, quantas eram reais e verificáveis?  Sozinho: 5% (33 citações reais) Com web: 15% (100) Com Jusratio: 41% (390)  33 contra 390. Sozinho, o modelo quase não entrega fundamento que dá pra checar https://t.co/BvG9NnKm87"
+      },
+      {
+        "author_id": "1745889464109477888",
+        "created_at": "2026-06-05T13:15:24.000Z",
+        "edit_history_tweet_ids": [
+          "2062886005422669934"
+        ],
+        "id": "2062886005422669934",
+        "in_reply_to_user_id": "1745889464109477888",
+        "note_tweet": {
+          "text": "A medida principal é o que chamei de resposta \"útil-e-segura\". Uma resposta só conta se fizer as duas coisas ao mesmo tempo:  \n1. Útil: trazer pelo menos um precedente real, que existe e que dá pra conferir. \n2. Segura: não inventar nem errar feio nenhuma citação.  Por que as duas juntas? Porque é fácil ser \"seguro\" só se recusando a citar qualquer coisa. Um modelo que não cita nada nunca erra, e também não serve pra nada. Exigir as duas fecha essa brecha: o modelo tem que entregar E acertar.  (A ideia de medir utilidade junto com segurança vem de um estudo de Stanford sobre ferramentas jurídicas de IA, que achou ferramenta com pouca alucinação porém mais de 60% das respostas incompletas.)"
+        },
+        "public_metrics": {
+          "bookmark_count": 2,
+          "impression_count": 837,
+          "like_count": 7,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2062886003233157454",
+            "type": "replied_to"
+          }
+        ],
+        "text": "A medida principal é o que chamei de resposta \"útil-e-segura\". Uma resposta só conta se fizer as duas coisas ao mesmo tempo:  \n1. Útil: trazer pelo menos um precedente real, que existe e que dá pra conferir. \n2. Segura: não inventar nem errar feio nenhuma citação.  Por que as"
+      },
+      {
+        "author_id": "1745889464109477888",
+        "created_at": "2026-06-05T13:15:24.000Z",
+        "edit_history_tweet_ids": [
+          "2062886003233157454"
+        ],
+        "id": "2062886003233157454",
+        "note_tweet": {
+          "entities": {
+            "urls": [
+              {
+                "display_url": "drive.google.com/file/d/1z_jDlA…",
+                "end": 542,
+                "expanded_url": "https://drive.google.com/file/d/1z_jDlAWArJB8YA1FNNX3_7A6kXltlcpn/view?usp=sharing",
+                "start": 519,
+                "url": "https://t.co/llbhpyPZoy"
+              }
+            ]
+          },
+          "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36 perguntas de direito civil e do consumidor.  Cada modelo rodou em 3 cenários: sozinho, com busca na web, e com o Jusratio.  Cada citação que eles deram foi conferida, uma a uma.  No total, foram 324 respostas e 2.248 citações conferidas.\n\nLink: https://t.co/llbhpyPZoy"
+        },
+        "public_metrics": {
+          "bookmark_count": 34,
+          "impression_count": 5078,
+          "like_count": 67,
+          "quote_count": 1,
+          "reply_count": 8,
+          "retweet_count": 2
+        },
+        "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36"
+      },
+      {
+        "author_id": "1180961053204783106",
+        "created_at": "2026-06-01T23:35:48.000Z",
+        "edit_history_tweet_ids": [
+          "2061592581448901054"
+        ],
+        "id": "2061592581448901054",
+        "in_reply_to_user_id": "1745889464109477888",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 1668,
+          "like_count": 3,
+          "quote_count": 1,
+          "reply_count": 0,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2061484324160233812",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@CarlosR26271158 Quero dizer que semana passada o Jusratio me salvou! Um paranormal excelente sobre o posicionamento dos trfs que me poupou horas de pesquisa!"
+      }
+    ],
+    "users": [
+      {
+        "id": "1745889464109477888",
+        "name": "carlos, o estressado",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1866972033185202176/Z3Mq3e7v_normal.jpg",
+        "username": "CarlosR26271158",
+        "verified": false
+      },
+      {
+        "id": "2055831163160145920",
+        "name": "Carlos Rodrigues",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2055831557898674176/6MHjutub_normal.jpg",
+        "username": "CarlosRodr44314",
+        "verified": false
+      },
+      {
+        "id": "61599733",
+        "name": "𝗭𝗲𝗻 𝗠𝗮𝗴𝗻𝗲𝘁𝘀",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1856449350504718336/JIppgSku_normal.jpg",
+        "username": "ZenMagnets",
+        "verified": true
+      },
+      {
+        "id": "913521757100769280",
+        "name": "News from Google",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1972717909559353344/eMJ6AJ0W_normal.jpg",
+        "username": "NewsFromGoogle",
+        "verified": true
+      },
+      {
+        "id": "256876533",
+        "name": "s13k",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2018382761631866880/rXKeTusP_normal.jpg",
+        "username": "s13k_",
+        "verified": false
+      },
+      {
+        "id": "284333988",
+        "name": "Logan Kilpatrick",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1943787288955084800/QOl7OJMc_normal.jpg",
+        "username": "OfficialLoganK",
+        "verified": false
+      },
+      {
+        "id": "2520622946",
+        "name": "Felipe Lanhi",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1770865879036674048/BbqUIGwi_normal.jpg",
+        "username": "felipelanhi",
+        "verified": false
+      },
+      {
+        "id": "1180961053204783106",
+        "name": "Lollypop_VIU O ENHYPEN",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2062699076177567744/JIz-wQiy_normal.jpg",
+        "username": "malugateira01",
+        "verified": false
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2094219062037422331",
+    "oldest_id": "2061476939580236075",
+    "result_count": 21
+  }
+}

@@ -1,0 +1,67 @@
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:25.9430000Z   ✅ inventário: anonimizar.js instalado, regra estreita Bash/PowerShell, guarda de sigilo também nas leituras (Read/Grep) e tabela negada nas permissões
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.0052400Z   ✅ inventário: plugin (hooks.json) com o mesmo matcher; skill /anonimizar no núcleo; doutor sem falta de ferramenta
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.0397850Z   ✅ opt-in: sem /anonimizar preparar, aplicar recusa (código 2) e nada é criado
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.1996420Z   ❌ preparar: tabela só na pasta do caso, anonimização LIGADA, e a saída não mostra nenhum dado real :: 🔒 Anonimização LIGADA no caso Ativos/2026-caso-alfa. Tabela criada com 12 dado(s) (12 novo(s)): 4 parte(s), 1 CPF, 1 CNPJ, 1 nº de processo, 1 RG, 1 e-mail, 1 telefone, 1 endereço, 1 CEP. Li 4 arquivo(s) do caso para achar os dados.
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.1997830Z A correspondência está protegida no cofre local.
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.1998600Z Próximo passo: node "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/adv-teste-ILc3x8/anon/.claude/advogado/scripts/
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.3009780Z   ✅ aplicar: "Anonimizei 3 documentos do caso …: … nomes e … CPF… viraram marcadores. A correspondência está no cofre local." sem dado real na saída
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.3012520Z   ✅ original intacto; cópias em anonimizado/ (mesmo caminho) sem nenhum dado real
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.3013460Z   ✅ CPF/CNPJ/CNJ formatados e sem formatação, RG, e-mail, telefone, endereço e CEP viram marcadores (sem pontos = mesmo dado, outra grafia)
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.3014750Z   ✅ nomes com acento/maiúsculas/sem acento: JOÃO DA SILVA, Joao da Silva e João da Silva são a mesma parte ([PARTE_A], [PARTE_A#n]); acento em NFD (macOS) também
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.3015760Z   ✅ marcadores estáveis entre documentos do mesmo caso (Banco Exemplo S.A. = [PARTE_B] na inicial e na decisão)
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.3472570Z   ✅ reverter em memória: ida e volta idêntica byte a byte (CRLF, NFD e grafias)
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.4860260Z   ✅ aplicar de novo é determinístico (mesmas cópias, tabela sem dado novo)
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.6933540Z   ✅ casos diferentes não compartilham tabela (cada um na sua pasta; João da Silva tem marcador próprio em cada caso; a tabela do caso A não mudou)
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.7296170Z   ✅ conferir: conta os marcadores e aponta o sem correspondência
+testes (macos-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:26.7674870Z   ✅ comando antigo orienta a exportação local sem criar Markdown real
+--
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.5082192Z   ✅ checar-peca: sem-texto aparece como pendente (nem conferido nem 🔴)
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.5547953Z   ✅ limparPaginasPdf: sem "Página N de 3", "Num. N - Pág. N", "- 2 -", "fls. 12" nem cabeçalho repetido
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.5548551Z   ✅ limparPaginasPdf + tokens: "consti-/tucional" na linha e "inver-/são" na troca de página reunidos; trechos CONFEREM
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.7977834Z   ❌ PDF do acórdão (cabeçalho "Num. N - Pág. N", "Página N de 3", "consti-/tucional", troca de página no meio da palavra) => CONFERE :: ✅ CONFERE: REsp 5.300.001/SP — trecho 100% igual ao original
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.7978403Z Fonte registrada: WIKI/raw/tjsp-apelacao-5300001.pdf
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.7978539Z 
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.7979131Z ⚠️ REsp 5.300.002/SP: não deu para conferir — O arquivo salvo não traz o texto do julgado (veio vazio ou só com a programação do site). Abra o julgado no site, copie o texto da ementa/inteiro teor e salve como texto (.txt), ou salve a página de novo.
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.7979667Z Nada foi dado como conferido nem c
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.9153225Z   ✅ PDF escaneado (só imagem) => sem-texto, código 4, um passo simples, sem jargão e sem confere/divergente
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:35.9593624Z   ✅ mapa de teses criado na pasta do caso (pecas/)
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:36.0266673Z   ✅ precedente sem [A VERIFICAR] no mapa => aviso imediato
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:36.0748768Z   ✅ validar reprova precedente não marcado nem conferido
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:36.1261791Z   ✅ marcar: [A VERIFICAR] onde falta e CONFERIDO no julgado conferido
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:36.1757007Z   ✅ totalizar soma por risco (provável/possível/remota) e conta ilíquidos
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:36.2236222Z   ✅ mapa válido depois de marcar
+testes (windows-latest)	Suíte de testes ponta a ponta	2026-11-23T07:24:36.2692006Z   ✅ versão para imprimir (HTML com @page A4) e marcas destacadas
+--
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0444881Z     return binding.readFileUtf8(path, stringToFlags(options.flag));
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0445772Z                    ^
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0445984Z 
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0447097Z Error: ENOENT: no such file or directory, open 'C:\Users\RUNNER~1\AppData\Local\Temp\adv-teste-cvBKGQ\ESCRITORIO\CASOS\Ativos\2026-teste\autos-md\INDICE.md'
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0448326Z     at Object.readFileSync (node:fs:448:20)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0449369Z     at Object.<anonymous> (D:\a\assistente-juridico-claude\assistente-juridico-claude\testes\rodar-testes.js:206:19)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0450518Z     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0451299Z     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0452073Z     at Module.load (node:internal/modules/cjs/loader:1266:32)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0452765Z     at Module._load (node:internal/modules/cjs/loader:1091:12)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0453875Z     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0454719Z     at node:internal/main/run_main_module:28:49 {
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0455185Z   errno: -4058,
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0455484Z   code: 'ENOENT',
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0455789Z   syscall: 'open',
+testes-fuso (windows-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.0456724Z   path: 'C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\adv-teste-cvBKGQ\\ESCRITORIO\\CASOS\\Ativos\\2026-teste\\autos-md\\INDICE.md'
+--
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.6738690Z   ✅ inventário: anonimizar.js instalado, regra estreita Bash/PowerShell, guarda de sigilo também nas leituras (Read/Grep) e tabela negada nas permissões
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.7360110Z   ✅ inventário: plugin (hooks.json) com o mesmo matcher; skill /anonimizar no núcleo; doutor sem falta de ferramenta
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.7712890Z   ✅ opt-in: sem /anonimizar preparar, aplicar recusa (código 2) e nada é criado
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.9426910Z   ❌ preparar: tabela só na pasta do caso, anonimização LIGADA, e a saída não mostra nenhum dado real :: 🔒 Anonimização LIGADA no caso Ativos/2026-caso-alfa. Tabela criada com 12 dado(s) (12 novo(s)): 4 parte(s), 1 CPF, 1 CNPJ, 1 nº de processo, 1 RG, 1 e-mail, 1 telefone, 1 endereço, 1 CEP. Li 4 arquivo(s) do caso para achar os dados.
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.9428210Z A correspondência está protegida no cofre local.
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:25.9428940Z Próximo passo: node "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/adv-teste-3l6NUz/anon/.claude/advogado/scripts/
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.0305110Z   ✅ aplicar: "Anonimizei 3 documentos do caso …: … nomes e … CPF… viraram marcadores. A correspondência está no cofre local." sem dado real na saída
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.0310460Z   ✅ original intacto; cópias em anonimizado/ (mesmo caminho) sem nenhum dado real
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.0320220Z   ✅ CPF/CNPJ/CNJ formatados e sem formatação, RG, e-mail, telefone, endereço e CEP viram marcadores (sem pontos = mesmo dado, outra grafia)
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.0321480Z   ✅ nomes com acento/maiúsculas/sem acento: JOÃO DA SILVA, Joao da Silva e João da Silva são a mesma parte ([PARTE_A], [PARTE_A#n]); acento em NFD (macOS) também
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.0322470Z   ✅ marcadores estáveis entre documentos do mesmo caso (Banco Exemplo S.A. = [PARTE_B] na inicial e na decisão)
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.0708420Z   ✅ reverter em memória: ida e volta idêntica byte a byte (CRLF, NFD e grafias)
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.1881900Z   ✅ aplicar de novo é determinístico (mesmas cópias, tabela sem dado novo)
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.3813650Z   ✅ casos diferentes não compartilham tabela (cada um na sua pasta; João da Silva tem marcador próprio em cada caso; a tabela do caso A não mudou)
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.4188290Z   ✅ conferir: conta os marcadores e aponta o sem correspondência
+testes-fuso (macos-latest)	Suíte com TZ=America/Sao_Paulo e relógio em 27/10/2026 23h30 (28/10 em UTC)	2026-11-23T07:24:26.4555620Z   ✅ comando antigo orienta a exportação local sem criar Markdown real

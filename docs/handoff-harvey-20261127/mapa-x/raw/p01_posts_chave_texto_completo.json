@@ -1,0 +1,1582 @@
+{
+  "data": [
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2041143197238181888"
+        ]
+      },
+      "author_id": "1745889464109477888",
+      "created_at": "2026-04-06T14:03:44.000Z",
+      "edit_history_post_ids": [
+        "2041154896896946180"
+      ],
+      "id": "2041154896896946180",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "ratiojuris.me",
+              "end": 48,
+              "expanded_url": "http://ratiojuris.me",
+              "start": 25,
+              "url": "https://t.co/f8EQ61qgrM"
+            },
+            {
+              "display_url": "docs.google.com/document/d/1mD…",
+              "end": 3463,
+              "expanded_url": "https://docs.google.com/document/d/1mDIoccMM1RywSxmCpuKgNTqZDKeOOUtF/edit?usp=sharing&ouid=113759300308613331484&rtpof=true&sd=true",
+              "start": 3440,
+              "url": "https://t.co/LOA1kSSgdn"
+            }
+          ]
+        },
+        "text": "Como evolução natural do https://t.co/f8EQ61qgrM, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de implementar algo)\n\nA ideia é que o advogado descreva o caso em linguagem natural e uma equipe de agentes de IA faça o trabalho pesado de pesquisa, redação, validação e contradição. Pesquisa jurisprudência, redige a peça, e um agente adversário ataca a própria petição, simulando o que a parte contrária faria. O advogado supervisiona tudo, edita, aprova, e no final tem uma peça robusta pronta pra protocolar.\n\nO que o está projetado, por ora:\n\n- Intake inteligente: Você descreve o caso e a IA faz perguntas dinâmicas até entender tudo (tipo uma consulta com um estagiário muito bom);\n- Pesquisa guiada por teses: Antes de buscar qualquer coisa, o sistema decompõe seu caso em teses jurídicas e pesquisa especificamente para cada uma, incluindo jurisprudência contrária;\n- Redação por seções: A petição é gerada seção por seção (fatos, fundamentos, pedidos), cada parágrafo com a fonte linkada\n- Loop de adversário/contraparte/opositor: Um agente separado (usando um modelo diferente) tenta destruir a petição. Aponta falhas processuais, argumentos fracos, jurisprudência faltante. E o sistema te obriga a lidar com cada ponto antes de finalizar;\n- Verificação: Conferência automática em 5 camadas pra garantir que nenhuma citação é inventada. Se não conseguir verificar, marca como [VERIFICAR] em vez de deixar passar;\n\nNo final, download de um .docx nos padronizado, pronto.\n\nDecisões técnicas que achei mais interessantes:\n\n- O motor de pesquisa do Ratio atual (que já funciona com STF e STJ) vira a ferramenta que os agentes usam. Não joga nada fora.\n- O agente adversário usa um modelo de IA diferente do redator de propósito, pra evitar \"concordância automática\" entre modelos iguais. Aqui, vale destacar:\n\nO agente que ataca a petição é deliberadamente configurado para discordar. Quando o usuário tem chaves de provedores diferentes (ex: Gemini + Claude), o sistema usa modelos de empresas diferentes para redigir e criticar porque modelos diferentes têm pontos cegos diferentes, e essa diversidade gera críticas que o redator sozinho não encontraria. Mas mesmo com um único provedor, o sistema força a crítica real: saída estruturada que obriga o agente a preencher campos específicos de falhas, busca obrigatória de jurisprudência contrária, e rejeição automática quando o agente \"não encontra nenhum problema\" (porque toda petição tem problemas).\n\nMesmo assim, se o usuário ficar com uma pulga atrás da orelha e decidir comparar com a resposta de outro provedor, pode \"importar parecer externo\" que vai passar por todo o processo de validação antes de um veredito de um bom insight externo não observado.\n\n- O usuário tem 2 pontos de aprovação obrigatórios: um após o intake (\"entendemos o problema?\") e outro após a pesquisa (\"temos base suficiente?\"). O sistema nunca segue sozinho.\n- Cada ação mostra quanto vai custar em tokens antes de executar. Transparência total de custo.\n- Tudo roda local na máquina do usuário. Nenhum dado do caso vai pra servidor externo além das chamadas de API dos modelos.\n\nStack: Python + FastAPI + LangGraph + LanceDB + React. Streaming em tempo real via SSE.\n\nHaverá uma nova aba no webapp. Como funcionaria na prática: https://t.co/LOA1kSSgdn\n\nSugestões?\nOBS: eu não sou advogado, nem formado em direito. Eu sou um concurseiro curioso. Então é muito provável que haja lacunas que minha ignorância não permite visualizar. Adapte o roadmap pra sua necessidade. \n\nTudo deve ficar registrado na sua máquina em um banco de dados SQL (inicialmente). Nos comentários, uma representação visual de como mais ou menos deve ficar."
+      },
+      "public_metrics": {
+        "bookmark_count": 490,
+        "impression_count": 77551,
+        "like_count": 328,
+        "quote_count": 2,
+        "reply_count": 23,
+        "repost_count": 22
+      },
+      "text": "Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO",
+      "url": "https://x.com/CarlosR26271158/status/2041154896896946180"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2063077456567820288"
+        ]
+      },
+      "author_id": "1805226711945977856",
+      "created_at": "2026-06-06T01:56:12.000Z",
+      "edit_history_post_ids": [
+        "2063077466558648512"
+      ],
+      "id": "2063077466558648512",
+      "note_tweet": {
+        "text": "Eu não deixo de ficar impressionado com o Claude e com as possibilidades que o ~vibe coding~ proporciona. Dá pra resolver muitos gargalos diários com um pouco de criatividade.  \n\nUma coisa que me torra a paciência é ter que coletar conversa de whatsapp como prova documental. O cliente precisa tirar print de tudo, mandar fotos, áudios, pdfs....  \n\nAí uns dias atrás usei o Claude Code pra criar uma ferramenta em HTML. O cliente exporta a conversa e me envia. Eu jogo tudo pra dentro da ferramenta (que roda na minha maquina) e emulo a tela do whatsapp, como se estivesse no whatsapp do próprio cliente.  \n\nConsigo ver todos os arquivos que ele recebeu/enviou, inclusive os áudios. Já fiz uma função pra transcrever os áudios automaticamente. Ainda tenho um botão que gera um relatório completo, incluindo os áudios transcritos.  \n\nResultado: a atividade de organizar a conversa e os arquivos, que antes me tomava horas (além de ter de confiar que o cliente salvou tudo corretamente), agora leva segundos.   \n\nLembrem sempre disso: o melhor prompt é a criatividade 💡"
+      },
+      "public_metrics": {
+        "bookmark_count": 4,
+        "impression_count": 538,
+        "like_count": 6,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 1
+      },
+      "text": "Eu não deixo de ficar impressionado com o Claude e com as possibilidades que o ~vibe coding~ proporciona. Dá pra resolver muitos gargalos diários com um pouco de criatividade.  \n\nUma coisa que me torra a paciência é ter que coletar conversa de whatsapp como prova documental. O https://t.co/ccsBG7HglE",
+      "url": "https://x.com/igornicolodi1/status/2063077466558648512"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-08-14T14:14:25.000Z",
+      "edit_history_post_ids": [
+        "2088268004844859396"
+      ],
+      "id": "2088268004844859396",
+      "note_tweet": {
+        "text": "Se o advogado não possui um software de CRM, como ele faz para saber em que pé está o caso do cliente?\n\nAnota na agenda? Confia na memória? Lê a pasta ou processo quando o cliente pergunta? Tudo isso é muito inseguro e perigoso.\n\nDividindo meus pensamentos com o Claude, confessei minha preocupação em ter uma espécie de segundo cérebro do escritório, um lugar onde eu poderia guardar prazos, situações de processos e casos administrativos etc.\n\nEle me recomendou a organização de dossiês. Fichas em markdown que apresentariam um resumo do caso, documentos disponíveis, documentos faltantes, dados pessoais básicos, próximos passos, teses ativas e secundárias, entre outros.\n\nAlém de representarem uma memória de cada caso, os dossiês seriam também uma mão na roda para os LLMs consultarem e atualizarem informações sobre cada caso.\n\nSegui a orientação. Implementamos uma skill para a criação e atualização padronizada dos dossiês para cada cliente ativo. Agora, cada pasta de cliente tem seu próprio dossiê.\n\nA grande jogada é essa: além do advogado ter uma memória de cada caso, ele também tem um documento com formato próprio para ser lido por LLMs. O trabalho fica muito mais fluido e a atualização de cada caso é simples e rápida.\n\nInteressados na skill, só mandar DM."
+      },
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "text": "Se o advogado não possui um software de CRM, como ele faz para saber em que pé está o caso do cliente?\n\nAnota na agenda? Confia na memória? Lê a pasta ou processo quando o cliente pergunta? Tudo isso é muito inseguro e perigoso.\n\nDividindo meus pensamentos com o Claude, confessei",
+      "url": "https://x.com/iamleds/status/2088268004844859396"
+    },
+    {
+      "author_id": "1850318766103523328",
+      "created_at": "2026-05-13T03:01:38.000Z",
+      "edit_history_post_ids": [
+        "2054396621916455255"
+      ],
+      "id": "2054396621916455255",
+      "note_tweet": {
+        "entities": {
+          "mentions": [
+            {
+              "end": 78,
+              "id": "1353836358901501952",
+              "start": 66,
+              "username": "AnthropicAI"
+            },
+            {
+              "end": 95,
+              "id": "1943306828697550848",
+              "start": 86,
+              "username": "claudeai"
+            }
+          ]
+        },
+        "text": "Olhando as 13 skills do pacote claude-for-legal lançado hoje pela @AnthropicAI para o @claudeai  o quadro é claro: o pacote é fundamentalmente um produto para o mercado jurídico americano corporativo — in-house counsel, Big Law, M&A, compliance, privacy, IP, clínicas universitárias. \n\nO litígio contencioso brasileiro não é o público alvo de nenhuma delas.\n\nNa prática, para elaboração e análise de contratos, o problema é o mesmo das skills de litígio: ela foi calibrada para o direito contratual americano. Isso significa lógica de common law, cláusulas típicas do mercado americano (indemnification no padrão deles, limitation of liability com caps específicos, governing law tipicamente Delaware/Nova York, boilerplate anglo-saxão), e ausência da estrutura do nosso Código Civil, função social do contrato, boa-fé objetiva (art. 422), onerosidade excessiva (art. 478), revisão por rebus sic stantibus, cláusulas resolutivas tácitas, vícios redibitórios, e por aí vai.\n\nPara contratos comerciais brasileiros, sejam contratos empresariais, prestação de serviços, locação, compra e venda, parcerias, usar a Commercial legal significaria importar um modelo mental estrangeiro e ter que corrigi-lo manualmente a cada passo. O ganho de produtividade é duvidoso.\n\nPra galera da área jurídica o ideal é continuar usando o chatbot mesmo ou criar uma skill personalizada."
+      },
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 385,
+        "like_count": 0,
+        "quote_count": 1,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "text": "Olhando as 13 skills do pacote claude-for-legal lançado hoje pela @AnthropicAI para o @claudeai  o quadro é claro: o pacote é fundamentalmente um produto para o mercado jurídico americano corporativo — in-house counsel, Big Law, M&amp;A, compliance, privacy, IP, clínicas",
+      "url": "https://x.com/rpjupiter/status/2054396621916455255"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_1944538145027948544"
+        ]
+      },
+      "author_id": "548625382",
+      "created_at": "2025-07-13T23:23:22.000Z",
+      "edit_history_post_ids": [
+        "1944538173364674733"
+      ],
+      "id": "1944538173364674733",
+      "note_tweet": {
+        "text": "Uma dica de IA pra galera do Direito:\n\nPrecisei estudar um tema de direito civil que nunca tive contato (anulação de matrícula de imóvel particular adquirido a título de terra devoluta) para resolver um problema familiar.\n\nColoquei meus estagiários premium (ChatGPT, Claude, Gemini e um pouco do Perplexity) para trabalhar.\n\nE sinceramente: fiquei espantado como o Gemini (Google) está bom para pesquisa jurídica, sugestão para cases jurídicos complexos e redação de esboços de peças. \n\nHoje, o Gemini (versão 2.5 Flash) é o campeão para atividades jurídicas a meu ver. Muito bom mesmo!"
+      },
+      "public_metrics": {
+        "bookmark_count": 1183,
+        "impression_count": 70081,
+        "like_count": 985,
+        "quote_count": 5,
+        "reply_count": 32,
+        "repost_count": 57
+      },
+      "text": "Uma dica de IA pra galera do Direito:\n\nPrecisei estudar um tema de direito civil que nunca tive contato (anulação de matrícula de imóvel particular adquirido a título de terra devoluta) para resolver um problema familiar.\n\nColoquei meus estagiários premium (ChatGPT, Claude, https://t.co/M6vga7Ly2e",
+      "url": "https://x.com/freitashebert_/status/1944538173364674733"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "13_2103333662469074944"
+        ]
+      },
+      "author_id": "146009308",
+      "created_at": "2026-09-25T04:00:46.000Z",
+      "edit_history_post_ids": [
+        "2103333866693890461"
+      ],
+      "id": "2103333866693890461",
+      "note_tweet": {
+        "entities": {
+          "hashtags": [
+            {
+              "end": 671,
+              "start": 661,
+              "tag": "advocacia"
+            },
+            {
+              "end": 681,
+              "start": 672,
+              "tag": "advogado"
+            },
+            {
+              "end": 705,
+              "start": 682,
+              "tag": "inteligenciaartificial"
+            },
+            {
+              "end": 717,
+              "start": 706,
+              "tag": "iajuridica"
+            },
+            {
+              "end": 722,
+              "start": 718,
+              "tag": "pje"
+            },
+            {
+              "end": 731,
+              "start": 723,
+              "tag": "direito"
+            },
+            {
+              "end": 751,
+              "start": 732,
+              "tag": "tecnologiajuridica"
+            },
+            {
+              "end": 766,
+              "start": 752,
+              "tag": "produtividade"
+            }
+          ]
+        },
+        "text": "Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.\n\nNo vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, já faz o resumo do processo e busca a jurisprudência pertinente, com a ementa à vista.\n\nSem extensão no Google Chrome, sem plugin no Claude, sem baixar PDF e arrastar para a conversa.\n\nO detalhe que mais importa: a peça fica aberta ao lado da resposta. A IA resume e pesquisa; quem confere, antes de usar, continua sendo você.\n\n📌 Salve para testar no próximo processo que chegar.\n\n#advocacia #advogado #inteligenciaartificial #iajuridica #pje #direito #tecnologiajuridica #produtividade"
+      },
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 59,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "text": "Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.\n\nNo vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, https://t.co/gMiRdfabhh",
+      "url": "https://x.com/edmar_neto/status/2103333866693890461"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-05-26T16:00:06.000Z",
+      "edit_history_post_ids": [
+        "2059303572316078265"
+      ],
+      "id": "2059303572316078265",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "carloslimadv.github.io/biblioteca-pro…",
+              "end": 126,
+              "expanded_url": "https://carloslimadv.github.io/biblioteca-prompts-juridicos/",
+              "start": 103,
+              "url": "https://t.co/U2ntoGtE9H"
+            }
+          ]
+        },
+        "text": "Colegas, após alguns apontamentos e feedbacks, eu atualizei a biblioteca de prompts jurídicos para IA: https://t.co/U2ntoGtE9H\n\nAgora são 41 prompts, com foco em uso prático, revisão humana e travas contra invenção de fatos, prazos, valores, documentos e jurisprudência.\n\nIncluí também um prompt específico para auditar PDF/DOCX da parte adversária em busca de prompt injection e/ou instruções ocultas/maliciosas."
+      },
+      "public_metrics": {
+        "bookmark_count": 293,
+        "impression_count": 10461,
+        "like_count": 172,
+        "quote_count": 1,
+        "reply_count": 1,
+        "repost_count": 22
+      },
+      "text": "Colegas, após alguns apontamentos e feedbacks, eu atualizei a biblioteca de prompts jurídicos para IA: https://t.co/P9bgIo2p7K\n\nAgora são 41 prompts, com foco em uso prático, revisão humana e travas contra invenção de fatos, prazos, valores, documentos e jurisprudência.\n\nIncluí",
+      "url": "https://x.com/carloshsl_/status/2059303572316078265"
+    },
+    {
+      "author_id": "4903308035",
+      "created_at": "2026-07-13T16:41:20.000Z",
+      "edit_history_post_ids": [
+        "2076708565855650177"
+      ],
+      "id": "2076708565855650177",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 72,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "text": "Aprender a usar o Drive integrado com o Claude como banco de dados trouxe uma otimização e aprimoramento para o processo de elaboração de peças processuais no escritório\n\nImpressionante a capacidade da IA de assimilar a sua escrita e estilo de formatação",
+      "url": "https://x.com/douglaxx/status/2076708565855650177"
+    },
+    {
+      "author_id": "1388285536285118470",
+      "created_at": "2026-06-19T16:43:47.000Z",
+      "edit_history_post_ids": [
+        "2068011873149104569"
+      ],
+      "id": "2068011873149104569",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 44,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2068001068638700015",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@lucasmourao_ @ogavelar Uso o @jusratio com o Claude pra verificar o entendimento jurisprudencial mas é óbvio que, mesmo confiando na plataforma, valido e leio cada jurisprudência antes de incluir na petição.\n\nA coisa mais importante que a gente tem é o nome, e é ele que vai no final da peça.",
+      "url": "https://x.com/b_descalante/status/2068011873149104569"
+    },
+    {
+      "author_id": "2737817475",
+      "created_at": "2026-10-12T17:38:34.000Z",
+      "edit_history_post_ids": [
+        "2109700267021103242"
+      ],
+      "id": "2109700267021103242",
+      "note_tweet": {
+        "text": "Eu usei o Claude com algumas skills de advocacia. Montei dois processos, organizei tudo com ele no modelo fable 5.1 (high). Entreguei pro meu adv mastigado, vencemos os 2. Foi única vez que usei pra processos, mas pra contratos e assuntos jurídicos do dia a dia, só uso ele. Uso muito GPT pra geração de imagens, alguns outros projetos mais simples de programação e até mesmo gerar pdfs, planos, analisar dados de planilhas. Cada um vai ter o diferencial. Meu preferido é o Claude, apesar de não abrir do gpt também. Outro detalhe é que estava sempre usando ambos planos de 20x, e esse mês vou rebaixar o codex pra 5x, acho que vai me atender igual, pois reduzi muito o uso dele."
+      },
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 59,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2109693797605298574",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JCNovais Eu usei o Claude com algumas skills de advocacia. Montei dois processos, organizei tudo com ele no modelo fable 5.1 (high). Entreguei pro meu adv mastigado, vencemos os 2. Foi única vez que usei pra processos, mas pra contratos e assuntos jurídicos do dia a dia, só uso ele. Uso",
+      "url": "https://x.com/glaubera/status/2109700267021103242"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2102722680143167488"
+        ]
+      },
+      "author_id": "2102455609387782144",
+      "created_at": "2026-09-23T11:32:09.000Z",
+      "edit_history_post_ids": [
+        "2102722684463226896"
+      ],
+      "id": "2102722684463226896",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 6,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "text": "🚨 O Claude está mudando a forma como escritórios de advocacia podem usar IA.\n\nE não estou falando de pedir para ele escrever uma petição.\n\nSeparei 4 sacadas para quem quer usar IA para realmente ganhar produtividade no escritório.\n\nSalva porque isso vai muito além de prompt. https://t.co/xjZtOt8qdC",
+      "url": "https://x.com/Zenilson_coelho/status/2102722684463226896"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "13_2105387608066994176"
+        ]
+      },
+      "author_id": "1523178195171823617",
+      "created_at": "2026-09-30T20:03:50.000Z",
+      "edit_history_post_ids": [
+        "2105387747921862853",
+        "2105388171043455234"
+      ],
+      "id": "2105388171043455234",
+      "note_tweet": {
+        "entities": {
+          "hashtags": [
+            {
+              "end": 1473,
+              "start": 1464,
+              "tag": "LegalOps"
+            },
+            {
+              "end": 1497,
+              "start": 1474,
+              "tag": "InteligenciaArtificial"
+            },
+            {
+              "end": 1508,
+              "start": 1498,
+              "tag": "Advocacia"
+            },
+            {
+              "end": 1519,
+              "start": 1509,
+              "tag": "LegalTech"
+            },
+            {
+              "end": 1534,
+              "start": 1520,
+              "tag": "Produtividade"
+            },
+            {
+              "end": 1540,
+              "start": 1535,
+              "tag": "ab2l"
+            },
+            {
+              "end": 1552,
+              "start": 1541,
+              "tag": "arbitragem"
+            },
+            {
+              "end": 1563,
+              "start": 1553,
+              "tag": "audiencia"
+            },
+            {
+              "end": 1576,
+              "start": 1564,
+              "tag": "transcricao"
+            },
+            {
+              "end": 1585,
+              "start": 1577,
+              "tag": "fenalaw"
+            },
+            {
+              "end": 1593,
+              "start": 1586,
+              "tag": "harvey"
+            },
+            {
+              "end": 1606,
+              "start": 1594,
+              "tag": "ianodireito"
+            }
+          ],
+          "mentions": [
+            {
+              "end": 348,
+              "id": "1943306828697550848",
+              "start": 339,
+              "username": "claudeai"
+            },
+            {
+              "end": 413,
+              "id": "1720665183188922368",
+              "start": 408,
+              "username": "grok"
+            },
+            {
+              "end": 428,
+              "id": "2085838061347217408",
+              "start": 424,
+              "username": "bot"
+            },
+            {
+              "end": 687,
+              "id": "1846671939437252609",
+              "start": 671,
+              "username": "Gemini_Notebook"
+            }
+          ],
+          "urls": [
+            {
+              "display_url": "lnkd.in/p/dE3zAGsj",
+              "end": 1462,
+              "expanded_url": "https://lnkd.in/p/dE3zAGsj",
+              "start": 1439,
+              "url": "https://t.co/iACb378C8T"
+            }
+          ]
+        },
+        "text": "Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?\n\nIA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?\n\nEssa semana, em vez de fazer o upload de um vídeo pesado de uma audiência de quase 3 horas no @claudeai, montei o seguinte stack:\n\n1. Transcrição Local (Whisper + @grok ): Usei o @bot  para estruturar uma skill para ser usada no Claude (basta pedir para a IA criar, você nem precisa codar do zero). Com ela, a transcrição roda localmente via Whisper: o áudio fica no meu PC (sigilo total) e o custo é zero.\n\n2. Análise Macro (@Gemini_Notebook): Mandei o .txt gerado com a transcrição para o NotebookLM. Com sua janela de contexto gigante, vasculho os depoimentos e cruzo informações sem gastar os limites de uso de LLMs pagos.\n\n3. Refinamento (Claude Projects): Transformo o texto em Markdown e isolo dentro de um projeto no Claude só para aquele caso. O modelo trabalha com um contexto limpo e hiperfocado.\n\nNo fim: menos token, custo quase zero na transcrição, produtividade altíssima e o conteúdo fica muito melhor estruturado para a peça.\nJogar vídeo longo direto no chat é pagar caro por um problema que a tecnologia open-source já resolve de graça no computador. \n\nDe quebra, fica o lembrete: você nem precisa saber criar a skill do zero, é só pedir para a IA fazer para você. Incrível.\n\nhttps://t.co/iACb378C8T\n\n#LegalOps #InteligenciaArtificial #Advocacia #LegalTech #Produtividade #ab2l #arbitragem #audiencia #transcricao #fenalaw #harvey #ianodireito"
+      },
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 144,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "text": "Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?\n\nIA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?\n\nEssa semana, em vez de fazer o https://t.co/T42FUB7Gmi",
+      "url": "https://x.com/femarc0086/status/2105388171043455234"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2075579290217828352",
+          "3_2075579345108701185",
+          "3_2075579362028503040",
+          "3_2075579383574671360"
+        ]
+      },
+      "author_id": "2055831163160145920",
+      "created_at": "2026-07-10T13:54:43.000Z",
+      "edit_history_post_ids": [
+        "2075579473550770237"
+      ],
+      "id": "2075579473550770237",
+      "note_tweet": {
+        "text": "Você já jogou um pdf de 2 mil páginas no chat do claude/gpt e teve problemas com contexto e alucinação? Bora criar uma solução juntos? Fiz esse conector local especialmente voltado pra esses casos. \nFunciona assim:\n\n- Você define uma pasta\n- Põe o pdf nessa pasta ou subpasta\n- O conector prepara o processo ali mesmo, dentro do seu computador, e o chat passa a consultar o caso em vez de engolir o PDF inteiro.\n\nA diferença tá nesse último ponto. Quando você anexa um processo grande no chat, o modelo tenta segurar tudo na memória de trabalho dele, que é limitada. Ele corta pedaços, resume o que não devia, e quando a memória enche começa a misturar as coisas. É daí que vem boa parte da alucinação: ele responde com confiança sobre uma página que já esqueceu.\n\nO conector resolve isso não colocando o processo na conversa. Ele desmonta o PDF página por página em arquivos de texto simples (dá pra abrir qualquer um no bloco de notas, nada escondido) e monta um índice local, um arquivo único no seu PC que funciona como um índice remissivo gigante: qualquer pergunta acha os trechos certos em milissegundos, sem reler nada. Na conversa entram só os trechos relevantes daquela pergunta, alguns parágrafos por vez. Um processo de 2 mil páginas custa pro chat o mesmo que um de 20.\n\nUso dois modelos do Gemini, na chave API do próprio usuário. O gemini-3.5-flash lê as páginas escaneadas: é um modelo de visão rápido e barato que transcreve até foto torta de documento tirada no banco do carro.\n\nO gemini-embedding-2 habilita a busca por significado: ele converte cada trecho num código de significado, então \"rompimento da parceria\" encontra a página que fala de \"perda de clientela e colapso patrimonial\" mesmo sem nenhuma palavra em comum. Escolhi esse modelo por um motivo específico: ele entende imagem também, então uma página que nem o OCR conseguiu ler continua encontrável pela aparência dela.\n\nE o custo é honesto: num processo real de 1.359 páginas com 190 escaneadas, o preparo completo saiu por uns 7 reais (e só é feito 1x). O conector mostra a estimativa em reais e pede sua autorização antes de gastar qualquer centavo. Detalhe que importa pra advogado: no plano gratuito da API o Google usa os dados enviados pra melhorar os produtos deles; no pago, não. Pra processo sigiloso, use chave com faturamento ativo.\n\nNo seu computador, cada processo vira uma pasta organizada: o PDF original intocado, os textos página a página, o índice, os relatórios gerados. Você enxerga tudo no Explorer.\n\nNa conversa, o assistente ganha ferramentas de verdade: monta o painel do caso, o índice dos autos (ele lê o rodapé do PJe e reconstrói os N documentos do caderno com as datas de juntada), a cronologia, busca qualquer coisa, abre o PDF da página na sua tela quando você quer conferir o original, e mantém um fichamento que sobrevive entre conversas: você fecha hoje, volta amanhã e ele continua de onde parou.\n\nUma das tools se chama 'Quadro de Controvérsias'. Você pergunta \"o que a ré respondeu sobre a multa? e o que ficou sem impugnação específica?\" e ele cruza a inicial com a contestação tema por tema, cada célula com a página de origem, e entrega um documento Word formatado, salvo na pasta do processo, pronto pra você trabalhar em cima.\n\nNovamente: nenhuma afirmação sem fonte. Cada frase sai com a citação do processo eletrônico (ID do documento e página), que qualquer pessoa confere no PJe. Antes de gerar um relatório, o conector valida cada afirmação contra o texto literal dos autos; se o modelo inventou uma data ou um trecho, é reprovado e corrigido. E o que ele não conseguiu ler, ele te fala ao invés de inventar resposta.\n\nO mais importante: O conector não pesquisa precedente sozinho, ele conversa com qualquer serviço de pesquisa que você tenha conectado no Claude. Por essa razão, de posse de todos os fatos sem perder a janela de contexto, o agente pode formular melhor um pedido de pesquisa de jurisprudência que você não observou ainda, e cada precedente aproveitado fica registrado na pasta do processo: tribunal, número, câmara, relator, data de julgamento, a tese em uma linha e o link pro inteiro teor. Tá na imagem.\n\nÉ um experimento, de graça. Tudo roda no seu pc. Quero melhorar essa ferramenta. Te mostro abaixo como instalar"
+      },
+      "public_metrics": {
+        "bookmark_count": 379,
+        "impression_count": 28924,
+        "like_count": 221,
+        "quote_count": 4,
+        "reply_count": 23,
+        "repost_count": 22
+      },
+      "text": "Você já jogou um pdf de 2 mil páginas no chat do claude/gpt e teve problemas com contexto e alucinação? Bora criar uma solução juntos? Fiz esse conector local especialmente voltado pra esses casos. \nFunciona assim:\n\n- Você define uma pasta\n- Põe o pdf nessa pasta ou subpasta\n- O https://t.co/lqK81JMhRE",
+      "url": "https://x.com/CarlosRodr44314/status/2075579473550770237"
+    },
+    {
+      "author_id": "1237410071061114886",
+      "created_at": "2026-07-03T18:24:03.000Z",
+      "edit_history_post_ids": [
+        "2073110537907421354"
+      ],
+      "id": "2073110537907421354",
+      "note_tweet": {
+        "text": "Eu não consigo entender como um advogado joga os dados do cliente no ChatGPT e copia a petição inicial feita pela IA.\n\nAcabei de ver uma ação contra uma casa de apostas em que o advogado copiou e colou 100% do que a IA escreveu. Em um caso de LUDOPATIA!!!\n\nUma ação complexa, delicada, cheia de detalhes, e foi feita no CTRL+C e CTRL+V.\n\nO advogado sequer qualificou as partes. Para piorar, a petição manteve até os emojis que a IA colocou no texto. Nem isso o advogado se preocupou em revisar.\n\nNão estou criticando o uso da IA, que é uma ótima ferramenta de apoio. O problema é usar a ferramenta como substituta do próprio trabalho. Em um caso desses, isso é ABSURDO.\n\nToda a advocacia perde com isso."
+      },
+      "public_metrics": {
+        "bookmark_count": 35,
+        "impression_count": 38346,
+        "like_count": 325,
+        "quote_count": 3,
+        "reply_count": 20,
+        "repost_count": 10
+      },
+      "text": "Eu não consigo entender como um advogado joga os dados do cliente no ChatGPT e copia a petição inicial feita pela IA.\n\nAcabei de ver uma ação contra uma casa de apostas em que o advogado copiou e colou 100% do que a IA escreveu. Em um caso de LUDOPATIA!!!\n\nUma ação complexa,",
+      "url": "https://x.com/brunoadvba/status/2073110537907421354"
+    },
+    {
+      "author_id": "53143647",
+      "created_at": "2026-04-25T11:53:28.000Z",
+      "edit_history_post_ids": [
+        "2048007483642249590"
+      ],
+      "id": "2048007483642249590",
+      "note_tweet": {
+        "entities": {
+          "mentions": [
+            {
+              "end": 1699,
+              "id": "2409526080",
+              "start": 1685,
+              "username": "bicharaemotta"
+            }
+          ]
+        },
+        "text": "A IA não está apenas automatizando tarefas jurídicas. Está eliminando o andaime que forma profissionais calibrados. Pesquisa, due diligence, revisão de contratos é como o estagiário aprende a pensar juridicamente. Hoje a IA entrega o resultado, mas o caminho que forma o profissional fica para trás.\n\nO problema não é o emprego da IA. É o aprendizado que acontece no processo. Quem nunca garimpou jurisprudência por horas, nunca foi corrigido por um sócio numa peça mal feita, nunca levou um bater de porta, chega ao andar de gestor sem o repertório que a função exige. O trabalhado está, eventualmente, certo. A formação, não.\n\nLiderança sempre foi construída na fornalha das relações humanas, e de baixo para cima. Um sócio sênior sabe negociar porque redigiu mil cláusulas. Sabe gerir uma crise porque esteve na linha de frente da trincheira. Quando essa base é suprimida ou acelerada artificialmente, o pipeline de liderança se enfraquece de forma silenciosa e progressiva.\n\nO risco concreto é uma geração de advogados artificialmente competentes e estrategicamente frágeis. Que sabem validar um trabalho feito pela máquina, mas não sabem auditar com profundidade por que ele pode estar errado. Numa arbitragem complexa ou numa negociação de alto risco, essa limitação cobra seu preço. E ele é alto.\n\nA resposta não é negar a IA. É redesenhar a formação profissional com consciência do que se perdeu ou pode ter ficado pelo caminho. Exposição deliberada ao erro, contato direto com clientes, capacidade crítica de supervisionar o que a ferramenta produz. \n\nO escritório que compreender a nova dinâmica, daqui dez anos, terá os melhores sócios e líderes da indústria. É nisso que a @bicharaemotta acredita."
+      },
+      "public_metrics": {
+        "bookmark_count": 465,
+        "impression_count": 2185241,
+        "like_count": 2807,
+        "quote_count": 27,
+        "reply_count": 78,
+        "repost_count": 181
+      },
+      "text": "A IA não está apenas automatizando tarefas jurídicas. Está eliminando o andaime que forma profissionais calibrados. Pesquisa, due diligence, revisão de contratos é como o estagiário aprende a pensar juridicamente. Hoje a IA entrega o resultado, mas o caminho que forma o",
+      "url": "https://x.com/mottamarcos/status/2048007483642249590"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2056088465431773184"
+        ]
+      },
+      "author_id": "1580132398846672903",
+      "created_at": "2026-05-17T19:05:07.000Z",
+      "edit_history_post_ids": [
+        "2056088645241577817"
+      ],
+      "id": "2056088645241577817",
+      "note_tweet": {
+        "text": "Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por dia que precisa de jurisprudência, essa foi incrível."
+      },
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 59735,
+        "like_count": 75,
+        "quote_count": 1,
+        "reply_count": 3,
+        "repost_count": 4
+      },
+      "referenced_tweets": [
+        {
+          "id": "2056035329014898855",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@CarlosR26271158 @jusratio Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por https://t.co/anrN0UQGyB",
+      "url": "https://x.com/AdvTrib/status/2056088645241577817"
+    },
+    {
+      "author_id": "2055250851644489728",
+      "created_at": "2026-05-20T14:08:37.000Z",
+      "edit_history_post_ids": [
+        "2057101189028688258"
+      ],
+      "id": "2057101189028688258",
+      "note_tweet": {
+        "text": "Estamos construindo a fundação jurídica para a IA no Jusratio:\n\nNão somos uma legaltech tradicional. Não somos um \"ChatGPT do direito\" empacotado. Somos a camada de inteligência jurídica que conecta os LLMs que o advogado já usa (Claude, ChatGPT, Gemini) a um corpus vivo de jurisprudência e legislação brasileira, com motor próprio de busca híbrida e rankeamento calibrado para o vocabulário e a hierarquia do direito brasileiro — toda citação carrega número do processo, relator, data e link para referência. \n\nCombatemos a alucinação na raiz: o modelo responde sobre o que nosso retrieval entrega. Quando a busca não cobre o suficiente, devolvemos um aviso explícito de \"limites desta pesquisa\" — pro modelo dizer que não sabe, em vez de adivinhar. Quando um precedente foi superado, sinalizamos antes que vire peça protocolada.\n\nPense em nós como o pesquisador jurídico que está dentro do Claude e do ChatGPT — não inventa, sempre cita, e cabe no fluxo de trabalho que o advogado já tem."
+      },
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 10880,
+        "like_count": 194,
+        "quote_count": 1,
+        "reply_count": 14,
+        "repost_count": 7
+      },
+      "text": "Estamos construindo a fundação jurídica para a IA no Jusratio:\n\nNão somos uma legaltech tradicional. Não somos um \"ChatGPT do direito\" empacotado. Somos a camada de inteligência jurídica que conecta os LLMs que o advogado já usa (Claude, ChatGPT, Gemini) a um corpus vivo de",
+      "url": "https://x.com/jusratio/status/2057101189028688258"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:24.000Z",
+      "edit_history_post_ids": [
+        "2062886003233157454"
+      ],
+      "id": "2062886003233157454",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "drive.google.com/file/d/1z_jDlA…",
+              "end": 542,
+              "expanded_url": "https://drive.google.com/file/d/1z_jDlAWArJB8YA1FNNX3_7A6kXltlcpn/view?usp=sharing",
+              "start": 519,
+              "url": "https://t.co/llbhpyPZoy"
+            }
+          ]
+        },
+        "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36 perguntas de direito civil e do consumidor.  Cada modelo rodou em 3 cenários: sozinho, com busca na web, e com o Jusratio.  Cada citação que eles deram foi conferida, uma a uma.  No total, foram 324 respostas e 2.248 citações conferidas.\n\nLink: https://t.co/llbhpyPZoy"
+      },
+      "public_metrics": {
+        "bookmark_count": 34,
+        "impression_count": 5078,
+        "like_count": 67,
+        "quote_count": 1,
+        "reply_count": 8,
+        "repost_count": 2
+      },
+      "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36",
+      "url": "https://x.com/CarlosR26271158/status/2062886003233157454"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-08-18T20:33:00.000Z",
+      "edit_history_post_ids": [
+        "2089812830866341979"
+      ],
+      "id": "2089812830866341979",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 40,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2089812828802654345",
+          "type": "replied_to"
+        }
+      ],
+      "text": "2/6\n\nO atalho parece eficiente: “GPT jurídico definitivo”, kit de petição, agente pronto, automação que promete resolver tudo.\n\nO custo escondido é alto: peças padronizadas, voz indistinguível e dependência permanente de fornecedor externo.",
+      "url": "https://x.com/odilonoliveira/status/2089812830866341979"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2090121533742059521"
+        ]
+      },
+      "author_id": "4222896442",
+      "created_at": "2026-08-19T16:59:42.000Z",
+      "edit_history_post_ids": [
+        "2090121541174341824"
+      ],
+      "id": "2090121541174341824",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 41,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "text": "Estou organizando toda a minha operação de advocacia de trânsito com agentes de IA. \n\nSigo firme com o Hermes Agent, da @NousResearch. Está sendo sensacional! \n\nCriei um sistema de dossiês para controlar os casos. Um cliente pode ter várias autuações em um só veículo. https://t.co/SSTvCWxCaM",
+      "url": "https://x.com/iamleds/status/2090121541174341824"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-03-13T13:17:48.000Z",
+      "edit_history_post_ids": [
+        "2032446026364211202"
+      ],
+      "id": "2032446026364211202",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "ratiojuris.me",
+              "end": 3798,
+              "expanded_url": "http://ratiojuris.me",
+              "start": 3775,
+              "url": "https://t.co/f8EQ61qgrM"
+            }
+          ]
+        },
+        "text": "Existe uma diferença fundamental entre uma IA que escreve bem sobre Direito e uma IA que sabe Direito. A primeira é perigosa exatamente porque parece a segunda.\n\nQuando um advogado usa o ChatGPT para pesquisar jurisprudência, o modelo não está consultando uma base de dados do STF. Ele está fazendo o equivalente a perguntar para alguém muito bem-lido que, eventualmente, confabula, produz memórias que soam verdadeiras porque foram construídas com os padrões certos de linguagem jurídica. O número de processo tem o formato correto. O nome do relator existe. A tese é plausível. O acórdão, não. Completamente inexistente.\n\nIsso tem nome técnico: alucinação. E no Direito, o custo de uma alucinação, além de não se tratar apenas de constrangimento, é uma petição com citação falsa, um parecer com fundamento inexistente, uma tese construída sobre areia que compromete o processo, a credibilidade construída ao longo do tempo e, acima de tudo, a vida das partes.\n\nO problema não é que a IA seja burra. É que ela é articulada demais para errar de forma óbvia.\n\nDesenvolvi o Ratio tentando atacar exatamente esse ponto. A premissa é que a resposta só deve existir se houver um documento real que a sustente. Não como boa prática, mas como contrato técnico. O sistema indexa mais de 500 mil decisões do STF e STJ e, quando você faz uma pergunta, ele recupera os documentos mais relevantes, os reorganiza por autoridade normativa, por exemplo, colocando Súmulas Vinculantes e Temas Repetitivos acima de decisões monocráticas, e só então gera a resposta, ancorada no que foi encontrado. Cada afirmação carrega a referência do documento de onde veio com link para acesso rápido. Se não há base textual para uma conclusão, o sistema diz isso explicitamente, em vez de inventar.\n\nO sistema funciona em três etapas que vale entender. Primeiro, quando você digita uma pergunta, ela é convertida em uma espécie de impressão digital matemática do seu significado: não das palavras exatas, mas do que você quer dizer. Isso se chama embedding. É o que permite que uma busca por \"responsabilidade civil do médico\" encontre decisões que falam em \"dever de cuidado\" e \"nexo causal\" sem que você tenha usado esses termos. A busca entende intenção, não só vocabulário.\n\nSegundo, o sistema recupera os candidatos mais promissores entre mais de 500 mil decisões do STF e STJ indexadas localmente. Mas recuperar não é o mesmo que selecionar. Por isso existe uma terceira etapa: um modelo separado, chamado reranker, que relê cada documento candidato com atenção e os reorganiza por relevância real para a sua pergunta específica, não por popularidade, não por data, mas por aderência ao que você precisa. A cada candidato é atribuído um score, uma nota . É a diferença entre um bibliotecário que te aponta a estante e um que lê as primeiras páginas de cada livro antes de colocar três na sua mesa.\n\nPor fim, a IA gera a resposta utilizando o Gemini, ancorada exclusivamente no que foi encontrado. Cada afirmação carrega a referência do documento de onde veio, com link para acesso. O sistema ainda organiza as fontes por autoridade normativa, Súmulas Vinculantes e Temas Repetitivos acima de decisões monocráticas, como ressaltado anteriormente.\n\nRoda localmente. Os documentos ficam na sua máquina. A pesquisa não passa por servidor nenhum. Requer apenas sua chave API do Gemini.\n\nNão é um substituto para o raciocínio jurídico. Em outras palavras: você decide o que fazer com a informação. É uma infraestrutura para que esse raciocínio parta de fontes verificáveis. Para advogados que precisam de jurisprudência rastreável, concurseiros que são meus concorrentes, servidores e membros do judiciário que lidam com volume e precisam de agilidade sem abrir mão de rigor. \n\nÉ gratuito e open-source. https://t.co/f8EQ61qgrM\n\nHouve recentes atualizações:\n- Melhorias de interface visual e usabilidade \n- Detecta se a sua placa de video é compativel e ajusta sozinho para CPU caso não tenha \n- Correção de bugs"
+      },
+      "public_metrics": {
+        "bookmark_count": 115,
+        "impression_count": 15396,
+        "like_count": 100,
+        "quote_count": 1,
+        "reply_count": 7,
+        "repost_count": 11
+      },
+      "text": "Existe uma diferença fundamental entre uma IA que escreve bem sobre Direito e uma IA que sabe Direito. A primeira é perigosa exatamente porque parece a segunda.\n\nQuando um advogado usa o ChatGPT para pesquisar jurisprudência, o modelo não está consultando uma base de dados do",
+      "url": "https://x.com/CarlosR26271158/status/2032446026364211202"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2052535699023319046"
+        ]
+      },
+      "author_id": "548625382",
+      "created_at": "2026-05-07T23:57:05.000Z",
+      "edit_history_post_ids": [
+        "2052538240754717124"
+      ],
+      "id": "2052538240754717124",
+      "note_tweet": {
+        "text": "Estamos finalizando a primeira fase do Habias, nosso agente de IA focado em defesa criminal, e os resultados são muito animadores.\n\nVou deixar 4 exemplos de respostas logo abaixo, mas é importante deixar consignado o que já conseguimos:\n\n1) Um agente de IA que mitiga ao máximo a alucinação, pois só responde com base no nosso acervo com quase 40 mil decisões criminais favoráveis à defesa curadas e revisadas uma a uma por uma equipe humana.\n\n2) Um agente que sempre fornece um link para a decisão ou acórdão citado (que dá acesso à íntegra)\n\n3) Um agente que pensa como o criminalista e sempre procura fornecer o resultado mais próximo ao que ele precisa\n\n4) Um agente que reflete muito antes de concluir se as respostas estão adequadas\n\n5) Um agente que conhece bem a jurisprudência criminal favorável à defesa dos tribunais superiores."
+      },
+      "public_metrics": {
+        "bookmark_count": 11,
+        "impression_count": 4243,
+        "like_count": 52,
+        "quote_count": 4,
+        "reply_count": 5,
+        "repost_count": 2
+      },
+      "text": "Estamos finalizando a primeira fase do Habias, nosso agente de IA focado em defesa criminal, e os resultados são muito animadores.\n\nVou deixar 4 exemplos de respostas logo abaixo, mas é importante deixar consignado o que já conseguimos:\n\n1) Um agente de IA que mitiga ao máximo a https://t.co/QRXGsBXTIO",
+      "url": "https://x.com/freitashebert_/status/2052538240754717124"
+    },
+    {
+      "author_id": "1272308296960049159",
+      "created_at": "2026-08-28T01:44:12.000Z",
+      "edit_history_post_ids": [
+        "2093152636123889875"
+      ],
+      "id": "2093152636123889875",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 417,
+        "like_count": 7,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2093058771220156692",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@lfgomide Eu estou treinando a IA para ser tão purista quanto eu. Tem que escrever do meu jeito e com as minhas teses sobre o caso e seguir o meu modelo de petição",
+      "url": "https://x.com/Sandravills/status/2093152636123889875"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-03-05T17:30:46.000Z",
+      "edit_history_post_ids": [
+        "2029610584573178038"
+      ],
+      "id": "2029610584573178038",
+      "note_tweet": {
+        "text": "Hoje usei o Claude na versão gratuita para testar e gostei bem do parecer que ele forneceu. Bem caprichado e em formato Word, com tudo detalhado. Quadro com dados das partes, Comarca, número do processo e outros. Vou usar mais vezes para comparar com os outros. O único pago que tenho é o Copilot, porque tenho direito de uso, por causa se um curso que estou fazendo. Usar as IA's na advocacia é caminho sem volta. \\0/"
+      },
+      "public_metrics": {
+        "bookmark_count": 71,
+        "impression_count": 12618,
+        "like_count": 203,
+        "quote_count": 0,
+        "reply_count": 10,
+        "repost_count": 3
+      },
+      "text": "Hoje usei o Claude na versão gratuita para testar e gostei bem do parecer que ele forneceu. Bem caprichado e em formato Word, com tudo detalhado. Quadro com dados das partes, Comarca, número do processo e outros. Vou usar mais vezes para comparar com os outros. O único pago que",
+      "url": "https://x.com/marcusaraujobhz/status/2029610584573178038"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2066558377895907328"
+        ]
+      },
+      "author_id": "2055831163160145920",
+      "created_at": "2026-06-15T16:28:08.000Z",
+      "edit_history_post_ids": [
+        "2066558387219845528"
+      ],
+      "id": "2066558387219845528",
+      "note_tweet": {
+        "entities": {
+          "urls": [
+            {
+              "display_url": "claude.ai/share/12f3cdd3…",
+              "end": 385,
+              "expanded_url": "https://claude.ai/share/12f3cdd3-bd66-4d42-b8b9-9e224e4c7436",
+              "start": 362,
+              "url": "https://t.co/HmV4PybgIn"
+            }
+          ]
+        },
+        "text": "Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações.\nExemplo: \"Qual a jurisprudência recente do TJGO sobre a obrigação do Estado de Goiás fornecer medicamento de alto custo não incorporado ao SUS. Como as Câmaras Cíveis vêm decidindo depois do Tema 6 do STF e do Tema 106 do STJ? Use o Jusratio\"\n\nResposta: https://t.co/HmV4PybgIn\n\nLista atualizada na imagem. TJMS chega hoje ainda"
+      },
+      "public_metrics": {
+        "bookmark_count": 64,
+        "impression_count": 3508,
+        "like_count": 64,
+        "quote_count": 1,
+        "reply_count": 9,
+        "repost_count": 5
+      },
+      "text": "Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações.\nExemplo: \"Qual a jurisprudência recente do TJGO sobre a obrigação do Estado de Goiás fornecer medicamento de alto custo não incorporado ao SUS. Como as Câmaras Cíveis vêm https://t.co/voX5CMvgWc",
+      "url": "https://x.com/CarlosRodr44314/status/2066558387219845528"
+    },
+    {
+      "attachments": {
+        "media_keys": [
+          "3_2095636163856080896",
+          "3_2095636180033495040"
+        ]
+      },
+      "author_id": "2043546953183629312",
+      "created_at": "2026-09-03T22:13:54.000Z",
+      "edit_history_post_ids": [
+        "2095636431624442083"
+      ],
+      "id": "2095636431624442083",
+      "note_tweet": {
+        "entities": {
+          "hashtags": [
+            {
+              "end": 1557,
+              "start": 1549,
+              "tag": "Direito"
+            },
+            {
+              "end": 1581,
+              "start": 1558,
+              "tag": "InteligênciaArtificial"
+            },
+            {
+              "end": 1592,
+              "start": 1582,
+              "tag": "LegalTech"
+            },
+            {
+              "end": 1603,
+              "start": 1593,
+              "tag": "Advocacia"
+            },
+            {
+              "end": 1608,
+              "start": 1604,
+              "tag": "MCP"
+            },
+            {
+              "end": 1624,
+              "start": 1609,
+              "tag": "Jurisprudência"
+            }
+          ]
+        },
+        "text": "Abri os conectores da Cognitio em beta gratuito.\n\nA ideia é simples: você continua no Claude, no ChatGPT ou no Claude Code que já usa. Um endereço de conexão liga a sua IA a sete serviços jurídicos que respondem com a fonte na mão — e que dizem quando não sabem.\n\nO que está lá dentro:\n\n• Doctus — lei, jurisprudência e doutrina em fonte oficial, com classificação de autoridade. Declara \"sem correspondência confiável\" em vez de inventar.\n• Basanos — a pedra de toque das citações: a decisão citada existe? O trecho transcrito bate com o original, palavra por palavra?\n• Computus — cálculo com memória auditável (Selic oficial, encargos de folha). Recusa calcular com tabela vencida.\n• Specula — publicações do DJEN e movimentos do DataJud, consultados ao vivo, no texto oficial.\n• Élenchos — auditoria lógica de peças: o argumento se sustenta? Se não, entrega o contraexemplo exato.\n• Diákrisis — a anatomia do acórdão, zona por zona: unânime ou por maioria, barreira processual, dispositivo.\n• Phylax — detector auxiliar de instruções escondidas em documentos, dirigidas à IA. Em teste.\n\nComo conectar: cria a conta, ativa os serviços que quer usar, gera a chave e cola o endereço na sua IA. O passo a passo com as telas do Claude e do ChatGPT está na página.\n\nMáximo determinismo; o modelo entra só onde há juízo. Toda resposta traz fonte, versão da base e data. E nada substitui a conferência do profissional na fonte oficial — por isso é beta, e por isso é gratuito enquanto testamos.\n\nLink nos comentários.\n\nTudo verificável; nada sem você.\n\n#Direito #InteligênciaArtificial #LegalTech #Advocacia #MCP #Jurisprudência"
+      },
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 142,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "text": "Abri os conectores da Cognitio em beta gratuito.\n\nA ideia é simples: você continua no Claude, no ChatGPT ou no Claude Code que já usa. Um endereço de conexão liga a sua IA a sete serviços jurídicos que respondem com a fonte na mão — e que dizem quando não sabem.\n\nO que está lá https://t.co/uP7rThl6oE",
+      "url": "https://x.com/pizaniadv/status/2095636431624442083"
+    },
+    {
+      "author_id": "2732951051",
+      "created_at": "2026-04-30T22:00:05.000Z",
+      "edit_history_post_ids": [
+        "2049972083166478594"
+      ],
+      "id": "2049972083166478594",
+      "note_tweet": {
+        "entities": {
+          "hashtags": [
+            {
+              "end": 655,
+              "start": 643,
+              "tag": "AdvocaciaIA"
+            },
+            {
+              "end": 665,
+              "start": 656,
+              "tag": "ClaudeAI"
+            }
+          ]
+        },
+        "text": "1/9\nTodo mundo tá largando o ChatGPT e migrando pro Claude.\nPor quê? Porque Claude alucina MUITO menos em direito brasileiro.\n\n2/9\nTeste que fiz essa semana:\nChatGPT inventou 2 súmulas + 1 acórdão.\nClaude 3.5: 100% preciso e ainda citou jurisprudência contrária sozinho.\n\n3/9\nClaude agora tem memória entre sessões. É tipo ter estagiário que nunca esquece o processo.\n\n4/9\nRanking real 2026: Claude 3.5 lidera, ChatGPT tá em 4º.\n\n5/9\nSe você ainda usa ChatGPT pra petição e acha que tá \"bom o suficiente\", comenta \"PERDEDOR\" agora que eu te mando o prompt que transforma Claude no advogado adversário que destrói sua peça antes de protocolar.\n#AdvocaciaIA #ClaudeAI"
+      },
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 0
+      },
+      "text": "1/9\nTodo mundo tá largando o ChatGPT e migrando pro Claude.\nPor quê? Porque Claude alucina MUITO menos em direito brasileiro.\n\n2/9\nTeste que fiz essa semana:\nChatGPT inventou 2 súmulas + 1 acórdão.\nClaude 3.5: 100% preciso e ainda citou jurisprudência contrária sozinho.\n\n3/9",
+      "url": "https://x.com/vonealex/status/2049972083166478594"
+    },
+    {
+      "author_id": "65041011",
+      "created_at": "2026-06-23T13:49:49.000Z",
+      "edit_history_post_ids": [
+        "2069417646303400090"
+      ],
+      "id": "2069417646303400090",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 400,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "repost_count": 1
+      },
+      "text": "Claude Cowork + JusIA + Gemini\n\nisso mudou minha advocacia. \n\nOs tres juntos custam menos de 500 reais por mês e produzem muito mais que uma equipe de facilmente 5-6 pessoas, entre adm, estagiários e advogados",
+      "url": "https://x.com/ranierimb1/status/2069417646303400090"
+    },
+    {
+      "author_id": "1388285536285118470",
+      "created_at": "2026-02-28T14:05:16.000Z",
+      "edit_history_post_ids": [
+        "2027746929296236980"
+      ],
+      "id": "2027746929296236980",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 39,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2027605728454680917",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@RomulodeSa26670 @Gabriel2052 Usei o Claude e o Gemini Pro. \n\nA IA precisava interpretar os termos de uma sentença que foi reformada por um acórdão e também precisava observar os termos de um contrato.\n\nColei os trechos principais destes documentos, expliquei os critérios objetivos (índice de cm, juros e etc)",
+      "url": "https://x.com/b_descalante/status/2027746929296236980"
+    },
+    {
+      "author_id": "2382886094",
+      "created_at": "2026-02-27T23:18:52.000Z",
+      "edit_history_post_ids": [
+        "2027523859683914082"
+      ],
+      "id": "2027523859683914082",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "repost_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2027445147005247721",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Komenios Cara, eu usei o Claude para fazer uma análise de um contrato complexo e foi muito bom. Q ferramenta incrível, discriminou todas as cláusulas e seus riscos e deixou tudo pronto em tabela, com planilhas para comparar e com minutas de cláusulas. É um caminho sem volta",
+      "url": "https://x.com/suzukjuts/status/2027523859683914082"
+    }
+  ],
+  "includes": {
+    "media": [
+      {
+        "media_key": "3_2041143197238181888",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HFOY7GcWQAAAGA2.jpg"
+      },
+      {
+        "media_key": "3_2063077456567820288",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HKGGBB7XYAAET9D.jpg"
+      },
+      {
+        "media_key": "3_1944538145027948544",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/GvxjI-qWgAAYOA8.jpg"
+      },
+      {
+        "duration_ms": 81153,
+        "media_key": "13_2103333662469074944",
+        "preview_image_url": "https://pbs.twimg.com/amplify_video_thumb/2103333662469074944/img/jl3X8H3rowQSMvGq.jpg",
+        "type": "video",
+        "variants": [
+          {
+            "bit_rate": 1280000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2103333662469074944/vid/avc1/720x720/SWeiXNyPaYToziqX.mp4"
+          },
+          {
+            "bit_rate": 8768000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2103333662469074944/vid/avc1/1080x1080/2WiPgKqufxUwqnfF.mp4"
+          },
+          {
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2103333662469074944/pl/Ye8fIMDkGcqyBFyJ.m3u8"
+          },
+          {
+            "bit_rate": 432000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2103333662469074944/vid/avc1/320x320/dmsK74tNwA4Yoa_v.mp4"
+          },
+          {
+            "bit_rate": 832000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2103333662469074944/vid/avc1/540x540/2awv6Yj-U5v5i4aj.mp4"
+          }
+        ]
+      },
+      {
+        "media_key": "3_2102722680143167488",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HS5fIwsXQAAKXJ3.jpg"
+      },
+      {
+        "duration_ms": 10005,
+        "media_key": "13_2105387608066994176",
+        "preview_image_url": "https://pbs.twimg.com/amplify_video_thumb/2105387608066994176/img/yTO42ceruRhRVFu4.jpg",
+        "type": "video",
+        "variants": [
+          {
+            "bit_rate": 256000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2105387608066994176/vid/avc1/480x270/ETmK_pDz9yG2er4j.mp4"
+          },
+          {
+            "bit_rate": 832000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2105387608066994176/vid/avc1/640x360/-BdkCKmOM8XQCsoA.mp4"
+          },
+          {
+            "bit_rate": 2176000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2105387608066994176/vid/avc1/1280x720/xVvUqS1BfiIOuGC5.mp4"
+          },
+          {
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2105387608066994176/pl/l99x2KjsJOSILsPf.m3u8"
+          }
+        ]
+      },
+      {
+        "media_key": "3_2075579290217828352",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HM3wXhiXUAA8rK5.png"
+      },
+      {
+        "media_key": "3_2075579345108701185",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HM3wauBXkAEltUX.png"
+      },
+      {
+        "media_key": "3_2075579362028503040",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HM3wbtDXQAALRxQ.png"
+      },
+      {
+        "media_key": "3_2075579383574671360",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HM3wc9UXsAA_Kdq.png"
+      },
+      {
+        "media_key": "3_2056088465431773184",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HIixkNDWwAA9tEp.png"
+      },
+      {
+        "media_key": "3_2090121533742059521",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HQGadgQXEAEbh8d.jpg"
+      },
+      {
+        "media_key": "3_2052535699023319046",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HHwSV-0X0AYKfUI.jpg"
+      },
+      {
+        "media_key": "3_2066558377895907328",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HK3j5UYX0AA7FXo.png"
+      },
+      {
+        "media_key": "3_2095636163856080896",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HRUx_OUaoAAdRDz.jpg"
+      },
+      {
+        "media_key": "3_2095636180033495040",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HRUyAKlaYAAyvtY.jpg"
+      }
+    ],
+    "posts": [
+      {
+        "author_id": "126313462",
+        "created_at": "2026-06-19T16:00:51.000Z",
+        "edit_history_post_ids": [
+          "2068001068638700015"
+        ],
+        "id": "2068001068638700015",
+        "public_metrics": {
+          "bookmark_count": 1,
+          "impression_count": 643,
+          "like_count": 13,
+          "quote_count": 0,
+          "reply_count": 2,
+          "repost_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2067990262375157855",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@ogavelar Sou um puta entusiasta da IA, mas o uso porco e antiético me irrita profundamente"
+      },
+      {
+        "author_id": "46914106",
+        "created_at": "2026-10-12T17:12:52.000Z",
+        "edit_history_post_ids": [
+          "2109693797605298574"
+        ],
+        "id": "2109693797605298574",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 53,
+          "like_count": 1,
+          "quote_count": 0,
+          "reply_count": 1,
+          "repost_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2109686531531448527",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@glaubera Eu uso o velho ChatGPT. Ele já tem um conhecimento absurdo do que faço e quero.\n\nO Claude seria mesmo uma evolução? Lembrando que uso muito, porque meu volume de trabalho é imenso.\n\nBasicamente, produção de textos jurídicos."
+      },
+      {
+        "author_id": "1745889464109477888",
+        "created_at": "2026-05-17T15:33:16.000Z",
+        "edit_history_post_ids": [
+          "2056035329014898855"
+        ],
+        "id": "2056035329014898855",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 2110,
+          "like_count": 1,
+          "quote_count": 0,
+          "reply_count": 1,
+          "repost_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2056035167194485228",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@AdvTrib @jusratio me diz como se saiu!"
+      },
+      {
+        "author_id": "50697116",
+        "created_at": "2026-08-18T20:32:59.000Z",
+        "edit_history_post_ids": [
+          "2089812828802654345"
+        ],
+        "id": "2089812828802654345",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 37,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 1,
+          "repost_count": 0
+        },
+        "text": "1/6\n\nA advocacia entrou numa divisão silenciosa diante da IA:\n\n1. ignorar;\n2. terceirizar todo o pensamento para um pacote pronto;\n3. aprender, revisar e internalizar método na própria banca.\n\nSó a terceira rota cria diferença que o concorrente não compra pronta."
+      },
+      {
+        "author_id": "1215387597612179457",
+        "created_at": "2026-08-27T19:31:12.000Z",
+        "edit_history_post_ids": [
+          "2093058771220156692"
+        ],
+        "id": "2093058771220156692",
+        "public_metrics": {
+          "bookmark_count": 28,
+          "impression_count": 11539,
+          "like_count": 168,
+          "quote_count": 1,
+          "reply_count": 17,
+          "repost_count": 1
+        },
+        "text": "Advogados puristas, que não usam IA para nada\n\nsabem o que estão fazendo\n\nou\n\nsó querem ser rebeldes?"
+      },
+      {
+        "author_id": "1912695141703512068",
+        "created_at": "2026-02-28T04:44:11.000Z",
+        "edit_history_post_ids": [
+          "2027605728454680917"
+        ],
+        "id": "2027605728454680917",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 271,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 3,
+          "repost_count": 0
+        },
+        "text": "@b_descalante @Gabriel2052 Usou o pro? Colocou exemplos do cálculo? Achar que a ia não é capaz de fazer cálculos complexos é uma ilusão impressionante"
+      },
+      {
+        "author_id": "1537543237",
+        "created_at": "2026-02-27T18:06:05.000Z",
+        "edit_history_post_ids": [
+          "2027445147005247721"
+        ],
+        "id": "2027445147005247721",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 100,
+          "like_count": 7,
+          "quote_count": 0,
+          "reply_count": 2,
+          "repost_count": 0
+        },
+        "text": "A parte mais mecânica e repetitiva do trabalho, tipo responder e-mails e consultas simples, revisar despachos/ofícios etc., deleguei para o ChatGpt. O ganho em velocidade é inquestionável. É algo sem volta."
+      }
+    ],
+    "users": [
+      {
+        "id": "1745889464109477888",
+        "name": "carlos, o estressado",
+        "public_metrics": {
+          "followers_count": 3229,
+          "following_count": 251,
+          "like_count": 14427,
+          "listed_count": 7,
+          "media_count": 411,
+          "post_count": 5978
+        },
+        "username": "CarlosR26271158"
+      },
+      {
+        "id": "1805226711945977856",
+        "name": "igornicolodi1",
+        "public_metrics": {
+          "followers_count": 232,
+          "following_count": 161,
+          "like_count": 223,
+          "listed_count": 0,
+          "media_count": 26,
+          "post_count": 141
+        },
+        "username": "igornicolodi1"
+      },
+      {
+        "id": "4222896442",
+        "name": "Lucas Eduardo Dias de Souza",
+        "public_metrics": {
+          "followers_count": 49,
+          "following_count": 130,
+          "like_count": 271,
+          "listed_count": 1,
+          "media_count": 55,
+          "post_count": 757
+        },
+        "username": "iamleds"
+      },
+      {
+        "id": "1850318766103523328",
+        "name": "R Jupiter",
+        "public_metrics": {
+          "followers_count": 473,
+          "following_count": 2770,
+          "like_count": 11211,
+          "listed_count": 0,
+          "media_count": 67,
+          "post_count": 9033
+        },
+        "username": "rpjupiter"
+      },
+      {
+        "id": "548625382",
+        "name": "Hebert Freitas 🔎",
+        "public_metrics": {
+          "followers_count": 9552,
+          "following_count": 709,
+          "like_count": 9746,
+          "listed_count": 26,
+          "media_count": 2244,
+          "post_count": 13786
+        },
+        "username": "freitashebert_"
+      },
+      {
+        "id": "146009308",
+        "name": "Edmar Neto",
+        "public_metrics": {
+          "followers_count": 23,
+          "following_count": 265,
+          "like_count": 2027,
+          "listed_count": 0,
+          "media_count": 15,
+          "post_count": 79
+        },
+        "username": "edmar_neto"
+      },
+      {
+        "id": "77767107",
+        "name": "Henrique",
+        "public_metrics": {
+          "followers_count": 400,
+          "following_count": 635,
+          "like_count": 74220,
+          "listed_count": 3,
+          "media_count": 54,
+          "post_count": 1255
+        },
+        "username": "carloshsl_"
+      },
+      {
+        "id": "4903308035",
+        "name": "Soldado do Lula",
+        "public_metrics": {
+          "followers_count": 89,
+          "following_count": 755,
+          "like_count": 41173,
+          "listed_count": 0,
+          "media_count": 743,
+          "post_count": 12566
+        },
+        "username": "douglaxx"
+      },
+      {
+        "id": "1388285536285118470",
+        "name": "Atropelei o Kayky Brito, mas fiquei pra ajudar",
+        "public_metrics": {
+          "followers_count": 66,
+          "following_count": 325,
+          "like_count": 1477,
+          "listed_count": 1,
+          "media_count": 754,
+          "post_count": 2703
+        },
+        "username": "b_descalante"
+      },
+      {
+        "id": "2737817475",
+        "name": "Glauber",
+        "public_metrics": {
+          "followers_count": 1410,
+          "following_count": 1616,
+          "like_count": 41157,
+          "listed_count": 0,
+          "media_count": 196,
+          "post_count": 1054
+        },
+        "username": "glaubera"
+      },
+      {
+        "id": "2102455609387782144",
+        "name": "Zenilson Coelho",
+        "public_metrics": {
+          "followers_count": 0,
+          "following_count": 16,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 7,
+          "post_count": 30
+        },
+        "username": "Zenilson_coelho"
+      },
+      {
+        "id": "1523178195171823617",
+        "name": "BOT Marcondes de gravata",
+        "public_metrics": {
+          "followers_count": 104,
+          "following_count": 616,
+          "like_count": 32360,
+          "listed_count": 0,
+          "media_count": 35,
+          "post_count": 658
+        },
+        "username": "femarc0086"
+      },
+      {
+        "id": "2055831163160145920",
+        "name": "Carlos Rodrigues",
+        "public_metrics": {
+          "followers_count": 1108,
+          "following_count": 192,
+          "like_count": 3068,
+          "listed_count": 4,
+          "media_count": 45,
+          "post_count": 574
+        },
+        "username": "CarlosRodr44314"
+      },
+      {
+        "id": "1237410071061114886",
+        "name": "Bruno Rodrigues",
+        "public_metrics": {
+          "followers_count": 64380,
+          "following_count": 376,
+          "like_count": 23033,
+          "listed_count": 147,
+          "media_count": 2025,
+          "post_count": 9328
+        },
+        "username": "brunoadvba"
+      },
+      {
+        "id": "53143647",
+        "name": "𝐌𝐚𝐫𝐜𝐨𝐬 𝐌𝐨𝐭𝐭𝐚",
+        "public_metrics": {
+          "followers_count": 78398,
+          "following_count": 1417,
+          "like_count": 16575,
+          "listed_count": 229,
+          "media_count": 2607,
+          "post_count": 30025
+        },
+        "username": "mottamarcos"
+      },
+      {
+        "id": "1580132398846672903",
+        "name": "Márcio Pinheiro Advocacia Tributária",
+        "public_metrics": {
+          "followers_count": 137,
+          "following_count": 377,
+          "like_count": 243,
+          "listed_count": 2,
+          "media_count": 39,
+          "post_count": 2352
+        },
+        "username": "AdvTrib"
+      },
+      {
+        "id": "2055250851644489728",
+        "name": "Jusratio +Inteligência jurídica para sua IA",
+        "public_metrics": {
+          "followers_count": 1104,
+          "following_count": 32,
+          "like_count": 68,
+          "listed_count": 3,
+          "media_count": 8,
+          "post_count": 36
+        },
+        "username": "jusratio"
+      },
+      {
+        "id": "50697116",
+        "name": "Odilon Jr",
+        "public_metrics": {
+          "followers_count": 1196,
+          "following_count": 166,
+          "like_count": 304,
+          "listed_count": 15,
+          "media_count": 665,
+          "post_count": 8373
+        },
+        "username": "odilonoliveira"
+      },
+      {
+        "id": "1272308296960049159",
+        "name": "savill 🦒",
+        "public_metrics": {
+          "followers_count": 672,
+          "following_count": 1531,
+          "like_count": 74535,
+          "listed_count": 2,
+          "media_count": 278,
+          "post_count": 10289
+        },
+        "username": "Sandravills"
+      },
+      {
+        "id": "56238251",
+        "name": "Marcus Vinicius de Araújo",
+        "public_metrics": {
+          "followers_count": 5573,
+          "following_count": 4090,
+          "like_count": 63010,
+          "listed_count": 10,
+          "media_count": 5060,
+          "post_count": 35245
+        },
+        "username": "marcusaraujobhz"
+      },
+      {
+        "id": "2043546953183629312",
+        "name": "Raphael Pizani | Advocacia",
+        "public_metrics": {
+          "followers_count": 68,
+          "following_count": 618,
+          "like_count": 890,
+          "listed_count": 0,
+          "media_count": 136,
+          "post_count": 1122
+        },
+        "username": "pizaniadv"
+      },
+      {
+        "id": "2732951051",
+        "name": "Alexander Braz",
+        "public_metrics": {
+          "followers_count": 148,
+          "following_count": 559,
+          "like_count": 6756,
+          "listed_count": 0,
+          "media_count": 37,
+          "post_count": 1332
+        },
+        "username": "vonealex"
+      },
+      {
+        "id": "65041011",
+        "name": "Ranieri",
+        "public_metrics": {
+          "followers_count": 641,
+          "following_count": 293,
+          "like_count": 2547,
+          "listed_count": 7,
+          "media_count": 859,
+          "post_count": 33701
+        },
+        "username": "ranierimb1"
+      },
+      {
+        "id": "2382886094",
+        "name": "Apenas um católico",
+        "public_metrics": {
+          "followers_count": 245,
+          "following_count": 492,
+          "like_count": 46502,
+          "listed_count": 0,
+          "media_count": 125,
+          "post_count": 6969
+        },
+        "username": "suzukjuts"
+      }
+    ]
+  },
+  "meta": {
+    "result_count": 30
+  }
+}

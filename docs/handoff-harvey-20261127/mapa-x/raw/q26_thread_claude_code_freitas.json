@@ -1,0 +1,111 @@
+{
+  "data": [
+    {
+      "author_id": "548625382",
+      "conversation_id": "2090458868765663366",
+      "created_at": "2026-08-20T16:24:00.000Z",
+      "edit_history_tweet_ids": [
+        "2090474943007863124"
+      ],
+      "id": "2090474943007863124",
+      "in_reply_to_user_id": "1951727916599201792",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 14623,
+        "like_count": 57,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 0
+      },
+      "text": "@tiagolomalo O Claude Code tá lento e burro. Bizarro",
+      "url": "https://x.com/freitashebert_/status/2090474943007863124"
+    },
+    {
+      "author_id": "548625382",
+      "conversation_id": "2038631214072897790",
+      "created_at": "2026-03-30T15:36:39.000Z",
+      "edit_history_tweet_ids": [
+        "2038641564604408055"
+      ],
+      "id": "2038641564604408055",
+      "in_reply_to_user_id": "1489440037519429637",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 473,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@PiratinhadoTiet Uso pouco o Cowork. Fico entre o chat e o Claude Code mesmo",
+      "url": "https://x.com/freitashebert_/status/2038641564604408055"
+    },
+    {
+      "author_id": "548625382",
+      "conversation_id": "2038631214072897790",
+      "created_at": "2026-03-30T16:29:53.000Z",
+      "edit_history_tweet_ids": [
+        "2038654960330523002"
+      ],
+      "id": "2038654960330523002",
+      "in_reply_to_user_id": "1256352543082516481",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 271,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@joaosenzi Eu também não consigo abandonar o chatgpt, pelo menos não por enquanto.\n\nVocê confia nele como gate keeper até para o Claude Code?",
+      "url": "https://x.com/freitashebert_/status/2038654960330523002"
+    },
+    {
+      "author_id": "548625382",
+      "conversation_id": "2038631214072897790",
+      "created_at": "2026-03-30T16:21:22.000Z",
+      "edit_history_tweet_ids": [
+        "2038652815363449094"
+      ],
+      "id": "2038652815363449094",
+      "in_reply_to_user_id": "1256352543082516481",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1087,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@joaosenzi Cara, depois que o Claude Code deu uns dois vacilos, eu só uso ele com redundância. Dependendo do trabalho, eu jogo o que ele disse no chat e depois coloco a resposta do chat nele 😆",
+      "url": "https://x.com/freitashebert_/status/2038652815363449094"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado. Criador do Síntese Criminal e do Habias. Mineiro. UFF.",
+        "id": "548625382",
+        "name": "Hebert Freitas 🔎",
+        "public_metrics": {
+          "followers_count": 9552,
+          "following_count": 709,
+          "like_count": 9746,
+          "listed_count": 26,
+          "media_count": 2244,
+          "tweet_count": 13786
+        },
+        "username": "freitashebert_"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2090474943007863124",
+    "oldest_id": "2038641564604408055",
+    "result_count": 4
+  }
+}

@@ -1,0 +1,49 @@
+=== q18_uso_o_claude: 24 posts
+@igornicolodi1 (232f) 2026-06-06 L6 RT1 V538 https://x.com/igornicolodi1/status/2063077466558648512
+   Eu não deixo de ficar impressionado com o Claude e com as possibilidades que o ~vibe coding~ proporciona. Dá pra resolver muitos gargalos diários com um pouco de criatividade.    Uma coisa que me torra a paciência é ter que coletar conversa de whatsapp como prova documental. O https://t.co/ccsBG7HglE
+@orafagrana (379f) 2026-09-24 L0 RT0 V24 https://x.com/orafagrana/status/2102932882079576525
+   Hoje recebi um decisão positiva em um processo. Fiz a defesa sem advogado e usei o Claude Code para petição.   O mundo esta mudando. E vai ser mais rapido que vocês imaginam. Advogado vai virar peça de museu.
+@marcusaraujobhz (5573f) 2026-03-05 L203 RT3 V12618 https://x.com/marcusaraujobhz/status/2029610584573178038
+   Hoje usei o Claude na versão gratuita para testar e gostei bem do parecer que ele forneceu. Bem caprichado e em formato Word, com tudo detalhado. Quadro com dados das partes, Comarca, número do processo e outros. Vou usar mais vezes para comparar com os outros. O único pago que
+@MartinsJoa_ (116623f) 2026-02-26 L0 RT0 V260 https://x.com/MartinsJoa_/status/2027121478999945259
+   Depois, pedi ao Claude para puxar o documento de overview do cliente no Notion.  Ele fez exatamente a mesma coisa. https://t.co/fe7d4YqD7n
+@alberto_souza (5876f) 2025-06-12 L16 RT2 V924 https://x.com/alberto_souza/status/1933301066663088138
+   Novo episódio no ar!  Implementei do zero uma API de envio de e-mails com carregamento dinâmico de provedores, definidos por cliente.  Usei o Claude Code, reflection e dei umas boas escorregadas também.   Naquele estilo raiz, sem cortes.   https://t.co/2XtB6ljpn0
+@guilhermeloyola (838f) 2026-01-31 L0 RT0 V54 https://x.com/guilhermeloyola/status/2017694212641157282
+   O processo foi um experimento de eficiência: usei o Claude para o UI design e o Spec Kit para estruturar o projeto.   Quase não mexi no código que a IA gerou, e no final o resultado foi bem legal https://t.co/aBwTSOmBU3
+@LukasDurant (464f) 2026-07-17 L2 RT0 V777 https://x.com/LukasDurant/status/2078225549017690146
+   Pedi pro Claude criar uma questão discursiva pra eu usar de simulado e ele pediu pra eu fazer uma petição inicial de um pedido de pensão pra uma criança de 6 meses cujo o pai está sumido há 3 anos 🤡🤡🤡🤡
+@constifluicao (5f) 2026-03-24 L0 RT0 V39 https://x.com/constifluicao/status/2036566516460621904
+   Usei o claude para criar uma Landing Page e ficou muito boa. Fiquei surpreso com a economia que as IAs podem trazer para a jovem advocacia iniciar no mundo digital!
+@DearestFate (92f) 2026-06-11 L0 RT0 V62 https://x.com/DearestFate/status/2065084830467907669
+   Usei o Claude AI pela primeira vez pra fazer um documento orientando clientes com renda mais baixa a como entrar com processo pela Defensoria e to meio surpreso
+@redpadretz (78f) 2026-04-09 L1 RT0 V42 https://x.com/redpadretz/status/2042291763881107795
+   Velho, só pedi pro Claude analisar uma atividade de processo penal e ele me veio com uma denúncia criminal feita em WORD, com os tópicos todos bonitinhos  Diabólico
+@bratcook (9895f) 2026-05-09 L1 RT0 V473 https://x.com/bratcook/status/2053164067863265535
+   eu depois q eu usei o claude!!!! ele analisou extratos de um jeito.... e fazendo minuta, o ruim desse ia q ele deveria ser mais específico nos gastos, vc nunca sabe direito o tanto q ta gastando e ate o plano pago acaba rápido https://t.co/9Mq6JQYTUT
+@bratcook (9895f) 2026-05-11 L3 RT0 V297 https://x.com/bratcook/status/2053926258774356424
+   @CarlosR26271158 @tatianeproriadv usei o claude essa semana a parte gratuita e fiquei boba com a minuta q ele fez de resumo de extrato bancario me ajudou mto vi q ele renomeia ate seus arquivos do note, quero ver vídeo do codex como é bom usar e etc
+@caiaop_ (4395f) 2026-08-20 L3 RT0 V193 https://x.com/caiaop_/status/2090584486983377276
+   Estava procurando uma fonte parecida com a que o cliente gostaria pra marca dele e pedi pro Claude me ajudar a achar. Simplesmente criou um HTML de comparação onde eu conseguia escrever a frase, aumentar, como se fossse um google fonts kkkkk
+@NaLataaa (37f) 2026-06-13 L0 RT0 V34 https://x.com/NaLataaa/status/2065638260148203579
+   Eu uso o Claude todo dia pra ganhar dinheiro. E quem ainda não tá usando tá literalmente deixando dinheiro na mesa.  Copywriting, código, atendimento ao cliente, proposta comercial, análise de contrato, roteiro de vídeo, estratégia de marketing.  #ia https://t.co/JYkKDqnNhL
+@LucasdaFro (846f) 2026-06-02 L0 RT0 V85 https://x.com/LucasdaFro/status/2061804434330444089
+   Que odio q eu tenho de freela terceirizado:  Fiz o layout e copy do site perfeitamente alinhados com o briefing da cliente, usei o Claude pra criar a copy e ela saiu perfeitamente natural.  Ai o cliente em vez de mandar pra aprovação, disse que ia "refinar" a copy (+)
+@wescld (2526f) 2026-03-25 L23 RT0 V4242 https://x.com/wescld/status/2036829845389279668
+   Oq acontece se eu conectar meu MCP do Himetrica + MCP do Resend?  Pedi pro claude buscar um cliente no Himetrica, escrever um email personalizado de agradecimento com cupom de 40% off e enviar via Resend.  Tudo em menos de 1 minuto https://t.co/j8uyP9wzX6
+@mappellemartim (88f) 2026-06-22 L1 RT0 V89 https://x.com/mappellemartim/status/2069090576318816407
+   @farmDev79 E o pior: galera acha que se a i.a falou, é fácil fazer.  Eu fico p*to quando cliente manda o que ele quer em um PDF  pelo Claude. E ainda fala "pedi pro Claude fazer pra ficar mais fácil". Aí tu vai ver, o que o Claude criou n faz sentido algum ou o orçamento do cliente n bate.
+@alaisadev (141f) 2026-06-03 L0 RT0 V49 https://x.com/alaisadev/status/2062316132141294062
+   to enfrentando um problema de gerenciamento de sessão no n8n; quando o cliente comeca uma nova conversa o bot fica todo confuso sobre pra onde ir, ora diz que não tem agendamento ali, ora recomeça tudo do zero...  ai pedi pro claude trazer sugestões de como remediar pq parece um
+@Leo_Manifesto (422f) 2026-07-09 L1 RT0 V27 https://x.com/Leo_Manifesto/status/2075319775308263566
+   @appariciojunior No fim, pedi pro Claude documentar todos os padrões do processo em uma nova skill para continuidade do trabalho via agentes do próprio figma. Deu trabalho, mas tá funcionado razoavelmente bem.. nã romântico rs Mas da pra seguir evoluindo ao meu ver! Tô curtindo o resultado.
+@b_descalante (66f) 2026-02-28 L0 RT0 V39 https://x.com/b_descalante/status/2027746929296236980
+   @RomulodeSa26670 @Gabriel2052 Usei o Claude e o Gemini Pro.   A IA precisava interpretar os termos de uma sentença que foi reformada por um acórdão e também precisava observar os termos de um contrato.  Colei os trechos principais destes documentos, expliquei os critérios objetivos (índice de cm, juros e etc)
+@bielmar18_ (3668f) 2026-08-08 L3 RT0 V93 https://x.com/bielmar18_/status/2086100389552595397
+   Montei o processo junto com o Claude agora só falta um advogato para revisar a petição
+@suzukjuts (245f) 2026-02-27 L2 RT0 V23 https://x.com/suzukjuts/status/2027523859683914082
+   @Komenios Cara, eu usei o Claude para fazer uma análise de um contrato complexo e foi muito bom. Q ferramenta incrível, discriminou todas as cláusulas e seus riscos e deixou tudo pronto em tabela, com planilhas para comparar e com minutas de cláusulas. É um caminho sem volta
+@ferreiracoder (1145f) 2025-10-16 L0 RT0 V121 https://x.com/ferreiracoder/status/1978802168162287874
+   @AntonioBWingert @lincolixavier @sseraphini To pensando nele também.  Eu uso o Claude Code no cliente e funciona muito bem, mas no pessoal queria testar outras ferramentas
+@marcusaraujobhz (5573f) 2026-09-23 L144 RT1 V7088 https://x.com/marcusaraujobhz/status/2102892491934413275
+   Hoje usei o Claude Opus 5.5 no plano pro e só para incluir uns ajustes em uma petição anterior que eu conferi, foram consumidos 56% do uso. Ou bebe mais que Opala 4.100 6 cilindros, ou estou usando do modo errado. No final deu tudo certo, mas achei beberão. \0/ https://t.co/fQpE4ru6mC

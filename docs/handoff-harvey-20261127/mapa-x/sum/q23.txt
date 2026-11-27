@@ -1,0 +1,51 @@
+=== q23_from_lfgomide: 25 posts
+@lfgomide (3701f) 2026-01-24 L1 RT0 V139 https://x.com/lfgomide/status/2015174516750565389
+   @joocarlosteixe6 Pelo que entendi o resultado obtido depende tanto do modelo (Gemini, ChatGPT, Claude e suas versões) quanto do comando (prompt).  Ou seja, você precisa inserir bons comandos para obter bons resultados.  Em qualquer IA.
+@lfgomide (3701f) 2025-10-24 L355 RT12 V15271 https://x.com/lfgomide/status/1981811693719368137
+   GEMINI Você pode anexar uma petição que considere bem escrita e lançar o seguinte PROMPT:  "Segue em anexo um modelo de petição. Resuma em 550 palavras um prompt para obter esse resultado. Seja claro nos comandos que devem ser dados para obter uma petição assim."  Funciona 🤘
+@lfgomide (3701f) 2025-10-13 L583 RT27 V25019 https://x.com/lfgomide/status/1977834170115371330
+   PROMPT para contrarrazões (Gemini)  Atue como um advogado especialista em Direito Civil, Direito Público e Direito Processual.  O objetivo é elaborar uma petição de contrarrazões ao recurso inominado apresentado em anexo.
+@lfgomide (3701f) 2025-11-10 L269 RT6 V16816 https://x.com/lfgomide/status/1987990663653376371
+   Se você não é um advogado experiente, não peça à IA para escrever uma petição por você.  Peça ao chat dicas de como escrever.  Segue o PROMPT 👇
+@lfgomide (3701f) 2025-11-28 L199 RT8 V8550 https://x.com/lfgomide/status/1994421920847007898
+   Dica rápida de prompt para advogados:  Primeiro faça a pesquisa de legislação e julgados.  Depois use a IA para estrutura, pedindo para montar os argumentos em tópicos lógicos.  Se possível anexe um modelo de uma petição sua para orientar quanto ao estilo de escrita.
+@lfgomide (3701f) 2025-04-25 L32 RT1 V2004 https://x.com/lfgomide/status/1915870150294966375
+   @RhuanBAdvogado O ChatGPT já faz pesquisa de jurisprudencia melhor.   Pra usar IA tem que deixar a preguiça de lado também. Informar como fazer a petição e o que não fazer ( por exemplo, inventar jurisprudencia).  Sugiro sempre aos advogados o Perplexity e a IA do Jusbrasil para pesquisa.
+@lfgomide (3701f) 2026-01-20 L430 RT33 V30602 https://x.com/lfgomide/status/2013638618196177077
+   O Gemini sempre salva.  Economizei algumas horas com esse PROMPT  "Atue como advogado senior especialista em direito processual civil. O objetivo é escrever uma petição em nome da parte autora da ação, impugnando o laudo pericial apresentado pelo perito. Você deverá apresentar em https://t.co/Y069aZTyee
+@lfgomide (3701f) 2026-05-15 L382 RT19 V36257 https://x.com/lfgomide/status/2055294836345909339
+   Gostei desse Prompt.   Usar a IA para atuar como advogado da outra parte para analisar os pontos fracos da sua petição.   Já fez isso? https://t.co/H1uaGsMLDr
+@lfgomide (3701f) 2025-11-05 L3 RT0 V369 https://x.com/lfgomide/status/1986196458681606398
+   @Adv_Bicalho Experimente o Gemini, Claude e ChatGPT e veja qual gosta mais e usa a versão paga
+@lfgomide (3701f) 2025-12-29 L486 RT4 V95602 https://x.com/lfgomide/status/2005609515363049673
+   Galera, o ChatGPT ficou para trás do Gemini, Claude e Grok.  Não acham?
+@lfgomide (3701f) 2025-11-06 L283 RT10 V9413 https://x.com/lfgomide/status/1986454921001029959
+   PROMPT para o advogado adaptar o modelo da petição pronto:  "Atue como experiente advogado senior especialista em processo civil. Redija uma petição como este modelo (anexe), mas adapte para o caso cujas informações seguem abaixo (escreva ou anexe)."
+@lfgomide (3701f) 2025-12-09 L344 RT23 V10276 https://x.com/lfgomide/status/1998447935760031974
+   Dica rápida de prompt para advogados:  Especifique se o texto deve ser "combativo e persuasivo" (para uma petição) ou "neutro e analítico" (para um parecer ou e-mail).  Não são a mesma coisa.
+@lfgomide (3701f) 2025-10-08 L607 RT27 V24271 https://x.com/lfgomide/status/1975902130742698450
+   Mais um PROMPT  "Atue como advogado especialista em direito civil e direito  processual. Em anexo algumas petições. Analise e incorpore o estilo de escrita e técnica.  Entenda como começar, desenvolver e concluir uma petição inicial. Em seguida vou te passar mais instruções"
+@lfgomide (3701f) 2025-05-13 L4 RT0 V335 https://x.com/lfgomide/status/1922358650351370291
+   1. Peça ao ChatGPT para atuar como advogado especialista emdireito processual civil e informe que seu trabalho será elaborar uma petição de réplica argumentando pela tese da petição incial e refutando cada argumento da contestação.
+@lfgomide (3701f) 2025-10-07 L102 RT4 V3508 https://x.com/lfgomide/status/1975584721682739212
+   PROMPT  atue como advogado especialista em direito civil e processual.  Analise a petição em anexo, compreenda a questão e a demanda. Incorpore o estilo de escrita dos títulos e parágrafos e o tom.  Use o mesmo estilo de escrita das petições do autor e não use bullets nem emojis.
+@lfgomide (3701f) 2026-07-22 L268 RT42 V18190 https://x.com/lfgomide/status/2080056144496611440
+   Como saber se o advogado da outra parte mandou um prompt injection na petição?  Vou deixar aqui 3 sites que me indicaram.  RT pra divulgar https://t.co/ExlKKdaGW1
+@lfgomide (3701f) 2025-11-18 L0 RT138 V0 https://x.com/lfgomide/status/1990869864630681761
+   RT @lfgomide: Parece óbvio.  Mas primeiro você tem que saber fazer uma petição.  Depois você pode delegar pro ChatGPT.
+@lfgomide (3701f) 2025-10-29 L1745 RT138 V41193 https://x.com/lfgomide/status/1983614638853136688
+   Parece óbvio.  Mas primeiro você tem que saber fazer uma petição.  Depois você pode delegar pro ChatGPT.
+@lfgomide (3701f) 2026-01-01 L0 RT23 V0 https://x.com/lfgomide/status/2006842493518885234
+   RT @lfgomide: Dica rápida de prompt para advogados:  Especifique se o texto deve ser "combativo e persuasivo" (para uma petição) ou "neutro…
+@lfgomide (3701f) 2025-11-03 L1 RT0 V85 https://x.com/lfgomide/status/1985494140251930992
+   @AugustoBraz4 O Gemini é mais completo.  A do Jusbrasil é excelente para pesquisar jurisprudência e modelos de petição
+@lfgomide (3701f) 2025-05-13 L23 RT0 V644 https://x.com/lfgomide/status/1922391431324319844
+   Se o seu cliente te abençoar com um relato dos fatos detalhado você já tem 50%  do caminho andado pra fazer uma petição.   Se souber usar IA, tem 95 %.
+@lfgomide (3701f) 2025-07-31 L1 RT0 V188 https://x.com/lfgomide/status/1950914126894542978
+   A advogada não sabe usar IA.  Mandou o estagiário fazer a petição.   A petição saiu com jurisprudencia inventada.  A advogada tomou multa de 10 salários.   E jogou a culpa no estagiário... https://t.co/eN47gotPsL
+@lfgomide (3701f) 2025-05-29 L5 RT0 V348 https://x.com/lfgomide/status/1928059856126132475
+   Para ajudar nas petições, recomendo fazer uma pesquisa sobre a questão na JUS IA (Jus BRasil) e Perplexity.  Depois você pode pedir ao Chat GPT para fazer uma petição.  Se tiver um agente treinado, melhor. Pesquise por Jurídico Ágil, tem várias opções de robôs jurídicos grátis.
+@lfgomide (3701f) 2025-11-25 L67 RT1 V5817 https://x.com/lfgomide/status/1993319257258553382
+   Parece óbvio.  Mas primeiro você tem que pensar e saber fazer uma petição.  Depois pode delegar para a IA.  Mas se você tem muito tempo sobrando, como o Lucio, pode fazer por conta própria todas as petições repetitivas.  Seu cliente quer resultado.  Não importa quem digita. https://t.co/NzPUCt01Rc
+@lfgomide (3701f) 2025-07-09 L1 RT0 V71 https://x.com/lfgomide/status/1942989081471766802
+   @allanbrito_ Isso ainda é um problema. Mas tem solução.   Você pode ser específico para mandar que ela não invente jurisprudencia.   Melhor ainda, você usa a IA para fazer a pesquisa primeiro.  Depois pede pra escrever  a petição.

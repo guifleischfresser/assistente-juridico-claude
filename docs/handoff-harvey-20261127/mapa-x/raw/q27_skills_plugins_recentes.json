@@ -1,0 +1,588 @@
+{
+  "data": [
+    {
+      "author_id": "2737817475",
+      "created_at": "2026-10-12T17:38:34.000Z",
+      "edit_history_tweet_ids": [
+        "2109700267021103242"
+      ],
+      "id": "2109700267021103242",
+      "in_reply_to_user_id": "46914106",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 59,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2109693797605298574",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JCNovais Eu usei o Claude com algumas skills de advocacia. Montei dois processos, organizei tudo com ele no modelo fable 5.1 (high). Entreguei pro meu adv mastigado, vencemos os 2. Foi única vez que usei pra processos, mas pra contratos e assuntos jurídicos do dia a dia, só uso ele. Uso",
+      "url": "https://x.com/glaubera/status/2109700267021103242"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-10-08T17:15:57.000Z",
+      "edit_history_tweet_ids": [
+        "2108245023854837855"
+      ],
+      "id": "2108245023854837855",
+      "public_metrics": {
+        "bookmark_count": 20,
+        "impression_count": 225404,
+        "like_count": 79,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 10
+      },
+      "text": "Chegamos a 3 mil usuários na @iajusbr! 🔍\n\nMuito feliz de ver tanta gente utilizando o que estamos construindo. Obrigado pela confiança, pessoal!\n\nSe você é operador do Direito ou a pesquisa jurídica faz parte do seu fluxo de trabalho de alguma forma, vem testar nossa https://t.co/SFRH2u0Fh7",
+      "url": "https://x.com/rafaelobitten/status/2108245023854837855"
+    },
+    {
+      "author_id": "1523178195171823617",
+      "created_at": "2026-09-30T20:03:50.000Z",
+      "edit_history_tweet_ids": [
+        "2105387747921862853",
+        "2105388171043455234"
+      ],
+      "id": "2105388171043455234",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 144,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?\n\nIA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?\n\nEssa semana, em vez de fazer o https://t.co/T42FUB7Gmi",
+      "url": "https://x.com/femarc0086/status/2105388171043455234"
+    },
+    {
+      "author_id": "1523178195171823617",
+      "created_at": "2026-09-30T20:02:09.000Z",
+      "edit_history_tweet_ids": [
+        "2105387747921862853",
+        "2105388171043455234"
+      ],
+      "id": "2105387747921862853",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 3,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?\n\nIA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?\n\nEssa semana, em vez de fazer o https://t.co/SJJ8pxYe8l",
+      "url": "https://x.com/femarc0086/status/2105387747921862853"
+    },
+    {
+      "author_id": "2055250851644489728",
+      "created_at": "2026-09-30T18:30:52.000Z",
+      "edit_history_tweet_ids": [
+        "2105364773236089007"
+      ],
+      "id": "2105364773236089007",
+      "public_metrics": {
+        "bookmark_count": 29,
+        "impression_count": 359214,
+        "like_count": 58,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 8
+      },
+      "referenced_tweets": [
+        {
+          "id": "2105354299001774475",
+          "type": "quoted"
+        }
+      ],
+      "text": "A melhor pesquisa jurídica agora pode ser instalada no Claude e no ChatGPT pelos diretórios oficiais de conectores e plugins!\n\nChatGPT:\nhttps://t.co/C5URkBiU1h\n\nClaude:\nhttps://t.co/mLC3r3Ds1G https://t.co/2ST2A0FbF7",
+      "url": "https://x.com/jusratio/status/2105364773236089007"
+    },
+    {
+      "author_id": "146009308",
+      "created_at": "2026-09-25T04:00:46.000Z",
+      "edit_history_tweet_ids": [
+        "2103333866693890461"
+      ],
+      "id": "2103333866693890461",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 59,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.\n\nNo vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, https://t.co/gMiRdfabhh",
+      "url": "https://x.com/edmar_neto/status/2103333866693890461"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-23T18:06:27.000Z",
+      "edit_history_tweet_ids": [
+        "2102821914443919822"
+      ],
+      "id": "2102821914443919822",
+      "in_reply_to_user_id": "2101343193832751104",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 193,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "@iajusbr \n\nPesquisa Jurídica integrada a sua ferramenta preferida, ou através do nosso whatsapp! \n\nPrimeiro e atualmente único plugin de Pesquisa Jurídica no Diretório Oficial de Plugins do ChatGPT\n\nAgora, listado como conector no Diretório do Claude.\n\nAcessível pelo Grok, Manus, https://t.co/LfyMid2J0V",
+      "url": "https://x.com/rafaelobitten/status/2102821914443919822"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-22T23:02:42.000Z",
+      "edit_history_tweet_ids": [
+        "2102534079115624787"
+      ],
+      "id": "2102534079115624787",
+      "public_metrics": {
+        "bookmark_count": 13,
+        "impression_count": 254847,
+        "like_count": 49,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 5
+      },
+      "text": "A @iajusbr (https://t.co/O2yMaWquPZ) já ultrapassou 1.600 usuários, e seguimos ampliando as formas de acessar pesquisa jurídica brasileira diretamente dos modelos e ferramentas de IA que as pessoas já utilizam.\n\nHoje, reunimos mais de 32 milhões de decisões judiciais e",
+      "url": "https://x.com/rafaelobitten/status/2102534079115624787"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-22T22:16:00.000Z",
+      "edit_history_tweet_ids": [
+        "2102522328135409712"
+      ],
+      "id": "2102522328135409712",
+      "public_metrics": {
+        "bookmark_count": 5,
+        "impression_count": 584,
+        "like_count": 7,
+        "quote_count": 1,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "O IAJUS (@iajusbr ) agora está oficialmente listado no diretório do Claude como conector MCP, levando o melhor da pesquisa jurídica brasileira diretamente para o Claude.\n\nPor enquanto, ele aparece com o nome provisório “mcp-iajus-com-br”, mas já solicitamos a alteração para",
+      "url": "https://x.com/rafaelobitten/status/2102522328135409712"
+    },
+    {
+      "author_id": "2101343193832751104",
+      "created_at": "2026-09-19T16:33:08.000Z",
+      "edit_history_tweet_ids": [
+        "2101348877253349646"
+      ],
+      "id": "2101348877253349646",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 325276,
+        "like_count": 7,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 3
+      },
+      "text": "Hoje, a IAJUS (https://t.co/QEIUwSZkEm) ultrapassa a marca de 1.500 usuários e continua crescendo todos os dias, ao mesmo tempo em que aprimoramos continuamente a qualidade da pesquisa jurídica entregue pela plataforma.\n\nSomos, atualmente, o primeiro e único plugin de pesquisa",
+      "url": "https://x.com/iajusbr/status/2101348877253349646"
+    },
+    {
+      "author_id": "1178780682467893253",
+      "created_at": "2026-09-19T11:00:02.000Z",
+      "edit_history_tweet_ids": [
+        "2101265052288286968"
+      ],
+      "id": "2101265052288286968",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2263,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "🚨 5 novidades de tecnologia que você precisa conhecer nesta semana\n\nA Inteligência Artificial continua dominando as manchetes mas há movimentos importantes acontecendo também em smartphones, chips e automação.\n\nAqui estão 5 novidades que chamaram atenção até 18/09/2026: 👇\n\n1️⃣ https://t.co/Gav9ufqIXd",
+      "url": "https://x.com/Direita360/status/2101265052288286968"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-18T15:52:27.000Z",
+      "edit_history_tweet_ids": [
+        "2100976252823757062"
+      ],
+      "id": "2100976252823757062",
+      "public_metrics": {
+        "bookmark_count": 8,
+        "impression_count": 265863,
+        "like_count": 33,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 3
+      },
+      "text": "Hoje, a IAJUS (https://t.co/jnycdqcHP4) ultrapassa a marca de 1.500 usuários e continua crescendo todos os dias, ao mesmo tempo em que aprimoramos continuamente a qualidade da pesquisa jurídica entregue pela plataforma.\n\nSomos, atualmente, o primeiro e único plugin de pesquisa",
+      "url": "https://x.com/rafaelobitten/status/2100976252823757062"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-17T22:39:36.000Z",
+      "edit_history_tweet_ids": [
+        "2100716329057587323"
+      ],
+      "id": "2100716329057587323",
+      "public_metrics": {
+        "bookmark_count": 34,
+        "impression_count": 236570,
+        "like_count": 76,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 4
+      },
+      "referenced_tweets": [
+        {
+          "id": "2100679992720142459",
+          "type": "quoted"
+        }
+      ],
+      "text": "Hoje a OpenAI apresentou o Astra for Law, combinando o GPT-6 Astra com pesquisa jurídica especializada e integrações com ferramentas do setor.\n\nIsso reforça uma premissa que temos defendido desde o início da IAJUS: a confiabilidade da inteligência artificial aplicada ao Direito https://t.co/mqA01WMHtM",
+      "url": "https://x.com/rafaelobitten/status/2100716329057587323"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-09T20:13:09.000Z",
+      "edit_history_tweet_ids": [
+        "2097780369017929962"
+      ],
+      "id": "2097780369017929962",
+      "public_metrics": {
+        "bookmark_count": 17,
+        "impression_count": 251962,
+        "like_count": 110,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 8
+      },
+      "text": "Uma IA jurídica só é realmente útil quando consegue encontrar a informação jurídica certa, em fontes confiáveis, atualizadas e verificáveis.\n\nEsse é o problema que a IAJUS nasceu para resolver.\n\nHoje, já ultrapassamos 1.200 usuários utilizando a plataforma para pesquisar",
+      "url": "https://x.com/rafaelobitten/status/2097780369017929962"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-03T18:34:08.000Z",
+      "edit_history_tweet_ids": [
+        "2095581123375944187"
+      ],
+      "id": "2095581123375944187",
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 234953,
+        "like_count": 124,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 4
+      },
+      "text": "A IAJUS agora faz parte do Diretório de Plugins do ChatGPT e do ChatGPT Work.\n\nÉ o primeiro plugin de pesquisa jurídica voltado ao Direito brasileiro disponibilizado no catálogo público do ChatGPT para os usuários, levando nossa inteligência jurídica diretamente para uma das https://t.co/KZ21bfupxG",
+      "url": "https://x.com/rafaelobitten/status/2095581123375944187"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-01T00:11:51.000Z",
+      "edit_history_tweet_ids": [
+        "2094578950852821318"
+      ],
+      "id": "2094578950852821318",
+      "public_metrics": {
+        "bookmark_count": 23,
+        "impression_count": 289569,
+        "like_count": 91,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 7
+      },
+      "text": "A qualidade de uma inteligência artificial jurídica começa pela qualidade da pesquisa que a sustenta.\n\nA IAJUS nasceu para conectar modelos de IA a uma base jurídica ampla, estruturada e rastreável sobre o Direito brasileiro.\n\nA plataforma reúne mais de 31 milhões de decisões",
+      "url": "https://x.com/rafaelobitten/status/2094578950852821318"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-08-27T23:42:08.000Z",
+      "edit_history_tweet_ids": [
+        "2093121918710788545"
+      ],
+      "id": "2093121918710788545",
+      "in_reply_to_user_id": "21334653",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 541,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2093062940790235211",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@ConJur_Oficial Bom, interessante o movimento da JusBrasil.\n\nDe toda forma, independentemente da ferramenta e do modelo de IA, pro uso eficiente e responsável no direito você precisa integrar com uma ferramenta de pesquisa jurídica. Por isso desenvolvemos a IAJUS, https://t.co/jnycdqcHP4, com",
+      "url": "https://x.com/rafaelobitten/status/2093121918710788545"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-08-12T13:21:12.000Z",
+      "edit_history_tweet_ids": [
+        "2087529839578275989"
+      ],
+      "id": "2087529839578275989",
+      "public_metrics": {
+        "bookmark_count": 11,
+        "impression_count": 291713,
+        "like_count": 80,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 5
+      },
+      "text": "Retórica vazia não é suficiente para construir um bom argumento jurídico. Ele precisa estar amparado em precedentes verificáveis e em uma base legislativa atualizada, vigente e aplicável ao caso concreto.\n\nÉ justamente essa a proposta da IAJus: oferecer uma infraestrutura de https://t.co/CaNceooDhY",
+      "url": "https://x.com/rafaelobitten/status/2087529839578275989"
+    },
+    {
+      "author_id": "1258812706410450944",
+      "created_at": "2026-08-02T15:47:45.000Z",
+      "edit_history_tweet_ids": [
+        "2083942838228730322"
+      ],
+      "id": "2083942838228730322",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 185,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2083903295156789382",
+          "type": "quoted"
+        }
+      ],
+      "text": "Doutores, adEvogados… rssss. \n\nNão posso entrar nos detalhes, caso segredo de justiça. Mas o defensor teve a audácia de escrever o roteiro do escopo da prova pericial, alegando que estava “sugerindo um fluxo mais econômico e eficiente” para os procedimentos. Ele errou o tipo da https://t.co/Gkd3OFEJnE https://t.co/BmzztQQnba",
+      "url": "https://x.com/GalloDu/status/2083942838228730322"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-31T19:45:19.000Z",
+      "edit_history_tweet_ids": [
+        "2083277849310433615"
+      ],
+      "id": "2083277849310433615",
+      "public_metrics": {
+        "bookmark_count": 82,
+        "impression_count": 875435,
+        "like_count": 185,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 18
+      },
+      "text": "A confiabilidade da inteligência artificial aplicada ao Direito não começa no modelo. Ela começa na qualidade, na abrangência e na organização das informações que esse modelo consegue pesquisar.\n\nA IAJus foi desenvolvida para oferecer essa infraestrutura. A plataforma reúne https://t.co/JDyN0U9Ox1",
+      "url": "https://x.com/rafaelobitten/status/2083277849310433615"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-28T11:08:29.000Z",
+      "edit_history_tweet_ids": [
+        "2082060621949124631"
+      ],
+      "id": "2082060621949124631",
+      "public_metrics": {
+        "bookmark_count": 52,
+        "impression_count": 649188,
+        "like_count": 143,
+        "quote_count": 2,
+        "reply_count": 6,
+        "retweet_count": 8
+      },
+      "text": "A pesquisa jurídica é a base de qualquer boa aplicação de inteligência artificial no Direito.\n\nFoi com essa premissa que surgiu a IAJus: uma plataforma de inteligência jurídica desenvolvida para disponibilizar uma base de conhecimento estruturada, abrangente e rastreável, capaz https://t.co/vvRvOA4zRT",
+      "url": "https://x.com/rafaelobitten/status/2082060621949124631"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-25T13:39:03.000Z",
+      "edit_history_tweet_ids": [
+        "2081011349182697965"
+      ],
+      "id": "2081011349182697965",
+      "public_metrics": {
+        "bookmark_count": 68,
+        "impression_count": 602188,
+        "like_count": 135,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 10
+      },
+      "text": "A IAJus é uma plataforma de inteligência jurídica desenvolvida para potencializar o uso eficiente e responsável da inteligência artificial no Direito, disponibilizando uma base jurídica estruturada, abrangente e rastreável para apoiar diferentes modelos de IA.\n\nA plataforma reúne https://t.co/73917wvyVq",
+      "url": "https://x.com/rafaelobitten/status/2081011349182697965"
+    },
+    {
+      "author_id": "28405901",
+      "created_at": "2026-07-24T13:23:35.000Z",
+      "edit_history_tweet_ids": [
+        "2080645067832741983"
+      ],
+      "id": "2080645067832741983",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 180,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Você sabe quanto do que já digitou num chat de IA poderia virar prova contra você?\n\nRegra prática para usar IA generativa sem se expor: não escreva num chat (ChatGPT, Gemini, Claude, Grok, Perplexity ou qualquer outro) o que não diria em público, com um microfone na mão.\n\nSenhas, https://t.co/st8KTAlRoC",
+      "url": "https://x.com/nazapl/status/2080645067832741983"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Catholic. Husband & father. Founder & developer. Digital businesses and imports. A simple man walking toward Heaven.",
+        "id": "2737817475",
+        "name": "Glauber",
+        "public_metrics": {
+          "followers_count": 1410,
+          "following_count": 1616,
+          "like_count": 41157,
+          "listed_count": 0,
+          "media_count": 196,
+          "tweet_count": 1054
+        },
+        "username": "glaubera"
+      },
+      {
+        "description": "Computer Scientist | Data Scientist & AI Specialist| Law Degree| \n\nCodex Ambassador 🇧🇷 \n\nBuilding IAJUS (Pesquisa Jurídica) - https://t.co/hk1Jn28DRH ⚖️",
+        "id": "1092201074226798592",
+        "name": "Rafael Bittencourt",
+        "public_metrics": {
+          "followers_count": 2141,
+          "following_count": 1785,
+          "like_count": 1240,
+          "listed_count": 24,
+          "media_count": 427,
+          "tweet_count": 3974
+        },
+        "username": "rafaelobitten"
+      },
+      {
+        "description": "Pai, ADV, Curintia, IA 🇧🇷🇮🇹",
+        "id": "1523178195171823617",
+        "name": "BOT Marcondes de gravata",
+        "public_metrics": {
+          "followers_count": 104,
+          "following_count": 616,
+          "like_count": 32360,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 658
+        },
+        "username": "femarc0086"
+      },
+      {
+        "description": "Com o Jusratio, Claude e ChatGPT pesquisam jurisprudência e legislação para explorar teses, antecipar contrapontos e construir respostas jurídicas de qualidade.",
+        "id": "2055250851644489728",
+        "name": "Jusratio +Inteligência jurídica para sua IA",
+        "public_metrics": {
+          "followers_count": 1104,
+          "following_count": 32,
+          "like_count": 68,
+          "listed_count": 3,
+          "media_count": 8,
+          "tweet_count": 36
+        },
+        "username": "jusratio"
+      },
+      {
+        "description": "Just me!",
+        "id": "146009308",
+        "name": "Edmar Neto",
+        "public_metrics": {
+          "followers_count": 23,
+          "following_count": 265,
+          "like_count": 2027,
+          "listed_count": 0,
+          "media_count": 15,
+          "tweet_count": 79
+        },
+        "username": "edmar_neto"
+      },
+      {
+        "description": "Pesquise o Direito brasileiro no ChatGPT, Claude, Grok, Gemini Spark, em outras IAs ou no Whatsapp. Jurisprudência e normativos com links das fontes oficiais.",
+        "id": "2101343193832751104",
+        "name": "IAJUS - Pesquisa Jurídica",
+        "public_metrics": {
+          "followers_count": 82,
+          "following_count": 44,
+          "like_count": 1,
+          "listed_count": 0,
+          "media_count": 1,
+          "tweet_count": 15
+        },
+        "username": "iajusbr"
+      },
+      {
+        "description": "🇧🇷 Direita 360 | Notícias, política e conservadorismo. Liberdade, valores, economia e os principais assuntos do Brasil sob uma perspectiva de direita.",
+        "id": "1178780682467893253",
+        "name": "DIREITA 360",
+        "public_metrics": {
+          "followers_count": 64551,
+          "following_count": 159,
+          "like_count": 790,
+          "listed_count": 46,
+          "media_count": 4427,
+          "tweet_count": 7267
+        },
+        "username": "Direita360"
+      },
+      {
+        "description": "#DFIR & #PeríciaForense 🔎 | #DFIRFit 🧗‍♂️ & Montanha ⛰️ | #Corinthians ⚽️ | TV & Cinema 🎥 | Pelúcia 🐈 | *Opiniões próprias",
+        "id": "1258812706410450944",
+        "name": "Carlos Gallo",
+        "public_metrics": {
+          "followers_count": 809,
+          "following_count": 1547,
+          "like_count": 83792,
+          "listed_count": 2,
+          "media_count": 1416,
+          "tweet_count": 11166
+        },
+        "username": "GalloDu"
+      },
+      {
+        "description": "Computer Science, https://t.co/zbQ292BU6X. Production Engineering, Data Analyst\n#avgeek #starwars",
+        "id": "28405901",
+        "name": "Naza, com Z 🇧🇷 🇺🇦",
+        "public_metrics": {
+          "followers_count": 318,
+          "following_count": 579,
+          "like_count": 61378,
+          "listed_count": 6,
+          "media_count": 986,
+          "tweet_count": 21081
+        },
+        "username": "nazapl"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2109700267021103242",
+    "oldest_id": "2080645067832741983",
+    "result_count": 23
+  }
+}

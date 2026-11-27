@@ -1,0 +1,51 @@
+=== q17_jusratio_mcp: 25 posts
+@pizaniadv (68f) 2026-09-03 L0 RT0 V142 https://x.com/pizaniadv/status/2095636431624442083
+   Abri os conectores da Cognitio em beta gratuito.  A ideia é simples: você continua no Claude, no ChatGPT ou no Claude Code que já usa. Um endereço de conexão liga a sua IA a sete serviços jurídicos que respondem com a fonte na mão — e que dizem quando não sabem.  O que está lá https://t.co/uP7rThl6oE
+@CarlosR26271158 (3229f) 2026-05-27 L0 RT0 V25 https://x.com/CarlosR26271158/status/2059432835379835369
+   Acórdãos de 2020-2026 do TJMG amanhã no banco de dados do https://t.co/pqVTMyA6TL. Em seguida TSE e TJGO. Gostaria de pesquisar jurisprudência sobre algo específico? Teste a qualidade da resposta enviando um prompt nos comentários. Te respondo com a resposta do claude opus 4.7 + https://t.co/78p3rgBCru
+@dr_eduserafim (50f) 2026-08-29 L0 RT0 V49 https://x.com/dr_eduserafim/status/2093700212078305729
+   O advogado do futuro não abre PDF. Ele abre o terminal. 💻 Acabamos de plugar o Atende Direito Sync direto no Claude Code via MCP. Você puxa o processo judicial inteiro pra dentro do seu ambiente e simplesmente *pergunta* o que quiser.  #LegalTech #Advocacia #IA
+@CarlosR26271158 (3229f) 2026-05-27 L35 RT0 V2893 https://x.com/CarlosR26271158/status/2059432950937141675
+   Acórdãos de 2020-2026 do TJMG amanhã no banco de dados do https://t.co/pqVTMyA6TL. Em seguida TSE e TJGO. Gostaria de pesquisar jurisprudência sobre algo específico? Teste a qualidade da resposta enviando um prompt nos comentários. Te respondo com a resposta do claude opus 4.7 + https://t.co/78p3rgBCru
+@CarlosRodr44314 (1108f) 2026-06-15 L64 RT5 V3508 https://x.com/CarlosRodr44314/status/2066558387219845528
+   Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações. Exemplo: "Qual a jurisprudência recente do TJGO sobre a obrigação do Estado de Goiás fornecer medicamento de alto custo não incorporado ao SUS. Como as Câmaras Cíveis vêm https://t.co/voX5CMvgWc
+@CarlosR26271158 (3229f) 2026-05-25 L62 RT2 V5553 https://x.com/CarlosR26271158/status/2058907273162789068
+   Você pode facilitar sua vida adicionando o conector de jurisprudência ao Claude para verificar jurisprudência do CARF, veja:  https://t.co/tVeSDP5opk  Prompt: Cliente é uma scale-up de tecnologia que mantém plano de stock options desde 2019. Recebeu auto de infração da Receita https://t.co/pTPNaRxa95 https://t.co/QzZLdIvgNI
+@AdvTrib (137f) 2026-05-17 L75 RT4 V59735 https://x.com/AdvTrib/status/2056088645241577817
+   @CarlosR26271158 @jusratio Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por https://t.co/anrN0UQGy
+@dr_eduserafim (50f) 2026-09-22 L1 RT0 V55 https://x.com/dr_eduserafim/status/2102518302660551073
+   Ctrl+C e Ctrl+V de andamento é trabalho pra robô, não pra advogado. O Atende Direito Sync automatiza isso via MCP. Claude Code lê direto da fonte e você ganha tempo pra pensar.
+@CarlosR26271158 (3229f) 2026-05-15 L547 RT45 V49740 https://x.com/CarlosR26271158/status/2055386947309199549
+   Pessoal, aqui a lista completa de tribunais no banco de dados do https://t.co/pqVTMyA6TL (tjpe ta finalizando). Se essa ferramenta estiver sendo útil, manda pros colegas que não estão aqui no X.   Quem já plugou o JusRatio no Claude, ChatGPT ou Gemini sabe a sensação, a primeira https://t.co/qwNKXpiqYm https://t.co/WHol0tRdMN
+@CarlosRodr44314 (1108f) 2026-09-15 L39 RT4 V2907 https://x.com/CarlosRodr44314/status/2099694425135792422
+   Adicione um conector de jurisprudência ao Claude e observe um salto de confiabilidade em pesquisa jurídica com https://t.co/rK2XaJGgeK. É a primeira legaltech brasileira disponível no diretório oficial: https://t.co/uAEb0cTWQU  Também no ChatGPT e outros clientes MCP. https://t.co/qXa5qxeSoA
+@CarlosRodr44314 (1108f) 2026-09-14 L84 RT7 V266380 https://x.com/CarlosRodr44314/status/2099553612959453383
+   Adicione um conector de jurisprudência ao Claude e observe um salto de confiabilidade em pesquisa jurídica com https://t.co/rK2XaJGgeK. É a primeira legaltech brasileira disponível no diretório oficial: https://t.co/uAEb0cTWQU  Também no ChatGPT e outros clientes MCP. https://t.co/4vF171j2ak
+@dr_eduserafim (50f) 2026-09-24 L0 RT0 V19 https://x.com/dr_eduserafim/status/2103243078765043799
+   Advogado novo demorando semanas pra entender caso grande? No Atende Direito Sync, ele abre o Claude Code via MCP e o banco de dados vivo resume tudo em 1 minuto. Escalabilidade real.
+@CarlosR26271158 (3229f) 2026-05-16 L42 RT0 V3799 https://x.com/CarlosR26271158/status/2055685453341147324
+   minha reação é a mesma também ao utilizar o conector de jurisprudência no claude - https://t.co/pqVTMyA6TL https://t.co/jnoZmMzkq6 https://t.co/Eevd7BCGyP
+@CarlosRodr44314 (1108f) 2026-07-01 L1 RT0 V53 https://x.com/CarlosRodr44314/status/2072306259039080784
+   @fan_de_personag @prioriadv Faz o teste usando o conector de jurisprudência https://t.co/k4DBt1KIZT , adiciona no claude / GPT.  A resposta é muito mais confiável, densa e o link entrega o inteiro teor, veja https://t.co/FCEBN34MN5
+@CarlosRodr44314 (1108f) 2026-06-23 L105 RT5 V9692 https://x.com/CarlosRodr44314/status/2069248859860095360
+   Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações. É fácil de adicionar. Veja um exemplo: https://t.co/FCEBN34MN5 https://t.co/4USMHbiDX3
+@CarlosRodr44314 (1108f) 2026-07-10 L221 RT22 V28924 https://x.com/CarlosRodr44314/status/2075579473550770237
+   Você já jogou um pdf de 2 mil páginas no chat do claude/gpt e teve problemas com contexto e alucinação? Bora criar uma solução juntos? Fiz esse conector local especialmente voltado pra esses casos.  Funciona assim:  - Você define uma pasta - Põe o pdf nessa pasta ou subpasta - O https://t.co/lqK81JMhRE
+@AFaleandro30 (807f) 2026-09-06 L0 RT0 V49 https://x.com/AFaleandro30/status/2096688240032203105
+   @thallisribeiro Sem isso o ChatGPT nunca te cita. Ele mostra nos posts que site de advogado bloqueia por padrão.  Cria llms.txt na raiz: AF Advocacia Previdenciária Advogado previdenciário em Anápolis - GO, especialista em BPC LOAS negado, aposentadoria rural e auxílio por incapacidade.
+@CarlosRodr44314 (1108f) 2026-05-25 L27 RT2 V1381 https://x.com/CarlosRodr44314/status/2058908414172901868
+   Jurisprudência administrativa do CARF e acórdãos do TJPB hoje no banco de dados do https://t.co/k4DBt1KIZT  Adicione um conector de jurisprudência ao Claude e reduza drasticamente a probabilidade de alucinações
+@CarlosR26271158 (3229f) 2026-05-18 L266 RT26 V12383 https://x.com/CarlosR26271158/status/2056511740024627374
+   Como adicionar o https://t.co/pqVTMyA6TL no Claude (sem grana pra motion design ainda kkkkk)  Veja um exemplo de como um conector de jurisprudência pode melhorar significativamente a resposta de uma IA:    1 - https://t.co/fJm2h5ycRK  2 - https://t.co/xeGZXodMHV  3- https://t.co/rf81VvCnvz
+@CarlosR26271158 (3229f) 2026-04-27 L4 RT0 V84 https://x.com/CarlosR26271158/status/2048890671025508608
+   @AndrewsAbreu5 Claude + um conector que tô desenvolvendo. É como se acoplasse um banco de dados de jurisprudência
+@Precedentesbr (1f) 2026-10-08 L0 RT0 V1 https://x.com/Precedentesbr/status/2108212492950503707
+   Um conector, a jurisprudência inteira: no Claude, ChatGPT, Codex, Gemini e Cursor, busca de decisões, verificação de citações, súmulas e temas, jurimetria, DJEN, andamento pelo CNJ e calculadoras. Toda decisão com link oficial.  https://t.co/yDmwzGrtPi · DM: QUERO TESTAR https://t.co/t2ehmWWxtm
+@CarlosR26271158 (3229f) 2026-05-21 L54 RT2 V3465 https://x.com/CarlosR26271158/status/2057505430285201922
+   Adicione um conector de jurisprudência ao Claude/GPT/Antigravity e veja a mágica acontecer. Que IA jurídica vai te entregar esse nível de resposta por R$20? (TJRS finalizando agora)  Exemplos:  - https://t.co/hnKXEr3mDk  - https://t.co/zRCz51IFT4  - https://t.co/Qsy5bqOfCZ https://t.co/DPSL6cFGVE
+@CarlosRodr44314 (1108f) 2026-07-13 L0 RT0 V88 https://x.com/CarlosRodr44314/status/2076775070345675024
+   @leorochajus @CarlosR26271158 É só comparar. Além disso, você continua usando o claude/gpt pra outras coisas, e quando convir, usa o conector de jurisprudência.
+@CarlosRodr44314 (1108f) 2026-06-10 L251 RT20 V19811 https://x.com/CarlosRodr44314/status/2064708784136544494
+   Em 1 minuto: como adicionar o conector de jurisprudência https://t.co/k4DBt1KIZT ao Claude https://t.co/7ab3aGxWKy
+@CarlosR26271158 (3229f) 2026-06-08 L40 RT0 V2995 https://x.com/CarlosR26271158/status/2063979000163189055
+   conector de jurisprudência pra você utilizar com claude e perder o medo de usar IA por 20 pila por mês (!) https://t.co/6Wb5TbtbiG

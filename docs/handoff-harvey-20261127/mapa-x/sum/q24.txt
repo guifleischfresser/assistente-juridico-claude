@@ -1,0 +1,51 @@
+=== q24_from_advogados_varios: 25 posts
+@kurosawaadv (136f) 2025-12-02 L0 RT0 V457 https://x.com/kurosawaadv/status/1995840395931250692
+   @tsu_node Acho que esse é o principal caso de uso de IA para quem não é da área da programação. No meu caso, cancelamos um serviço que gerenciava processos e prazos para advocacia e estou desenvolvendo um próprio porque é mil vezes mais barato pagar o claude code e desenvolver per se
+@iamleds (49f) 2026-08-14 L0 RT0 V23 https://x.com/iamleds/status/2088268004844859396
+   Se o advogado não possui um software de CRM, como ele faz para saber em que pé está o caso do cliente?  Anota na agenda? Confia na memória? Lê a pasta ou processo quando o cliente pergunta? Tudo isso é muito inseguro e perigoso.  Dividindo meus pensamentos com o Claude, confessei
+@gabriel_gfb92 (132f) 2026-10-04 L0 RT0 V90 https://x.com/gabriel_gfb92/status/2106793603251232879
+   @JorgeAraujo Para advogados: montei meu site profissional com o Claude Code Agora estou criando uma ferramenta própria de monitoramento de prazos dos meus processos, controle de contratos e honorários, etc Vale a pena!
+@iamleds (49f) 2026-07-30 L0 RT0 V17 https://x.com/iamleds/status/2082820754085740739
+   @RoundtableSpace @grok Sou advogado, uso gdrive para armazenamento das pastas dos meus clientes e uso Claude Code, Grok Build e outros para elaborar petições, contratos, controlar prazos etc. Como o Buzz pode ser útil para a minha atividade diária e workflows?
+@odilonoliveira (1196f) 2026-08-18 L0 RT0 V40 https://x.com/odilonoliveira/status/2089812830866341979
+   2/6  O atalho parece eficiente: “GPT jurídico definitivo”, kit de petição, agente pronto, automação que promete resolver tudo.  O custo escondido é alto: peças padronizadas, voz indistinguível e dependência permanente de fornecedor externo.
+@odilonoliveira (1196f) 2026-06-16 L0 RT0 V17 https://x.com/odilonoliveira/status/2066837417881932260
+   Usar IA não é o mesmo que ser IA first.  IA first não é colocar uma ferramenta nova em cima de um processo velho.  Na advocacia, é redesenhar petições, atendimento, prazos e estratégia desde o começo, com IA, método e supervisão.  Automatizar erro antigo não é inovação.
+@carloshsl_ (400f) 2026-05-26 L172 RT22 V10461 https://x.com/carloshsl_/status/2059303572316078265
+   Colegas, após alguns apontamentos e feedbacks, eu atualizei a biblioteca de prompts jurídicos para IA: https://t.co/P9bgIo2p7K  Agora são 41 prompts, com foco em uso prático, revisão humana e travas contra invenção de fatos, prazos, valores, documentos e jurisprudência.  Incluí
+@odilonoliveira (1196f) 2026-10-14 L0 RT0 V10 https://x.com/odilonoliveira/status/2110490834168656113
+   1/ Escritório pequeno precisa ganhar tempo com segurança. A IA pode ajudar a organizar documentos, resumir autos e preparar rascunhos. Prazos, fatos e fundamentos exigem conferência do advogado.
+@kurosawaadv (136f) 2025-11-28 L0 RT0 V170 https://x.com/kurosawaadv/status/1994396895423471878
+   @diegociconi @oalanicolas Se você tiver email de estudante, dá para pegar um ano grátis de google pro, que tem o gemini 3 pro no CLI. Considerando que sai de graça, vale a pena como substituto do Claude Code ou do Codex
+@kurosawaadv (136f) 2025-12-31 L0 RT0 V157 https://x.com/kurosawaadv/status/2006502509045756323
+   @mweinbach Codex is the slow but methodic expert that solves every bug that the crazy and hyperactive genius, Claude Code, creates.
+@kurosawaadv (136f) 2025-12-30 L0 RT0 V67 https://x.com/kurosawaadv/status/2006091714940043601
+   Credit where credit is due: o codex acabou de resolver um bug criado pelo claude code.
+@kurosawaadv (136f) 2025-12-31 L0 RT0 V75 https://x.com/kurosawaadv/status/2006462706216476893
+   A integração de Claude Code como criador frenético de códigos e funções com Codex revisor metódico e pontual de bugs é a salvação
+@advgabrielval (229f) 2026-05-26 L2 RT0 V317 https://x.com/advgabrielval/status/2059095491992768982
+   @carinabst Só deixar o Jusbrasil logado, Claude com autorização para usar Google Chrime e quebrar a pesquisa de jurisprudência como tarefa logo após a análise do contexto da petição
+@odilonoliveira (1196f) 2026-06-02 L0 RT0 V59 https://x.com/odilonoliveira/status/2061908301672005724
+   Qual expressão mais entrega que uma petição foi escrito por IA? Eu começo: “Nesse sentido, cumpre destacar que...”
+@AdvDoHardware (7741f) 2026-06-06 L313 RT6 V49596 https://x.com/AdvDoHardware/status/2063400580475654589
+   Vi essa mensagem num balcão virtual de vara cível nesta semana. Ela não conseguia compreender a impossibilidade do servidor em protocolar a petição e repetiu essa mensagem diversas vezes.  A IA não serve de absolutamente nada sem um profissional que saiba o que está fazendo. https://t.co/qnqAFCvmzn https://t.co/gQdj6LcauU
+@iamleds (49f) 2026-08-12 L4 RT0 V161 https://x.com/iamleds/status/2087523101609226643
+   @marcusaraujobhz @joocarlosteixe6 @juniordias Sinceramente, qual é o problema dessa marca?   Se a manifestação/petição está coerente com o contexto dos autos, está revisada, pertinente, qual seria a justificativa para uma punição ou advertência por ser texto de IA?
+@AdvDoHardware (7741f) 2026-03-17 L131 RT5 V15918 https://x.com/AdvDoHardware/status/2034003587785716041
+   Pedi para o Claude Pro fazer UMA petição. Eu tinha usado apenas 4% do limite destas 5 horas.  O Claude não entregou a petição, acabou com meu limite até às 20h e ficou por isso mesmo.  Essa imprecisão quanto ao uso de tokens é completamente absurda. https://t.co/tfZ141kbVW
+@odilonoliveira (1196f) 2026-05-17 L0 RT0 V12 https://x.com/odilonoliveira/status/2056155177330073835
+   4/ A primeira pergunta é técnica: isso poderia funcionar?  Sim, em tese. Especialmente se alguém copiasse o conteúdo bruto da petição e colasse em uma IA sem perceber o comando oculto.
+@odilonoliveira (1196f) 2026-05-17 L1 RT0 V18 https://x.com/odilonoliveira/status/2056153877972504784
+   2/ Segundo as notícias, teria sido inserido em uma petição um comando oculto, em fonte branca sobre fundo branco, direcionado a sistemas de IA.  Para humanos, invisível. Para máquinas, potencialmente legível.
+@iamleds (49f) 2026-07-27 L0 RT0 V17 https://x.com/iamleds/status/2081784482382708851
+   Aqui está uma sacada simples e das melhores: “Apenas converse com o agente”.  (a) reflita sobre o que você deseja do agente + (b) apenas converse com o agente é a chave para um uso melhor do Claude Code. https://t.co/QMaBJMdJqZ
+@AdvDoHardware (7741f) 2026-03-20 L609 RT17 V16234 https://x.com/AdvDoHardware/status/2034827678436458678
+   Todo mundo diz: O advogado usou IA na petição inicial. Além de evidente, ficou terrível.  O que o advogado faz?  Solta uma "nota à imprensa" igualmente feita na IA.  Tem colega que não se ajuda.
+@iamleds (49f) 2026-09-22 L1 RT0 V9 https://x.com/iamleds/status/2102446271575609465
+   5. Revise sua operação, skills, fluxos de trabalho… corte excessos, organize, limpe;  6. https://t.co/as3afTlnd7 — instale essa skill no seu agente;
+@kurosawaadv (136f) 2026-02-09 L1 RT0 V252 https://x.com/kurosawaadv/status/2021003733405139060
+   @freitashebert_ Concordo. Ainda acho difícil lançar mão de um workflow funcional, ainda que usando agentes e outras ferramentas mais funcionais como Codex ou Claude Code.    Uso muito, mas não como devs usam para operacional mil tarefas simultâneas. Acho que o custo de revisar ainda é alto.
+@carloshsl_ (400f) 2026-04-06 L1 RT0 V50 https://x.com/carloshsl_/status/2041172123834556508
+   @rafaquint @oalanicolas Ah, não tinha entendido que era somente aos créditos extras! Eu migrei do Claude para o Codex na sexta-feira justamente pelo consumo excessivo, tomara que isso não aconteça novamente…
+@carloshsl_ (400f) 2026-07-07 L2 RT0 V116 https://x.com/carloshsl_/status/2074526497633657014
+   @kbelo_bruno @CarlosRodr44314 Codex por muito. Migrei do Claude pro codex há 2 meses e foi a melhor decisão que tomei. Os limites são bem mais generosos que o Claude e o gpt-5.5 é excelente. Infelizmente o jusIA é péssimo é caro, você tomou um tombo nessa.

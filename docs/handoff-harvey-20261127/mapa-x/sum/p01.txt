@@ -1,0 +1,289 @@
+
+### @CarlosR26271158 2026-04-06 L328 RTNone V77551 https://x.com/CarlosR26271158/status/2041154896896946180
+Como evolução natural do https://t.co/f8EQ61qgrM, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de implementar algo)
+
+A ideia é que o advogado descreva o caso em linguagem natural e uma equipe de agentes de IA faça o trabalho pesado de pesquisa, redação, validação e contradição. Pesquisa jurisprudência, redige a peça, e um agente adversário ataca a própria petição, simulando o que a parte contrária faria. O advogado supervisiona tudo, edita, aprova, e no final tem uma peça robusta pronta pra protocolar.
+
+O que o está projetado, por ora:
+
+- Intake inteligente: Você descreve o caso e a IA faz perguntas dinâmicas até entender tudo (tipo uma consulta com um estagiário muito bom);
+- Pesquisa guiada por teses: Antes de buscar qualquer coisa, o sistema decompõe seu caso em teses jurídicas e pesquisa especificamente para cada uma, incluindo jurisprudência contrária;
+- Redação por seções: A petição é gerada seção por seção (fatos, fundamentos, pedidos), cada parágrafo com a fonte linkada
+- Loop de adversário/contraparte/opositor: Um agente separado (usando um modelo diferente) tenta destruir a petição. Aponta falhas processuais, argumentos fracos, jurisprudência faltante. E o sistema te obriga a lidar com cada ponto
+
+### @igornicolodi1 2026-06-06 L6 RTNone V538 https://x.com/igornicolodi1/status/2063077466558648512
+Eu não deixo de ficar impressionado com o Claude e com as possibilidades que o ~vibe coding~ proporciona. Dá pra resolver muitos gargalos diários com um pouco de criatividade.  
+
+Uma coisa que me torra a paciência é ter que coletar conversa de whatsapp como prova documental. O cliente precisa tirar print de tudo, mandar fotos, áudios, pdfs....  
+
+Aí uns dias atrás usei o Claude Code pra criar uma ferramenta em HTML. O cliente exporta a conversa e me envia. Eu jogo tudo pra dentro da ferramenta (que roda na minha maquina) e emulo a tela do whatsapp, como se estivesse no whatsapp do próprio cliente.  
+
+Consigo ver todos os arquivos que ele recebeu/enviou, inclusive os áudios. Já fiz uma função pra transcrever os áudios automaticamente. Ainda tenho um botão que gera um relatório completo, incluindo os áudios transcritos.  
+
+Resultado: a atividade de organizar a conversa e os arquivos, que antes me tomava horas (além de ter de confiar que o cliente salvou tudo corretamente), agora leva segundos.   
+
+Lembrem sempre disso: o melhor prompt é a criatividade 💡
+
+### @iamleds 2026-08-14 L0 RTNone V23 https://x.com/iamleds/status/2088268004844859396
+Se o advogado não possui um software de CRM, como ele faz para saber em que pé está o caso do cliente?
+
+Anota na agenda? Confia na memória? Lê a pasta ou processo quando o cliente pergunta? Tudo isso é muito inseguro e perigoso.
+
+Dividindo meus pensamentos com o Claude, confessei minha preocupação em ter uma espécie de segundo cérebro do escritório, um lugar onde eu poderia guardar prazos, situações de processos e casos administrativos etc.
+
+Ele me recomendou a organização de dossiês. Fichas em markdown que apresentariam um resumo do caso, documentos disponíveis, documentos faltantes, dados pessoais básicos, próximos passos, teses ativas e secundárias, entre outros.
+
+Além de representarem uma memória de cada caso, os dossiês seriam também uma mão na roda para os LLMs consultarem e atualizarem informações sobre cada caso.
+
+Segui a orientação. Implementamos uma skill para a criação e atualização padronizada dos dossiês para cada cliente ativo. Agora, cada pasta de cliente tem seu próprio dossiê.
+
+A grande jogada é essa: além do advogado ter uma memória de cada caso, ele também tem um documento com formato próprio para ser lido por LLMs. O trabalho fica muito mais fluido e a atualização de cada caso é simples e rápida.
+
+Interessados na skill, só mandar DM.
+
+### @rpjupiter 2026-05-13 L0 RTNone V385 https://x.com/rpjupiter/status/2054396621916455255
+Olhando as 13 skills do pacote claude-for-legal lançado hoje pela @AnthropicAI para o @claudeai  o quadro é claro: o pacote é fundamentalmente um produto para o mercado jurídico americano corporativo — in-house counsel, Big Law, M&A, compliance, privacy, IP, clínicas universitárias. 
+
+O litígio contencioso brasileiro não é o público alvo de nenhuma delas.
+
+Na prática, para elaboração e análise de contratos, o problema é o mesmo das skills de litígio: ela foi calibrada para o direito contratual americano. Isso significa lógica de common law, cláusulas típicas do mercado americano (indemnification no padrão deles, limitation of liability com caps específicos, governing law tipicamente Delaware/Nova York, boilerplate anglo-saxão), e ausência da estrutura do nosso Código Civil, função social do contrato, boa-fé objetiva (art. 422), onerosidade excessiva (art. 478), revisão por rebus sic stantibus, cláusulas resolutivas tácitas, vícios redibitórios, e por aí vai.
+
+Para contratos comerciais brasileiros, sejam contratos empresariais, prestação de serviços, locação, compra e venda, parcerias, usar a Commercial legal significaria importar um modelo mental estrangeiro e ter que corrigi-lo manualmente a cada passo. O ganho de produtividade é duvidoso.
+
+Pra galera da área jurídica o ideal é continuar usando o chatbot mesmo ou criar uma skill personalizada.
+
+### @freitashebert_ 2025-07-13 L985 RTNone V70081 https://x.com/freitashebert_/status/1944538173364674733
+Uma dica de IA pra galera do Direito:
+
+Precisei estudar um tema de direito civil que nunca tive contato (anulação de matrícula de imóvel particular adquirido a título de terra devoluta) para resolver um problema familiar.
+
+Coloquei meus estagiários premium (ChatGPT, Claude, Gemini e um pouco do Perplexity) para trabalhar.
+
+E sinceramente: fiquei espantado como o Gemini (Google) está bom para pesquisa jurídica, sugestão para cases jurídicos complexos e redação de esboços de peças. 
+
+Hoje, o Gemini (versão 2.5 Flash) é o campeão para atividades jurídicas a meu ver. Muito bom mesmo!
+
+### @edmar_neto 2026-09-25 L0 RTNone V59 https://x.com/edmar_neto/status/2103333866693890461
+Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.
+
+No vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, já faz o resumo do processo e busca a jurisprudência pertinente, com a ementa à vista.
+
+Sem extensão no Google Chrome, sem plugin no Claude, sem baixar PDF e arrastar para a conversa.
+
+O detalhe que mais importa: a peça fica aberta ao lado da resposta. A IA resume e pesquisa; quem confere, antes de usar, continua sendo você.
+
+📌 Salve para testar no próximo processo que chegar.
+
+#advocacia #advogado #inteligenciaartificial #iajuridica #pje #direito #tecnologiajuridica #produtividade
+
+### @carloshsl_ 2026-05-26 L172 RTNone V10461 https://x.com/carloshsl_/status/2059303572316078265
+Colegas, após alguns apontamentos e feedbacks, eu atualizei a biblioteca de prompts jurídicos para IA: https://t.co/U2ntoGtE9H
+
+Agora são 41 prompts, com foco em uso prático, revisão humana e travas contra invenção de fatos, prazos, valores, documentos e jurisprudência.
+
+Incluí também um prompt específico para auditar PDF/DOCX da parte adversária em busca de prompt injection e/ou instruções ocultas/maliciosas.
+
+### @douglaxx 2026-07-13 L0 RTNone V72 https://x.com/douglaxx/status/2076708565855650177
+Aprender a usar o Drive integrado com o Claude como banco de dados trouxe uma otimização e aprimoramento para o processo de elaboração de peças processuais no escritório
+
+Impressionante a capacidade da IA de assimilar a sua escrita e estilo de formatação
+
+### @b_descalante 2026-06-19 L2 RTNone V44 https://x.com/b_descalante/status/2068011873149104569
+@lucasmourao_ @ogavelar Uso o @jusratio com o Claude pra verificar o entendimento jurisprudencial mas é óbvio que, mesmo confiando na plataforma, valido e leio cada jurisprudência antes de incluir na petição.
+
+A coisa mais importante que a gente tem é o nome, e é ele que vai no final da peça.
+
+### @glaubera 2026-10-12 L1 RTNone V59 https://x.com/glaubera/status/2109700267021103242
+Eu usei o Claude com algumas skills de advocacia. Montei dois processos, organizei tudo com ele no modelo fable 5.1 (high). Entreguei pro meu adv mastigado, vencemos os 2. Foi única vez que usei pra processos, mas pra contratos e assuntos jurídicos do dia a dia, só uso ele. Uso muito GPT pra geração de imagens, alguns outros projetos mais simples de programação e até mesmo gerar pdfs, planos, analisar dados de planilhas. Cada um vai ter o diferencial. Meu preferido é o Claude, apesar de não abrir do gpt também. Outro detalhe é que estava sempre usando ambos planos de 20x, e esse mês vou rebaixar o codex pra 5x, acho que vai me atender igual, pois reduzi muito o uso dele.
+
+### @Zenilson_coelho 2026-09-23 L0 RTNone V6 https://x.com/Zenilson_coelho/status/2102722684463226896
+🚨 O Claude está mudando a forma como escritórios de advocacia podem usar IA.
+
+E não estou falando de pedir para ele escrever uma petição.
+
+Separei 4 sacadas para quem quer usar IA para realmente ganhar produtividade no escritório.
+
+Salva porque isso vai muito além de prompt. https://t.co/xjZtOt8qdC
+
+### @femarc0086 2026-09-30 L0 RTNone V144 https://x.com/femarc0086/status/2105388171043455234
+Como analisar uma audiência de 3 horas com IA sem torrar seu orçamento com tokens?
+
+IA no direito não é só gerar petição. É sobre construir fluxos inteligentes. Já pensou em como otimizar a análise de vídeos de audiências e arbitragens longas?
+
+Essa semana, em vez de fazer o upload de um vídeo pesado de uma audiência de quase 3 horas no @claudeai, montei o seguinte stack:
+
+1. Transcrição Local (Whisper + @grok ): Usei o @bot  para estruturar uma skill para ser usada no Claude (basta pedir para a IA criar, você nem precisa codar do zero). Com ela, a transcrição roda localmente via Whisper: o áudio fica no meu PC (sigilo total) e o custo é zero.
+
+2. Análise Macro (@Gemini_Notebook): Mandei o .txt gerado com a transcrição para o NotebookLM. Com sua janela de contexto gigante, vasculho os depoimentos e cruzo informações sem gastar os limites de uso de LLMs pagos.
+
+3. Refinamento (Claude Projects): Transformo o texto em Markdown e isolo dentro de um projeto no Claude só para aquele caso. O modelo trabalha com um contexto limpo e hiperfocado.
+
+No fim: menos token, custo quase zero na transcrição, produtividade altíssima e o conteúdo fica muito melhor estruturado para a peça.
+Jogar vídeo longo direto no chat é pagar caro por um problema que a tecnologia open-source já resolve de graça no computador. 
+
+De quebra, fica o lembrete: você nem precisa saber criar a skill do zero, é só pedir
+
+### @CarlosRodr44314 2026-07-10 L221 RTNone V28924 https://x.com/CarlosRodr44314/status/2075579473550770237
+Você já jogou um pdf de 2 mil páginas no chat do claude/gpt e teve problemas com contexto e alucinação? Bora criar uma solução juntos? Fiz esse conector local especialmente voltado pra esses casos. 
+Funciona assim:
+
+- Você define uma pasta
+- Põe o pdf nessa pasta ou subpasta
+- O conector prepara o processo ali mesmo, dentro do seu computador, e o chat passa a consultar o caso em vez de engolir o PDF inteiro.
+
+A diferença tá nesse último ponto. Quando você anexa um processo grande no chat, o modelo tenta segurar tudo na memória de trabalho dele, que é limitada. Ele corta pedaços, resume o que não devia, e quando a memória enche começa a misturar as coisas. É daí que vem boa parte da alucinação: ele responde com confiança sobre uma página que já esqueceu.
+
+O conector resolve isso não colocando o processo na conversa. Ele desmonta o PDF página por página em arquivos de texto simples (dá pra abrir qualquer um no bloco de notas, nada escondido) e monta um índice local, um arquivo único no seu PC que funciona como um índice remissivo gigante: qualquer pergunta acha os trechos certos em milissegundos, sem reler nada. Na conversa entram só os trechos relevantes daquela pergunta, alguns parágrafos por vez. Um processo de 2 mil páginas custa pro chat o mesmo que um de 20.
+
+Uso dois modelos do Gemini, na chave API do próprio usuário. O gemini-3.5-flash lê as páginas escaneadas: é um model
+
+### @brunoadvba 2026-07-03 L325 RTNone V38346 https://x.com/brunoadvba/status/2073110537907421354
+Eu não consigo entender como um advogado joga os dados do cliente no ChatGPT e copia a petição inicial feita pela IA.
+
+Acabei de ver uma ação contra uma casa de apostas em que o advogado copiou e colou 100% do que a IA escreveu. Em um caso de LUDOPATIA!!!
+
+Uma ação complexa, delicada, cheia de detalhes, e foi feita no CTRL+C e CTRL+V.
+
+O advogado sequer qualificou as partes. Para piorar, a petição manteve até os emojis que a IA colocou no texto. Nem isso o advogado se preocupou em revisar.
+
+Não estou criticando o uso da IA, que é uma ótima ferramenta de apoio. O problema é usar a ferramenta como substituta do próprio trabalho. Em um caso desses, isso é ABSURDO.
+
+Toda a advocacia perde com isso.
+
+### @mottamarcos 2026-04-25 L2807 RTNone V2185241 https://x.com/mottamarcos/status/2048007483642249590
+A IA não está apenas automatizando tarefas jurídicas. Está eliminando o andaime que forma profissionais calibrados. Pesquisa, due diligence, revisão de contratos é como o estagiário aprende a pensar juridicamente. Hoje a IA entrega o resultado, mas o caminho que forma o profissional fica para trás.
+
+O problema não é o emprego da IA. É o aprendizado que acontece no processo. Quem nunca garimpou jurisprudência por horas, nunca foi corrigido por um sócio numa peça mal feita, nunca levou um bater de porta, chega ao andar de gestor sem o repertório que a função exige. O trabalhado está, eventualmente, certo. A formação, não.
+
+Liderança sempre foi construída na fornalha das relações humanas, e de baixo para cima. Um sócio sênior sabe negociar porque redigiu mil cláusulas. Sabe gerir uma crise porque esteve na linha de frente da trincheira. Quando essa base é suprimida ou acelerada artificialmente, o pipeline de liderança se enfraquece de forma silenciosa e progressiva.
+
+O risco concreto é uma geração de advogados artificialmente competentes e estrategicamente frágeis. Que sabem validar um trabalho feito pela máquina, mas não sabem auditar com profundidade por que ele pode estar errado. Numa arbitragem complexa ou numa negociação de alto risco, essa limitação cobra seu preço. E ele é alto.
+
+A resposta não é negar a IA. É redesenhar a formação profissional com consciência do que se per
+
+### @AdvTrib 2026-05-17 L75 RTNone V59735 https://x.com/AdvTrib/status/2056088645241577817
+Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por dia que precisa de jurisprudência, essa foi incrível.
+
+### @jusratio 2026-05-20 L194 RTNone V10880 https://x.com/jusratio/status/2057101189028688258
+Estamos construindo a fundação jurídica para a IA no Jusratio:
+
+Não somos uma legaltech tradicional. Não somos um "ChatGPT do direito" empacotado. Somos a camada de inteligência jurídica que conecta os LLMs que o advogado já usa (Claude, ChatGPT, Gemini) a um corpus vivo de jurisprudência e legislação brasileira, com motor próprio de busca híbrida e rankeamento calibrado para o vocabulário e a hierarquia do direito brasileiro — toda citação carrega número do processo, relator, data e link para referência. 
+
+Combatemos a alucinação na raiz: o modelo responde sobre o que nosso retrieval entrega. Quando a busca não cobre o suficiente, devolvemos um aviso explícito de "limites desta pesquisa" — pro modelo dizer que não sabe, em vez de adivinhar. Quando um precedente foi superado, sinalizamos antes que vire peça protocolada.
+
+Pense em nós como o pesquisador jurídico que está dentro do Claude e do ChatGPT — não inventa, sempre cita, e cabe no fluxo de trabalho que o advogado já tem.
+
+### @CarlosR26271158 2026-06-05 L67 RTNone V5078 https://x.com/CarlosR26271158/status/2062886003233157454
+Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36 perguntas de direito civil e do consumidor.  Cada modelo rodou em 3 cenários: sozinho, com busca na web, e com o Jusratio.  Cada citação que eles deram foi conferida, uma a uma.  No total, foram 324 respostas e 2.248 citações conferidas.
+
+Link: https://t.co/llbhpyPZoy
+
+### @odilonoliveira 2026-08-18 L0 RTNone V40 https://x.com/odilonoliveira/status/2089812830866341979
+2/6
+
+O atalho parece eficiente: “GPT jurídico definitivo”, kit de petição, agente pronto, automação que promete resolver tudo.
+
+O custo escondido é alto: peças padronizadas, voz indistinguível e dependência permanente de fornecedor externo.
+
+### @iamleds 2026-08-19 L0 RTNone V41 https://x.com/iamleds/status/2090121541174341824
+Estou organizando toda a minha operação de advocacia de trânsito com agentes de IA. 
+
+Sigo firme com o Hermes Agent, da @NousResearch. Está sendo sensacional! 
+
+Criei um sistema de dossiês para controlar os casos. Um cliente pode ter várias autuações em um só veículo. https://t.co/SSTvCWxCaM
+
+### @CarlosR26271158 2026-03-13 L100 RTNone V15396 https://x.com/CarlosR26271158/status/2032446026364211202
+Existe uma diferença fundamental entre uma IA que escreve bem sobre Direito e uma IA que sabe Direito. A primeira é perigosa exatamente porque parece a segunda.
+
+Quando um advogado usa o ChatGPT para pesquisar jurisprudência, o modelo não está consultando uma base de dados do STF. Ele está fazendo o equivalente a perguntar para alguém muito bem-lido que, eventualmente, confabula, produz memórias que soam verdadeiras porque foram construídas com os padrões certos de linguagem jurídica. O número de processo tem o formato correto. O nome do relator existe. A tese é plausível. O acórdão, não. Completamente inexistente.
+
+Isso tem nome técnico: alucinação. E no Direito, o custo de uma alucinação, além de não se tratar apenas de constrangimento, é uma petição com citação falsa, um parecer com fundamento inexistente, uma tese construída sobre areia que compromete o processo, a credibilidade construída ao longo do tempo e, acima de tudo, a vida das partes.
+
+O problema não é que a IA seja burra. É que ela é articulada demais para errar de forma óbvia.
+
+Desenvolvi o Ratio tentando atacar exatamente esse ponto. A premissa é que a resposta só deve existir se houver um documento real que a sustente. Não como boa prática, mas como contrato técnico. O sistema indexa mais de 500 mil decisões do STF e STJ e, quando você faz uma pergunta, ele recupera os documentos mais relevantes, os reorganiza 
+
+### @freitashebert_ 2026-05-07 L52 RTNone V4243 https://x.com/freitashebert_/status/2052538240754717124
+Estamos finalizando a primeira fase do Habias, nosso agente de IA focado em defesa criminal, e os resultados são muito animadores.
+
+Vou deixar 4 exemplos de respostas logo abaixo, mas é importante deixar consignado o que já conseguimos:
+
+1) Um agente de IA que mitiga ao máximo a alucinação, pois só responde com base no nosso acervo com quase 40 mil decisões criminais favoráveis à defesa curadas e revisadas uma a uma por uma equipe humana.
+
+2) Um agente que sempre fornece um link para a decisão ou acórdão citado (que dá acesso à íntegra)
+
+3) Um agente que pensa como o criminalista e sempre procura fornecer o resultado mais próximo ao que ele precisa
+
+4) Um agente que reflete muito antes de concluir se as respostas estão adequadas
+
+5) Um agente que conhece bem a jurisprudência criminal favorável à defesa dos tribunais superiores.
+
+### @Sandravills 2026-08-28 L7 RTNone V417 https://x.com/Sandravills/status/2093152636123889875
+@lfgomide Eu estou treinando a IA para ser tão purista quanto eu. Tem que escrever do meu jeito e com as minhas teses sobre o caso e seguir o meu modelo de petição
+
+### @marcusaraujobhz 2026-03-05 L203 RTNone V12618 https://x.com/marcusaraujobhz/status/2029610584573178038
+Hoje usei o Claude na versão gratuita para testar e gostei bem do parecer que ele forneceu. Bem caprichado e em formato Word, com tudo detalhado. Quadro com dados das partes, Comarca, número do processo e outros. Vou usar mais vezes para comparar com os outros. O único pago que tenho é o Copilot, porque tenho direito de uso, por causa se um curso que estou fazendo. Usar as IA's na advocacia é caminho sem volta. \0/
+
+### @CarlosRodr44314 2026-06-15 L64 RTNone V3508 https://x.com/CarlosRodr44314/status/2066558387219845528
+Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações.
+Exemplo: "Qual a jurisprudência recente do TJGO sobre a obrigação do Estado de Goiás fornecer medicamento de alto custo não incorporado ao SUS. Como as Câmaras Cíveis vêm decidindo depois do Tema 6 do STF e do Tema 106 do STJ? Use o Jusratio"
+
+Resposta: https://t.co/HmV4PybgIn
+
+Lista atualizada na imagem. TJMS chega hoje ainda
+
+### @pizaniadv 2026-09-03 L0 RTNone V142 https://x.com/pizaniadv/status/2095636431624442083
+Abri os conectores da Cognitio em beta gratuito.
+
+A ideia é simples: você continua no Claude, no ChatGPT ou no Claude Code que já usa. Um endereço de conexão liga a sua IA a sete serviços jurídicos que respondem com a fonte na mão — e que dizem quando não sabem.
+
+O que está lá dentro:
+
+• Doctus — lei, jurisprudência e doutrina em fonte oficial, com classificação de autoridade. Declara "sem correspondência confiável" em vez de inventar.
+• Basanos — a pedra de toque das citações: a decisão citada existe? O trecho transcrito bate com o original, palavra por palavra?
+• Computus — cálculo com memória auditável (Selic oficial, encargos de folha). Recusa calcular com tabela vencida.
+• Specula — publicações do DJEN e movimentos do DataJud, consultados ao vivo, no texto oficial.
+• Élenchos — auditoria lógica de peças: o argumento se sustenta? Se não, entrega o contraexemplo exato.
+• Diákrisis — a anatomia do acórdão, zona por zona: unânime ou por maioria, barreira processual, dispositivo.
+• Phylax — detector auxiliar de instruções escondidas em documentos, dirigidas à IA. Em teste.
+
+Como conectar: cria a conta, ativa os serviços que quer usar, gera a chave e cola o endereço na sua IA. O passo a passo com as telas do Claude e do ChatGPT está na página.
+
+Máximo determinismo; o modelo entra só onde há juízo. Toda resposta traz fonte, versão da base e data. E nada substitui a conferência do
+
+### @vonealex 2026-04-30 L1 RTNone V50 https://x.com/vonealex/status/2049972083166478594
+1/9
+Todo mundo tá largando o ChatGPT e migrando pro Claude.
+Por quê? Porque Claude alucina MUITO menos em direito brasileiro.
+
+2/9
+Teste que fiz essa semana:
+ChatGPT inventou 2 súmulas + 1 acórdão.
+Claude 3.5: 100% preciso e ainda citou jurisprudência contrária sozinho.
+
+3/9
+Claude agora tem memória entre sessões. É tipo ter estagiário que nunca esquece o processo.
+
+4/9
+Ranking real 2026: Claude 3.5 lidera, ChatGPT tá em 4º.
+
+5/9
+Se você ainda usa ChatGPT pra petição e acha que tá "bom o suficiente", comenta "PERDEDOR" agora que eu te mando o prompt que transforma Claude no advogado adversário que destrói sua peça antes de protocolar.
+#AdvocaciaIA #ClaudeAI
+
+### @ranierimb1 2026-06-23 L0 RTNone V400 https://x.com/ranierimb1/status/2069417646303400090
+Claude Cowork + JusIA + Gemini
+
+isso mudou minha advocacia. 
+
+Os tres juntos custam menos de 500 reais por mês e produzem muito mais que uma equipe de facilmente 5-6 pessoas, entre adm, estagiários e advogados
+
+### @b_descalante 2026-02-28 L0 RTNone V39 https://x.com/b_descalante/status/2027746929296236980
+@RomulodeSa26670 @Gabriel2052 Usei o Claude e o Gemini Pro. 
+
+A IA precisava interpretar os termos de uma sentença que foi reformada por um acórdão e também precisava observar os termos de um contrato.
+
+Colei os trechos principais destes documentos, expliquei os critérios objetivos (índice de cm, juros e etc)
+
+### @suzukjuts 2026-02-27 L2 RTNone V23 https://x.com/suzukjuts/status/2027523859683914082
+@Komenios Cara, eu usei o Claude para fazer uma análise de um contrato complexo e foi muito bom. Q ferramenta incrível, discriminou todas as cláusulas e seus riscos e deixou tudo pronto em tabela, com planilhas para comparar e com minutas de cláusulas. É um caminho sem volta

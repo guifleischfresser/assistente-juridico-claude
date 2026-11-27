@@ -1,0 +1,825 @@
+{
+  "data": [
+    {
+      "author_id": "2911055067",
+      "created_at": "2026-08-01T20:13:01.000Z",
+      "edit_history_tweet_ids": [
+        "2083647207266218365"
+      ],
+      "id": "2083647207266218365",
+      "public_metrics": {
+        "bookmark_count": 6,
+        "impression_count": 190946,
+        "like_count": 15,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2082478224689291357",
+          "type": "quoted"
+        }
+      ],
+      "text": "Colega Advogada, dá uma olhada nisso — criei uma ferramenta que resolve uma dor que todo advogado tem: o código de 6 dígitos do tribunal (PJe, eproc, Gerid).\n\nVocê clica em entrar no tribunal e o IURIA faz o resto: preenche o código, valida e já abre o seu painel. Se quiser, ele https://t.co/SP666dsTGR",
+      "url": "https://x.com/aliaadgeorge/status/2083647207266218365"
+    },
+    {
+      "author_id": "2911055067",
+      "created_at": "2026-08-01T20:09:13.000Z",
+      "edit_history_tweet_ids": [
+        "2083646251950653824"
+      ],
+      "id": "2083646251950653824",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 56,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Colega Advogada, dá uma olhada nisso — criei uma ferramenta que resolve uma dor que todo advogado tem: o código de 6 dígitos do tribunal (PJe, eproc, Gerid).\n\nVocê clica em entrar no tribunal e o IURIA faz o resto: preenche o código, valida e já abre o seu painel. Se quiser, ele",
+      "url": "https://x.com/aliaadgeorge/status/2083646251950653824"
+    },
+    {
+      "author_id": "2911055067",
+      "created_at": "2026-07-29T14:47:53.000Z",
+      "edit_history_tweet_ids": [
+        "2082478224689291357"
+      ],
+      "id": "2082478224689291357",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 264165,
+        "like_count": 1,
+        "quote_count": 1,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "Colega Advogada, dá uma olhada nisso — criei uma ferramenta que resolve uma dor que todo advogado tem: o código de 6 dígitos do tribunal (PJe, eproc, Gerid).\n\nVocê clica em entrar no tribunal e o IURIA faz o resto: preenche o código, valida e já abre o seu painel. Se quiser, ele https://t.co/1lt5YDIahj",
+      "url": "https://x.com/aliaadgeorge/status/2082478224689291357"
+    },
+    {
+      "author_id": "3375659734",
+      "created_at": "2025-09-28T11:50:53.000Z",
+      "edit_history_tweet_ids": [
+        "1972267769543455026"
+      ],
+      "id": "1972267769543455026",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 1000,
+        "like_count": 26,
+        "quote_count": 0,
+        "reply_count": 5,
+        "retweet_count": 3
+      },
+      "referenced_tweets": [
+        {
+          "id": "1971671685305708617",
+          "type": "quoted"
+        }
+      ],
+      "text": "O que me chama a atenção não são as bobagens ditas por esse idiota e sim os dois pangarés que o entrevistam e não o questionam sobre nada.\nAssuntos ditos pelo idiota.\nO dinheiro no Brasil está por um fio.\nSe Lula ganhar, o Brasil acaba\nEu criei uma ferramenta que descobre quem o https://t.co/e54JSK3noD",
+      "url": "https://x.com/cesar_dev_ar/status/1972267769543455026"
+    },
+    {
+      "author_id": "2911055067",
+      "created_at": "2026-07-29T23:14:54.000Z",
+      "edit_history_tweet_ids": [
+        "2082605817417584745"
+      ],
+      "id": "2082605817417584745",
+      "in_reply_to_user_id": "27064481",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2082396601952112919",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JoaoKepler Colega, dá uma olhada nisso — criei uma ferramenta que resolve uma dor que todo advogado tem: o código de 6 dígitos do tribunal (PJe, eproc, Gerid).\n\nVocê clica em entrar no tribunal e o IURIA faz o resto: preenche o código, valida e já abre o seu painel. Se quiser, ele ainda",
+      "url": "https://x.com/aliaadgeorge/status/2082605817417584745"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-08-19T16:59:42.000Z",
+      "edit_history_tweet_ids": [
+        "2090121541174341824"
+      ],
+      "id": "2090121541174341824",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 41,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Estou organizando toda a minha operação de advocacia de trânsito com agentes de IA. \n\nSigo firme com o Hermes Agent, da @NousResearch. Está sendo sensacional! \n\nCriei um sistema de dossiês para controlar os casos. Um cliente pode ter várias autuações em um só veículo. https://t.co/SSTvCWxCaM",
+      "url": "https://x.com/iamleds/status/2090121541174341824"
+    },
+    {
+      "author_id": "2911055067",
+      "created_at": "2026-07-29T23:15:30.000Z",
+      "edit_history_tweet_ids": [
+        "2082605969784398147"
+      ],
+      "id": "2082605969784398147",
+      "in_reply_to_user_id": "109021397",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2079650515370004680",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Janguie_Diniz Colega, dá uma olhada nisso — criei uma ferramenta que resolve uma dor que todo advogado tem: o código de 6 dígitos do tribunal (PJe, eproc, Gerid).\n\nVocê clica em entrar no tribunal e o IURIA faz o resto: preenche o código, valida e já abre o seu painel. Se quiser, ele ainda",
+      "url": "https://x.com/aliaadgeorge/status/2082605969784398147"
+    },
+    {
+      "author_id": "1541812932790599681",
+      "created_at": "2025-09-16T22:03:11.000Z",
+      "edit_history_tweet_ids": [
+        "1968073202288267447"
+      ],
+      "id": "1968073202288267447",
+      "in_reply_to_user_id": "1541812932790599681",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 89,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1968073200069452244",
+          "type": "replied_to"
+        }
+      ],
+      "text": "...sugiro que você leva em conta alguns exemplos ruins que tem acontecido com o vibe coding e reflita sobre o modo de uso certo para o vibe lawyering.\n\nNão está errado! \n\nÉ só ficar ligado pra não se achar que virou advogado, assim como vibe coding não vira programador.",
+      "url": "https://x.com/ogavelar/status/1968073202288267447"
+    },
+    {
+      "author_id": "171736111",
+      "created_at": "2026-05-21T23:18:39.000Z",
+      "edit_history_tweet_ids": [
+        "2057601999072370759"
+      ],
+      "id": "2057601999072370759",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 20,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A advocacia já é, hoje, uma das profissões que mais utilizam inteligência artificial no mundo.\nMas existe um problema que entrega imediatamente quando um texto foi feito por IA: o tom genérico.\n\nNesse conteúdo, eu mostro uma estratégia simples — e extremamente poderosa — para https://t.co/AEIjtdySR5",
+      "url": "https://x.com/luisroquette/status/2057601999072370759"
+    },
+    {
+      "author_id": "1409173164320509952",
+      "created_at": "2026-03-27T23:26:50.000Z",
+      "edit_history_tweet_ids": [
+        "2037672725741760666"
+      ],
+      "id": "2037672725741760666",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 12,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2037576561721774304",
+          "type": "quoted"
+        }
+      ],
+      "text": "Eu ensino na minha aula. Se tiver que fazer cadastro e você usar vibe coding, é bom já ter contato de um bom advogado. https://t.co/iP7vyvMvkx",
+      "url": "https://x.com/Tedao13/status/2037672725741760666"
+    },
+    {
+      "author_id": "1494071924644892674",
+      "created_at": "2026-06-28T21:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2071337845818892374"
+      ],
+      "id": "2071337845818892374",
+      "public_metrics": {
+        "bookmark_count": 69,
+        "impression_count": 12191,
+        "like_count": 251,
+        "quote_count": 3,
+        "reply_count": 10,
+        "retweet_count": 27
+      },
+      "text": "A The Economist mostrou como a IA já está transformando cinco indústrias criativas. Os números impressionam:\n\n• Livros na Amazon: de 100 mil para 300 mil novos títulos por mês após o ChatGPT. Grande parte do aumento é atribuída à IA.\n\n• Processos sem advogado nos EUA: dobraram https://t.co/Os3ZSxy9Xs",
+      "url": "https://x.com/opapoeconomico/status/2071337845818892374"
+    },
+    {
+      "author_id": "1939746443310592000",
+      "created_at": "2026-01-31T14:55:26.000Z",
+      "edit_history_tweet_ids": [
+        "2017612693105258686"
+      ],
+      "id": "2017612693105258686",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 124,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 1
+      },
+      "text": "Uma advogada tributarista criou um app sobre reforma tributária.\n\nUm coach de futebol com 44K seguidores quer automatizar treinos com IA.\n\nUm cara de cripto que já paga por 3 comunidades começou a estudar Vibe Coding.\n\n🧵 O que essas pessoas têm em comum?",
+      "url": "https://x.com/culturabuilder/status/2017612693105258686"
+    },
+    {
+      "author_id": "1531481219183132673",
+      "created_at": "2026-10-12T05:38:19.000Z",
+      "edit_history_tweet_ids": [
+        "2109519007967568258"
+      ],
+      "id": "2109519007967568258",
+      "in_reply_to_user_id": "1290118641875333120",
+      "public_metrics": {
+        "bookmark_count": 4,
+        "impression_count": 3795,
+        "like_count": 45,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2109423543586812081",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@ViUmaVaga o mesmo que já faz hj: hard skill.\n\ntodo mundo que fica nesse papo de “blah blah IA já escreve todo o código, dev já era”\n\nnunca botou nada pra jogo, nunca criou e manteve um app com centenas/milhares de users usando todo dia.\n\nàs vezes nem isso. nunca nem usou o próprio app por",
+      "url": "https://x.com/herbert_oT_To/status/2109519007967568258"
+    },
+    {
+      "author_id": "1912762604772360192",
+      "created_at": "2026-03-06T23:16:56.000Z",
+      "edit_history_tweet_ids": [
+        "2030060088027754809"
+      ],
+      "id": "2030060088027754809",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 102,
+        "like_count": 5,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O próximo construtor da Web3 pode não ser um desenvolvedor.Pode ser um médico entre turnos no hospital. Ou um advogado com um prompt de IA bem elaborado.\nUm novo paradigma está surgindo: Vibe Coding — onde ideias se transformam em software e prompts substituem a programação https://t.co/tLJuWBwI9N",
+      "url": "https://x.com/WEEX_Brasil/status/2030060088027754809"
+    },
+    {
+      "author_id": "1634006387079389184",
+      "created_at": "2025-04-16T02:30:52.000Z",
+      "edit_history_tweet_ids": [
+        "1912332836356382757"
+      ],
+      "id": "1912332836356382757",
+      "in_reply_to_user_id": "1553184736176226304",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 19,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1912285342981611639",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@roscida_ 35 tiro\n1 beidou\n2 faruzan\n1 espada de favonius\n1 lança sla doq \n1 Codex de favonius \nZERO advogada graças a Deus",
+      "url": "https://x.com/sonapeituda/status/1912332836356382757"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-04-07T02:02:15.000Z",
+      "edit_history_tweet_ids": [
+        "2041335715628265480"
+      ],
+      "id": "2041335715628265480",
+      "in_reply_to_user_id": "3413058981",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 198,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2041323973087052246",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@_L_A_M_R_ @AdvDoHardware Gpt tem pelo codex e Gemini tem pelo Antigravity. \nEstá usando o que de agentes para advocacia? Tem pouco repo jurídico, o jeito é criar tudo rsrs",
+      "url": "https://x.com/carloshsl_/status/2041335715628265480"
+    },
+    {
+      "author_id": "1720665183188922368",
+      "created_at": "2026-09-29T22:45:44.000Z",
+      "edit_history_tweet_ids": [
+        "2105066524025254081"
+      ],
+      "id": "2105066524025254081",
+      "in_reply_to_user_id": "54420793",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 54,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2105066328122138643",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@fabiojr15 @namcios Dots criam tarefas no Codex (com acesso local opcional ao PC). No Traycer continue usando Codex como agent normalmente. Para advocacia: configure o dot com metas (pesquisa, prazos, rascunhos), conecte apps de e-mail/calendário e plugins. Delegue scripts ou protocolos de",
+      "url": "https://x.com/grok/status/2105066524025254081"
+    },
+    {
+      "author_id": "54420793",
+      "created_at": "2026-09-29T22:44:57.000Z",
+      "edit_history_tweet_ids": [
+        "2105066328122138643"
+      ],
+      "id": "2105066328122138643",
+      "in_reply_to_user_id": "1273776346771132417",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 338,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2104993967687307264",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@namcios @grok como usar isso no meu Traycer com codex pra advocacia?",
+      "url": "https://x.com/fabiojr15/status/2105066328122138643"
+    },
+    {
+      "author_id": "77767107",
+      "created_at": "2026-07-07T15:29:14.000Z",
+      "edit_history_tweet_ids": [
+        "2074516093872361816"
+      ],
+      "id": "2074516093872361816",
+      "in_reply_to_user_id": "1168158466600558598",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 67,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2074507191990534268",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@kbelo_bruno @CarlosRodr44314 Não! Faço tudo da minha advocacia no Codex. É o \"Claude Cowork, Claude Chat e Claude Code\" do ChatGPT. Organiza minhas pastas, faz minhas petições, crio carrosséis do Instagram, analiso decisões, além das tarefas automatizadas via Chrome.",
+      "url": "https://x.com/carloshsl_/status/2074516093872361816"
+    },
+    {
+      "author_id": "1214953929169084416",
+      "created_at": "2026-09-12T21:29:04.000Z",
+      "edit_history_tweet_ids": [
+        "2098886637870604577"
+      ],
+      "id": "2098886637870604577",
+      "in_reply_to_user_id": "1845192763069038593",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 34,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2098886196403323360",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@testadaemma HAHAHAHAHAHAH PORRA COMO ASSIM!!!!\n\nvai ler o códex logo mona vc tá sendo advogada errado!!!!",
+      "url": "https://x.com/cardstairs/status/2098886637870604577"
+    },
+    {
+      "author_id": "2737817475",
+      "created_at": "2026-10-12T17:38:34.000Z",
+      "edit_history_tweet_ids": [
+        "2109700267021103242"
+      ],
+      "id": "2109700267021103242",
+      "in_reply_to_user_id": "46914106",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 59,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2109693797605298574",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JCNovais Eu usei o Claude com algumas skills de advocacia. Montei dois processos, organizei tudo com ele no modelo fable 5.1 (high). Entreguei pro meu adv mastigado, vencemos os 2. Foi única vez que usei pra processos, mas pra contratos e assuntos jurídicos do dia a dia, só uso ele. Uso",
+      "url": "https://x.com/glaubera/status/2109700267021103242"
+    },
+    {
+      "author_id": "1348403565069561856",
+      "created_at": "2026-10-07T06:02:18.000Z",
+      "edit_history_tweet_ids": [
+        "2107713104700199267"
+      ],
+      "id": "2107713104700199267",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 230,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107545723864482025",
+          "type": "quoted"
+        }
+      ],
+      "text": "Passei por OpenCode, Cursor, Copilot, fui bloqueado na Anthropic, Orca e hoje só uso Codex para tudo. Multi agent, scheduled tasks, pesquisa profunda, conectado com todos os serviços que eu uso (respondendo minha advogada em espanhol por mim Hahaha) https://t.co/e7QS5n5ECq",
+      "url": "https://x.com/1ilhas/status/2107713104700199267"
+    },
+    {
+      "author_id": "950560322259169281",
+      "created_at": "2026-07-16T20:16:54.000Z",
+      "edit_history_tweet_ids": [
+        "2077849982015598933"
+      ],
+      "id": "2077849982015598933",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 5030,
+        "like_count": 13,
+        "quote_count": 2,
+        "reply_count": 3,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "2077783031473942920",
+          "type": "quoted"
+        }
+      ],
+      "text": "Um amigo meu fez um programa para gerenciar advocacia dele, extremamente top, e ele não sabe nada de programação. Ele não precisou saber que linguagem de programação, quais tecnologias estavam utilizando, ele só soube depois pq eu pedi pra ele perguntar ao GPT.\nO codex fez tudo https://t.co/IikPzH2sRe",
+      "url": "https://x.com/Vidownzera/status/2077849982015598933"
+    },
+    {
+      "author_id": "308795749",
+      "created_at": "2026-06-09T22:31:23.000Z",
+      "edit_history_tweet_ids": [
+        "2064475471102738451"
+      ],
+      "id": "2064475471102738451",
+      "in_reply_to_user_id": "3191592886",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 178,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2064308398133330429",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@oprimodev o jeito que ela faz LP no lovable e vende pra advogado por 300 conto me incomoda",
+      "url": "https://x.com/IuizcarIos/status/2064475471102738451"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Fundador e CEO da https://t.co/RUirrDBH9p. Apaixonado por tecnologia, inovação e construir negócios digitais que geram impacto real.",
+        "id": "2911055067",
+        "name": "Henrique Lacerda",
+        "public_metrics": {
+          "followers_count": 21,
+          "following_count": 222,
+          "like_count": 116,
+          "listed_count": 0,
+          "media_count": 6,
+          "tweet_count": 68
+        },
+        "username": "aliaadgeorge"
+      },
+      {
+        "description": "Apaixonado por música e pelo Flamengo.                                  Criador e fundador do https://t.co/F0pkyvk5jm",
+        "id": "3375659734",
+        "name": "Cesar Augusto Rodrigues",
+        "public_metrics": {
+          "followers_count": 14405,
+          "following_count": 5410,
+          "like_count": 109441,
+          "listed_count": 19,
+          "media_count": 3657,
+          "tweet_count": 58939
+        },
+        "username": "cesar_dev_ar"
+      },
+      {
+        "description": "me interesso em advocacia, IA, tecnologia, política, curiosidades, aleatoriedades.",
+        "id": "4222896442",
+        "name": "Lucas Eduardo Dias de Souza",
+        "public_metrics": {
+          "followers_count": 49,
+          "following_count": 130,
+          "like_count": 271,
+          "listed_count": 1,
+          "media_count": 55,
+          "tweet_count": 757
+        },
+        "username": "iamleds"
+      },
+      {
+        "description": "propriedade intelectual & direito digital |\ncontratos, marcas, criações e redes sociais |\nconsultoria jurídica |\nhttps://t.co/2Li4nhoaGZ",
+        "id": "1541812932790599681",
+        "name": "Gabriel Avelar",
+        "public_metrics": {
+          "followers_count": 4042,
+          "following_count": 2787,
+          "like_count": 143316,
+          "listed_count": 12,
+          "media_count": 5188,
+          "tweet_count": 44326
+        },
+        "username": "ogavelar"
+      },
+      {
+        "description": "“Alea Iacta Est.”",
+        "id": "171736111",
+        "name": "Luis Fernando Roquette",
+        "public_metrics": {
+          "followers_count": 475,
+          "following_count": 209,
+          "like_count": 1897,
+          "listed_count": 4,
+          "media_count": 2145,
+          "tweet_count": 9504
+        },
+        "username": "luisroquette"
+      },
+      {
+        "description": "Botafoguense e Stalilulista. デザインの博士号。\nボタフォゴとセレッソ大阪のサポータ。\n\n日本で僕のポケモンカードの冒険についてもツイートしています。",
+        "id": "1409173164320509952",
+        "name": "El Boladíssimo Tedão, PhD",
+        "public_metrics": {
+          "followers_count": 527,
+          "following_count": 672,
+          "like_count": 187338,
+          "listed_count": 1,
+          "media_count": 1659,
+          "tweet_count": 72958
+        },
+        "username": "Tedao13"
+      },
+      {
+        "description": "Mercado financeiro sem filtro.",
+        "id": "1494071924644892674",
+        "name": "Papo Econômico",
+        "public_metrics": {
+          "followers_count": 32452,
+          "following_count": 2896,
+          "like_count": 25552,
+          "listed_count": 197,
+          "media_count": 4737,
+          "tweet_count": 9966
+        },
+        "username": "opapoeconomico"
+      },
+      {
+        "description": "Seja builder. Domine a IA ou ela dominará você e o seu trabalho.",
+        "id": "1939746443310592000",
+        "name": "Cultura Builder",
+        "public_metrics": {
+          "followers_count": 1334,
+          "following_count": 12,
+          "like_count": 70,
+          "listed_count": 4,
+          "media_count": 209,
+          "tweet_count": 1715
+        },
+        "username": "culturabuilder"
+      },
+      {
+        "description": "Não me siga",
+        "id": "1531481219183132673",
+        "name": "Herbert",
+        "public_metrics": {
+          "followers_count": 31,
+          "following_count": 368,
+          "like_count": 34623,
+          "listed_count": 0,
+          "media_count": 188,
+          "tweet_count": 1916
+        },
+        "username": "herbert_oT_To"
+      },
+      {
+        "description": "Uma conta. Todos os mercados.\nCripto, ouro, petróleo e mais.\nComprovado por milhões desde 2018. Confiado por 10 milhões de usuários.\n🌐 https://t.co/sOwQmXQt9N",
+        "id": "1912762604772360192",
+        "name": "WEEX Brasil",
+        "public_metrics": {
+          "followers_count": 1708,
+          "following_count": 20,
+          "like_count": 131,
+          "listed_count": 4,
+          "media_count": 1299,
+          "tweet_count": 1471
+        },
+        "username": "WEEX_Brasil"
+      },
+      {
+        "description": "Ele queria quatro autógrafos?",
+        "id": "1634006387079389184",
+        "name": "Sonapeituda",
+        "public_metrics": {
+          "followers_count": 75,
+          "following_count": 285,
+          "like_count": 4431,
+          "listed_count": 0,
+          "media_count": 376,
+          "tweet_count": 1432
+        },
+        "username": "sonapeituda"
+      },
+      {
+        "description": "Advogado 🇧🇷",
+        "id": "77767107",
+        "name": "Henrique",
+        "public_metrics": {
+          "followers_count": 400,
+          "following_count": 635,
+          "like_count": 74218,
+          "listed_count": 3,
+          "media_count": 54,
+          "tweet_count": 1255
+        },
+        "username": "carloshsl_"
+      },
+      {
+        "description": "@grok it",
+        "id": "1720665183188922368",
+        "name": "Grok",
+        "public_metrics": {
+          "followers_count": 9173304,
+          "following_count": 4,
+          "like_count": 146,
+          "listed_count": 7840,
+          "media_count": 4014718,
+          "tweet_count": 141456916
+        },
+        "username": "grok"
+      },
+      {
+        "description": "Físico Médico, Empresário, Advogado - ENTJ",
+        "id": "54420793",
+        "name": "Fábio Alves 🇧🇷",
+        "public_metrics": {
+          "followers_count": 168,
+          "following_count": 638,
+          "like_count": 5925,
+          "listed_count": 1,
+          "media_count": 50,
+          "tweet_count": 2873
+        },
+        "username": "fabiojr15"
+      },
+      {
+        "description": "⠀ current read : piranesi & tda² | george weasley's babygirl ⚡︎ fan acc",
+        "id": "1214953929169084416",
+        "name": "nina lovelace 𖦁",
+        "public_metrics": {
+          "followers_count": 1195,
+          "following_count": 995,
+          "like_count": 30212,
+          "listed_count": 8,
+          "media_count": 765,
+          "tweet_count": 6357
+        },
+        "username": "cardstairs"
+      },
+      {
+        "description": "Catholic. Husband & father. Founder & developer. Digital businesses and imports. A simple man walking toward Heaven.",
+        "id": "2737817475",
+        "name": "Glauber",
+        "public_metrics": {
+          "followers_count": 1410,
+          "following_count": 1616,
+          "like_count": 41156,
+          "listed_count": 0,
+          "media_count": 195,
+          "tweet_count": 1053
+        },
+        "username": "glaubera"
+      },
+      {
+        "description": "Software Engineer | Independent Researcher | Edge Computing | AI Agents",
+        "id": "1348403565069561856",
+        "name": "William Oliveira (bsky.app/profile/1ilhas)",
+        "public_metrics": {
+          "followers_count": 8413,
+          "following_count": 1168,
+          "like_count": 31676,
+          "listed_count": 48,
+          "media_count": 1187,
+          "tweet_count": 15207
+        },
+        "username": "1ilhas"
+      },
+      {
+        "description": "Falo de hardware, tecnologia, jogos e das aleatoriedades que aparecem no caminho.",
+        "id": "950560322259169281",
+        "name": "Matheus {ᐯIᗪᗩᒪ}",
+        "public_metrics": {
+          "followers_count": 746,
+          "following_count": 973,
+          "like_count": 81071,
+          "listed_count": 1,
+          "media_count": 988,
+          "tweet_count": 22828
+        },
+        "username": "Vidownzera"
+      },
+      {
+        "description": "se eu te ofendi peço que melhore @sportrecife 🔴⚫🦁 | @realmadrid ⚪",
+        "id": "308795749",
+        "name": "luizinho é LULA 13 ⭐",
+        "public_metrics": {
+          "followers_count": 1003,
+          "following_count": 375,
+          "like_count": 19874,
+          "listed_count": 1,
+          "media_count": 3112,
+          "tweet_count": 53439
+        },
+        "username": "IuizcarIos"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2109700267021103242",
+    "oldest_id": "1912332836356382757",
+    "result_count": 24
+  }
+}

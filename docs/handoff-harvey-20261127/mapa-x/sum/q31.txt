@@ -1,0 +1,43 @@
+=== q31_claude_for_legal: 21 posts
+@vvalle_33 (16f) 2026-05-13 L0 RT0 V35 https://x.com/vvalle_33/status/2054532334192316762
+   Não é sobre “IA para advogado”. É sobre Claude virando camada operacional de software vertical.  A Anthropic soltou 20+ conectores MCP e 12 plugins jurídicos. Na prática: revisar contrato no Word, puxar precedente no CoCounsel e fechar o sumário no PowerPoint sem reexplicar
+@martins_piton (211f) 2026-02-25 L0 RT0 V52 https://x.com/martins_piton/status/2026636647345930335
+   🚨 Anthropic lançou 10 novos plugins para o Claude — LegalZoom e Harvey entre eles, direto para o Direito.  Em janeiro, o plugin jurídico apagou US$1T em ações de software globais.  O impacto da IA no Direito não é mais futuro — é realidade presente.  #IAnoDireito #Claude https://t.co/0CJ7u0hMlP
+@henarcos (8346f) 2026-02-11 L1 RT0 V124 https://x.com/henarcos/status/2021664506913739255
+   Eu dei uma olhada no plugin jurídico para o Claude e é muito interessante. A arquitetura é de um sistema atalhos (commands), pequenas bases de conhecimento (skills) e fontes de dados integradas (connectors). Como tudo é customizado, é um sistema muito plástico e poderoso. https://t.co/m50MUb5eLE
+@FelpsCrypto (23200f) 2026-05-12 L0 RT0 V25 https://x.com/FelpsCrypto/status/2054304926625329317
+   ADVOGADOS DISSERAM QUE IA NUNCA IA SUBSTITUÍ-LOS  Então a Anthropic lançou 12 novos plugins jurídicos para Claude.  E agora o setor jurídico inteiro parece estar entrando em modo turbo.  → “Commercial Counsel” revisa contratos automaticamente  → Westlaw → DocuSign → Everlaw https://t.co/w1VgrAZ6l8 https://t.co/HhpsXCkOwo
+@FelpsCrypto (23200f) 2026-05-12 L422 RT31 V69597 https://x.com/FelpsCrypto/status/2054305241248440573
+   ADVOGADOS DISSERAM QUE IA NUNCA IRIA SUBSTITUÍ-LOS  Então a Anthropic lançou 12 novos plugins jurídicos para Claude.  E agora o setor jurídico inteiro parece estar entrando em modo turbo.  → “Commercial Counsel” revisa contratos automaticamente  → Westlaw → DocuSign → Everlaw https://t.co/sL7Wwh3zGO https://t.co/HhpsXCkOwo
+@mrsmims_ (30f) 2026-09-06 L1 RT0 V43 https://x.com/mrsmims_/status/2096664328946541015
+   @arkrout @Orgulhisa Stremio. Só achar um plugin legal e dalhe
+@SEPDarklucaz (929f) 2026-02-02 L0 RT0 V49 https://x.com/SEPDarklucaz/status/2018473200980775222
+   @shinosu879870 @SabbathFab Suave então mano, q vi q tinha até uns plugin legal de horas de jogo não steam e tal
+@vcenovra (4186f) 2026-10-08 L1 RT0 V74 https://x.com/vcenovra/status/2108345918823039198
+   @mur1linng tem uns plugin legal tbm que tô usando tipo GameEnginner, Figma MCP e tbm SupaBase
+@thedoomguy_ai (281f) 2026-08-18 L0 RT0 V4 https://x.com/thedoomguy_ai/status/2089540466530250910
+   Pra verticais prontas: financial-services, healthcare e claude-for-legal já vêm com scripts, MCP servers e plugins especializados.
+@petiterati (389f) 2026-01-19 L0 RT0 V10 https://x.com/petiterati/status/2013259878001697161
+   @pixogaykig O stremio era tão bom mas agr toda vez que eu ia assistir tava difícil achar um plugin legal e o mico-leão dublado se foi
+@Heberobruto (8793f) 2026-07-30 L0 RT0 V273 https://x.com/Heberobruto/status/2082848710057250852
+   4. A Harvey usa o Claude para vender ferramentas de análise de contratos com IA, due diligence e litígios. agora a Anthropic vende os mesmos fluxos de trabalho através do Claude for Legal.
+@ANJOTORT0 (528f) 2026-09-29 L3 RT0 V221 https://x.com/ANJOTORT0/status/2104932097441804564
+   crackeei um plugin legal pro fl ontem e to aqui no trabalho me tremendo de vontade de usar ele pqp vou desmaiar
+@opanteraos (295f) 2026-05-14 L0 RT0 V30 https://x.com/opanteraos/status/2055018154393243837
+   Anthropic abriu três frentes na mesma semana. Terça meteu doze plugins jurídicos especializados dentro do Claude, com buscador legal de parceiro acoplado e leque cobrindo direito societário, regulatório e trabalhista. Hoje cedo alargou aliança com uma das quatro grandes
+@MaestrosMode (2f) 2026-06-20 L0 RT0 V2 https://x.com/MaestrosMode/status/2068161720833511867
+   A Anthropic lancou o Claude for Legal: voce joga um contrato e ele revisa clausula por clausula, marca o risco em vermelho, sugere a correcao e roda dentro do Word. E e open-source no GitHub. O trabalho juridico mudou. #IA https://t.co/7gCDyQAK49
+@VanquishBr (2f) 2026-05-20 L0 RT0 V5 https://x.com/VanquishBr/status/2057035741369167984
+   🤖 A Anthropic expandiu o Claude for Legal com 12 ferramentas para advogados — revisão de contratos, litígios, e até integração com Microsoft 365.  A IA jurídica não é mais opcional. 🔗 Link na bio https://t.co/fSpxlzREEQ
+@mends_alex (312f) 2026-05-13 L1 RT0 V76 https://x.com/mends_alex/status/2054532702921969779
+   A Anthropic lancou o Claude for legal, que combina agentes e skills, com plug-ins para serem instalados no Cowork. Há inclusive plug ins pra estudantes se prepararem para o Bar Exam. Não cobre Brasil, mas é uma ferramenta interessante.   https://t.co/evMLjfq4hW
+@Brito80061 (20f) 2026-05-13 L0 RT0 V66 https://x.com/Brito80061/status/2054356912699769078
+   Advogados, jurídicos internos e legal ops:  a Anthropic liberou o Claude for Legal, um repositório com agentes, skills e conectores para fluxos jurídicos como contratos, LGPD/privacidade, regulatório, contencioso, trabalhista, PI e governança de IA.  Não substitui advogado,
+@fabioborgesia (7f) 2026-10-16 L0 RT0 V2 https://x.com/fabioborgesia/status/2111110439903908074
+   O plugin Legal no Claude Code ajuda na triagem de contratos. Exemplo fictício. Não substitui seu advogado.  Comenta HUB que eu te mando o passo a passo pra instalar esse plugin no Claude Code. https://t.co/Q079JtyaTW https://t.co/g0nR8GhVZ7
+@rpjupiter (473f) 2026-05-13 L0 RT0 V385 https://x.com/rpjupiter/status/2054396621916455255
+   Olhando as 13 skills do pacote claude-for-legal lançado hoje pela @AnthropicAI para o @claudeai  o quadro é claro: o pacote é fundamentalmente um produto para o mercado jurídico americano corporativo — in-house counsel, Big Law, M&amp;A, compliance, privacy, IP, clínicas
+@namcios (41513f) 2026-03-16 L304 RT59 V23395 https://x.com/namcios/status/2033627237560250529
+   A MAIOR INVERSÃO ECONÔMICA DAS NOSSAS VIDAS ESTÁ ACONTECENDO AGORA  Daniel Priestley construiu 5 empresas multimilionárias em 20 anos. É cofundador da Dent Global e da ScoreApp, autor de bestsellers internacionais como "Oversubscribed" e "Key Person of Influence", e previu o https://t.co/p495YrtNv7
+@leozeferino85 (393f) 2026-08-10 L1 RT0 V139 https://x.com/leozeferino85/status/2086780900344308095
+   Existe um pesadelo novo rondando as startups. E ele é bem mais assustador que o antigo.  Deixa eu te contar o que aconteceu com o Canva essa semana pra você entender.  O Canva era cliente da OpenAI. Rodava IA em cima da estrutura deles, passava dados, ajudava a treinar os

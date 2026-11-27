@@ -1,0 +1,806 @@
+{
+  "data": [
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-25T00:17:27.000Z",
+      "edit_history_tweet_ids": [
+        "2103277668934283457"
+      ],
+      "id": "2103277668934283457",
+      "in_reply_to_user_id": "1246041512628142080",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 27,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103268707199828082",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@LBass54328797 @murilomoura Valeu... muito obrigado.",
+      "url": "https://x.com/marcusaraujobhz/status/2103277668934283457"
+    },
+    {
+      "author_id": "1246041512628142080",
+      "created_at": "2026-09-24T23:41:51.000Z",
+      "edit_history_tweet_ids": [
+        "2103268707199828082"
+      ],
+      "id": "2103268707199828082",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 18,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102935384602911017",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz @murilomoura Experimente tb o  cloudconvert , achei bem prático",
+      "url": "https://x.com/LBass54328797/status/2103268707199828082"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T19:22:28.000Z",
+      "edit_history_tweet_ids": [
+        "2103203430084853963"
+      ],
+      "id": "2103203430084853963",
+      "in_reply_to_user_id": "2869910951",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 35,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103203288254697868",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@letrasnumerose_ Eu assino o Pro.",
+      "url": "https://x.com/marcusaraujobhz/status/2103203430084853963"
+    },
+    {
+      "author_id": "2869910951",
+      "created_at": "2026-09-24T19:21:54.000Z",
+      "edit_history_tweet_ids": [
+        "2103203288254697868"
+      ],
+      "id": "2103203288254697868",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 44,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102892491934413275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Eu tive a mesmíssima impressão. Considerei assinar, mas é impressionante como gasta. Inclusive, mais de uma vez, o limite acabou no meio do raciocínio e eu fiquei sem resposta...",
+      "url": "https://x.com/letrasnumerose_/status/2103203288254697868"
+    },
+    {
+      "author_id": "37725703",
+      "created_at": "2026-09-24T17:17:13.000Z",
+      "edit_history_tweet_ids": [
+        "2103171911211782180"
+      ],
+      "id": "2103171911211782180",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103171672165458275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz @fi_del kkkkkkk tem razão.",
+      "url": "https://x.com/murilomoura/status/2103171911211782180"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T17:16:16.000Z",
+      "edit_history_tweet_ids": [
+        "2103171672165458275"
+      ],
+      "id": "2103171672165458275",
+      "in_reply_to_user_id": "37725703",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 16,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103171238273200323",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@murilomoura @fi_del Eu acho que estão guardando é tudo. Vão precisar de um data center do tamanho da África daqui a uns tempos.",
+      "url": "https://x.com/marcusaraujobhz/status/2103171672165458275"
+    },
+    {
+      "author_id": "37725703",
+      "created_at": "2026-09-24T17:14:32.000Z",
+      "edit_history_tweet_ids": [
+        "2103171238273200323"
+      ],
+      "id": "2103171238273200323",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 18,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103121293990060049",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz @fi_del Nunca usei a análise IA do PDF24tools, mas algo que gosto nesse que indiquei é que ele não guarda documentos (pelo menos alegam que não rsrs), além de ser muito fácil usar e fazer uma conversão muito eficiente. Isso já diminui drasticamente o uso de tokens.",
+      "url": "https://x.com/murilomoura/status/2103171238273200323"
+    },
+    {
+      "author_id": "62525753",
+      "created_at": "2026-09-24T14:56:24.000Z",
+      "edit_history_tweet_ids": [
+        "2103136472207605764"
+      ],
+      "id": "2103136472207605764",
+      "in_reply_to_user_id": "770704186572935170",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103069827678212478",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@juniordias @marcusaraujobhz @jusratio E barato. Eu fiz uma skill que ele ainda começa analisando os tribunais superior até o TJ local.",
+      "url": "https://x.com/marceloborsari/status/2103136472207605764"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T13:56:05.000Z",
+      "edit_history_tweet_ids": [
+        "2103121293990060049"
+      ],
+      "id": "2103121293990060049",
+      "in_reply_to_user_id": "37725703",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 13,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103100300374475212",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@murilomoura @fi_del Eu usei esses dias o PDF24 tools. Mas vou usando o que estiver disponível para aprender. É caminho sem volta.",
+      "url": "https://x.com/marcusaraujobhz/status/2103121293990060049"
+    },
+    {
+      "author_id": "37725703",
+      "created_at": "2026-09-24T12:32:39.000Z",
+      "edit_history_tweet_ids": [
+        "2103100300374475212"
+      ],
+      "id": "2103100300374475212",
+      "in_reply_to_user_id": "16397045",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 34,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102934268683190769",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@fi_del @marcusaraujobhz Eu tenho usado o https://t.co/VyMiUKo0uG para transformar em Markdown. No prompt da análise, informe sua IA a quantidade de movimentações/paginas, peça para confirmar se ele \"enxerga\" tudo e para ele apontar o q não consegue identificar para você mandar separado em PDF normal.",
+      "url": "https://x.com/murilomoura/status/2103100300374475212"
+    },
+    {
+      "author_id": "1133963892",
+      "created_at": "2026-09-24T12:22:24.000Z",
+      "edit_history_tweet_ids": [
+        "2103097716922372265"
+      ],
+      "id": "2103097716922372265",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 40,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102892491934413275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Não estou gostando do Claude atualmente... algo mudou e ele emburreceu.",
+      "url": "https://x.com/mbc1989adv/status/2103097716922372265"
+    },
+    {
+      "author_id": "1463233907130785792",
+      "created_at": "2026-09-24T12:18:06.000Z",
+      "edit_history_tweet_ids": [
+        "2103096636989673809"
+      ],
+      "id": "2103096636989673809",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 39,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102892491934413275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Eu tô vendo todo mundo reclamando do consumo mas estou usando muito sem notar o limite , demora pacas p pausar o serviço",
+      "url": "https://x.com/pindoba____/status/2103096636989673809"
+    },
+    {
+      "author_id": "822161895750823936",
+      "created_at": "2026-09-24T12:05:54.000Z",
+      "edit_history_tweet_ids": [
+        "2103093567208001906"
+      ],
+      "id": "2103093567208001906",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 25,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102892491934413275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Também achei.",
+      "url": "https://x.com/bethaniadagal/status/2103093567208001906"
+    },
+    {
+      "author_id": "770704186572935170",
+      "created_at": "2026-09-24T10:31:34.000Z",
+      "edit_history_tweet_ids": [
+        "2103069827678212478"
+      ],
+      "id": "2103069827678212478",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 41,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103063830154658056",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz @marceloborsari @jusratio Muito! Assina o anual e seja feliz. \n\nConfesso que eu consulto todas as jurisprudências que ele traz. Ah, eu limitei para os tribunais que atuo.",
+      "url": "https://x.com/juniordias/status/2103069827678212478"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T10:07:44.000Z",
+      "edit_history_tweet_ids": [
+        "2103063830154658056"
+      ],
+      "id": "2103063830154658056",
+      "in_reply_to_user_id": "770704186572935170",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 45,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103063444954210396",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@juniordias @marceloborsari @jusratio Está igual pão de queijo saindo do forno então. Heheh",
+      "url": "https://x.com/marcusaraujobhz/status/2103063830154658056"
+    },
+    {
+      "author_id": "770704186572935170",
+      "created_at": "2026-09-24T10:06:12.000Z",
+      "edit_history_tweet_ids": [
+        "2103063444954210396"
+      ],
+      "id": "2103063444954210396",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 41,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102911410212663743",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz @marceloborsari @jusratio Use! Eu pedi uma jurisprudência para um processo, o jusratio pegou uma do dia anterior!",
+      "url": "https://x.com/juniordias/status/2103063444954210396"
+    },
+    {
+      "author_id": "756139478444630016",
+      "created_at": "2026-09-24T02:00:28.000Z",
+      "edit_history_tweet_ids": [
+        "2102941204468191679"
+      ],
+      "id": "2102941204468191679",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 76,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102892491934413275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Tem que regular a inteligência dele, as vezes colocamos em Max, por exemplo, quando ele pode trabalhar tranquilamente em 'Medium' ou 'Light'.",
+      "url": "https://x.com/naredelabs/status/2102941204468191679"
+    },
+    {
+      "author_id": "753284418899501056",
+      "created_at": "2026-09-24T01:54:09.000Z",
+      "edit_history_tweet_ids": [
+        "2102939615082717280"
+      ],
+      "id": "2102939615082717280",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 53,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102935638672547915",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Verdade. Além disso, cada pdf consome muito crédito do Claude.  Com o markitdown, tem uma economia de uns 30% e não interfere no resultado final.",
+      "url": "https://x.com/edumtimbo/status/2102939615082717280"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T01:38:21.000Z",
+      "edit_history_tweet_ids": [
+        "2102935638672547915"
+      ],
+      "id": "2102935638672547915",
+      "in_reply_to_user_id": "753284418899501056",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 250,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102930245942640853",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@edumtimbo Com o processo eletrônico, as partes juntam o que precisa e o que não precisa. Muito obrigado.",
+      "url": "https://x.com/marcusaraujobhz/status/2102935638672547915"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T01:37:20.000Z",
+      "edit_history_tweet_ids": [
+        "2102935384602911017"
+      ],
+      "id": "2102935384602911017",
+      "in_reply_to_user_id": "37725703",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 445,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102927209736405025",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@murilomoura Obrigado pela dica.",
+      "url": "https://x.com/marcusaraujobhz/status/2102935384602911017"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-24T01:36:11.000Z",
+      "edit_history_tweet_ids": [
+        "2102935094600032421"
+      ],
+      "id": "2102935094600032421",
+      "in_reply_to_user_id": "16397045",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102934314405319014",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@fi_del Ajudou sim. Há poucos dias eu baixei só as peças principais de um processo, porque havia muitas imagens e pdfs que não servem para nada. Além disso, a parte contrária juntos os mesmos documentos mais de uma vez. Obrigado pelas dicas. Valeu.",
+      "url": "https://x.com/marcusaraujobhz/status/2102935094600032421"
+    },
+    {
+      "author_id": "16397045",
+      "created_at": "2026-09-24T01:33:05.000Z",
+      "edit_history_tweet_ids": [
+        "2102934314405319014"
+      ],
+      "id": "2102934314405319014",
+      "in_reply_to_user_id": "16397045",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102934268683190769",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz ... de preferência em word (docx) para ficar leve e de fácil processamento. Tenho conseguido economizar o gasto com tokens dessa forma. Espero que te ajude!",
+      "url": "https://x.com/fi_del/status/2102934314405319014"
+    },
+    {
+      "author_id": "16397045",
+      "created_at": "2026-09-24T01:32:54.000Z",
+      "edit_history_tweet_ids": [
+        "2102934268683190769"
+      ],
+      "id": "2102934268683190769",
+      "in_reply_to_user_id": "16397045",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 90,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102934186571260404",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Quando preciso gerar petições/recursos que dependem de vários documentos com esse tipo de informação \"desnecessária\", eu uso outras IAs grátis para fazer a triagem apenas do texto, ementas, dispositivos, qualificações, datas etc e crio um documento (relatório) único... (+)",
+      "url": "https://x.com/fi_del/status/2102934268683190769"
+    },
+    {
+      "author_id": "16397045",
+      "created_at": "2026-09-24T01:32:35.000Z",
+      "edit_history_tweet_ids": [
+        "2102934186571260404"
+      ],
+      "id": "2102934186571260404",
+      "in_reply_to_user_id": "16397045",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 47,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102934113003131006",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Ele gasta menos tokens p/ ler o texto digitado no chat, gasta um pouco mais p/ ler arquivos de texto editável (word e txt), um pouco mais para PDF e muitos tokens quando precisa processar imagens scaneadas e transformar em texto (OCR - Reconhecimento Óptico de Caracteres). (+)",
+      "url": "https://x.com/fi_del/status/2102934186571260404"
+    },
+    {
+      "author_id": "16397045",
+      "created_at": "2026-09-24T01:32:17.000Z",
+      "edit_history_tweet_ids": [
+        "2102934113003131006"
+      ],
+      "id": "2102934113003131006",
+      "in_reply_to_user_id": "56238251",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 135,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2102892491934413275",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@marcusaraujobhz Marcus, talvez te ajude. O Claude vai gastar tokens para ler TODA informação dos documentos, incluindo cabeçalhos com brasões e simbolos oficiais, rodapés com assinaturas digitais, marcas d'água, metadados, etc. (+)",
+      "url": "https://x.com/fi_del/status/2102934113003131006"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado com graduação em Direito e Filosofia pela PUC MINAS. Meio contador e avô. Sempre no trecho entre Belo Horizonte e a chácara em Bom Despacho-MG com a @.",
+        "id": "56238251",
+        "name": "Marcus Vinicius de Araújo",
+        "public_metrics": {
+          "followers_count": 5573,
+          "following_count": 4090,
+          "like_count": 63010,
+          "listed_count": 10,
+          "media_count": 5060,
+          "tweet_count": 35245
+        },
+        "username": "marcusaraujobhz"
+      },
+      {
+        "description": "lawyer, activist,curious, dogs, beach and smart chat",
+        "id": "1246041512628142080",
+        "name": "Lucia H.Bassitt Carvalho",
+        "public_metrics": {
+          "followers_count": 157,
+          "following_count": 377,
+          "like_count": 72418,
+          "listed_count": 0,
+          "media_count": 707,
+          "tweet_count": 5668
+        },
+        "username": "LBass54328797"
+      },
+      {
+        "description": "é do ouro de Oxum que é feita a armadura que cobre o meu corpo;\nRainha de Bateria da Acadêmicos do Direito.",
+        "id": "2869910951",
+        "name": "sarau de poetisa | 🇧🇷",
+        "public_metrics": {
+          "followers_count": 221,
+          "following_count": 2176,
+          "like_count": 41412,
+          "listed_count": 1,
+          "media_count": 319,
+          "tweet_count": 14501
+        },
+        "username": "letrasnumerose_"
+      },
+      {
+        "description": "",
+        "id": "37725703",
+        "name": "Murilo",
+        "public_metrics": {
+          "followers_count": 104,
+          "following_count": 814,
+          "like_count": 9983,
+          "listed_count": 0,
+          "media_count": 342,
+          "tweet_count": 3279
+        },
+        "username": "murilomoura"
+      },
+      {
+        "description": "Membro efetivo da comissão de direito médico e da saúde da OAB de São Paulo.  Especialista em reverter reajustes abusivos e demandas contra planos de saúde",
+        "id": "62525753",
+        "name": "Marcelo Borsari - Direito à Saúde",
+        "public_metrics": {
+          "followers_count": 294,
+          "following_count": 619,
+          "like_count": 19393,
+          "listed_count": 2,
+          "media_count": 31,
+          "tweet_count": 1852
+        },
+        "username": "marceloborsari"
+      },
+      {
+        "description": "Advogada Trabalhista. 36 anos.\nDireita oprime, esquerda liberta.\n#LulaLá",
+        "id": "1133963892",
+        "name": "Mari B.",
+        "public_metrics": {
+          "followers_count": 471,
+          "following_count": 634,
+          "like_count": 81428,
+          "listed_count": 0,
+          "media_count": 45,
+          "tweet_count": 1053
+        },
+        "username": "mbc1989adv"
+      },
+      {
+        "description": "advogando por amor às causas perdidas…\nmuito prazer, ao seu dispor",
+        "id": "1463233907130785792",
+        "name": "Petter Parker",
+        "public_metrics": {
+          "followers_count": 381,
+          "following_count": 1602,
+          "like_count": 161058,
+          "listed_count": 0,
+          "media_count": 108,
+          "tweet_count": 21953
+        },
+        "username": "pindoba____"
+      },
+      {
+        "description": "",
+        "id": "822161895750823936",
+        "name": "betinha",
+        "public_metrics": {
+          "followers_count": 72,
+          "following_count": 969,
+          "like_count": 138011,
+          "listed_count": 0,
+          "media_count": 773,
+          "tweet_count": 7813
+        },
+        "username": "bethaniadagal"
+      },
+      {
+        "description": "",
+        "id": "770704186572935170",
+        "name": "Junior Dias",
+        "public_metrics": {
+          "followers_count": 2554,
+          "following_count": 1934,
+          "like_count": 105117,
+          "listed_count": 3,
+          "media_count": 1602,
+          "tweet_count": 24491
+        },
+        "username": "juniordias"
+      },
+      {
+        "description": "🌐 Apps-Games-Conexões\n🧠 Ciência • Cotidiano • Comida\n📔 https://t.co/aje84kJMKy\n📱 https://t.co/f4wiuiFGsb\n✂️ https://t.co/hFHtYNI0vw\n🎮 https://t.co/ioDbgYgBPv\n🚫 DM",
+        "id": "756139478444630016",
+        "name": "NaRede Labs",
+        "public_metrics": {
+          "followers_count": 2137,
+          "following_count": 5048,
+          "like_count": 13987,
+          "listed_count": 3,
+          "media_count": 1371,
+          "tweet_count": 9699
+        },
+        "username": "naredelabs"
+      },
+      {
+        "description": "Amanhã será um lindo dia.",
+        "id": "753284418899501056",
+        "name": "Eduardo Martins Timbó",
+        "public_metrics": {
+          "followers_count": 910,
+          "following_count": 1397,
+          "like_count": 13447,
+          "listed_count": 0,
+          "media_count": 1,
+          "tweet_count": 470
+        },
+        "username": "edumtimbo"
+      },
+      {
+        "description": "",
+        "id": "16397045",
+        "name": "Fidel ☭",
+        "public_metrics": {
+          "followers_count": 127,
+          "following_count": 1819,
+          "like_count": 299,
+          "listed_count": 2,
+          "media_count": 21,
+          "tweet_count": 63
+        },
+        "username": "fi_del"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2103277668934283457",
+    "oldest_id": "2102934113003131006",
+    "result_count": 25
+  }
+}

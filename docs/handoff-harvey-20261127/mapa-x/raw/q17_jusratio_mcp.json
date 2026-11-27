@@ -1,0 +1,588 @@
+{
+  "data": [
+    {
+      "author_id": "2043546953183629312",
+      "created_at": "2026-09-03T22:13:54.000Z",
+      "edit_history_tweet_ids": [
+        "2095636431624442083"
+      ],
+      "id": "2095636431624442083",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 2,
+        "impression_count": 142,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Abri os conectores da Cognitio em beta gratuito.\n\nA ideia é simples: você continua no Claude, no ChatGPT ou no Claude Code que já usa. Um endereço de conexão liga a sua IA a sete serviços jurídicos que respondem com a fonte na mão — e que dizem quando não sabem.\n\nO que está lá https://t.co/uP7rThl6oE",
+      "url": "https://x.com/pizaniadv/status/2095636431624442083"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-27T00:33:45.000Z",
+      "edit_history_tweet_ids": [
+        "2059432835379835369",
+        "2059432950937141675"
+      ],
+      "id": "2059432835379835369",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 25,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Acórdãos de 2020-2026 do TJMG amanhã no banco de dados do https://t.co/pqVTMyA6TL. Em seguida TSE e TJGO. Gostaria de pesquisar jurisprudência sobre algo específico? Teste a qualidade da resposta enviando um prompt nos comentários. Te respondo com a resposta do claude opus 4.7 + https://t.co/78p3rgBCru",
+      "url": "https://x.com/CarlosR26271158/status/2059432835379835369"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-08-29T14:00:04.000Z",
+      "edit_history_tweet_ids": [
+        "2093700212078305729"
+      ],
+      "id": "2093700212078305729",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 49,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "O advogado do futuro não abre PDF. Ele abre o terminal. 💻\nAcabamos de plugar o Atende Direito Sync direto no Claude Code via MCP. Você puxa o processo judicial inteiro pra dentro do seu ambiente e simplesmente *pergunta* o que quiser. \n#LegalTech #Advocacia #IA",
+      "url": "https://x.com/dr_eduserafim/status/2093700212078305729"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-27T00:34:12.000Z",
+      "edit_history_tweet_ids": [
+        "2059432835379835369",
+        "2059432950937141675"
+      ],
+      "id": "2059432950937141675",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 6,
+        "impression_count": 2893,
+        "like_count": 35,
+        "quote_count": 0,
+        "reply_count": 6,
+        "retweet_count": 0
+      },
+      "text": "Acórdãos de 2020-2026 do TJMG amanhã no banco de dados do https://t.co/pqVTMyA6TL. Em seguida TSE e TJGO. Gostaria de pesquisar jurisprudência sobre algo específico? Teste a qualidade da resposta enviando um prompt nos comentários. Te respondo com a resposta do claude opus 4.7 + https://t.co/78p3rgBCru",
+      "url": "https://x.com/CarlosR26271158/status/2059432950937141675"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-06-15T16:28:08.000Z",
+      "edit_history_tweet_ids": [
+        "2066558387219845528"
+      ],
+      "id": "2066558387219845528",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 64,
+        "impression_count": 3508,
+        "like_count": 64,
+        "quote_count": 1,
+        "reply_count": 9,
+        "retweet_count": 5
+      },
+      "text": "Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações.\nExemplo: \"Qual a jurisprudência recente do TJGO sobre a obrigação do Estado de Goiás fornecer medicamento de alto custo não incorporado ao SUS. Como as Câmaras Cíveis vêm https://t.co/voX5CMvgWc",
+      "url": "https://x.com/CarlosRodr44314/status/2066558387219845528"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-25T13:45:21.000Z",
+      "edit_history_tweet_ids": [
+        "2058907273162789068"
+      ],
+      "id": "2058907273162789068",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 44,
+        "impression_count": 5553,
+        "like_count": 62,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 2
+      },
+      "text": "Você pode facilitar sua vida adicionando o conector de jurisprudência ao Claude para verificar jurisprudência do CARF, veja:  https://t.co/tVeSDP5opk\n\nPrompt: Cliente é uma scale-up de tecnologia que mantém plano de stock options desde 2019. Recebeu auto de infração da Receita https://t.co/pTPNaRxa95 https://t.co/QzZLdIvgNI",
+      "url": "https://x.com/CarlosR26271158/status/2058907273162789068"
+    },
+    {
+      "author_id": "1580132398846672903",
+      "created_at": "2026-05-17T19:05:07.000Z",
+      "edit_history_tweet_ids": [
+        "2056088645241577817"
+      ],
+      "id": "2056088645241577817",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 59735,
+        "like_count": 75,
+        "quote_count": 1,
+        "reply_count": 3,
+        "retweet_count": 4
+      },
+      "text": "@CarlosR26271158 @jusratio Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por https://t.co/anrN0UQGyB",
+      "url": "https://x.com/AdvTrib/status/2056088645241577817"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-09-22T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2102518302660551073"
+      ],
+      "id": "2102518302660551073",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 55,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Ctrl+C e Ctrl+V de andamento é trabalho pra robô, não pra advogado. O Atende Direito Sync automatiza isso via MCP. Claude Code lê direto da fonte e você ganha tempo pra pensar.",
+      "url": "https://x.com/dr_eduserafim/status/2102518302660551073"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-15T20:36:50.000Z",
+      "edit_history_tweet_ids": [
+        "2055386947309199549"
+      ],
+      "id": "2055386947309199549",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 840,
+        "impression_count": 49740,
+        "like_count": 547,
+        "quote_count": 0,
+        "reply_count": 39,
+        "retweet_count": 45
+      },
+      "text": "Pessoal, aqui a lista completa de tribunais no banco de dados do https://t.co/pqVTMyA6TL (tjpe ta finalizando). Se essa ferramenta estiver sendo útil, manda pros colegas que não estão aqui no X. \n\nQuem já plugou o JusRatio no Claude, ChatGPT ou Gemini sabe a sensação, a primeira https://t.co/qwNKXpiqYm https://t.co/WHol0tRdMN",
+      "url": "https://x.com/CarlosR26271158/status/2055386947309199549"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-09-15T02:58:56.000Z",
+      "edit_history_tweet_ids": [
+        "2099694425135792422"
+      ],
+      "id": "2099694425135792422",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 22,
+        "impression_count": 2907,
+        "like_count": 39,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 4
+      },
+      "text": "Adicione um conector de jurisprudência ao Claude e observe um salto de confiabilidade em pesquisa jurídica com https://t.co/rK2XaJGgeK. É a primeira legaltech brasileira disponível no diretório oficial:\nhttps://t.co/uAEb0cTWQU\n\nTambém no ChatGPT e outros clientes MCP. https://t.co/qXa5qxeSoA",
+      "url": "https://x.com/CarlosRodr44314/status/2099694425135792422"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-09-14T17:39:23.000Z",
+      "edit_history_tweet_ids": [
+        "2099553612959453383"
+      ],
+      "id": "2099553612959453383",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 36,
+        "impression_count": 266380,
+        "like_count": 84,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 7
+      },
+      "text": "Adicione um conector de jurisprudência ao Claude e observe um salto de confiabilidade em pesquisa jurídica com https://t.co/rK2XaJGgeK. É a primeira legaltech brasileira disponível no diretório oficial:\nhttps://t.co/uAEb0cTWQU\n\nTambém no ChatGPT e outros clientes MCP. https://t.co/4vF171j2ak",
+      "url": "https://x.com/CarlosRodr44314/status/2099553612959453383"
+    },
+    {
+      "author_id": "2157937978",
+      "created_at": "2026-09-24T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2103243078765043799"
+      ],
+      "id": "2103243078765043799",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 19,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Advogado novo demorando semanas pra entender caso grande? No Atende Direito Sync, ele abre o Claude Code via MCP e o banco de dados vivo resume tudo em 1 minuto. Escalabilidade real.",
+      "url": "https://x.com/dr_eduserafim/status/2103243078765043799"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-16T16:22:59.000Z",
+      "edit_history_tweet_ids": [
+        "2055685453341147324"
+      ],
+      "id": "2055685453341147324",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 22,
+        "impression_count": 3799,
+        "like_count": 42,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "minha reação é a mesma também ao utilizar o conector de jurisprudência no claude - https://t.co/pqVTMyA6TL https://t.co/jnoZmMzkq6 https://t.co/Eevd7BCGyP",
+      "url": "https://x.com/CarlosR26271158/status/2055685453341147324"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-07-01T13:08:08.000Z",
+      "edit_history_tweet_ids": [
+        "2072306259039080784"
+      ],
+      "id": "2072306259039080784",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 53,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@fan_de_personag @prioriadv Faz o teste usando o conector de jurisprudência https://t.co/k4DBt1KIZT , adiciona no claude / GPT.  A resposta é muito mais confiável, densa e o link entrega o inteiro teor, veja https://t.co/FCEBN34MN5",
+      "url": "https://x.com/CarlosRodr44314/status/2072306259039080784"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-06-23T02:39:07.000Z",
+      "edit_history_tweet_ids": [
+        "2069248859860095360"
+      ],
+      "id": "2069248859860095360",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 128,
+        "impression_count": 9692,
+        "like_count": 105,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 5
+      },
+      "text": "Adicione um conector de jurisprudência ao Claude/GPT e reduza drasticamente a probabilidade de alucinações. É fácil de adicionar. Veja um exemplo: https://t.co/FCEBN34MN5 https://t.co/4USMHbiDX3",
+      "url": "https://x.com/CarlosRodr44314/status/2069248859860095360"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-07-10T13:54:43.000Z",
+      "edit_history_tweet_ids": [
+        "2075579473550770237"
+      ],
+      "id": "2075579473550770237",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 379,
+        "impression_count": 28924,
+        "like_count": 221,
+        "quote_count": 4,
+        "reply_count": 23,
+        "retweet_count": 22
+      },
+      "text": "Você já jogou um pdf de 2 mil páginas no chat do claude/gpt e teve problemas com contexto e alucinação? Bora criar uma solução juntos? Fiz esse conector local especialmente voltado pra esses casos. \nFunciona assim:\n\n- Você define uma pasta\n- Põe o pdf nessa pasta ou subpasta\n- O https://t.co/lqK81JMhRE",
+      "url": "https://x.com/CarlosRodr44314/status/2075579473550770237"
+    },
+    {
+      "author_id": "1953596717376712707",
+      "created_at": "2026-09-06T19:53:25.000Z",
+      "edit_history_tweet_ids": [
+        "2096688240032203105"
+      ],
+      "id": "2096688240032203105",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 49,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@thallisribeiro Sem isso o ChatGPT nunca te cita. Ele mostra nos posts que site de advogado bloqueia por padrão.\n\nCria llms.txt na raiz:\nAF Advocacia Previdenciária\nAdvogado previdenciário em Anápolis - GO, especialista em BPC LOAS negado, aposentadoria rural e auxílio por incapacidade.",
+      "url": "https://x.com/AFaleandro30/status/2096688240032203105"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-05-25T13:49:53.000Z",
+      "edit_history_tweet_ids": [
+        "2058908414172901868"
+      ],
+      "id": "2058908414172901868",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 1381,
+        "like_count": 27,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 2
+      },
+      "text": "Jurisprudência administrativa do CARF e acórdãos do TJPB hoje no banco de dados do https://t.co/k4DBt1KIZT \nAdicione um conector de jurisprudência ao Claude e reduza drasticamente a probabilidade de alucinações",
+      "url": "https://x.com/CarlosRodr44314/status/2058908414172901868"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-18T23:06:21.000Z",
+      "edit_history_tweet_ids": [
+        "2056511740024627374"
+      ],
+      "id": "2056511740024627374",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 340,
+        "impression_count": 12383,
+        "like_count": 266,
+        "quote_count": 2,
+        "reply_count": 18,
+        "retweet_count": 26
+      },
+      "text": "Como adicionar o https://t.co/pqVTMyA6TL no Claude (sem grana pra motion design ainda kkkkk)\n\nVeja um exemplo de como um conector de jurisprudência pode melhorar significativamente a resposta de uma IA:  \n\n1 - https://t.co/fJm2h5ycRK \n2 - https://t.co/xeGZXodMHV \n3- https://t.co/rf81VvCnvz",
+      "url": "https://x.com/CarlosR26271158/status/2056511740024627374"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-04-27T22:22:57.000Z",
+      "edit_history_tweet_ids": [
+        "2048890671025508608"
+      ],
+      "id": "2048890671025508608",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 84,
+        "like_count": 4,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@AndrewsAbreu5 Claude + um conector que tô desenvolvendo. É como se acoplasse um banco de dados de jurisprudência",
+      "url": "https://x.com/CarlosR26271158/status/2048890671025508608"
+    },
+    {
+      "author_id": "2106027620684984320",
+      "created_at": "2026-10-08T15:06:41.000Z",
+      "edit_history_tweet_ids": [
+        "2108212492950503707"
+      ],
+      "id": "2108212492950503707",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Um conector, a jurisprudência inteira: no Claude, ChatGPT, Codex, Gemini e Cursor, busca de decisões, verificação de citações, súmulas e temas, jurimetria, DJEN, andamento pelo CNJ e calculadoras. Toda decisão com link oficial.\n\nhttps://t.co/yDmwzGrtPi · DM: QUERO TESTAR https://t.co/t2ehmWWxtm",
+      "url": "https://x.com/Precedentesbr/status/2108212492950503707"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-21T16:54:55.000Z",
+      "edit_history_tweet_ids": [
+        "2057505430285201922"
+      ],
+      "id": "2057505430285201922",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 27,
+        "impression_count": 3465,
+        "like_count": 54,
+        "quote_count": 0,
+        "reply_count": 12,
+        "retweet_count": 2
+      },
+      "text": "Adicione um conector de jurisprudência ao Claude/GPT/Antigravity e veja a mágica acontecer. Que IA jurídica vai te entregar esse nível de resposta por R$20? (TJRS finalizando agora)\n\nExemplos: \n- https://t.co/hnKXEr3mDk\n\n- https://t.co/zRCz51IFT4\n\n- https://t.co/Qsy5bqOfCZ https://t.co/DPSL6cFGVE",
+      "url": "https://x.com/CarlosR26271158/status/2057505430285201922"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-07-13T21:05:36.000Z",
+      "edit_history_tweet_ids": [
+        "2076775070345675024"
+      ],
+      "id": "2076775070345675024",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 88,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@leorochajus @CarlosR26271158 É só comparar. Além disso, você continua usando o claude/gpt pra outras coisas, e quando convir, usa o conector de jurisprudência.",
+      "url": "https://x.com/CarlosRodr44314/status/2076775070345675024"
+    },
+    {
+      "author_id": "2055831163160145920",
+      "created_at": "2026-06-10T13:58:29.000Z",
+      "edit_history_tweet_ids": [
+        "2064708784136544494"
+      ],
+      "id": "2064708784136544494",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 369,
+        "impression_count": 19811,
+        "like_count": 251,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 20
+      },
+      "text": "Em 1 minuto: como adicionar o conector de jurisprudência https://t.co/k4DBt1KIZT ao Claude https://t.co/7ab3aGxWKy",
+      "url": "https://x.com/CarlosRodr44314/status/2064708784136544494"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-08T13:38:35.000Z",
+      "edit_history_tweet_ids": [
+        "2063979000163189055"
+      ],
+      "id": "2063979000163189055",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 10,
+        "impression_count": 2995,
+        "like_count": 40,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "conector de jurisprudência pra você utilizar com claude e perder o medo de usar IA por 20 pila por mês (!) https://t.co/6Wb5TbtbiG",
+      "url": "https://x.com/CarlosR26271158/status/2063979000163189055"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado — Direito Tributário, Penal Econômico e Empresarial. OAB/BA 32.472. Escritório em Salvador/BA. Acervo de ferramentas jurídicas abertas.",
+        "id": "2043546953183629312",
+        "name": "Raphael Pizani | Advocacia",
+        "public_metrics": {
+          "followers_count": 68,
+          "following_count": 618,
+          "like_count": 890,
+          "listed_count": 0,
+          "media_count": 136,
+          "tweet_count": 1122
+        },
+        "username": "pizaniadv"
+      },
+      {
+        "description": "inteligente artificial\nTransforme qualquer LLM genérico num especialista em direito em https://t.co/rRGCCB3Rmb",
+        "id": "1745889464109477888",
+        "name": "carlos, o estressado",
+        "public_metrics": {
+          "followers_count": 3229,
+          "following_count": 251,
+          "like_count": 14427,
+          "listed_count": 7,
+          "media_count": 411,
+          "tweet_count": 5978
+        },
+        "username": "CarlosR26271158"
+      },
+      {
+        "description": "CEO @atendedireito\nI.A. aplicada para advogados e escritórios de advocacia.",
+        "id": "2157937978",
+        "name": "Eduardo Serafim | aDEVogado",
+        "public_metrics": {
+          "followers_count": 50,
+          "following_count": 177,
+          "like_count": 3471,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 259
+        },
+        "username": "dr_eduserafim"
+      },
+      {
+        "description": "inteligente artificial\nTransforme qualquer LLM genérico num especialista em direito em https://t.co/HpNMplbgDw",
+        "id": "2055831163160145920",
+        "name": "Carlos Rodrigues",
+        "public_metrics": {
+          "followers_count": 1108,
+          "following_count": 192,
+          "like_count": 3068,
+          "listed_count": 4,
+          "media_count": 45,
+          "tweet_count": 574
+        },
+        "username": "CarlosRodr44314"
+      },
+      {
+        "description": "Defendendo o contribuinte das garras do governo.",
+        "id": "1580132398846672903",
+        "name": "Márcio Pinheiro Advocacia Tributária",
+        "public_metrics": {
+          "followers_count": 137,
+          "following_count": 377,
+          "like_count": 243,
+          "listed_count": 2,
+          "media_count": 39,
+          "tweet_count": 2351
+        },
+        "username": "AdvTrib"
+      },
+      {
+        "description": "Aleandro Ferreira | Advogado Previdenciário e Civil. Ajudo em aposentadorias, benefícios INSS, pensões, divórcios, etc. Consultas online, ZAP: (62) 99290-3461.",
+        "id": "1953596717376712707",
+        "name": "ALEANDRO FERREIRA",
+        "public_metrics": {
+          "followers_count": 807,
+          "following_count": 197,
+          "like_count": 862,
+          "listed_count": 0,
+          "media_count": 297,
+          "tweet_count": 7113
+        },
+        "username": "AFaleandro30"
+      },
+      {
+        "description": "IA jurídica segura ⚖️ 23,4 mi de decisões de 72 tribunais, todas com link oficial. Em testes: acesso grátis p/ advogados selecionados. DM: QUERO TESTAR",
+        "id": "2106027620684984320",
+        "name": "Precedentes | IA jurídica",
+        "public_metrics": {
+          "followers_count": 1,
+          "following_count": 63,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 19,
+          "tweet_count": 20
+        },
+        "username": "Precedentesbr"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2108212492950503707",
+    "oldest_id": "2048890671025508608",
+    "result_count": 25
+  }
+}

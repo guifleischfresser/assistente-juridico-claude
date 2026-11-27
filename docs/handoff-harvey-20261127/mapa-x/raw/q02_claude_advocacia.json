@@ -1,0 +1,726 @@
+{
+  "data": [
+    {
+      "author_id": "146009308",
+      "created_at": "2026-09-25T04:00:46.000Z",
+      "edit_history_tweet_ids": [
+        "2103333866693890461"
+      ],
+      "id": "2103333866693890461",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 59,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.\n\nNo vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, https://t.co/gMiRdfabhh",
+      "url": "https://x.com/edmar_neto/status/2103333866693890461"
+    },
+    {
+      "author_id": "36560530",
+      "created_at": "2026-10-15T14:32:30.000Z",
+      "edit_history_tweet_ids": [
+        "2110740605143765218"
+      ],
+      "id": "2110740605143765218",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 61,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "A OAB-RJ conseguiu barrar uma plataforma que vendia petição feita por IA a R$ 20. Até aí, faz sentido: cobrar pra fazer peça sem advogado parece muito com exercício ilegal da profissão.\n\nMas fica uma pergunta incômoda.\n\nNo Juizado Especial Cível, em causas de até 20 salários",
+      "url": "https://x.com/AskBrunf/status/2110740605143765218"
+    },
+    {
+      "author_id": "2732951051",
+      "created_at": "2026-04-30T22:00:05.000Z",
+      "edit_history_tweet_ids": [
+        "2049972083166478594"
+      ],
+      "id": "2049972083166478594",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "1/9\nTodo mundo tá largando o ChatGPT e migrando pro Claude.\nPor quê? Porque Claude alucina MUITO menos em direito brasileiro.\n\n2/9\nTeste que fiz essa semana:\nChatGPT inventou 2 súmulas + 1 acórdão.\nClaude 3.5: 100% preciso e ainda citou jurisprudência contrária sozinho.\n\n3/9",
+      "url": "https://x.com/vonealex/status/2049972083166478594"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-04-06T14:03:44.000Z",
+      "edit_history_tweet_ids": [
+        "2041154896896946180"
+      ],
+      "id": "2041154896896946180",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 490,
+        "impression_count": 77551,
+        "like_count": 328,
+        "quote_count": 2,
+        "reply_count": 23,
+        "retweet_count": 22
+      },
+      "text": "Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO",
+      "url": "https://x.com/CarlosR26271158/status/2041154896896946180"
+    },
+    {
+      "author_id": "1661782254622846984",
+      "created_at": "2026-08-15T19:00:09.000Z",
+      "edit_history_tweet_ids": [
+        "2088702299610689893"
+      ],
+      "id": "2088702299610689893",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 46,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Advogados de IA agora. Um rapper quer processar a Pitchfork pela nota 0.0/10 usando ChatGPT, Claude e Gemini como consultoria jurídica. A parte bizarra: modelos de linguagem alucinam jurisprudência. Vai ser interessante ver o juiz reagir a uma petição escrita por três IAs. https://t.co/png1jBa6JQ",
+      "url": "https://x.com/thedoomguy_ai/status/2088702299610689893"
+    },
+    {
+      "author_id": "2102455609387782144",
+      "created_at": "2026-09-23T11:32:09.000Z",
+      "edit_history_tweet_ids": [
+        "2102722684463226896"
+      ],
+      "id": "2102722684463226896",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 6,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "🚨 O Claude está mudando a forma como escritórios de advocacia podem usar IA.\n\nE não estou falando de pedir para ele escrever uma petição.\n\nSeparei 4 sacadas para quem quer usar IA para realmente ganhar produtividade no escritório.\n\nSalva porque isso vai muito além de prompt. https://t.co/xjZtOt8qdC",
+      "url": "https://x.com/Zenilson_coelho/status/2102722684463226896"
+    },
+    {
+      "author_id": "1265768638486851586",
+      "created_at": "2026-05-26T02:13:16.000Z",
+      "edit_history_tweet_ids": [
+        "2059095491992768982"
+      ],
+      "id": "2059095491992768982",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 317,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@carinabst Só deixar o Jusbrasil logado, Claude com autorização para usar Google Chrime e quebrar a pesquisa de jurisprudência como tarefa logo após a análise do contexto da petição",
+      "url": "https://x.com/advgabrielval/status/2059095491992768982"
+    },
+    {
+      "author_id": "1580132398846672903",
+      "created_at": "2026-05-17T19:05:07.000Z",
+      "edit_history_tweet_ids": [
+        "2056088645241577817"
+      ],
+      "id": "2056088645241577817",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 59735,
+        "like_count": 75,
+        "quote_count": 1,
+        "reply_count": 3,
+        "retweet_count": 4
+      },
+      "text": "@CarlosR26271158 @jusratio Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por https://t.co/anrN0UQGyB",
+      "url": "https://x.com/AdvTrib/status/2056088645241577817"
+    },
+    {
+      "author_id": "1256352543082516481",
+      "created_at": "2026-05-06T18:00:49.000Z",
+      "edit_history_tweet_ids": [
+        "2052086195015012680"
+      ],
+      "id": "2052086195015012680",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 21,
+        "impression_count": 5870,
+        "like_count": 87,
+        "quote_count": 0,
+        "reply_count": 15,
+        "retweet_count": 1
+      },
+      "text": "@Serafim_zx Eu concordo em partes.\n\nA dupla ChatGPT + Claude é MUITO boa.\n\nProgramadores dizem que o Claude é realmente muito bom, mas não tenho condições de opinar.\n\nNa questão jurídica: O Claude inventa coisa até hoje OU fala sobre Súmulas desatualizadas do STJ.\n\nNo âmbito jurídico a gente",
+      "url": "https://x.com/joaosenzi/status/2052086195015012680"
+    },
+    {
+      "author_id": "1388285536285118470",
+      "created_at": "2026-06-19T16:43:47.000Z",
+      "edit_history_tweet_ids": [
+        "2068011873149104569"
+      ],
+      "id": "2068011873149104569",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 44,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@lucasmourao_ @ogavelar Uso o @jusratio com o Claude pra verificar o entendimento jurisprudencial mas é óbvio que, mesmo confiando na plataforma, valido e leio cada jurisprudência antes de incluir na petição.\n\nA coisa mais importante que a gente tem é o nome, e é ele que vai no final da peça.",
+      "url": "https://x.com/b_descalante/status/2068011873149104569"
+    },
+    {
+      "author_id": "2573809315",
+      "created_at": "2026-09-04T10:29:47.000Z",
+      "edit_history_tweet_ids": [
+        "2095821619495088142"
+      ],
+      "id": "2095821619495088142",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 20,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@tastefade @DanielOpotiguar Não foi o relatorio feito no Claude foi a petição, e na advocacia está sendo normal a utilização de ia para fazer o trabalho grosso como petições",
+      "url": "https://x.com/jolesrp/status/2095821619495088142"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-08-05T16:26:38.000Z",
+      "edit_history_tweet_ids": [
+        "2085039788155916767"
+      ],
+      "id": "2085039788155916767",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 162,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Claude para negócios na advocacia (LIVE COMPLETA) | Advogando para Servidores\n\nLive com o Engenheiro William Mazza, especialista em inteligência artificial para advogados\n\nCurso Completo sobre a Reforma Tributária: https://t.co/2egYmsCVkN\n\nCurso Completo de Advocacia Tributária: https://t.co/XTBuSKIOM1",
+      "url": "https://x.com/professormazza/status/2085039788155916767"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-08-03T18:07:28.000Z",
+      "edit_history_tweet_ids": [
+        "2084340389549420664"
+      ],
+      "id": "2084340389549420664",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 137,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Marque na sua agenda a live dessa quarta-feira, 5 de agosto, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “Claude para negócios na advocacia” \n\nO conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas as redes\n\nLink https://t.co/SWxyyS3wZ3",
+      "url": "https://x.com/professormazza/status/2084340389549420664"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-02-27T17:30:35.000Z",
+      "edit_history_tweet_ids": [
+        "2027436209836880032"
+      ],
+      "id": "2027436209836880032",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 58,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "✅ 3 formas de usar IA para ganhar tempo na rotina jurídica:\n\n✅ NotebookLM — jogue o processo inteiro e faça perguntas objetivas\n✅ Claude — treine com o teu modelo de petição, minute peças em segundos\n✅ Gemini — leitura de acórdãos longos e análise de documentos volumosos\n\n🫵 https://t.co/5GTD9BnxxD",
+      "url": "https://x.com/martins_piton/status/2027436209836880032"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-07-29T19:05:48.000Z",
+      "edit_history_tweet_ids": [
+        "2082543127936864384"
+      ],
+      "id": "2082543127936864384",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 145,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "As 4 frentes de atuação do Claude na advocacia (LIVE COMPLETA) | Advogando para Servidores\n\nLive com o Engenheiro William Mazza, especialista em inteligência artificial para advogados\n\nCurso Completo sobre a Reforma Tributária: https://t.co/2egYmsDtal\n\nCurso Completo de Advocacia https://t.co/7BzMmO58vP",
+      "url": "https://x.com/professormazza/status/2082543127936864384"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-08-11T14:28:35.000Z",
+      "edit_history_tweet_ids": [
+        "2087184409485033539"
+      ],
+      "id": "2087184409485033539",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 177,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Marque na sua agenda a live dessa quarta-feira, 12 de agosto, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “Criação de documentos personalizados com Claude” \n\nO conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas https://t.co/4w7Od2ijZT",
+      "url": "https://x.com/professormazza/status/2087184409485033539"
+    },
+    {
+      "author_id": "2055250851644489728",
+      "created_at": "2026-09-16T20:25:02.000Z",
+      "edit_history_tweet_ids": [
+        "2100320074074620366"
+      ],
+      "id": "2100320074074620366",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 12,
+        "impression_count": 6019,
+        "like_count": 27,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 6
+      },
+      "text": "A notícia é: agora, com @jusratio e Claude, advogados já podem criar documentos e slides com inteligência jurídica sem trocar de aplicativo.\n\nCom o Jusratio conectado, isso vira parecer, petição e apresentação para cliente com jurisprudência verificada e fundamentação completa, https://t.co/aktfreNY2M",
+      "url": "https://x.com/jusratio/status/2100320074074620366"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-07-27T15:47:11.000Z",
+      "edit_history_tweet_ids": [
+        "2081768370878259283"
+      ],
+      "id": "2081768370878259283",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 125,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Marque na sua agenda a live dessa quarta-feira, 29 de Julho, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “As 4 frentes de atuação do Claude na advocacia” \n\nO conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas as https://t.co/oZqJNzSOMG",
+      "url": "https://x.com/professormazza/status/2081768370878259283"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-08-13T13:54:46.000Z",
+      "edit_history_tweet_ids": [
+        "2087900672024879201"
+      ],
+      "id": "2087900672024879201",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 198,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Criação de documentos personalizados com o Claude (LIVE COMPLETA) | Advogando para Servidores\n\nLive com o Engenheiro William Mazza, especialista em inteligência artificial para advogados\n\nCurso Completo sobre a Reforma Tributária: https://t.co/2egYmsCVkN\n\nCurso Completo de https://t.co/GAoryHXiZt",
+      "url": "https://x.com/professormazza/status/2087900672024879201"
+    },
+    {
+      "author_id": "950394723725971457",
+      "created_at": "2026-03-07T02:16:55.000Z",
+      "edit_history_tweet_ids": [
+        "2030105383994343469"
+      ],
+      "id": "2030105383994343469",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 59,
+        "impression_count": 1593,
+        "like_count": 33,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@tretasjuridicas Gosto do https://t.co/IuYquOrftD para enviar a petição e receber jurisprudências prontas para usar. Ou integro no Claude Code para pesquisar jurisprudência durante a elaboração da peça.",
+      "url": "https://x.com/agiacomolli_/status/2030105383994343469"
+    },
+    {
+      "author_id": "1727078933143736320",
+      "created_at": "2026-08-27T16:33:15.000Z",
+      "edit_history_tweet_ids": [
+        "2093013985129836660"
+      ],
+      "id": "2093013985129836660",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Coleguinha advogado; jogar os autos no claude e pedir pra ele elaborar uma petição, sem comandos complexos e sem apontar as linhas de cada tese/estrategia, vai fazer com que sua petição fique uma porcaria e evidentemente elaborada por IA.",
+      "url": "https://x.com/arielrocco/status/2093013985129836660"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-07-21T19:28:11.000Z",
+      "edit_history_tweet_ids": [
+        "2079649661439095197"
+      ],
+      "id": "2079649661439095197",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 219,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O que o Claude pode fazer pelo advogado? (LIVE COMPLETA) | Advogando para Servidores\n\nLive com o Engenheiro William Mazza, especialista em inteligência artificial para advogados\n\nCurso Completo sobre a Reforma Tributária: https://t.co/2egYmsCVkN\n\nCurso Completo de Advocacia https://t.co/JEqtGyuIdz",
+      "url": "https://x.com/professormazza/status/2079649661439095197"
+    },
+    {
+      "author_id": "1046937933121576961",
+      "created_at": "2026-10-01T01:32:09.000Z",
+      "edit_history_tweet_ids": [
+        "2105470792477577265"
+      ],
+      "id": "2105470792477577265",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 124,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "sim claude eu vou revisar com um advogado essa petição https://t.co/ka7CzATiFn",
+      "url": "https://x.com/caiocesax/status/2105470792477577265"
+    },
+    {
+      "author_id": "67789526",
+      "created_at": "2026-07-20T16:05:06.000Z",
+      "edit_history_tweet_ids": [
+        "2079236162255032506"
+      ],
+      "id": "2079236162255032506",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 147,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Marque na sua agenda a live dessa quarta-feira, 22 de Julho, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “Como automatizar a advocacia com Claude?” \n\nO conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas as redes https://t.co/f5TwWFlNNn",
+      "url": "https://x.com/professormazza/status/2079236162255032506"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-03-17T22:39:35.000Z",
+      "edit_history_tweet_ids": [
+        "2034036957685448730"
+      ],
+      "id": "2034036957685448730",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 28,
+        "impression_count": 777,
+        "like_count": 8,
+        "quote_count": 0,
+        "reply_count": 3,
+        "retweet_count": 1
+      },
+      "text": "@AdvDoHardware usa o https://t.co/m10nYlGdkQ pra pesquisar jurisprudência que usa RAG com motor local (com sua RAM e processador). Vc leva as fontes pro claude e ele desenvolve a petição. É melhor que ele fazer a pesquisa e desenvolver tudo. Vc tem que fracionar o pedido",
+      "url": "https://x.com/CarlosR26271158/status/2034036957685448730"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Just me!",
+        "id": "146009308",
+        "name": "Edmar Neto",
+        "public_metrics": {
+          "followers_count": 23,
+          "following_count": 265,
+          "like_count": 2027,
+          "listed_count": 0,
+          "media_count": 15,
+          "tweet_count": 79
+        },
+        "username": "edmar_neto"
+      },
+      {
+        "description": "Machine Learning • Deep Learning • IA\nCientista da Computação & Pesquisador\nCEO de tech | Advogado | Consultor\nDo paper para a operação em escala",
+        "id": "36560530",
+        "name": "Bruno | ML & IA",
+        "public_metrics": {
+          "followers_count": 575,
+          "following_count": 633,
+          "like_count": 11016,
+          "listed_count": 2,
+          "media_count": 586,
+          "tweet_count": 5027
+        },
+        "username": "AskBrunf"
+      },
+      {
+        "description": "Advogado, Mestre,  Founder Nexo Tecnologia. Flamenguista roxo. Aqui eu falo de tecnologia, Flamengo e o que vier na minha cabeça, não se estresse rs",
+        "id": "2732951051",
+        "name": "Alexander Braz",
+        "public_metrics": {
+          "followers_count": 148,
+          "following_count": 559,
+          "like_count": 6756,
+          "listed_count": 0,
+          "media_count": 37,
+          "tweet_count": 1332
+        },
+        "username": "vonealex"
+      },
+      {
+        "description": "inteligente artificial\nTransforme qualquer LLM genérico num especialista em direito em https://t.co/rRGCCB3Rmb",
+        "id": "1745889464109477888",
+        "name": "carlos, o estressado",
+        "public_metrics": {
+          "followers_count": 3229,
+          "following_count": 251,
+          "like_count": 14427,
+          "listed_count": 7,
+          "media_count": 411,
+          "tweet_count": 5978
+        },
+        "username": "CarlosR26271158"
+      },
+      {
+        "description": "IDKFA\nIDDQD\nIDBEHOLD",
+        "id": "1661782254622846984",
+        "name": "The DOOM Guy",
+        "public_metrics": {
+          "followers_count": 281,
+          "following_count": 19,
+          "like_count": 127,
+          "listed_count": 1,
+          "media_count": 4605,
+          "tweet_count": 15387
+        },
+        "username": "thedoomguy_ai"
+      },
+      {
+        "description": "",
+        "id": "2102455609387782144",
+        "name": "Zenilson Coelho",
+        "public_metrics": {
+          "followers_count": 0,
+          "following_count": 16,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 7,
+          "tweet_count": 30
+        },
+        "username": "Zenilson_coelho"
+      },
+      {
+        "description": "AVE, AVE, CHRISTUS REX\n\nAdvogado católico.",
+        "id": "1265768638486851586",
+        "name": "Gabriel Valério 🇻🇦",
+        "public_metrics": {
+          "followers_count": 229,
+          "following_count": 285,
+          "like_count": 49267,
+          "listed_count": 2,
+          "media_count": 59,
+          "tweet_count": 8148
+        },
+        "username": "advgabrielval"
+      },
+      {
+        "description": "Defendendo o contribuinte das garras do governo.",
+        "id": "1580132398846672903",
+        "name": "Márcio Pinheiro Advocacia Tributária",
+        "public_metrics": {
+          "followers_count": 137,
+          "following_count": 377,
+          "like_count": 243,
+          "listed_count": 2,
+          "media_count": 39,
+          "tweet_count": 2351
+        },
+        "username": "AdvTrib"
+      },
+      {
+        "description": "Advogado de Influenciadores, Streamers e Youtubers - Direito Digital e Proteção de Dados - Ex-secretário geral de comissão LGBT da OAB/CE\n\n日本語の学生です。",
+        "id": "1256352543082516481",
+        "name": "João de Senzi",
+        "public_metrics": {
+          "followers_count": 68282,
+          "following_count": 1989,
+          "like_count": 10479,
+          "listed_count": 33,
+          "media_count": 1252,
+          "tweet_count": 11312
+        },
+        "username": "joaosenzi"
+      },
+      {
+        "description": "Bebe tu mesmo do teu veneno. ⚖️",
+        "id": "1388285536285118470",
+        "name": "Atropelei o Kayky Brito, mas fiquei pra ajudar",
+        "public_metrics": {
+          "followers_count": 66,
+          "following_count": 325,
+          "like_count": 1477,
+          "listed_count": 1,
+          "media_count": 754,
+          "tweet_count": 2703
+        },
+        "username": "b_descalante"
+      },
+      {
+        "description": "corinthiano,  fanático por games, futebol e esportes.",
+        "id": "2573809315",
+        "name": "João Luiz",
+        "public_metrics": {
+          "followers_count": 1230,
+          "following_count": 2427,
+          "like_count": 136286,
+          "listed_count": 6,
+          "media_count": 1226,
+          "tweet_count": 112564
+        },
+        "username": "jolesrp"
+      },
+      {
+        "description": "Advogado. Pós-Doutor pelas Universidades de Coimbra e Salamanca",
+        "id": "67789526",
+        "name": "Alexandre Mazza",
+        "public_metrics": {
+          "followers_count": 98482,
+          "following_count": 48,
+          "like_count": 645,
+          "listed_count": 652,
+          "media_count": 4142,
+          "tweet_count": 55082
+        },
+        "username": "professormazza"
+      },
+      {
+        "description": "👨🏻‍💼Defensor Público, 🏫Mestre em Direito e 👨🏻‍🏫 Professor",
+        "id": "1046055100345700352",
+        "name": "Marcelo Martins Piton",
+        "public_metrics": {
+          "followers_count": 211,
+          "following_count": 575,
+          "like_count": 3582,
+          "listed_count": 0,
+          "media_count": 445,
+          "tweet_count": 1227
+        },
+        "username": "martins_piton"
+      },
+      {
+        "description": "Com o Jusratio, Claude e ChatGPT pesquisam jurisprudência e legislação para explorar teses, antecipar contrapontos e construir respostas jurídicas de qualidade.",
+        "id": "2055250851644489728",
+        "name": "Jusratio +Inteligência jurídica para sua IA",
+        "public_metrics": {
+          "followers_count": 1104,
+          "following_count": 32,
+          "like_count": 68,
+          "listed_count": 3,
+          "media_count": 8,
+          "tweet_count": 36
+        },
+        "username": "jusratio"
+      },
+      {
+        "description": "https://t.co/oZ69jhNzEP",
+        "id": "950394723725971457",
+        "name": "Anderson",
+        "public_metrics": {
+          "followers_count": 22,
+          "following_count": 188,
+          "like_count": 98,
+          "listed_count": 1,
+          "media_count": 5,
+          "tweet_count": 93
+        },
+        "username": "agiacomolli_"
+      },
+      {
+        "description": "advogado e internacionalista, formado pela PUC-SP, pós-graduado em direito penal econômico pela FGV-SP.",
+        "id": "1727078933143736320",
+        "name": "Ariel Rodrigues Rocco",
+        "public_metrics": {
+          "followers_count": 74,
+          "following_count": 252,
+          "like_count": 4673,
+          "listed_count": 0,
+          "media_count": 48,
+          "tweet_count": 920
+        },
+        "username": "arielrocco"
+      },
+      {
+        "description": "um dia realizo meu sonho de ser adm do quebrando o tabu https://t.co/qmkLOVrVTT",
+        "id": "1046937933121576961",
+        "name": "moreno misterioso",
+        "public_metrics": {
+          "followers_count": 3523,
+          "following_count": 1227,
+          "like_count": 200894,
+          "listed_count": 1,
+          "media_count": 7189,
+          "tweet_count": 70002
+        },
+        "username": "caiocesax"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2110740605143765218",
+    "oldest_id": "2027436209836880032",
+    "result_count": 25
+  }
+}

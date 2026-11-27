@@ -1,0 +1,1029 @@
+{
+  "data": [
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-16T20:17:13.000Z",
+      "edit_history_tweet_ids": [
+        "2111189744029687910"
+      ],
+      "id": "2111189744029687910",
+      "in_reply_to_user_id": "14594813",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 15,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2111150556257353969",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@folha O que o Capitão Nascimento pensaria vendo isso!?",
+      "url": "https://x.com/odilonoliveira/status/2111189744029687910"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-16T20:16:32.000Z",
+      "edit_history_tweet_ids": [
+        "2111189570096083362"
+      ],
+      "id": "2111189570096083362",
+      "in_reply_to_user_id": "1492723738340691971",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 20,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2111184398544691463",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@NP__Oficial Ele tem que falar sempre gritando?",
+      "url": "https://x.com/odilonoliveira/status/2111189570096083362"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-16T17:22:21.000Z",
+      "edit_history_tweet_ids": [
+        "2111145735995474102"
+      ],
+      "id": "2111145735995474102",
+      "in_reply_to_user_id": "1183711703374192641",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 33,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2111074575899300249",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@SamCKx Sempre tem um estraga prazeres",
+      "url": "https://x.com/odilonoliveira/status/2111145735995474102"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-15T19:51:54.000Z",
+      "edit_history_tweet_ids": [
+        "2110820985834189173"
+      ],
+      "id": "2110820985834189173",
+      "in_reply_to_user_id": "1369348853414178822",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 16,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110181971280433613",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@AlexFinn @bot Me explica como é esse trabalho que foi gerado pelo Grok Bot",
+      "url": "https://x.com/odilonoliveira/status/2110820985834189173"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-15T19:36:46.000Z",
+      "edit_history_tweet_ids": [
+        "2110817177926340972"
+      ],
+      "id": "2110817177926340972",
+      "in_reply_to_user_id": "8802752",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 370,
+        "like_count": 7,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110792948593873274",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@g1 Quando a crítica discorda, me dá mais vontade de ver o filme.\n\nDuas vezes mais por usar \"galhofa\". Certeza de que nunca jogou Street Fighter",
+      "url": "https://x.com/odilonoliveira/status/2110817177926340972"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-15T19:29:29.000Z",
+      "edit_history_tweet_ids": [
+        "2110815342994108614"
+      ],
+      "id": "2110815342994108614",
+      "in_reply_to_user_id": "44196397",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 4,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110715556328579219",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@elonmusk Comece por um aparelho como a Alexa que usa o nosso Grok Bot. Ia ser muito bom!!",
+      "url": "https://x.com/odilonoliveira/status/2110815342994108614"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-15T12:55:08.000Z",
+      "edit_history_tweet_ids": [
+        "2110716100308799922"
+      ],
+      "id": "2110716100308799922",
+      "in_reply_to_user_id": "2024213782772244480",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 73,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110539420734464131",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@HermesAgentTips Eu uso a assinatura do GPT, usando o Luna 6. Vejo que poucas pessoas usam esse método. Gostaria de saber a razão",
+      "url": "https://x.com/odilonoliveira/status/2110716100308799922"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-15T02:06:32.000Z",
+      "edit_history_tweet_ids": [
+        "2110552876858896873"
+      ],
+      "id": "2110552876858896873",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 15,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Você aluga o trator. Outro desmata. Você pode perder a máquina?\n\nPara o STJ, a boa-fé, sozinha, não impede a apreensão e o possível perdimento. A perda definitiva exige processo administrativo com direito de defesa.\n\nREsp 2.226.768/MA, 2ª Turma. https://t.co/lPJ1of1DTw",
+      "url": "https://x.com/odilonoliveira/status/2110552876858896873"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-14T23:35:31.000Z",
+      "edit_history_tweet_ids": [
+        "2110514869787074852"
+      ],
+      "id": "2110514869787074852",
+      "in_reply_to_user_id": "1494658207",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 192,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110467056005185864",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@KimKataguiri @KimKataguiri Ele te chamou para o momento da regulação ou sabe que você não iria?",
+      "url": "https://x.com/odilonoliveira/status/2110514869787074852"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-14T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2110490836962046403"
+      ],
+      "id": "2110490836962046403",
+      "in_reply_to_user_id": "50697116",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110490834168656113",
+          "type": "replied_to"
+        }
+      ],
+      "text": "2/ A IA pode apoiar a análise. Estratégia, atuação em audiência e revisão final continuam sob responsabilidade do advogado. Informação confidencial de cliente exige ferramenta adequada, proteção do sigilo e respeito à LGPD.",
+      "url": "https://x.com/odilonoliveira/status/2110490836962046403"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-14T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2110490834168656113"
+      ],
+      "id": "2110490834168656113",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 10,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "1/ Escritório pequeno precisa ganhar tempo com segurança. A IA pode ajudar a organizar documentos, resumir autos e preparar rascunhos. Prazos, fatos e fundamentos exigem conferência do advogado.",
+      "url": "https://x.com/odilonoliveira/status/2110490834168656113"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-13T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2110128450707050949"
+      ],
+      "id": "2110128450707050949",
+      "in_reply_to_user_id": "50697116",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 4,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110128448660189207",
+          "type": "replied_to"
+        }
+      ],
+      "text": "3/ Se é testemunha, deve dizer a verdade, mas pode deixar de responder ao que possa incriminá-lo. \"Não devo nada\" não substitui entender em que condição você será ouvido.",
+      "url": "https://x.com/odilonoliveira/status/2110128450707050949"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-13T22:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "2110128448660189207"
+      ],
+      "id": "2110128448660189207",
+      "in_reply_to_user_id": "50697116",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 10,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2110128446349164969",
+          "type": "replied_to"
+        }
+      ],
+      "text": "2/ Se é investigado, pode exercer o direito ao silêncio. O silêncio não é confissão e não pode ser usado em prejuízo da defesa (CPP, art. 186).",
+      "url": "https://x.com/odilonoliveira/status/2110128448660189207"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-13T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2110128446349164969"
+      ],
+      "id": "2110128446349164969",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 22,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "1/ Recebeu intimação pra depor na delegacia? Confira primeiro se foi chamado como testemunha ou investigado. Você pode buscar orientação e ir acompanhado de advogado.",
+      "url": "https://x.com/odilonoliveira/status/2110128446349164969"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-13T12:24:35.000Z",
+      "edit_history_tweet_ids": [
+        "2109983637609308182"
+      ],
+      "id": "2109983637609308182",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Mandar nudes pode dar cadeia? O contexto importa. No vídeo, explico uma decisão do STJ e por que consentimento, finalidade, autoria e provas precisam ser analisados. Conteúdo informativo: cada caso exige análise própria. #DireitoPenal #Consentimento https://t.co/4ar1QatkSk",
+      "url": "https://x.com/odilonoliveira/status/2109983637609308182"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-12T20:52:53.000Z",
+      "edit_history_tweet_ids": [
+        "2109749169242182030"
+      ],
+      "id": "2109749169242182030",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 14,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Alguém pode me dizer se a assinatura do Kindle Unlimeted vale a pena?",
+      "url": "https://x.com/odilonoliveira/status/2109749169242182030"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-08T14:30:46.000Z",
+      "edit_history_tweet_ids": [
+        "2108203451465236612"
+      ],
+      "id": "2108203451465236612",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 16,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Hoje é aniversário do meu irmão e sócio! Compartilhamos a família e o trabalho na advocacia. Que Deus abençoe sua vida com saúde, paz e muitas alegrias. Feliz aniversário, meu irmão! 🎉 https://t.co/gihZ9GT3tU",
+      "url": "https://x.com/odilonoliveira/status/2108203451465236612"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-08T14:16:51.000Z",
+      "edit_history_tweet_ids": [
+        "2108199952555938258"
+      ],
+      "id": "2108199952555938258",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 11,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107958281536696397",
+          "type": "quoted"
+        }
+      ],
+      "text": "Engraçado como começaram a esconder o vermelho de novo https://t.co/WQvm8zjWvm",
+      "url": "https://x.com/odilonoliveira/status/2108199952555938258"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-06T18:08:44.000Z",
+      "edit_history_tweet_ids": [
+        "2107533532029460922"
+      ],
+      "id": "2107533532029460922",
+      "in_reply_to_user_id": "52189996",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 309,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107465111094878617",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@rogeriosmarinho Por muito menos, juízes de primeiro grau já teriam sido afastados",
+      "url": "https://x.com/odilonoliveira/status/2107533532029460922"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-06T12:13:20.000Z",
+      "edit_history_tweet_ids": [
+        "2107444090287616421"
+      ],
+      "id": "2107444090287616421",
+      "in_reply_to_user_id": "1720665183188922368",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 20,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107229317470081107",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@grok @jordachep @PathOfMen_ @grok qual seria a quantidade de fibras por dia para que supostamente isso acontecesse",
+      "url": "https://x.com/odilonoliveira/status/2107444090287616421"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-05T21:45:53.000Z",
+      "edit_history_tweet_ids": [
+        "2107225788802101414"
+      ],
+      "id": "2107225788802101414",
+      "in_reply_to_user_id": "1334872317328039936",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1433,
+        "like_count": 6,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2106756861479313808",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@futnostalgico Hoje seriam as Bets",
+      "url": "https://x.com/odilonoliveira/status/2107225788802101414"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-05T17:46:59.000Z",
+      "edit_history_tweet_ids": [
+        "2107165670676828335"
+      ],
+      "id": "2107165670676828335",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 13,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2106845241357824205",
+          "type": "quoted"
+        }
+      ],
+      "text": "Como nao ser fã do Codex https://t.co/WT5Chs95CH",
+      "url": "https://x.com/odilonoliveira/status/2107165670676828335"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-04T00:20:07.000Z",
+      "edit_history_tweet_ids": [
+        "2106539830943363487"
+      ],
+      "id": "2106539830943363487",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 12,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Polymarket ✌️ https://t.co/sj4zB2kPkr",
+      "url": "https://x.com/odilonoliveira/status/2106539830943363487"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-01T15:14:37.000Z",
+      "edit_history_tweet_ids": [
+        "2105677774077731254"
+      ],
+      "id": "2105677774077731254",
+      "in_reply_to_user_id": "17715048",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 89,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2105663821364756720",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@VEJA Meio alarmista demais",
+      "url": "https://x.com/odilonoliveira/status/2105677774077731254"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-09-26T22:35:17.000Z",
+      "edit_history_tweet_ids": [
+        "2103976730063225095"
+      ],
+      "id": "2103976730063225095",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 8,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Lula mirou nas Bets mas acertou o futebol brasileiro.\nSerá que produzirá efeitos eleitorais positivos ou negativos para eleição?",
+      "url": "https://x.com/odilonoliveira/status/2103976730063225095"
+    }
+  ],
+  "includes": {
+    "tweets": [
+      {
+        "author_id": "14594813",
+        "created_at": "2026-10-16T17:41:30.000Z",
+        "edit_history_tweet_ids": [
+          "2111150556257353969"
+        ],
+        "id": "2111150556257353969",
+        "public_metrics": {
+          "bookmark_count": 46,
+          "impression_count": 35097,
+          "like_count": 3248,
+          "quote_count": 34,
+          "reply_count": 625,
+          "retweet_count": 707
+        },
+        "text": "Wagner Moura critica relação de Flávio Bolsonaro e Trump em vídeo; veja\n\nhttps://t.co/w9v9nttwaK"
+      },
+      {
+        "author_id": "1492723738340691971",
+        "created_at": "2026-10-16T19:55:59.000Z",
+        "edit_history_tweet_ids": [
+          "2111184398544691463"
+        ],
+        "id": "2111184398544691463",
+        "public_metrics": {
+          "bookmark_count": 571,
+          "impression_count": 102660,
+          "like_count": 12530,
+          "quote_count": 506,
+          "reply_count": 2323,
+          "retweet_count": 5225
+        },
+        "text": "🚨 ATENÇÃO l Panelaço hoje, durante fala daquele cujo nome não podemos falar, é para vingar a presidenta Dilma Rousseff \n\n#HOJEEUVOUBATERPANELA\n#DILMASERAVINGADA https://t.co/LPy1GIMnr9"
+      },
+      {
+        "author_id": "1183711703374192641",
+        "created_at": "2026-10-16T12:39:35.000Z",
+        "edit_history_tweet_ids": [
+          "2111074575899300249"
+        ],
+        "id": "2111074575899300249",
+        "note_tweet": {
+          "text": "I hate to be the one to burst the Tesla bubble today, but the spectacular “flight” we witnessed at the Roadster reveal needs a little context. The car is carrying around 250kg of compressed air, plus the weight of the tanks, valves and thrusters needed to contain and release it. \n\nBased on the published figures, that gives it roughly 1.5–2 seconds of maximum thrust before the system needs to be refilled.\n\nIn short, it's a gimmick."
+        },
+        "public_metrics": {
+          "bookmark_count": 1038,
+          "impression_count": 1283113,
+          "like_count": 14228,
+          "quote_count": 533,
+          "reply_count": 4428,
+          "retweet_count": 1578
+        },
+        "text": "I hate to be the one to burst the Tesla bubble today, but the spectacular “flight” we witnessed at the Roadster reveal needs a little context. The car is carrying around 250kg of compressed air, plus the weight of the tanks, valves and thrusters needed to contain and release it. https://t.co/2CuiHCO9dY"
+      },
+      {
+        "author_id": "1369348853414178822",
+        "created_at": "2026-10-14T01:32:41.000Z",
+        "edit_history_tweet_ids": [
+          "2110181971280433613"
+        ],
+        "id": "2110181971280433613",
+        "public_metrics": {
+          "bookmark_count": 18570,
+          "impression_count": 2035959,
+          "like_count": 7462,
+          "quote_count": 110,
+          "reply_count": 443,
+          "retweet_count": 692
+        },
+        "text": "Grok Bot built me a completely autonomous business which has already generated $1,100\n\nI think this is the future of the economy\n\nEveryone's agents building and launching microbusinesses autonomously\n\nIn this video I walk you through step by step how to set up your own: https://t.co/UZ9eVB2U1w"
+      },
+      {
+        "author_id": "8802752",
+        "created_at": "2026-10-15T18:00:30.000Z",
+        "edit_history_tweet_ids": [
+          "2110792948593873274"
+        ],
+        "id": "2110792948593873274",
+        "public_metrics": {
+          "bookmark_count": 1,
+          "impression_count": 19255,
+          "like_count": 36,
+          "quote_count": 4,
+          "reply_count": 17,
+          "retweet_count": 1
+        },
+        "text": "'Street Fighter': Galhofa criativa não salva filme de lutas fracas e sem foco; g1 já viu https://t.co/vtGv2TsopO #g1"
+      },
+      {
+        "author_id": "44196397",
+        "created_at": "2026-10-15T12:52:58.000Z",
+        "edit_history_tweet_ids": [
+          "2110715556328579219"
+        ],
+        "id": "2110715556328579219",
+        "public_metrics": {
+          "bookmark_count": 5627,
+          "impression_count": 8039956,
+          "like_count": 188275,
+          "quote_count": 3444,
+          "reply_count": 20894,
+          "retweet_count": 17818
+        },
+        "referenced_tweets": [
+          {
+            "id": "2110693166059851836",
+            "type": "quoted"
+          }
+        ],
+        "text": "Maybe we should start a competitor to Amazon 🤔 https://t.co/OkjTB9jmGZ"
+      },
+      {
+        "author_id": "2024213782772244480",
+        "created_at": "2026-10-15T01:13:04.000Z",
+        "edit_history_tweet_ids": [
+          "2110539420734464131"
+        ],
+        "id": "2110539420734464131",
+        "public_metrics": {
+          "bookmark_count": 24,
+          "impression_count": 15317,
+          "like_count": 64,
+          "quote_count": 0,
+          "reply_count": 55,
+          "retweet_count": 0
+        },
+        "text": "what's the cheapest model you've run hermes on that actually got the job done... ?"
+      },
+      {
+        "author_id": "1494658207",
+        "created_at": "2026-10-14T20:25:31.000Z",
+        "edit_history_tweet_ids": [
+          "2110467056005185864"
+        ],
+        "id": "2110467056005185864",
+        "note_tweet": {
+          "entities": {
+            "hashtags": [
+              {
+                "end": 784,
+                "start": 767,
+                "tag": "gamerscontralula"
+              }
+            ]
+          },
+          "text": "Lula regulamentou hoje o meu projeto do Marco Legal dos Games, focado no fomento à indústria que já gera mais receita que a música e o cinema juntos!\n\nEu aprovei esse projeto em abril de 2024 e Lula só o está regulamentando agora, em período eleitoral, por um motivo: ganhar seu voto.\n\nNunca se esqueça que Lula disse que games só ensinam crianças a matar; taxou compras online, impedindo você de comprar um computador gamer por um preço acessível; proibiu as lives do Discord, a maior plataforma de comunicação usada atualmente por quem joga; e a sua ministra, Ana Moser, também tirou os e-sports da lista de esportes dizendo que \"não haverá investimento do Ministério do Esporte nos esports\"!\n\nEles não estão nem aí para nós, esse truque barato não vai funcionar!\n\n#gamerscontralula"
+        },
+        "public_metrics": {
+          "bookmark_count": 2344,
+          "impression_count": 1186991,
+          "like_count": 43580,
+          "quote_count": 538,
+          "reply_count": 1010,
+          "retweet_count": 7340
+        },
+        "text": "Lula regulamentou hoje o meu projeto do Marco Legal dos Games, focado no fomento à indústria que já gera mais receita que a música e o cinema juntos!\n\nEu aprovei esse projeto em abril de 2024 e Lula só o está regulamentando agora, em período eleitoral, por um motivo: ganhar seu https://t.co/Un7CDSzpDe"
+      },
+      {
+        "author_id": "50697116",
+        "created_at": "2026-10-14T22:00:00.000Z",
+        "edit_history_tweet_ids": [
+          "2110490834168656113"
+        ],
+        "id": "2110490834168656113",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 10,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "text": "1/ Escritório pequeno precisa ganhar tempo com segurança. A IA pode ajudar a organizar documentos, resumir autos e preparar rascunhos. Prazos, fatos e fundamentos exigem conferência do advogado."
+      },
+      {
+        "author_id": "50697116",
+        "created_at": "2026-10-13T22:00:01.000Z",
+        "edit_history_tweet_ids": [
+          "2110128448660189207"
+        ],
+        "id": "2110128448660189207",
+        "in_reply_to_user_id": "50697116",
+        "public_metrics": {
+          "bookmark_count": 0,
+          "impression_count": 10,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2110128446349164969",
+            "type": "replied_to"
+          }
+        ],
+        "text": "2/ Se é investigado, pode exercer o direito ao silêncio. O silêncio não é confissão e não pode ser usado em prejuízo da defesa (CPP, art. 186)."
+      },
+      {
+        "author_id": "50697116",
+        "created_at": "2026-10-13T22:00:00.000Z",
+        "edit_history_tweet_ids": [
+          "2110128446349164969"
+        ],
+        "id": "2110128446349164969",
+        "public_metrics": {
+          "bookmark_count": 1,
+          "impression_count": 22,
+          "like_count": 0,
+          "quote_count": 0,
+          "reply_count": 1,
+          "retweet_count": 0
+        },
+        "text": "1/ Recebeu intimação pra depor na delegacia? Confira primeiro se foi chamado como testemunha ou investigado. Você pode buscar orientação e ir acompanhado de advogado."
+      },
+      {
+        "author_id": "47094293",
+        "created_at": "2026-10-07T22:16:32.000Z",
+        "edit_history_tweet_ids": [
+          "2107958281536696397"
+        ],
+        "id": "2107958281536696397",
+        "public_metrics": {
+          "bookmark_count": 88,
+          "impression_count": 134739,
+          "like_count": 6353,
+          "quote_count": 11,
+          "reply_count": 214,
+          "retweet_count": 202
+        },
+        "referenced_tweets": [
+          {
+            "id": "2107922395575230700",
+            "type": "quoted"
+          }
+        ],
+        "text": "Camisa azul e verde com bandeira do Brasil 😂 https://t.co/iHYqijdhbj"
+      },
+      {
+        "author_id": "52189996",
+        "created_at": "2026-10-06T13:36:51.000Z",
+        "edit_history_tweet_ids": [
+          "2107465111094878617"
+        ],
+        "id": "2107465111094878617",
+        "note_tweet": {
+          "text": "Ameaças como essas, feitas por ministros do STF utilizando a imprensa, só reforçam nosso entendimento de que o Supremo precisa deixar de ser uma delegacia de polícia. É inaceitável que integrantes da mais alta corte do país tentem constranger o parlamento, utilizando a abertura de inquéritos ou a adoção de medidas judiciais para impedir a atuação do Congresso na fiscalização da Suprema Corte.  É mais do que urgente uma reforma do Judiciário, garantindo que o STF se concentre na atribuição de corte constitucional, como acontece nas democracias maduras do mundo. Somente assim restabeleceremos a normalidade democrática e o equilíbrio entre os Poderes. A população deixou claro nas urnas que não aceita mais esses abusos. Supremo é o povo!"
+        },
+        "public_metrics": {
+          "bookmark_count": 497,
+          "impression_count": 376424,
+          "like_count": 35985,
+          "quote_count": 445,
+          "reply_count": 2443,
+          "retweet_count": 8979
+        },
+        "text": "Ameaças como essas, feitas por ministros do STF utilizando a imprensa, só reforçam nosso entendimento de que o Supremo precisa deixar de ser uma delegacia de polícia. É inaceitável que integrantes da mais alta corte do país tentem constranger o parlamento, utilizando a abertura https://t.co/DVNMYQhdU2"
+      },
+      {
+        "author_id": "1720665183188922368",
+        "created_at": "2026-10-05T21:59:54.000Z",
+        "edit_history_tweet_ids": [
+          "2107229317470081107"
+        ],
+        "id": "2107229317470081107",
+        "in_reply_to_user_id": "24496336",
+        "note_tweet": {
+          "text": "The fiber mechanism has a real basis: dietary fiber can aid estrogen excretion via the gut by reducing reabsorption (enterohepatic circulation). High-fiber diets show this effect in some studies, mainly in women. \n\nBut no direct human trials prove one raw carrot daily does it meaningfully—carrots supply only ~2g fiber, far less than amounts tested. The idea stems from Ray Peat observations, not controlled evidence.\n\n\"Most men are estrogen dominant\" is unsupported. Men need some estrogen; relative imbalances occur in some (obesity, aging, low T) but not most."
+        },
+        "public_metrics": {
+          "bookmark_count": 5,
+          "impression_count": 3181,
+          "like_count": 10,
+          "quote_count": 0,
+          "reply_count": 2,
+          "retweet_count": 0
+        },
+        "referenced_tweets": [
+          {
+            "id": "2107229179863502862",
+            "type": "replied_to"
+          }
+        ],
+        "text": "@jordachep @PathOfMen_ The fiber mechanism has a real basis: dietary fiber can aid estrogen excretion via the gut by reducing reabsorption (enterohepatic circulation). High-fiber diets show this effect in some studies, mainly in women. \n\nBut no direct human trials prove one raw carrot daily does it"
+      },
+      {
+        "author_id": "1334872317328039936",
+        "created_at": "2026-10-04T14:42:32.000Z",
+        "edit_history_tweet_ids": [
+          "2106756861479313808"
+        ],
+        "id": "2106756861479313808",
+        "public_metrics": {
+          "bookmark_count": 52,
+          "impression_count": 28204,
+          "like_count": 2402,
+          "quote_count": 3,
+          "reply_count": 7,
+          "retweet_count": 56
+        },
+        "text": "Ayrton Senna vota em cabine patrocinada pela Antarctica, em 1989.\n\nNostálgico! https://t.co/3MS4JAL8w2"
+      },
+      {
+        "author_id": "1953337039510003712",
+        "created_at": "2026-10-04T20:33:43.000Z",
+        "edit_history_tweet_ids": [
+          "2106845241357824205"
+        ],
+        "id": "2106845241357824205",
+        "public_metrics": {
+          "bookmark_count": 2607,
+          "impression_count": 8093839,
+          "like_count": 26275,
+          "quote_count": 2327,
+          "reply_count": 4505,
+          "retweet_count": 1488
+        },
+        "referenced_tweets": [
+          {
+            "id": "2106610099720720811",
+            "type": "quoted"
+          }
+        ],
+        "text": "Over the next 28 days, each day we’ll either ship one thing that is a clear improvement and relevant for most codex/work users or ship a full reset. Let the improvements begin. https://t.co/0oFXZ7LY5T"
+      },
+      {
+        "author_id": "17715048",
+        "created_at": "2026-10-01T14:19:11.000Z",
+        "edit_history_tweet_ids": [
+          "2105663821364756720"
+        ],
+        "id": "2105663821364756720",
+        "public_metrics": {
+          "bookmark_count": 25,
+          "impression_count": 26787,
+          "like_count": 400,
+          "quote_count": 14,
+          "reply_count": 47,
+          "retweet_count": 37
+        },
+        "text": "IA já é capaz de matar milhões de pessoas e invadir contas bancárias, diz Bill Gates https://t.co/HZaZvjj2Kp"
+      }
+    ],
+    "users": [
+      {
+        "id": "50697116",
+        "name": "Odilon Jr",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2026322355681652736/vfuvw5l7_normal.jpg",
+        "username": "odilonoliveira",
+        "verified": false
+      },
+      {
+        "id": "14594813",
+        "name": "Folha de S.Paulo",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1895068664161828864/Dsx8poRS_normal.jpg",
+        "username": "folha",
+        "verified": true
+      },
+      {
+        "id": "1492723738340691971",
+        "name": "Notícias Paralelas",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1748427290789154816/vr7r4w2f_normal.jpg",
+        "username": "NP__Oficial",
+        "verified": false
+      },
+      {
+        "id": "1183711703374192641",
+        "name": "Sam",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2079120653597179904/pPojEtLc_normal.jpg",
+        "username": "SamCKx",
+        "verified": false
+      },
+      {
+        "id": "1369348853414178822",
+        "name": "Alex Finn",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1745232634278461440/7gQcr_R__normal.jpg",
+        "username": "AlexFinn",
+        "verified": false
+      },
+      {
+        "id": "8802752",
+        "name": "g1",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2080027823415140352/TDhf6g0B_normal.jpg",
+        "username": "g1",
+        "verified": true
+      },
+      {
+        "id": "44196397",
+        "name": "Elon Musk",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2103567689515954176/aR-Kjpp4_normal.jpg",
+        "username": "elonmusk",
+        "verified": false
+      },
+      {
+        "id": "2024213782772244480",
+        "name": "Hermes Agent Tips",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2094407488711856128/fPxebTOo_normal.jpg",
+        "username": "HermesAgentTips",
+        "verified": false
+      },
+      {
+        "id": "1494658207",
+        "name": "Kim Kataguiri",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2107875082911596545/F3sWGAFU_normal.jpg",
+        "username": "KimKataguiri",
+        "verified": false
+      },
+      {
+        "id": "47094293",
+        "name": "Economista Sincero",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1814683021473132544/WGksjult_normal.jpg",
+        "username": "mendlowicz",
+        "verified": false
+      },
+      {
+        "id": "52189996",
+        "name": "Rogério Marinho🇧🇷",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2078458635831672832/IyIxhGbG_normal.jpg",
+        "username": "rogeriosmarinho",
+        "verified": false
+      },
+      {
+        "id": "1720665183188922368",
+        "name": "Grok",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2057885623374290944/lmj0pawP_normal.jpg",
+        "username": "grok",
+        "verified": true
+      },
+      {
+        "id": "1334872317328039936",
+        "name": "Futebol Nostálgico!",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1941975659317772288/gDQr80co_normal.jpg",
+        "username": "futnostalgico",
+        "verified": false
+      },
+      {
+        "id": "1953337039510003712",
+        "name": "Tibo",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/2093807917833281537/2yBgpwVV_normal.jpg",
+        "username": "thsottiaux",
+        "verified": false
+      },
+      {
+        "id": "17715048",
+        "name": "VEJA",
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1620471708925698057/5P44ithe_normal.jpg",
+        "username": "VEJA",
+        "verified": false
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2111189744029687910",
+    "oldest_id": "2103976730063225095",
+    "result_count": 25
+  }
+}

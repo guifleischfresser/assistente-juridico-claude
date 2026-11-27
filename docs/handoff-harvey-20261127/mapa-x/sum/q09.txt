@@ -1,0 +1,51 @@
+=== q09_contratos: 25 posts
+@grok (9173304f) 2026-03-08 L1 RT0 V14 https://x.com/grok/status/2030462797507604574
+   @Matheus27020462 @BitGrateful Claro! A lógica é simples: em 2023, engenheiros que usaram IA (Copilot etc.) dobraram a produtividade e entregaram mais código de qualidade. A IA não substituiu ninguém — quem a dominou sim.  No direito é igual: IA já faz pesquisa jurídica, revisão de contratos, due diligence e
+@grok (9173304f) 2026-02-09 L2 RT0 V65 https://x.com/grok/status/2020986906549354955
+   @rpjupiter @ducavendish Harvey é uma IA generativa para o setor jurídico, baseada em GPT da OpenAI, treinada em dados legais. Ela faz pesquisa jurídica, análise de contratos, redação de documentos (como petições e contratos), due diligence e responde a questões complexas.  Pode auxiliar advogados
+@mottamarcos (78398f) 2026-04-25 L2807 RT181 V2185241 https://x.com/mottamarcos/status/2048007483642249590
+   A IA não está apenas automatizando tarefas jurídicas. Está eliminando o andaime que forma profissionais calibrados. Pesquisa, due diligence, revisão de contratos é como o estagiário aprende a pensar juridicamente. Hoje a IA entrega o resultado, mas o caminho que forma o
+@profjuliosouza (682f) 2026-02-09 L17 RT0 V780 https://x.com/profjuliosouza/status/2020990133613342945
+   @ducavendish Concordo que a Harvey AI (US$190M ARR, 100k advogados usando) é impressionante e vai transformar a advocacia global — automatizando pesquisa, análise de contratos, due diligence etc. Advogados que usam IA bem vão substituir os que não usam.  Mas no Brasil? A realidade é outra. O
+@ia_sapiens (3f) 2026-04-17 L0 RT0 V11 https://x.com/ia_sapiens/status/2045197835084484734
+   3 formas de aumentar a produtividade no seu escritório de advocacia com IA Agêntica:  1. Triagem e análise de contratos automatizada 2. Gestão inteligente de prazos processuais 3. Pesquisa jurisprudencial em segundos  O futuro jurídico é agêntico. #IASapiens #IAAgêntica https://t.co/JQHzu4AeaP
+@rootzluv (69f) 2025-04-02 L2 RT0 V27 https://x.com/rootzluv/status/1907558115098169485
+   https://t.co/Z9THnXuZVm A IA está mudando a revisão de contratos! Mais rapidez, menos riscos e custos reduzidos. Advogados não serão substituídos, mas potencializados.  Atualize seu escritório! #LegalTech #IA #Contratos
+@SosthenisLima (1509f) 2026-04-22 L0 RT0 V11 https://x.com/SosthenisLima/status/2046952607000801768
+   JPMorgan → implantou LLM próprio (IndexGPT) em 2023 → reduziu em 360h/ano o trabalho jurídico de revisão de contratos → IA não substitui o analista; elimina o trabalho sem valor agregado.  Sua mesa ainda faz isso manualmente? 📊  #IA #FinTech
+@phalaportugues (434f) 2025-11-13 L3 RT0 V155 https://x.com/phalaportugues/status/1988995102698545368
+   1/ Qual modelo de IA NÃO consegue lidar com trabalho jurídico?  Testamos 12 modelos em 163 tarefas reais (perguntas, revisão de contratos e prompts “pegadinhas”). A grande lição: segurança vs. utilidade é um verdadeiro trade-off. Os resultados nos surpreenderam. 👇 https://t.co/tigTb6LF6Y
+@SosthenisLima (1509f) 2026-03-27 L0 RT0 V20 https://x.com/SosthenisLima/status/2037545137203474574
+   JPMorgan → implantou LLM jurídico (COiN) → reduziu 360 mil horas/ano de revisão de contratos → automatizar não é o futuro, é 2017.  O que seu banco fez desde então?  #IA #FinTech
+@Trorram (271f) 2026-07-22 L0 RT0 V149 https://x.com/Trorram/status/2080065600374571265
+   🚀 128 Claude Skills para montar uma empresa de uma pessoa só  O ecossistema de Agent Skills da Anthropic já viabiliza operações completas sem contratar ninguém. Aqui estão os links oficiais de cada repositório:  ☑️ 1. Desenvolvimento (6 skills) • Superpowers → https://t.co/kQYL9O16JK
+@grok (9173304f) 2026-03-01 L0 RT1 V40 https://x.com/grok/status/2028242362812518632
+   @iamleds @baba_Omoloro Olá! Como advogado, recomendo começar pelo "Claude 101": ele ensina a usar o Claude em tarefas do dia a dia, como pesquisa jurídica, análise de contratos e redação de peças.  Depois, faça "AI Fluency: Framework &amp; Foundations" para dominar o uso ético e seguro da IA — essencial no
+@SwenAIBR (1f) 2026-03-01 L0 RT0 V2 https://x.com/SwenAIBR/status/2027935153650069514
+   ### Automação de tarefas repetitivas A IA agora pode realizar a triagem de processos. Ela também faz a revisão de contratos. Isso libera o advogado para focar em estratégias. Essas ferramentas conseguem identificar padrões em grandes volumes de dados. (7/20)
+@SimplificadorAi (6f) 2025-09-06 L0 RT0 V0 https://x.com/SimplificadorAi/status/1964403275995713608
+   🔍 Transforme sua análise de contratos! Com o Simplificador Jurídico, você economiza tempo e elimina dúvidas com nossa IA que responde suas perguntas 24/7! 🌟 Não deixe surpresas aparecerem! Converse agora: https://t.co/UFynThSxeM #SimplificadorJuridico
+@CTS_FGV (4031f) 2026-04-28 L0 RT0 V17 https://x.com/CTS_FGV/status/2049203110795481098
+   Priscilla Faro diz que a IA já transformou o jurídico,  ferramentas preveem decisões com base em precedentes, sugerem argumentos, geram petições com revisão humana e automatizam análise de contratos. https://t.co/GYNVJ2MzQs
+@gabrielabiramia (1650f) 2026-05-13 L0 RT0 V9 https://x.com/gabrielabiramia/status/2054641841136378349
+   Revisão de contratos, prazos, petições... Anthropic transformando isso em subscription baratíssima. Enquanto escritórios ainda cobram R$500/hora pra fazer exatamente isso. Advogado que aprender a usar IA vai sobrar no mercado. Os que não aprenderem? Buuum. 💀 https://t.co/NZYu8VsBzG
+@ocezao01 (184f) 2025-12-02 L0 RT0 V116 https://x.com/ocezao01/status/1995798045653340498
+   @FariaLimaElevat Elaboração e revisão de prompts, analise específica e detalhada de processos e atos processuais, pensando e soluções jurídico-estratégicas, pensamentos, insights e direcionamento das ferramentas de IA, due diligence aprimorado etc. Mas, realmente, o advogado tradicional já era
+@dcoderio (2762f) 2026-03-07 L116 RT4 V13624 https://x.com/dcoderio/status/2030087197026640306
+   A IA nao ta substituindo só empregos. ta matando todo negocio que depende do cliente nao ter informação, e isso não é ruim.  advogado que cobrava R$5.000 pra revisar contrato? cliente joga no GPT-5.4 em 5 minutos  mecanico que inventava peça pra trocar? cliente pesquisa o erro
+@vvalle_33 (16f) 2026-05-13 L0 RT0 V35 https://x.com/vvalle_33/status/2054532334192316762
+   Não é sobre “IA para advogado”. É sobre Claude virando camada operacional de software vertical.  A Anthropic soltou 20+ conectores MCP e 12 plugins jurídicos. Na prática: revisar contrato no Word, puxar precedente no CoCounsel e fechar o sumário no PowerPoint sem reexplicar
+@vvalle_33 (16f) 2026-04-04 L0 RT0 V24 https://x.com/vvalle_33/status/2040520484933034226
+   ⚖️ O modelo de cobrança por hora dos escritórios de advocacia está MORRENDO — e desta vez não é hype.  A Cleary Gottlieb, um dos maiores escritórios do mundo, implantou IA em TODA a operação: revisão de contratos, pesquisa jurídica, redação de petições. Escritórios com agentes de
+@product_gurus (5114f) 2025-04-09 L9 RT1 V1201 https://x.com/product_gurus/status/1909932759268676066
+   O uso de IA no iFood vai além de buzzwords. É transformação real do negócio.  A implementação de inteligência artificial no iFood não é apenas uma estratégia de marketing - é um motor de resultados que impacta diretamente a operação.  Os mais de 10 casos compartilhados por Marcos https://t.co/5lb0oeAARt
+@ChacalLmd (24f) 2026-03-27 L0 RT0 V7 https://x.com/ChacalLmd/status/2037529295225004409
+   @meeelzinho E na dúvida você sempre pode consultar outro contador para checar o que ele diz... Já contratei advogado para revisar contrato do outro antes de assinar ... Uma consulta na ia também não faz mal.
+@RafaelMilagre (297f) 2026-09-26 L0 RT0 V8 https://x.com/RafaelMilagre/status/2103970175523459139
+   Escritorio de advocacia nos EUA correndo pra mostrar ferramenta de IA. A Ropes &amp; Gray falou que ta desenvolvendo uma que faz due diligence em horas. Aí o cliente pergunta: cadê o desconto? E o desconto não vem.
+@uassimogone (20f) 2026-05-04 L1 RT0 V10 https://x.com/uassimogone/status/2051263091191533747
+   A Microsoft criou um Agente Jurídico — feito por ex-funcionários de legaltech, dentro do próprio Word. Não é o Copilot. É uma ferramenta construída só pra revisar e negociar contratos. Anthropic já estava no jurídico. Agora a Microsoft entrou de vez. Dois gigantes mirando na
+@uassimogone (20f) 2026-05-04 L0 RT0 V33 https://x.com/uassimogone/status/2051269793580249337
+   A Microsoft criou um Agente Jurídico — feito por ex-funcionários de legaltech, dentro do próprio Word. Não é o Copilot. É uma ferramenta construída só pra revisar e negociar contratos. Anthropic já estava no jurídico. Agora a Microsoft entrou de vez. Dois gigantes mirando na
+@bullaibr (0f) 2026-06-10 L0 RT0 V6 https://x.com/bullaibr/status/2064803748036465000
+   IA útil no jurídico não começa decidindo mérito. Começa mostrando fonte, certidão, status, protocolo e evidência. Sem trilha conferível, automação só acelera a bagunça. Em due diligence, o valor está no rastro revisável. Concorda? #DueDiligence https://t.co/TYIiWWxmkM

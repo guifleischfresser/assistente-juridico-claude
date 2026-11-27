@@ -1,0 +1,694 @@
+{
+  "data": [
+    {
+      "author_id": "2793084243",
+      "created_at": "2026-05-13T12:00:54.000Z",
+      "edit_history_tweet_ids": [
+        "2054532334192316762"
+      ],
+      "id": "2054532334192316762",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 35,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Não é sobre “IA para advogado”. É sobre Claude virando camada operacional de software vertical.\n\nA Anthropic soltou 20+ conectores MCP e 12 plugins jurídicos. Na prática: revisar contrato no Word, puxar precedente no CoCounsel e fechar o sumário no PowerPoint sem reexplicar",
+      "url": "https://x.com/vvalle_33/status/2054532334192316762"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-02-25T12:33:24.000Z",
+      "edit_history_tweet_ids": [
+        "2026636647345930335"
+      ],
+      "id": "2026636647345930335",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 52,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "🚨 Anthropic lançou 10 novos plugins para o Claude — LegalZoom e Harvey entre eles, direto para o Direito.\n\nEm janeiro, o plugin jurídico apagou US$1T em ações de software globais.\n\nO impacto da IA no Direito não é mais futuro — é realidade presente.\n\n#IAnoDireito #Claude https://t.co/0CJ7u0hMlP",
+      "url": "https://x.com/martins_piton/status/2026636647345930335"
+    },
+    {
+      "author_id": "165935990",
+      "created_at": "2026-02-11T19:15:53.000Z",
+      "edit_history_tweet_ids": [
+        "2021664506913739255"
+      ],
+      "id": "2021664506913739255",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 124,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Eu dei uma olhada no plugin jurídico para o Claude e é muito interessante. A arquitetura é de um sistema atalhos (commands), pequenas bases de conhecimento (skills) e fontes de dados integradas (connectors). Como tudo é customizado, é um sistema muito plástico e poderoso. https://t.co/m50MUb5eLE",
+      "url": "https://x.com/henarcos/status/2021664506913739255"
+    },
+    {
+      "author_id": "2004087798664675328",
+      "created_at": "2026-05-12T20:57:16.000Z",
+      "edit_history_tweet_ids": [
+        "2054304926625329317",
+        "2054305241248440573"
+      ],
+      "id": "2054304926625329317",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 25,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "ADVOGADOS DISSERAM QUE IA NUNCA IA SUBSTITUÍ-LOS\n\nEntão a Anthropic lançou 12 novos plugins jurídicos para Claude.\n\nE agora o setor jurídico inteiro parece estar entrando em modo turbo.\n\n→ “Commercial Counsel” revisa contratos automaticamente\n\n→ Westlaw\n→ DocuSign\n→ Everlaw https://t.co/w1VgrAZ6l8 https://t.co/HhpsXCkOwo",
+      "url": "https://x.com/FelpsCrypto/status/2054304926625329317"
+    },
+    {
+      "author_id": "2004087798664675328",
+      "created_at": "2026-05-12T20:58:31.000Z",
+      "edit_history_tweet_ids": [
+        "2054304926625329317",
+        "2054305241248440573"
+      ],
+      "id": "2054305241248440573",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 312,
+        "impression_count": 69597,
+        "like_count": 422,
+        "quote_count": 4,
+        "reply_count": 12,
+        "retweet_count": 31
+      },
+      "text": "ADVOGADOS DISSERAM QUE IA NUNCA IRIA SUBSTITUÍ-LOS\n\nEntão a Anthropic lançou 12 novos plugins jurídicos para Claude.\n\nE agora o setor jurídico inteiro parece estar entrando em modo turbo.\n\n→ “Commercial Counsel” revisa contratos automaticamente\n\n→ Westlaw\n→ DocuSign\n→ Everlaw https://t.co/sL7Wwh3zGO https://t.co/HhpsXCkOwo",
+      "url": "https://x.com/FelpsCrypto/status/2054305241248440573"
+    },
+    {
+      "author_id": "1695452766993293312",
+      "created_at": "2026-09-06T18:18:24.000Z",
+      "edit_history_tweet_ids": [
+        "2096664328946541015"
+      ],
+      "id": "2096664328946541015",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 43,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@arkrout @Orgulhisa Stremio. Só achar um plugin legal e dalhe",
+      "url": "https://x.com/mrsmims_/status/2096664328946541015"
+    },
+    {
+      "author_id": "1685683284284481536",
+      "created_at": "2026-02-02T23:54:47.000Z",
+      "edit_history_tweet_ids": [
+        "2018473200980775222"
+      ],
+      "id": "2018473200980775222",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 49,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@shinosu879870 @SabbathFab Suave então mano, q vi q tinha até uns plugin legal de horas de jogo não steam e tal",
+      "url": "https://x.com/SEPDarklucaz/status/2018473200980775222"
+    },
+    {
+      "author_id": "1791797597302038528",
+      "created_at": "2026-10-08T23:56:52.000Z",
+      "edit_history_tweet_ids": [
+        "2108345918823039198"
+      ],
+      "id": "2108345918823039198",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 74,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@mur1linng tem uns plugin legal tbm que tô usando tipo GameEnginner, Figma MCP e tbm SupaBase",
+      "url": "https://x.com/vcenovra/status/2108345918823039198"
+    },
+    {
+      "author_id": "1661782254622846984",
+      "created_at": "2026-08-18T02:30:43.000Z",
+      "edit_history_tweet_ids": [
+        "2089540466530250910"
+      ],
+      "id": "2089540466530250910",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 4,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Pra verticais prontas: financial-services, healthcare e claude-for-legal já vêm com scripts, MCP servers e plugins especializados.",
+      "url": "https://x.com/thedoomguy_ai/status/2089540466530250910"
+    },
+    {
+      "author_id": "3060355543",
+      "created_at": "2026-01-19T14:38:54.000Z",
+      "edit_history_tweet_ids": [
+        "2013259878001697161"
+      ],
+      "id": "2013259878001697161",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 10,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@pixogaykig O stremio era tão bom mas agr toda vez que eu ia assistir tava difícil achar um plugin legal e o mico-leão dublado se foi",
+      "url": "https://x.com/petiterati/status/2013259878001697161"
+    },
+    {
+      "author_id": "1486822645752549376",
+      "created_at": "2026-07-30T15:20:04.000Z",
+      "edit_history_tweet_ids": [
+        "2082848710057250852"
+      ],
+      "id": "2082848710057250852",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 273,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "4. A Harvey usa o Claude para vender ferramentas de análise de contratos com IA, due diligence e litígios. agora a Anthropic vende os mesmos fluxos de trabalho através do Claude for Legal.",
+      "url": "https://x.com/Heberobruto/status/2082848710057250852"
+    },
+    {
+      "author_id": "1062827821897302016",
+      "created_at": "2026-09-29T13:51:34.000Z",
+      "edit_history_tweet_ids": [
+        "2104932097441804564"
+      ],
+      "id": "2104932097441804564",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 221,
+        "like_count": 3,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "crackeei um plugin legal pro fl ontem e to aqui no trabalho me tremendo de vontade de usar ele pqp vou desmaiar",
+      "url": "https://x.com/ANJOTORT0/status/2104932097441804564"
+    },
+    {
+      "author_id": "2750515186",
+      "created_at": "2026-05-14T20:11:23.000Z",
+      "edit_history_tweet_ids": [
+        "2055018154393243837"
+      ],
+      "id": "2055018154393243837",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Anthropic abriu três frentes na mesma semana. Terça meteu doze plugins jurídicos especializados dentro do Claude, com buscador legal de parceiro acoplado e leque cobrindo direito societário, regulatório e trabalhista. Hoje cedo alargou aliança com uma das quatro grandes",
+      "url": "https://x.com/opanteraos/status/2055018154393243837"
+    },
+    {
+      "author_id": "2025671220663132160",
+      "created_at": "2026-06-20T02:39:13.000Z",
+      "edit_history_tweet_ids": [
+        "2068161720833511867"
+      ],
+      "id": "2068161720833511867",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A Anthropic lancou o Claude for Legal: voce joga um contrato e ele revisa clausula por clausula, marca o risco em vermelho, sugere a correcao e roda dentro do Word. E e open-source no GitHub. O trabalho juridico mudou. #IA https://t.co/7gCDyQAK49",
+      "url": "https://x.com/MaestrosMode/status/2068161720833511867"
+    },
+    {
+      "author_id": "1795499028588683264",
+      "created_at": "2026-05-20T09:48:33.000Z",
+      "edit_history_tweet_ids": [
+        "2057035741369167984"
+      ],
+      "id": "2057035741369167984",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 5,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "🤖 A Anthropic expandiu o Claude for Legal com 12 ferramentas para advogados — revisão de contratos, litígios, e até integração com Microsoft 365.\n\nA IA jurídica não é mais opcional. 🔗 Link na bio https://t.co/fSpxlzREEQ",
+      "url": "https://x.com/VanquishBr/status/2057035741369167984"
+    },
+    {
+      "author_id": "1517254816489259010",
+      "created_at": "2026-05-13T12:02:22.000Z",
+      "edit_history_tweet_ids": [
+        "2054532702921969779"
+      ],
+      "id": "2054532702921969779",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 76,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A Anthropic lancou o Claude for legal, que combina agentes e skills, com plug-ins para serem instalados no Cowork. Há inclusive plug ins pra estudantes se prepararem para o Bar Exam. Não cobre Brasil, mas é uma ferramenta interessante. \n\nhttps://t.co/evMLjfq4hW",
+      "url": "https://x.com/mends_alex/status/2054532702921969779"
+    },
+    {
+      "author_id": "887819339243675648",
+      "created_at": "2026-05-13T00:23:50.000Z",
+      "edit_history_tweet_ids": [
+        "2054356912699769078"
+      ],
+      "id": "2054356912699769078",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 66,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Advogados, jurídicos internos e legal ops: \na Anthropic liberou o Claude for Legal, um repositório com agentes, skills e conectores para fluxos jurídicos como contratos, LGPD/privacidade, regulatório, contencioso, trabalhista, PI e governança de IA.\n\nNão substitui advogado,",
+      "url": "https://x.com/Brito80061/status/2054356912699769078"
+    },
+    {
+      "author_id": "803592179352485888",
+      "created_at": "2026-10-16T15:02:06.000Z",
+      "edit_history_tweet_ids": [
+        "2111110439903908074"
+      ],
+      "id": "2111110439903908074",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "O plugin Legal no Claude Code ajuda na triagem de contratos. Exemplo fictício. Não substitui seu advogado.\n\nComenta HUB que eu te mando o passo a passo pra instalar esse plugin no Claude Code.\nhttps://t.co/Q079JtyaTW https://t.co/g0nR8GhVZ7",
+      "url": "https://x.com/fabioborgesia/status/2111110439903908074"
+    },
+    {
+      "author_id": "1850318766103523328",
+      "created_at": "2026-05-13T03:01:38.000Z",
+      "edit_history_tweet_ids": [
+        "2054396621916455255"
+      ],
+      "id": "2054396621916455255",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 385,
+        "like_count": 0,
+        "quote_count": 1,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Olhando as 13 skills do pacote claude-for-legal lançado hoje pela @AnthropicAI para o @claudeai  o quadro é claro: o pacote é fundamentalmente um produto para o mercado jurídico americano corporativo — in-house counsel, Big Law, M&amp;A, compliance, privacy, IP, clínicas",
+      "url": "https://x.com/rpjupiter/status/2054396621916455255"
+    },
+    {
+      "author_id": "1273776346771132417",
+      "created_at": "2026-03-16T19:31:31.000Z",
+      "edit_history_tweet_ids": [
+        "2033627237560250529"
+      ],
+      "id": "2033627237560250529",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 152,
+        "impression_count": 23395,
+        "like_count": 304,
+        "quote_count": 6,
+        "reply_count": 15,
+        "retweet_count": 59
+      },
+      "text": "A MAIOR INVERSÃO ECONÔMICA DAS NOSSAS VIDAS ESTÁ ACONTECENDO AGORA\n\nDaniel Priestley construiu 5 empresas multimilionárias em 20 anos. É cofundador da Dent Global e da ScoreApp, autor de bestsellers internacionais como \"Oversubscribed\" e \"Key Person of Influence\", e previu o https://t.co/p495YrtNv7",
+      "url": "https://x.com/namcios/status/2033627237560250529"
+    },
+    {
+      "author_id": "1598088134167781382",
+      "created_at": "2026-08-10T11:45:11.000Z",
+      "edit_history_tweet_ids": [
+        "2086780900344308095"
+      ],
+      "id": "2086780900344308095",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 139,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Existe um pesadelo novo rondando as startups. E ele é bem mais assustador que o antigo.\n\nDeixa eu te contar o que aconteceu com o Canva essa semana pra você entender.\n\nO Canva era cliente da OpenAI. Rodava IA em cima da estrutura deles, passava dados, ajudava a treinar os",
+      "url": "https://x.com/leozeferino85/status/2086780900344308095"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Acompanho IA e automação no Brasil | Novidades e ferramentas que mudam como a gente trabalha",
+        "id": "2793084243",
+        "name": "Victor",
+        "public_metrics": {
+          "followers_count": 16,
+          "following_count": 191,
+          "like_count": 3778,
+          "listed_count": 0,
+          "media_count": 1,
+          "tweet_count": 239
+        },
+        "username": "vvalle_33"
+      },
+      {
+        "description": "👨🏻‍💼Defensor Público, 🏫Mestre em Direito e 👨🏻‍🏫 Professor",
+        "id": "1046055100345700352",
+        "name": "Marcelo Martins Piton",
+        "public_metrics": {
+          "followers_count": 211,
+          "following_count": 575,
+          "like_count": 3582,
+          "listed_count": 0,
+          "media_count": 445,
+          "tweet_count": 1227
+        },
+        "username": "martins_piton"
+      },
+      {
+        "description": "Professor de Direito da UnB. Advogado em Brasília. Falo sobre inteligência artificial, tecnologia e o futuro das profissões jurídicas.",
+        "id": "165935990",
+        "name": "Henrique Araújo Costa",
+        "public_metrics": {
+          "followers_count": 8346,
+          "following_count": 31,
+          "like_count": 1,
+          "listed_count": 76,
+          "media_count": 0,
+          "tweet_count": 9
+        },
+        "username": "henarcos"
+      },
+      {
+        "description": "Web3 Explorer\n\nTech • IA • análises e guias originais",
+        "id": "2004087798664675328",
+        "name": "FELPS",
+        "public_metrics": {
+          "followers_count": 23200,
+          "following_count": 4279,
+          "like_count": 20726,
+          "listed_count": 64,
+          "media_count": 1937,
+          "tweet_count": 16793
+        },
+        "username": "FelpsCrypto"
+      },
+      {
+        "description": "Se o pato perde a pata, ele fica manco ou viúvo?",
+        "id": "1695452766993293312",
+        "name": "Ayrton Senna de Cera",
+        "public_metrics": {
+          "followers_count": 30,
+          "following_count": 141,
+          "like_count": 16350,
+          "listed_count": 1,
+          "media_count": 83,
+          "tweet_count": 1897
+        },
+        "username": "mrsmims_"
+      },
+      {
+        "description": "Fiel a Silent Hill, Remedy e Annapurna, mas principalmente a ela 👇\n@marizskaa ♡\n\nSteam: 1285336110",
+        "id": "1685683284284481536",
+        "name": "DarkLucaz",
+        "public_metrics": {
+          "followers_count": 929,
+          "following_count": 1203,
+          "like_count": 12414,
+          "listed_count": 21,
+          "media_count": 1549,
+          "tweet_count": 17190
+        },
+        "username": "SEPDarklucaz"
+      },
+      {
+        "description": "web developer full stack \ndm open for comissions",
+        "id": "1791797597302038528",
+        "name": "*",
+        "public_metrics": {
+          "followers_count": 4186,
+          "following_count": 269,
+          "like_count": 1767,
+          "listed_count": 3,
+          "media_count": 1136,
+          "tweet_count": 7676
+        },
+        "username": "vcenovra"
+      },
+      {
+        "description": "IDKFA\nIDDQD\nIDBEHOLD",
+        "id": "1661782254622846984",
+        "name": "The DOOM Guy",
+        "public_metrics": {
+          "followers_count": 281,
+          "following_count": 19,
+          "like_count": 127,
+          "listed_count": 1,
+          "media_count": 4605,
+          "tweet_count": 15387
+        },
+        "username": "thedoomguy_ai"
+      },
+      {
+        "description": "hopebaiting",
+        "id": "3060355543",
+        "name": "lulu from tilambuco",
+        "public_metrics": {
+          "followers_count": 389,
+          "following_count": 194,
+          "like_count": 20785,
+          "listed_count": 3,
+          "media_count": 2544,
+          "tweet_count": 43434
+        },
+        "username": "petiterati"
+      },
+      {
+        "description": "Nesse perfil eu falo mais sobre política. Isso não me impede de abordar outros assuntos. O perfil @Geopoliticabra4 é sobre assuntos militares e geopolítica",
+        "id": "1486822645752549376",
+        "name": "Heber",
+        "public_metrics": {
+          "followers_count": 8793,
+          "following_count": 641,
+          "like_count": 64897,
+          "listed_count": 39,
+          "media_count": 7903,
+          "tweet_count": 24739
+        },
+        "username": "Heberobruto"
+      },
+      {
+        "description": "маленький мальчик из ошибок\n@posmortempoetry\nnb",
+        "id": "1062827821897302016",
+        "name": "Габриэль",
+        "public_metrics": {
+          "followers_count": 528,
+          "following_count": 1142,
+          "like_count": 225593,
+          "listed_count": 2,
+          "media_count": 493,
+          "tweet_count": 11296
+        },
+        "username": "ANJOTORT0"
+      },
+      {
+        "description": "Product Engineer 🛠️ | Product Thinking + Technical Execution | Shipping end-to-end software & AI that solve real user problems",
+        "id": "2750515186",
+        "name": "PanteraOS",
+        "public_metrics": {
+          "followers_count": 295,
+          "following_count": 7499,
+          "like_count": 85851,
+          "listed_count": 14,
+          "media_count": 46,
+          "tweet_count": 7038
+        },
+        "username": "opanteraos"
+      },
+      {
+        "description": "Seu negócio no piloto automático com IA ⚡ Agentes autônomos, Claude Code e automações que trabalham 24/7 por você. Enquanto você dorme, seus maestros executam.",
+        "id": "2025671220663132160",
+        "name": "Maestros Mode",
+        "public_metrics": {
+          "followers_count": 2,
+          "following_count": 1,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 218,
+          "tweet_count": 219
+        },
+        "username": "MaestrosMode"
+      },
+      {
+        "description": "Somos especialistas em criar ecossistemas digitais completos: integramos aplicativos, plataformas web e comércio eletrônico com inteligência artificial.",
+        "id": "1795499028588683264",
+        "name": "Vanquish Dev",
+        "public_metrics": {
+          "followers_count": 2,
+          "following_count": 102,
+          "like_count": 1,
+          "listed_count": 0,
+          "media_count": 151,
+          "tweet_count": 165
+        },
+        "username": "VanquishBr"
+      },
+      {
+        "description": "Safra 76. Casado, pai de filha trans. Direito/USP e EAESP/FGV. Antes, Poli/USP. Mestrando em Direito (USP).",
+        "id": "1517254816489259010",
+        "name": "Alexandre Mendonça",
+        "public_metrics": {
+          "followers_count": 312,
+          "following_count": 724,
+          "like_count": 10720,
+          "listed_count": 0,
+          "media_count": 2756,
+          "tweet_count": 15364
+        },
+        "username": "mends_alex"
+      },
+      {
+        "description": "",
+        "id": "887819339243675648",
+        "name": "Brito",
+        "public_metrics": {
+          "followers_count": 20,
+          "following_count": 468,
+          "like_count": 564,
+          "listed_count": 0,
+          "media_count": 10,
+          "tweet_count": 100
+        },
+        "username": "Brito80061"
+      },
+      {
+        "description": "Ajudo empresários brasileiros nos EUA a escalar negócios com IA e automações.  \nCriador da Comunidade ME ENSINA AI e do evento IA para Negócios 🇺🇸🤖",
+        "id": "803592179352485888",
+        "name": "Fabio Borges",
+        "public_metrics": {
+          "followers_count": 7,
+          "following_count": 131,
+          "like_count": 5,
+          "listed_count": 0,
+          "media_count": 178,
+          "tweet_count": 209
+        },
+        "username": "fabioborgesia"
+      },
+      {
+        "description": "Negócios | Empreendedorismo I Marketing | Bitcoin | Web3 | De-Fi | IA Entusiasta | Tecnologia | Futebol",
+        "id": "1850318766103523328",
+        "name": "R Jupiter",
+        "public_metrics": {
+          "followers_count": 473,
+          "following_count": 2770,
+          "like_count": 11211,
+          "listed_count": 0,
+          "media_count": 67,
+          "tweet_count": 9033
+        },
+        "username": "rpjupiter"
+      },
+      {
+        "description": "Explico os avanços da IA e o que muda pra você. Todo dia, em português. 700+ artigos em @zerohedge e @BitcoinMagazine",
+        "id": "1273776346771132417",
+        "name": "Felipe Demartini",
+        "public_metrics": {
+          "followers_count": 41513,
+          "following_count": 903,
+          "like_count": 29021,
+          "listed_count": 499,
+          "media_count": 2069,
+          "tweet_count": 12106
+        },
+        "username": "namcios"
+      },
+      {
+        "description": "Acelerando negócios com Inteligência Artificial. \nEx-Ambev, iFood, Gringo\nNômade Digital 65+ países.",
+        "id": "1598088134167781382",
+        "name": "Leo Zeferino | IA para Negócios",
+        "public_metrics": {
+          "followers_count": 393,
+          "following_count": 2183,
+          "like_count": 36219,
+          "listed_count": 0,
+          "media_count": 274,
+          "tweet_count": 2963
+        },
+        "username": "leozeferino85"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2111110439903908074",
+    "oldest_id": "2013259878001697161",
+    "result_count": 21
+  }
+}

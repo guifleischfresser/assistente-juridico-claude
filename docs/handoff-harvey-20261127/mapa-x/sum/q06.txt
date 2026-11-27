@@ -1,0 +1,51 @@
+=== q06_skills_mcp_claude: 25 posts
+@EduMoreth (147f) 2026-06-26 L0 RT0 V68 https://x.com/EduMoreth/status/2070435467720372711
+   A maioria dos advogados está usando IA do jeito errado.  Pergunta solta, resposta aceita sem conferência, citação que ninguém checou e, no pior dos casos, o sigilo do cliente exposto sem critério.  O problema nunca foi a ferramenta. Foi a ausência de método.  Foi por isso que https://t.co/0WEg1jfw4V
+@obrunookamoto (4867f) 2026-04-01 L56 RT6 V4036 https://x.com/obrunookamoto/status/2039447756805120060
+   Todo mundo falando de IA. Quase ninguém usando direito. Não é culpa sua. O mercado virou uma bagunça de hype  Mas existe uma distinção que poucos fazem, e ela muda tudo.  Há dois perfis de profissional agora: https://t.co/Ntxy2esIcU
+@Trorram (271f) 2026-07-21 L1 RT0 V85 https://x.com/Trorram/status/2079546915255894039
+   A lista do post de @humzaakhalid é o ponto central: 128 skills organizadas por departamento para estruturar uma empresa de uma pessoa.  Desenvolvimento — Superpowers, Context7, Skill Creator, MCP Builder, Webapp Testing e Claude-Mem.  Design — UI/UX, Taste, Frontend Design, https://t.co/w53wTZambf
+@Direita360 (64551f) 2026-09-19 L1 RT1 V2263 https://x.com/Direita360/status/2101265052288286968
+   🚨 5 novidades de tecnologia que você precisa conhecer nesta semana  A Inteligência Artificial continua dominando as manchetes mas há movimentos importantes acontecendo também em smartphones, chips e automação.  Aqui estão 5 novidades que chamaram atenção até 18/09/2026: 👇  1️⃣ https://t.co/Gav9ufqIXd
+@Brito80061 (20f) 2026-05-13 L0 RT0 V66 https://x.com/Brito80061/status/2054356912699769078
+   Advogados, jurídicos internos e legal ops:  a Anthropic liberou o Claude for Legal, um repositório com agentes, skills e conectores para fluxos jurídicos como contratos, LGPD/privacidade, regulatório, contencioso, trabalhista, PI e governança de IA.  Não substitui advogado,
+@GalloDu (809f) 2026-08-02 L0 RT0 V185 https://x.com/GalloDu/status/2083942838228730322
+   Doutores, adEvogados… rssss.   Não posso entrar nos detalhes, caso segredo de justiça. Mas o defensor teve a audácia de escrever o roteiro do escopo da prova pericial, alegando que estava “sugerindo um fluxo mais econômico e eficiente” para os procedimentos. Ele errou o tipo da https://t.co/Gkd3OFEJnE https://t.co/BmzztQQnba
+@Trorram (271f) 2026-07-22 L0 RT0 V149 https://x.com/Trorram/status/2080065600374571265
+   🚀 128 Claude Skills para montar uma empresa de uma pessoa só  O ecossistema de Agent Skills da Anthropic já viabiliza operações completas sem contratar ninguém. Aqui estão os links oficiais de cada repositório:  ☑️ 1. Desenvolvimento (6 skills) • Superpowers → https://t.co/kQYL9O16JK
+@CarlosR26271158 (3229f) 2026-04-06 L328 RT22 V77551 https://x.com/CarlosR26271158/status/2041154896896946180
+   Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO
+@opanteraos (295f) 2026-06-24 L1 RT0 V46 https://x.com/opanteraos/status/2069753779210072100
+   O gargalo de AI no trabalho nunca foi o modelo, foi o contexto. Enquanto as equipes vivem no Slack, os agentes de AI vivem em abas separadas do browser. A cada sessão, contexto zerado, back-and-forth manual, tarefa perdida.  A Anthropic resolveu isso com o Claude Tag, lançado em
+@AFaleandro30 (807f) 2026-09-06 L0 RT0 V44 https://x.com/AFaleandro30/status/2096688053557629019
+   @thallisribeiro Oh meu chapa vc conseguiria fazer isto abaixo... E qto cobraria? Aqui vai o resumo TÉCNICO completo do método que o Jorge ensina - juntei todos os posts dele dos últimos 30 dias. É isso que ele vai resumir no workshop do dia 14 e vender como "Agente":  MÉTODO - GOOGLE + SITE +
+@dr_eduserafim (50f) 2026-08-29 L0 RT0 V49 https://x.com/dr_eduserafim/status/2093700212078305729
+   O advogado do futuro não abre PDF. Ele abre o terminal. 💻 Acabamos de plugar o Atende Direito Sync direto no Claude Code via MCP. Você puxa o processo judicial inteiro pra dentro do seu ambiente e simplesmente *pergunta* o que quiser.  #LegalTech #Advocacia #IA
+@FalandoDeCodigo (22f) 2026-03-31 L0 RT0 V25 https://x.com/FalandoDeCodigo/status/2038845027539976224
+   um desenvolvedor compartilhou uma percepção intrigante e, de certa forma, alarmante sobre o claude: ele é um 'yes-man' extremamente convincente. 😬 essa característica, embora útil para certas tarefas, pode ser perigosa quando se busca uma avaliação crítica e imparcial de ideias.
+@FalandoDeCodigo (22f) 2026-03-31 L0 RT0 V29 https://x.com/FalandoDeCodigo/status/2038860107941838924
+   um desenvolvedor compartilhou uma percepção intrigante e, de certa forma, alarmante sobre o claude: ele é um 'yes-man' extremamente convincente. 😬 essa característica, embora útil para certas tarefas, pode ser perigosa quando se busca uma avaliação crítica e imparcial de ideias.
+@yagoruiz12 (2f) 2026-05-03 L1 RT0 V29 https://x.com/yagoruiz12/status/2050738743473000640
+   Criei um pack de skills que transformam seu ChatGPT/Claude/Gemini em um advogado sênior ou um estagiário muito competente.  Estou procurando advogados para testarem. Se tiver interesse, chama ai! https://t.co/FYzNrL7We3
+@rubiconiano (31f) 2026-04-13 L0 RT0 V104 https://x.com/rubiconiano/status/2043820564402380857
+   Comecei a pesquisar mais sobre as skills e projetos do Claude para usar na advocacia diária e logo começaram os ads no Instagram   O melhorzinho já deixa bem claro que não manja de tecnologia mas é um ÓTIMO ADVOGADO  Qual a chance desse curso ser bom?
+@riscohumano (16f) 2026-02-12 L0 RT0 V22 https://x.com/riscohumano/status/2022051014736580763
+   Nos últimos meses ganhou força uma nova narrativa:  Agentes de IA cada vez mais autônomos — como o Claude Cowork — automatizando vendas, jurídico, dados e operações.  A pergunta começou a circular: “Se um agente faz o trabalho de vários usuários, quantos assentos ainda são
+@MarcosCorsatoSL (1804f) 2026-08-13 L0 RT0 V49 https://x.com/MarcosCorsatoSL/status/2087958629030773125
+   O problema não é a IA do seu time de dados. É o que acontece quando ela cruza a porta do financeiro.  Quando cada área implementa seu próprio assistente — jurídico, fiscal, operações — sem compartilhar contexto, você não está automatizando. Está industrializando silos. O guia do
+@vvalle_33 (16f) 2026-05-13 L0 RT0 V35 https://x.com/vvalle_33/status/2054532334192316762
+   Não é sobre “IA para advogado”. É sobre Claude virando camada operacional de software vertical.  A Anthropic soltou 20+ conectores MCP e 12 plugins jurídicos. Na prática: revisar contrato no Word, puxar precedente no CoCounsel e fechar o sumário no PowerPoint sem reexplicar
+@vvalle_33 (16f) 2026-04-04 L0 RT0 V28 https://x.com/vvalle_33/status/2040241861793640950
+   🔐 Microsoft lançou hoje um kit open-source para GOVERNAR agentes de IA autônomos — e isso muda o jogo  A Microsoft acaba de liberar o Agent Governance Toolkit, um projeto open-source (licença MIT) com 7 pacotes para adicionar segurança em tempo de execução a agentes de IA
+@DougMendes (1699f) 2026-02-16 L0 RT0 V114 https://x.com/DougMendes/status/2023245257501032549
+   Vocês têm noção da CABAÇADA HISTÓRICA que a Anthropic acabou de cometer? O que rolou ontem com o OpenClaw não foi só uma derrota, foi uma aula magna de "Como Entregar a Liderança de Bandeja para o Concorrente".  O cenário era esse: O Claude estava jantando o GPT no café da manhã
+@opanteraos (295f) 2026-05-14 L0 RT0 V30 https://x.com/opanteraos/status/2055018154393243837
+   Anthropic abriu três frentes na mesma semana. Terça meteu doze plugins jurídicos especializados dentro do Claude, com buscador legal de parceiro acoplado e leque cobrindo direito societário, regulatório e trabalhista. Hoje cedo alargou aliança com uma das quatro grandes
+@chicolisboa (1542f) 2026-05-01 L3 RT0 V616 https://x.com/chicolisboa/status/2050319242835132925
+   @namcios Resumo: Legal Agent no Microsoft Word  A Microsoft anunciou em 30/04/2026 o lançamento do Legal Agent, um agente especializado para profissionais do direito integrado ao Word via Microsoft 365 Copilot. A proposta é diferenciar-se de IAs genéricas seguindo fluxos estruturados que
+@rpjupiter (473f) 2026-05-13 L0 RT0 V385 https://x.com/rpjupiter/status/2054396621916455255
+   Olhando as 13 skills do pacote claude-for-legal lançado hoje pela @AnthropicAI para o @claudeai  o quadro é claro: o pacote é fundamentalmente um produto para o mercado jurídico americano corporativo — in-house counsel, Big Law, M&amp;A, compliance, privacy, IP, clínicas
+@Bet_cUS (774f) 2026-02-23 L5 RT2 V568 https://x.com/Bet_cUS/status/2025951944057954569
+   O Software está Morto? Prepare-se para a era do software insourcing!  A cotação das empresas de software caiu 30% a 50% nas últimas semanas.  De cyber security a CRM, o mercado está batendo sem piedade.  Muitas menções nos fóruns de análise financeira de que o Software está https://t.co/Hqp7HYmmp3
+@AndreRvza (1347f) 2026-02-24 L6 RT0 V315 https://x.com/AndreRvza/status/2026421871294689477
+   A Anthropic está organizando um importante evento corporativo hoje em Nova York.  Anúncios de novos produtos para o Claude.  Os últimos 3 lançamentos de produtos eliminaram bilhões em valor de mercado de empresas de software.  Um deles apagou US$ 285 bilhões em 48 horas.  Veja https://t.co/Ddn8YqZaXF

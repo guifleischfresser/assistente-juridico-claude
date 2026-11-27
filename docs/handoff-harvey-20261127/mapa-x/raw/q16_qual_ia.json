@@ -1,0 +1,931 @@
+{
+  "data": [
+    {
+      "author_id": "61521847",
+      "created_at": "2025-04-12T01:04:13.000Z",
+      "edit_history_tweet_ids": [
+        "1910861480045518860"
+      ],
+      "id": "1910861480045518860",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 64,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Em 2 anos, a advocacia será: quem tiver a melhor IA terá os melhores argumentos. E os juízes guiarão IAs julgadoras para decidir qual IA - da defesa ou da acusação - vencerá o caso. O futuro do Direito é IA contra IA, sendo julgada por IA. Estudamos tanto, e seremos descartados. https://t.co/F9WojW4OPB",
+      "url": "https://x.com/ceajur_jobneto/status/1910861480045518860"
+    },
+    {
+      "author_id": "1170002090938241026",
+      "created_at": "2025-09-06T01:41:01.000Z",
+      "edit_history_tweet_ids": [
+        "1964141755479048509"
+      ],
+      "id": "1964141755479048509",
+      "in_reply_to_user_id": "1272710574258954240",
+      "public_metrics": {
+        "bookmark_count": 7,
+        "impression_count": 587,
+        "like_count": 5,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1964138941772087454",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@BrunoGabrieladv Qual IA usou? No escritório estamos usando MinutaIA + Gemini. Fizemos um roteiro: primeiro, o advogado pede ao Gemini pesquisas (com deepsearch, isso é MUITO IMPORTANTE) individualizadas das principais matérias da petição.",
+      "url": "https://x.com/jaopereiraaa/status/1964141755479048509"
+    },
+    {
+      "author_id": "190379567",
+      "created_at": "2026-06-01T16:22:32.000Z",
+      "edit_history_tweet_ids": [
+        "2061483545772630475"
+      ],
+      "id": "2061483545772630475",
+      "public_metrics": {
+        "bookmark_count": 3,
+        "impression_count": 398,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "Qual IA o advogado deve usar?\n\nAprenda como aplicar IA na advocacia para pesquisar melhor, analisar documentos, organizar informações e ganhar produtividade com mais segurança.\n\n📅 Online | 6 de julho\n⚖️ Conteúdo prático para advogados e profissionais do Direito\n\nGaranta sua https://t.co/1kMYygByPY",
+      "url": "https://x.com/PortalMigalhas/status/2061483545772630475"
+    },
+    {
+      "author_id": "2007841606435835904",
+      "created_at": "2026-05-04T11:56:44.000Z",
+      "edit_history_tweet_ids": [
+        "2051263091191533747",
+        "2051269793580249337"
+      ],
+      "id": "2051269793580249337",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 33,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "A Microsoft criou um Agente Jurídico — feito por ex-funcionários de legaltech, dentro do próprio Word.\nNão é o Copilot. É uma ferramenta construída só pra revisar e negociar contratos.\nAnthropic já estava no jurídico. Agora a Microsoft entrou de vez.\nDois gigantes mirando na",
+      "url": "https://x.com/uassimogone/status/2051269793580249337"
+    },
+    {
+      "author_id": "37597175",
+      "created_at": "2025-10-29T16:00:01.000Z",
+      "edit_history_tweet_ids": [
+        "1983564488197759391"
+      ],
+      "id": "1983564488197759391",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 351,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Na Fenalaw 2025, o Jusbrasil apresentou o estudo “Na prática, qual IA entende o Direito brasileiro?”\n\nCom metodologia própria, base jurídica real e análises comparativas inéditas, o estudo revelou quais inteligências artificiais realmente compreendem o Direito no Brasil — https://t.co/t3PZgKZDmM",
+      "url": "https://x.com/Jusbrasil/status/1983564488197759391"
+    },
+    {
+      "author_id": "75221052",
+      "created_at": "2025-02-01T01:22:59.000Z",
+      "edit_history_tweet_ids": [
+        "1885499052839567780"
+      ],
+      "id": "1885499052839567780",
+      "public_metrics": {
+        "bookmark_count": 7,
+        "impression_count": 10720,
+        "like_count": 56,
+        "quote_count": 7,
+        "reply_count": 10,
+        "retweet_count": 3
+      },
+      "text": "💻 | De \"FIGURA MARCANTE\" e \"COMPETITIVO\" a \"CONTRATAÇÕES QUESTIONÁVEIS\" e \"FALTA DE TRANSPARÊNCIA\": O que as principais inteligências artificiais do mundo têm a dizer sobre o presidente do Fluminense, Mário Bittencourt, incluindo seus vícios e virtudes?\n\nNa última semana, https://t.co/kKI7jHCI2c",
+      "url": "https://x.com/PauloFBS/status/1885499052839567780"
+    },
+    {
+      "author_id": "78475173",
+      "created_at": "2025-06-06T02:04:22.000Z",
+      "edit_history_tweet_ids": [
+        "1930807948122705979"
+      ],
+      "id": "1930807948122705979",
+      "in_reply_to_user_id": "1479186164720484359",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1930743425239797862",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Liuliunoian @andreshalders E qual ia e prompt você usa? Qual o seu conhecimento jurídico?",
+      "url": "https://x.com/DoboiTaCara/status/1930807948122705979"
+    },
+    {
+      "author_id": "1186275794726916096",
+      "created_at": "2025-01-30T06:05:24.000Z",
+      "edit_history_tweet_ids": [
+        "1884845347068932215"
+      ],
+      "id": "1884845347068932215",
+      "in_reply_to_user_id": "1161300687784947712",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 19,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1884788189308563836",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@isaiasmartinspb @lebigh_official Qual ia paga serve pra jurídico? Tô procurando uma",
+      "url": "https://x.com/VivyannB/status/1884845347068932215"
+    },
+    {
+      "author_id": "3103290700",
+      "created_at": "2026-03-11T12:33:14.000Z",
+      "edit_history_tweet_ids": [
+        "2031710035517055228"
+      ],
+      "id": "2031710035517055228",
+      "in_reply_to_user_id": "126313462",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 32,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2031707283332223392",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@lucasmourao_ @EduardoCoach12 vcs na advocacia usam qual IA?",
+      "url": "https://x.com/rominrx/status/2031710035517055228"
+    },
+    {
+      "author_id": "1773458113422561280",
+      "created_at": "2026-02-11T01:31:15.000Z",
+      "edit_history_tweet_ids": [
+        "2021396582281904582"
+      ],
+      "id": "2021396582281904582",
+      "in_reply_to_user_id": "3982931",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 121,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2021318876760506781",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@AkitaOnRails Mestre, para ser o agente de pós venda de um escritório de advocacia, qual IA entrega melhor?",
+      "url": "https://x.com/JP21108/status/2021396582281904582"
+    },
+    {
+      "author_id": "1584231661738369024",
+      "created_at": "2025-07-22T18:56:33.000Z",
+      "edit_history_tweet_ids": [
+        "1947732517701750874"
+      ],
+      "id": "1947732517701750874",
+      "in_reply_to_user_id": "54341363",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 6,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1947678167109685448",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JornalOGlobo qual plágio ou qual IA ele usou - pq notório saber juridico e cognitivo ele não tem - o que se tem é só um psicopata e sociopata do pcc",
+      "url": "https://x.com/flahvioSabino/status/1947732517701750874"
+    },
+    {
+      "author_id": "1489440037519429637",
+      "created_at": "2026-04-02T00:01:13.000Z",
+      "edit_history_tweet_ids": [
+        "2039493317386215767"
+      ],
+      "id": "2039493317386215767",
+      "in_reply_to_user_id": "548625382",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 60,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2039455865854456283",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@freitashebert_ Qual IA você recomendaria que integra com o contexto jurídico?",
+      "url": "https://x.com/PiratinhadoTiet/status/2039493317386215767"
+    },
+    {
+      "author_id": "91025970",
+      "created_at": "2026-09-26T22:51:16.000Z",
+      "edit_history_tweet_ids": [
+        "2103980755101602170"
+      ],
+      "id": "2103980755101602170",
+      "in_reply_to_user_id": "1141093355142729728",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 39,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2103975428717187319",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@p9lli2 @JorgeAraujo Mas é impraticável. \n\nA pessoa tem que saber que o advogado da contraparte, o juiz ou o pessoal do ofício da vara vai usar IA. Tem que saber quando vão usar IA. Tem que saber qual IA. \n\nE não tem um caso só que deu certo. Todos que descobriram posteriormente foram tentativas.\n\nNa",
+      "url": "https://x.com/mizaelizidoro/status/2103980755101602170"
+    },
+    {
+      "author_id": "1199014057",
+      "created_at": "2025-08-16T18:33:13.000Z",
+      "edit_history_tweet_ids": [
+        "1956786338604208148"
+      ],
+      "id": "1956786338604208148",
+      "in_reply_to_user_id": "8642952",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 47,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1945294912695521752",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@JorgeAraujo Dr. o sigo a tanto tempo, e o tenho como um norte pessoal e profissional. Os livros que o Sr indica sempre faço questão de adquirir. Mesmo afastado do X, lembrei do Sr ao iniciar no mundo das IAs. Qual IA e qual assistente jurídico (pagos), o senhor me remendaria? Muito obrigado",
+      "url": "https://x.com/carlos_itajai/status/1956786338604208148"
+    },
+    {
+      "author_id": "1980584967018278914",
+      "created_at": "2026-05-29T14:15:40.000Z",
+      "edit_history_tweet_ids": [
+        "2060364454408212941"
+      ],
+      "id": "2060364454408212941",
+      "in_reply_to_user_id": "1516444057345609735",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 619,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2060120730415599909",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Ukill_Ya Pessoal meu esposo é ateu de IA, eu já acredito muito por facilitar a nossa vida. Ele é advogado, queria indicação de qual IA é melhor pra advogar e prompt que poderia usar e facilitar o trabalho dele. Agradeço desde já 🙏🏻",
+      "url": "https://x.com/AdvMadeira/status/2060364454408212941"
+    },
+    {
+      "author_id": "1720665183188922368",
+      "created_at": "2025-07-12T18:43:39.000Z",
+      "edit_history_tweet_ids": [
+        "1944105389232206195"
+      ],
+      "id": "1944105389232206195",
+      "in_reply_to_user_id": "1944101129283153920",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 45,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1944104998956413131",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@d7098827483352 Para direito brasileiro, a melhor IA nacional é o Jurídico AI: gera peças processuais, busca jurisprudência atualizada e é treinada em leis, doutrina e julgados do BR (usada por +200k advogados). Alternativa: Lawdeck ou Turivius para jurimetria.\n\nEntre generalistas:",
+      "url": "https://x.com/grok/status/1944105389232206195"
+    },
+    {
+      "author_id": "4106603615",
+      "created_at": "2026-09-29T00:07:39.000Z",
+      "edit_history_tweet_ids": [
+        "2104724752233578976"
+      ],
+      "id": "2104724752233578976",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 21,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "em reuniao hj o advogado me soltou com a maior tranquilidade q conhecia uma IA que \"faz a petição inteira sozinha pelo prazo\" KKKKKKKKKKK\n\no pitch de vendas é lindo até o modelo inventar jurisprudência, comer preliminar e o cara tomar um esculacho histórico do juiz nos autos\n\no",
+      "url": "https://x.com/orlandobirrer/status/2104724752233578976"
+    },
+    {
+      "author_id": "1733209070520225792",
+      "created_at": "2025-06-15T22:34:59.000Z",
+      "edit_history_tweet_ids": [
+        "1934379134051893363"
+      ],
+      "id": "1934379134051893363",
+      "in_reply_to_user_id": "1464070576637714434",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 47,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1934376625149272418",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@bruxinhadm Eu uso o chatgpt pra saber se vale a pena entrar com alguma ação ou não, daí procuro minha advogada caso for necessário. Mas ele esclarece muito bem as dúvidas...",
+      "url": "https://x.com/dulsawyer/status/1934379134051893363"
+    },
+    {
+      "author_id": "1894114506",
+      "created_at": "2025-04-08T16:44:08.000Z",
+      "edit_history_tweet_ids": [
+        "1909648466642420107"
+      ],
+      "id": "1909648466642420107",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 19,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1909370681160090106",
+          "type": "quoted"
+        }
+      ],
+      "text": "vale a pena? ia gastar esse dinheiro todo pagando advogado https://t.co/9u5FiFkJeC",
+      "url": "https://x.com/graziimaisele/status/1909648466642420107"
+    },
+    {
+      "author_id": "193097319",
+      "created_at": "2025-05-05T23:40:54.000Z",
+      "edit_history_tweet_ids": [
+        "1919537820571476063"
+      ],
+      "id": "1919537820571476063",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 31,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Eu ia escrever coisa inteligente nessa conta mas parei e desisti não vale a pena discutir nada jurídico",
+      "url": "https://x.com/superdcomics/status/1919537820571476063"
+    },
+    {
+      "author_id": "71237737",
+      "created_at": "2025-11-05T17:48:33.000Z",
+      "edit_history_tweet_ids": [
+        "1986128515171750157"
+      ],
+      "id": "1986128515171750157",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 29,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1985835442743517671",
+          "type": "quoted"
+        }
+      ],
+      "text": "Eu ia comentar, mas o meu advogado disse que não vale a pena. https://t.co/19BqOQ0oYt",
+      "url": "https://x.com/lucasnunes_rj/status/1986128515171750157"
+    },
+    {
+      "author_id": "14599723",
+      "created_at": "2026-04-14T23:34:02.000Z",
+      "edit_history_tweet_ids": [
+        "2044197520163692726"
+      ],
+      "id": "2044197520163692726",
+      "in_reply_to_user_id": "20923479",
+      "public_metrics": {
+        "bookmark_count": 6,
+        "impression_count": 654,
+        "like_count": 11,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2044192747280601116",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@babi Ta. Pera. Vamos la. Imagine que cada IA é um tipo de carro. Modelos com potências e funções diferentes. O chatGPT é uma s10. Ele faz um monte de coisa legal. Mas nao eh o mais bonito. O gemini é tipo um Audi. Tem coisas de artes e videos super legais. E assim vai. Cada IA é",
+      "url": "https://x.com/eduhonorato/status/2044197520163692726"
+    },
+    {
+      "author_id": "1201262375925682180",
+      "created_at": "2026-01-16T18:04:36.000Z",
+      "edit_history_tweet_ids": [
+        "2012224481863847938"
+      ],
+      "id": "2012224481863847938",
+      "in_reply_to_user_id": "1623114468459786241",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 15193,
+        "like_count": 287,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 2
+      },
+      "referenced_tweets": [
+        {
+          "id": "2012198690459459946",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@republiqueBRA Se crime não vale a pena ninguém ia ser advogado no Brasil",
+      "url": "https://x.com/UmCavalo_/status/2012224481863847938"
+    },
+    {
+      "author_id": "230007171",
+      "created_at": "2026-07-19T02:34:20.000Z",
+      "edit_history_tweet_ids": [
+        "2078669738650046669"
+      ],
+      "id": "2078669738650046669",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 46,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Acho que vale a pena pensar sobre o uso da IA nos escritórios de advocacia \n\nTer a informação mais rápido, pode não ser o melhor para o desenvolvimento do profissional \n\nhttps://t.co/CuFQkkWg6k.",
+      "url": "https://x.com/higorbellini/status/2078669738650046669"
+    },
+    {
+      "author_id": "62146519",
+      "created_at": "2026-02-07T01:33:36.000Z",
+      "edit_history_tweet_ids": [
+        "2019947623445041479"
+      ],
+      "id": "2019947623445041479",
+      "in_reply_to_user_id": "1121514814755438596",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 18,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2019941042146144644",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@LeonardoMatron2 @nikolas_dm Eu até ia perder meu tempo, não vale a pena. E sobre a foto, é “foram”… advogado kkk https://t.co/J2NhNFDu85",
+      "url": "https://x.com/edu1brs/status/2019947623445041479"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "⚖️ #Direita é forte\n📌 Um #Guerreiro, entre tantos\n🇧🇷 #Vamos derrotar a esquerda \n🙏 #Brasil acima de tudo\n🙏 #DEUS acima de todos\n🤔 #ElonMusk é gênio",
+        "id": "61521847",
+        "name": "🇧🇷 🇮🇱 Joaquim Branco Neto - 𝕏",
+        "public_metrics": {
+          "followers_count": 14060,
+          "following_count": 12390,
+          "like_count": 117756,
+          "listed_count": 7,
+          "media_count": 6057,
+          "tweet_count": 18633
+        },
+        "username": "ceajur_jobneto"
+      },
+      {
+        "description": "",
+        "id": "1170002090938241026",
+        "name": "Jão Berranteiro",
+        "public_metrics": {
+          "followers_count": 58,
+          "following_count": 269,
+          "like_count": 34091,
+          "listed_count": 1,
+          "media_count": 578,
+          "tweet_count": 12540
+        },
+        "username": "jaopereiraaa"
+      },
+      {
+        "description": "Maior portal jurídico do Brasil. Notícias, análises e opiniões.",
+        "id": "190379567",
+        "name": "Migalhas",
+        "public_metrics": {
+          "followers_count": 111088,
+          "following_count": 150,
+          "like_count": 206,
+          "listed_count": 553,
+          "media_count": 28329,
+          "tweet_count": 80641
+        },
+        "username": "PortalMigalhas"
+      },
+      {
+        "description": "Advogado | Direito, LegalTech e IA no Direito.\n\nEstudo e aplico IA e tecnologia no Direito. Dicas reais, reflexões e casos do dia a dia.",
+        "id": "2007841606435835904",
+        "name": "Uassi Mogone",
+        "public_metrics": {
+          "followers_count": 20,
+          "following_count": 57,
+          "like_count": 103,
+          "listed_count": 0,
+          "media_count": 2,
+          "tweet_count": 80
+        },
+        "username": "uassimogone"
+      },
+      {
+        "description": "Informação jurídica acessível, clara e confiável.\nExperimente gratuitamente o Jus IA, o assistente jurídico do Jusbrasil.",
+        "id": "37597175",
+        "name": "Jusbrasil",
+        "public_metrics": {
+          "followers_count": 38891,
+          "following_count": 89,
+          "like_count": 977,
+          "listed_count": 269,
+          "media_count": 1096,
+          "tweet_count": 5995
+        },
+        "username": "Jusbrasil"
+      },
+      {
+        "description": "Jornalista independente, fotógrafo e ser humano nas horas vagas. Viva o Complexo da Penha, viva a periferia! 🏳️‍🌈",
+        "id": "75221052",
+        "name": "Paulo Brito",
+        "public_metrics": {
+          "followers_count": 12506,
+          "following_count": 1228,
+          "like_count": 14603,
+          "listed_count": 87,
+          "media_count": 2995,
+          "tweet_count": 43049
+        },
+        "username": "PauloFBS"
+      },
+      {
+        "description": "",
+        "id": "78475173",
+        "name": "Pipipi-popopo",
+        "public_metrics": {
+          "followers_count": 140,
+          "following_count": 569,
+          "like_count": 23489,
+          "listed_count": 0,
+          "media_count": 140,
+          "tweet_count": 5500
+        },
+        "username": "DoboiTaCara"
+      },
+      {
+        "description": "",
+        "id": "1186275794726916096",
+        "name": "assistindoGL",
+        "public_metrics": {
+          "followers_count": 15,
+          "following_count": 75,
+          "like_count": 6108,
+          "listed_count": 1,
+          "media_count": 153,
+          "tweet_count": 1188
+        },
+        "username": "VivyannB"
+      },
+      {
+        "description": "Brazilian Financial Advisor\n\n📖⚽🏀♟️",
+        "id": "3103290700",
+        "name": "80/20",
+        "public_metrics": {
+          "followers_count": 302,
+          "following_count": 4406,
+          "like_count": 81210,
+          "listed_count": 2,
+          "media_count": 57,
+          "tweet_count": 11106
+        },
+        "username": "rominrx"
+      },
+      {
+        "description": "",
+        "id": "1773458113422561280",
+        "name": "Se André Mendonça subir no avião eu desço da Silva",
+        "public_metrics": {
+          "followers_count": 26,
+          "following_count": 207,
+          "like_count": 2136,
+          "listed_count": 0,
+          "media_count": 67,
+          "tweet_count": 4409
+        },
+        "username": "JP21108"
+      },
+      {
+        "description": "",
+        "id": "1584231661738369024",
+        "name": "Flavio Sabino",
+        "public_metrics": {
+          "followers_count": 65,
+          "following_count": 243,
+          "like_count": 18238,
+          "listed_count": 0,
+          "media_count": 20,
+          "tweet_count": 2941
+        },
+        "username": "flahvioSabino"
+      },
+      {
+        "description": "Advogado criminalista (USP), pós-graduado (Coimbra) e marxista leninista. \n\nO rock progressivo ainda dominará o mundo.",
+        "id": "1489440037519429637",
+        "name": "Pirata do Tietê 🏴‍☠️",
+        "public_metrics": {
+          "followers_count": 162,
+          "following_count": 1014,
+          "like_count": 251994,
+          "listed_count": 0,
+          "media_count": 7,
+          "tweet_count": 5558
+        },
+        "username": "PiratinhadoTiet"
+      },
+      {
+        "description": "Jurídico do jurídico.",
+        "id": "91025970",
+        "name": "Mizael",
+        "public_metrics": {
+          "followers_count": 63033,
+          "following_count": 4177,
+          "like_count": 128322,
+          "listed_count": 56,
+          "media_count": 478,
+          "tweet_count": 4022
+        },
+        "username": "mizaelizidoro"
+      },
+      {
+        "description": "Viajar um vício, café e vinhos uma paixão. Livros são tão essenciais quanto o ar que respiro. Advogado, casado com a Mi, pai da Gabi. Temos 6 gatos e 3 cães",
+        "id": "1199014057",
+        "name": "Carlos 🇧🇷🇮🇹",
+        "public_metrics": {
+          "followers_count": 589,
+          "following_count": 2040,
+          "like_count": 65507,
+          "listed_count": 1,
+          "media_count": 1008,
+          "tweet_count": 18485
+        },
+        "username": "carlos_itajai"
+      },
+      {
+        "description": "⚖️Estudante de Direito \nEsposa do Dr. @DiegoCristane",
+        "id": "1980584967018278914",
+        "name": "Beatriz Madeira",
+        "public_metrics": {
+          "followers_count": 2,
+          "following_count": 48,
+          "like_count": 134,
+          "listed_count": 0,
+          "media_count": 2,
+          "tweet_count": 24
+        },
+        "username": "AdvMadeira"
+      },
+      {
+        "description": "@grok it",
+        "id": "1720665183188922368",
+        "name": "Grok",
+        "public_metrics": {
+          "followers_count": 9173302,
+          "following_count": 4,
+          "like_count": 146,
+          "listed_count": 7840,
+          "media_count": 4014718,
+          "tweet_count": 141456843
+        },
+        "username": "grok"
+      },
+      {
+        "description": "tentando me tornar engenheiro mecânico e construindo um SaaS",
+        "id": "4106603615",
+        "name": "orlando ➔ Autosfy.com.br",
+        "public_metrics": {
+          "followers_count": 149,
+          "following_count": 733,
+          "like_count": 80028,
+          "listed_count": 0,
+          "media_count": 186,
+          "tweet_count": 5140
+        },
+        "username": "orlandobirrer"
+      },
+      {
+        "description": "Fan account RBD ~ Dulce Maria ~ Linkin Park ~ OTH ❤️‍🔥",
+        "id": "1733209070520225792",
+        "name": "Lulala 13 🌟",
+        "public_metrics": {
+          "followers_count": 126,
+          "following_count": 257,
+          "like_count": 75457,
+          "listed_count": 0,
+          "media_count": 205,
+          "tweet_count": 14875
+        },
+        "username": "dulsawyer"
+      },
+      {
+        "description": "se avexe não viu!! se for levar essa porra a sério, mete logo o pé. torcedora do esporte clube vitória e, sim, mudo de opinião com o vento.",
+        "id": "1894114506",
+        "name": "maloqueira ousada",
+        "public_metrics": {
+          "followers_count": 791,
+          "following_count": 1095,
+          "like_count": 189883,
+          "listed_count": 1,
+          "media_count": 1039,
+          "tweet_count": 124233
+        },
+        "username": "graziimaisele"
+      },
+      {
+        "description": "dc comics / resident evil / guillen /🪽MADE IN HEAVEN. FORGED IN HELL.",
+        "id": "193097319",
+        "name": "uma tal de c juridico alanis guillen🩸",
+        "public_metrics": {
+          "followers_count": 1833,
+          "following_count": 851,
+          "like_count": 35069,
+          "listed_count": 14,
+          "media_count": 23432,
+          "tweet_count": 220510
+        },
+        "username": "superdcomics"
+      },
+      {
+        "description": "Só entro aqui para opinar sobre coisas que ninguém pediu minha opinião. Jornalista e estudante de Direito. Me siga no Instagram, falo sério lá 👇🏼",
+        "id": "71237737",
+        "name": "Lucas Nunes",
+        "public_metrics": {
+          "followers_count": 150,
+          "following_count": 140,
+          "like_count": 2243,
+          "listed_count": 3,
+          "media_count": 217,
+          "tweet_count": 5751
+        },
+        "username": "lucasnunes_rj"
+      },
+      {
+        "description": "Sou um episodio de Black Mirror.....👀",
+        "id": "14599723",
+        "name": "Concierge do porão...",
+        "public_metrics": {
+          "followers_count": 19722,
+          "following_count": 1470,
+          "like_count": 106179,
+          "listed_count": 90,
+          "media_count": 16677,
+          "tweet_count": 247023
+        },
+        "username": "eduhonorato"
+      },
+      {
+        "description": "Gosto de degustar essa rede social ",
+        "id": "1201262375925682180",
+        "name": "𝖀𝖒 𝖈𝖆𝖛𝖆𝖑𝖔 ",
+        "public_metrics": {
+          "followers_count": 140,
+          "following_count": 61,
+          "like_count": 153735,
+          "listed_count": 2,
+          "media_count": 1312,
+          "tweet_count": 17524
+        },
+        "username": "UmCavalo_"
+      },
+      {
+        "description": "Autor, jornalista (Registro 0091107/SP) e advogado estudante permanente do direito\nPalmeirense \nAuthor, Journalist lawer  fan of Palmeiras",
+        "id": "230007171",
+        "name": "Higor Bellini",
+        "public_metrics": {
+          "followers_count": 458,
+          "following_count": 516,
+          "like_count": 16328,
+          "listed_count": 20,
+          "media_count": 6939,
+          "tweet_count": 49919
+        },
+        "username": "higorbellini"
+      },
+      {
+        "description": "Casado, pai e ainda acreditando no Brasil por pura teimosia.",
+        "id": "62146519",
+        "name": "edu 🇧🇷#1",
+        "public_metrics": {
+          "followers_count": 883,
+          "following_count": 1834,
+          "like_count": 68670,
+          "listed_count": 7,
+          "media_count": 1615,
+          "tweet_count": 14474
+        },
+        "username": "edu1brs"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2104724752233578976",
+    "oldest_id": "1884845347068932215",
+    "result_count": 25
+  }
+}

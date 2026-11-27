@@ -1,0 +1,51 @@
+=== q08_jurisprudencia_alucinacao: 25 posts
+@jusratio (1104f) 2026-05-20 L194 RT7 V10880 https://x.com/jusratio/status/2057101189028688258
+   Estamos construindo a fundação jurídica para a IA no Jusratio:  Não somos uma legaltech tradicional. Não somos um "ChatGPT do direito" empacotado. Somos a camada de inteligência jurídica que conecta os LLMs que o advogado já usa (Claude, ChatGPT, Gemini) a um corpus vivo de
+@CarlosR26271158 (3229f) 2026-04-06 L328 RT22 V77551 https://x.com/CarlosR26271158/status/2041154896896946180
+   Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO
+@martins_piton (211f) 2026-05-17 L0 RT0 V65 https://x.com/martins_piton/status/2056102853358305302
+   ✅ Antes de citar matéria de IA em peça, valide fonte primária.  Halupedia (clone Wikipedia 100% alucinação) e TRT-8 Galileu (R$84,2k por prompt injection) mostram que IA jurídica pega quem confia cego.  ChatGPT/Claude/Gemini não substituem Diário Oficial/CNJ/jurisprudência. https://t.co/0EmzuF4lHO
+@CarlosR26271158 (3229f) 2026-03-13 L100 RT11 V15396 https://x.com/CarlosR26271158/status/2032446026364211202
+   Existe uma diferença fundamental entre uma IA que escreve bem sobre Direito e uma IA que sabe Direito. A primeira é perigosa exatamente porque parece a segunda.  Quando um advogado usa o ChatGPT para pesquisar jurisprudência, o modelo não está consultando uma base de dados do
+@freitashebert_ (9552f) 2025-04-16 L80 RT18 V8255 https://x.com/freitashebert_/status/1912637318466306094
+   🤖⚖️ Levando em conta tudo o que aprendi utilizando diariamente inteligência artificial há pelo menos dois anos, esse é um conciso passo a passo que vejo como ideal para profissionais do direito (advogados, juízes, promotores, assessores, etc) economizarem tempo no dia a dia sem https://t.co/CaPm1TZwTz
+@rafaelobitten (2141f) 2026-07-28 L143 RT8 V649188 https://x.com/rafaelobitten/status/2082060621949124631
+   A pesquisa jurídica é a base de qualquer boa aplicação de inteligência artificial no Direito.  Foi com essa premissa que surgiu a IAJus: uma plataforma de inteligência jurídica desenvolvida para disponibilizar uma base de conhecimento estruturada, abrangente e rastreável, capaz https://t.co/vvRvOA4zRT
+@RealBernardoSC (1813f) 2026-05-16 L5 RT0 V1389 https://x.com/RealBernardoSC/status/2055459884779425861
+   @Sampaio280864 Na área do Direito, a IA ainda está deixando muito a desejar. Coloquei um caso da área tributária para fins de raciocínio e pesquisa de jurisprudência e o que veio foi desastroso. Inventou a solução que estava completamente errada com o CTN e CRFB, e a jurisprudência era
+@rafaelobitten (2141f) 2026-07-20 L69 RT5 V708631 https://x.com/rafaelobitten/status/2079167833796219344
+   A IAJus é uma plataforma de inteligência jurídica desenvolvida para potencializar o uso eficiente e responsável da inteligência artificial no Direito. Para isso, disponibiliza uma base jurídica estruturada, rastreável e integrada às principais ferramentas de IA utilizadas pelos
+@rafaelobitten (2141f) 2026-07-25 L135 RT10 V602188 https://x.com/rafaelobitten/status/2081011349182697965
+   A IAJus é uma plataforma de inteligência jurídica desenvolvida para potencializar o uso eficiente e responsável da inteligência artificial no Direito, disponibilizando uma base jurídica estruturada, abrangente e rastreável para apoiar diferentes modelos de IA.  A plataforma reúne https://t.co/73917wvyVq
+@CarlosR26271158 (3229f) 2026-05-15 L547 RT45 V49740 https://x.com/CarlosR26271158/status/2055386947309199549
+   Pessoal, aqui a lista completa de tribunais no banco de dados do https://t.co/pqVTMyA6TL (tjpe ta finalizando). Se essa ferramenta estiver sendo útil, manda pros colegas que não estão aqui no X.   Quem já plugou o JusRatio no Claude, ChatGPT ou Gemini sabe a sensação, a primeira https://t.co/qwNKXpiqYm https://t.co/WHol0tRdMN
+@rafaelobitten (2141f) 2026-07-31 L185 RT18 V875435 https://x.com/rafaelobitten/status/2083277849310433615
+   A confiabilidade da inteligência artificial aplicada ao Direito não começa no modelo. Ela começa na qualidade, na abrangência e na organização das informações que esse modelo consegue pesquisar.  A IAJus foi desenvolvida para oferecer essa infraestrutura. A plataforma reúne https://t.co/JDyN0U9Ox1
+@rafaelobitten (2141f) 2026-07-02 L107 RT6 V629344 https://x.com/rafaelobitten/status/2072757401758187647
+   Não basta uma resposta “bonita”, que aparente estar bem fundamentada.  No Direito, o uso eficiente e responsável de modelos de IA precisa vir acompanhado de acesso a fontes externas, bases jurídicas confiáveis e possibilidade real de conferência.  É essa a proposta da IAJus:
+@rafaelobitten (2141f) 2026-07-23 L168 RT9 V683063 https://x.com/rafaelobitten/status/2080266835363062224
+   Nenhum modelo de inteligência artificial, por melhor e mais avançado que seja, será suficientemente confiável para uso no Direito se não tiver acesso a uma base jurídica confiável, estruturada e atualizada.  A qualidade da resposta depende diretamente da qualidade da pesquisa https://t.co/DZIBBzKD3C
+@CarlosR26271158 (3229f) 2026-06-05 L67 RT2 V5078 https://x.com/CarlosR26271158/status/2062886003233157454
+   Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36
+@rafaelobitten (2141f) 2026-09-22 L49 RT5 V254847 https://x.com/rafaelobitten/status/2102534079115624787
+   A @iajusbr (https://t.co/O2yMaWquPZ) já ultrapassou 1.600 usuários, e seguimos ampliando as formas de acessar pesquisa jurídica brasileira diretamente dos modelos e ferramentas de IA que as pessoas já utilizam.  Hoje, reunimos mais de 32 milhões de decisões judiciais e
+@martins_piton (211f) 2026-02-18 L0 RT0 V60 https://x.com/martins_piton/status/2024108702811247001
+   TRT-2 multou empresa por usar jurisprudência inventada por IA. Estagiários fizeram pesquisa com ChatGPT, não conferiram, e citaram decisões que não existem. Resultado: litigância de má-fé + ofício à OAB. IA acelera, mas não substitui a conferência. https://t.co/4Zr1ndFjZt
+@joaosenzi (68282f) 2026-05-06 L87 RT1 V5870 https://x.com/joaosenzi/status/2052086195015012680
+   @Serafim_zx Eu concordo em partes.  A dupla ChatGPT + Claude é MUITO boa.  Programadores dizem que o Claude é realmente muito bom, mas não tenho condições de opinar.  Na questão jurídica: O Claude inventa coisa até hoje OU fala sobre Súmulas desatualizadas do STJ.  No âmbito jurídico a gente
+@rafaelobitten (2141f) 2026-06-23 L95 RT7 V880377 https://x.com/rafaelobitten/status/2069395307213815848
+   Você conhece a IAjus?  A nova plataforma de inteligência jurídica brasileira, com uso eficiente e responsável de IA no Direito.  Já são mais de 16 milhões de jurisprudências coletadas de órgãos judiciais e administrativos, com cobertura principal de 2013 a 2026*.  Também temos
+@joaoli13 (7345f) 2025-06-24 L1 RT0 V108 https://x.com/joaoli13/status/1937633577535172948
+   @caiocezarfp Caio, entendo a sua colocação. No meu exemplo, porém, eu quis demonstrar uma das vantagens mais notáveis da IA: poder variar livremente os termos e até o idioma na busca sem perder relevância nos resultados. A BUSCA SEMÂNTICA se apoia no significado, não só nas palavras, e por https://t.co/YCAJyVOtc3
+@vonealex (148f) 2026-04-29 L0 RT0 V198 https://x.com/vonealex/status/2049609944224428400
+   1/8 Advogado tá sendo multado por causa de IA que inventa jurisprudência. E o juiz não tá mais relevando. Tá oficiando direto pra OAB.  2/8 Caso recente TJRJ: citou acórdão do STJ que simplesmente não existia. Resultado? Ofício pra OAB "para as providências cabíveis". Isso é o
+@rafaelobitten (2141f) 2026-07-19 L81 RT5 V761916 https://x.com/rafaelobitten/status/2078834999466291258
+   Uma das partes mais interessantes de construir a IAJus tem sido poder reunir minha experiência como Cientista de Dados e Especialista em IA com minha segunda formação em Direito.  Projetar uma base jurídica exige muito mais do que simplesmente coletar documentos. A forma como os
+@vonealex (148f) 2026-04-28 L0 RT0 V113 https://x.com/vonealex/status/2049247309918278018
+   1/10 2026 não vai acabar com advogado. Vai acabar com o advogado mediano. De um lado: quem ainda copia prompt do ChatGPT e torce. Do outro: quem domina IA e fatura pesado. Qual time você tá, mediano ou elite? 👇  2/10 77% dos advogados já usam IA. Só 18% sabem usar de verdade. O
+@natasc_ (1049f) 2025-05-29 L1 RT0 V55 https://x.com/natasc_/status/1928183070781235354
+   @paulobaccarat EXATO! Eu eu já cheguei a testar o chat com coisas que eu sabia e ele dá o conceito correto mas ele cita um jurisprudência que fala de outra coisa.  Não é uma IA para pesquisa o CHAT, vc pega o PERPLEXITY Claude e Gemini e ali sim pesquisam e te dão fontes bem melhores.
+@rafaelobitten (2141f) 2026-09-03 L124 RT4 V234953 https://x.com/rafaelobitten/status/2095581123375944187
+   A IAJUS agora faz parte do Diretório de Plugins do ChatGPT e do ChatGPT Work.  É o primeiro plugin de pesquisa jurídica voltado ao Direito brasileiro disponibilizado no catálogo público do ChatGPT para os usuários, levando nossa inteligência jurídica diretamente para uma das https://t.co/KZ21bfupxG
+@GatoMaconhado_ (3160f) 2025-04-15 L1 RT0 V50 https://x.com/GatoMaconhado_/status/1911951987156910487
+   @cabocomarajoar1 @Gayaliz_ Costumo dividir tudo em espaços, de acordo com áreas da minha vida: pessoal, profissional, concursos e programação.  Nos modos de pesquisa, uso o modo Pro pra buscas rápidas, e o modo de pesquisa profunda quando o tema exige mais profundidade — apesar de demorar um pouco mais.

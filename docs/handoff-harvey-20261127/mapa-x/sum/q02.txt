@@ -1,0 +1,51 @@
+=== q02_claude_advocacia: 25 posts
+@edmar_neto (23f) 2026-09-25 L0 RT0 V59 https://x.com/edmar_neto/status/2103333866693890461
+   Você ainda baixa o processo no PJe para depois colar na IA? Esse passo já pode sair da sua rotina.  No vídeo, eu digito o número do processo direto no chat. A própria IA acessa o PJe, baixa a petição inicial e os documentos, abre a peça na tela para eu conferir e, enquanto isso, https://t.co/gMiRdfabhh
+@AskBrunf (575f) 2026-10-15 L0 RT0 V61 https://x.com/AskBrunf/status/2110740605143765218
+   A OAB-RJ conseguiu barrar uma plataforma que vendia petição feita por IA a R$ 20. Até aí, faz sentido: cobrar pra fazer peça sem advogado parece muito com exercício ilegal da profissão.  Mas fica uma pergunta incômoda.  No Juizado Especial Cível, em causas de até 20 salários
+@vonealex (148f) 2026-04-30 L1 RT0 V50 https://x.com/vonealex/status/2049972083166478594
+   1/9 Todo mundo tá largando o ChatGPT e migrando pro Claude. Por quê? Porque Claude alucina MUITO menos em direito brasileiro.  2/9 Teste que fiz essa semana: ChatGPT inventou 2 súmulas + 1 acórdão. Claude 3.5: 100% preciso e ainda citou jurisprudência contrária sozinho.  3/9
+@CarlosR26271158 (3229f) 2026-04-06 L328 RT22 V77551 https://x.com/CarlosR26271158/status/2041154896896946180
+   Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO
+@thedoomguy_ai (281f) 2026-08-15 L0 RT0 V46 https://x.com/thedoomguy_ai/status/2088702299610689893
+   Advogados de IA agora. Um rapper quer processar a Pitchfork pela nota 0.0/10 usando ChatGPT, Claude e Gemini como consultoria jurídica. A parte bizarra: modelos de linguagem alucinam jurisprudência. Vai ser interessante ver o juiz reagir a uma petição escrita por três IAs. https://t.co/png1jBa6JQ
+@Zenilson_coelho (0f) 2026-09-23 L0 RT0 V6 https://x.com/Zenilson_coelho/status/2102722684463226896
+   🚨 O Claude está mudando a forma como escritórios de advocacia podem usar IA.  E não estou falando de pedir para ele escrever uma petição.  Separei 4 sacadas para quem quer usar IA para realmente ganhar produtividade no escritório.  Salva porque isso vai muito além de prompt. https://t.co/xjZtOt8qdC
+@advgabrielval (229f) 2026-05-26 L2 RT0 V317 https://x.com/advgabrielval/status/2059095491992768982
+   @carinabst Só deixar o Jusbrasil logado, Claude com autorização para usar Google Chrime e quebrar a pesquisa de jurisprudência como tarefa logo após a análise do contexto da petição
+@AdvTrib (137f) 2026-05-17 L75 RT4 V59735 https://x.com/AdvTrib/status/2056088645241577817
+   @CarlosR26271158 @jusratio Usei o conector no Perplexity, da mesma forma que instalei no Claude. O resultado foi impressionante. Não posso colocar a petição aqui, mas vou colocar um print. Eu nunca vi esse nível de aplicação jurisprudencial por uma I.A. Estou impressionado mesmo. Faço quase uma petição por https://t.co/anrN0UQGy
+@joaosenzi (68282f) 2026-05-06 L87 RT1 V5870 https://x.com/joaosenzi/status/2052086195015012680
+   @Serafim_zx Eu concordo em partes.  A dupla ChatGPT + Claude é MUITO boa.  Programadores dizem que o Claude é realmente muito bom, mas não tenho condições de opinar.  Na questão jurídica: O Claude inventa coisa até hoje OU fala sobre Súmulas desatualizadas do STJ.  No âmbito jurídico a gente
+@b_descalante (66f) 2026-06-19 L2 RT0 V44 https://x.com/b_descalante/status/2068011873149104569
+   @lucasmourao_ @ogavelar Uso o @jusratio com o Claude pra verificar o entendimento jurisprudencial mas é óbvio que, mesmo confiando na plataforma, valido e leio cada jurisprudência antes de incluir na petição.  A coisa mais importante que a gente tem é o nome, e é ele que vai no final da peça.
+@jolesrp (1230f) 2026-09-04 L0 RT0 V20 https://x.com/jolesrp/status/2095821619495088142
+   @tastefade @DanielOpotiguar Não foi o relatorio feito no Claude foi a petição, e na advocacia está sendo normal a utilização de ia para fazer o trabalho grosso como petições
+@professormazza (98482f) 2026-08-05 L0 RT0 V162 https://x.com/professormazza/status/2085039788155916767
+   Claude para negócios na advocacia (LIVE COMPLETA) | Advogando para Servidores  Live com o Engenheiro William Mazza, especialista em inteligência artificial para advogados  Curso Completo sobre a Reforma Tributária: https://t.co/2egYmsCVkN  Curso Completo de Advocacia Tributária: https://t.co/XTBuSKIOM1
+@professormazza (98482f) 2026-08-03 L0 RT0 V137 https://x.com/professormazza/status/2084340389549420664
+   Marque na sua agenda a live dessa quarta-feira, 5 de agosto, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “Claude para negócios na advocacia”   O conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas as redes  Link https://t.co/SWxyyS3wZ3
+@martins_piton (211f) 2026-02-27 L0 RT0 V58 https://x.com/martins_piton/status/2027436209836880032
+   ✅ 3 formas de usar IA para ganhar tempo na rotina jurídica:  ✅ NotebookLM — jogue o processo inteiro e faça perguntas objetivas ✅ Claude — treine com o teu modelo de petição, minute peças em segundos ✅ Gemini — leitura de acórdãos longos e análise de documentos volumosos  🫵 https://t.co/5GTD9BnxxD
+@professormazza (98482f) 2026-07-29 L0 RT0 V145 https://x.com/professormazza/status/2082543127936864384
+   As 4 frentes de atuação do Claude na advocacia (LIVE COMPLETA) | Advogando para Servidores  Live com o Engenheiro William Mazza, especialista em inteligência artificial para advogados  Curso Completo sobre a Reforma Tributária: https://t.co/2egYmsDtal  Curso Completo de Advocacia https://t.co/7BzMmO58vP
+@professormazza (98482f) 2026-08-11 L0 RT0 V177 https://x.com/professormazza/status/2087184409485033539
+   Marque na sua agenda a live dessa quarta-feira, 12 de agosto, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “Criação de documentos personalizados com Claude”   O conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas https://t.co/4w7Od2ijZT
+@jusratio (1104f) 2026-09-16 L27 RT6 V6019 https://x.com/jusratio/status/2100320074074620366
+   A notícia é: agora, com @jusratio e Claude, advogados já podem criar documentos e slides com inteligência jurídica sem trocar de aplicativo.  Com o Jusratio conectado, isso vira parecer, petição e apresentação para cliente com jurisprudência verificada e fundamentação completa, https://t.co/aktfreNY2M
+@professormazza (98482f) 2026-07-27 L0 RT0 V125 https://x.com/professormazza/status/2081768370878259283
+   Marque na sua agenda a live dessa quarta-feira, 29 de Julho, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “As 4 frentes de atuação do Claude na advocacia”   O conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas as https://t.co/oZqJNzSOMG
+@professormazza (98482f) 2026-08-13 L0 RT0 V198 https://x.com/professormazza/status/2087900672024879201
+   Criação de documentos personalizados com o Claude (LIVE COMPLETA) | Advogando para Servidores  Live com o Engenheiro William Mazza, especialista em inteligência artificial para advogados  Curso Completo sobre a Reforma Tributária: https://t.co/2egYmsCVkN  Curso Completo de https://t.co/GAoryHXiZt
+@agiacomolli_ (22f) 2026-03-07 L33 RT0 V1593 https://x.com/agiacomolli_/status/2030105383994343469
+   @tretasjuridicas Gosto do https://t.co/IuYquOrftD para enviar a petição e receber jurisprudências prontas para usar. Ou integro no Claude Code para pesquisar jurisprudência durante a elaboração da peça.
+@arielrocco (74f) 2026-08-27 L2 RT0 V50 https://x.com/arielrocco/status/2093013985129836660
+   Coleguinha advogado; jogar os autos no claude e pedir pra ele elaborar uma petição, sem comandos complexos e sem apontar as linhas de cada tese/estrategia, vai fazer com que sua petição fique uma porcaria e evidentemente elaborada por IA.
+@professormazza (98482f) 2026-07-21 L0 RT0 V219 https://x.com/professormazza/status/2079649661439095197
+   O que o Claude pode fazer pelo advogado? (LIVE COMPLETA) | Advogando para Servidores  Live com o Engenheiro William Mazza, especialista em inteligência artificial para advogados  Curso Completo sobre a Reforma Tributária: https://t.co/2egYmsCVkN  Curso Completo de Advocacia https://t.co/JEqtGyuIdz
+@caiocesax (3523f) 2026-10-01 L1 RT0 V124 https://x.com/caiocesax/status/2105470792477577265
+   sim claude eu vou revisar com um advogado essa petição https://t.co/ka7CzATiFn
+@professormazza (98482f) 2026-07-20 L0 RT0 V147 https://x.com/professormazza/status/2079236162255032506
+   Marque na sua agenda a live dessa quarta-feira, 22 de Julho, no Programa Advogue para Servidores, um bate-papo com Engenheiro William Mazza sobre “Como automatizar a advocacia com Claude?”   O conteúdo será gravado via Zoom e disponibilizado nas horas seguintes em todas as redes https://t.co/f5TwWFlNNn
+@CarlosR26271158 (3229f) 2026-03-17 L8 RT1 V777 https://x.com/CarlosR26271158/status/2034036957685448730
+   @AdvDoHardware usa o https://t.co/m10nYlGdkQ pra pesquisar jurisprudência que usa RAG com motor local (com sua RAM e processador). Vc leva as fontes pro claude e ele desenvolve a petição. É melhor que ele fazer a pesquisa e desenvolver tudo. Vc tem que fracionar o pedido

@@ -1,0 +1,57 @@
+Medição do contexto fixo — node scripts/manutencao.js medir --pasta skills
+ANTES (origin/main c05977c, v0.6.0): TOTAL contexto fixo 3543 caracteres; prazos descrição 171
+DEPOIS (v0.7.0): TOTAL contexto fixo 3539 caracteres; prazos descrição 167 (corpo 1114 → 1868; +3830 em references/calendario.md)
+
+=== antes ===
+advogado-do-diabo              169    1602
+ajuda                          183    2127
+aprender-meu-estilo            166    1989
+backup                           —     862
+boas-vindas                    175    2552
+casos                          184    1407
+cliente                          —      41
+consertar                      197    2812  +3130 em references/
+criar-skill-automatica         192    3950
+erros                            —    1008
+formatar-peca                  160    1396
+habilidades                      —     931
+handoff                        172    1051
+manutencao                       —    2373
+mapa-de-teses                  154    1323  +1979 em references/
+nova-peca                      162    2703
+novo-caso                      174    1454
+prazos                         171    1114
+preparar-autos                 175    1573
+primeira-execucao              171    7534  +15317 em references/
+processo                       148    1143
+reflexao                       179    3320
+revisar                        164    1179
+verificar-citacoes             154    1849  +2478 em references/
+TOTAL: 24 skills · contexto fixo 3543 caracteres (~1012 tokens, em toda conversa) · corpos 47293 caracteres (só quando usadas)
+
+=== depois ===
+advogado-do-diabo              169    1602
+ajuda                          183    2127
+aprender-meu-estilo            166    1989
+backup                           —     862
+boas-vindas                    175    2552
+casos                          184    1407
+cliente                          —      41
+consertar                      197    2812  +3130 em references/
+criar-skill-automatica         192    3950
+erros                            —    1008
+formatar-peca                  160    1396
+habilidades                      —     931
+handoff                        172    1051
+manutencao                       —    2373
+mapa-de-teses                  154    1323  +1979 em references/
+nova-peca                      162    2703
+novo-caso                      174    1603
+prazos                         167    1868  +3830 em references/
+preparar-autos                 175    1573
+primeira-execucao              171    7534  +15317 em references/
+processo                       148    1143
+reflexao                       179    3320
+revisar                        164    1179
+verificar-citacoes             154    1849  +2478 em references/
+TOTAL: 24 skills · contexto fixo 3539 caracteres (~1011 tokens, em toda conversa) · corpos 48196 caracteres (só quando usadas)

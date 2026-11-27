@@ -1,0 +1,834 @@
+{
+  "data": [
+    {
+      "author_id": "77767107",
+      "created_at": "2026-07-07T15:29:14.000Z",
+      "edit_history_tweet_ids": [
+        "2074516093872361816"
+      ],
+      "id": "2074516093872361816",
+      "in_reply_to_user_id": "1168158466600558598",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 67,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2074507191990534268",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@kbelo_bruno @CarlosRodr44314 Não! Faço tudo da minha advocacia no Codex. É o \"Claude Cowork, Claude Chat e Claude Code\" do ChatGPT. Organiza minhas pastas, faz minhas petições, crio carrosséis do Instagram, analiso decisões, além das tarefas automatizadas via Chrome.",
+      "url": "https://x.com/carloshsl_/status/2074516093872361816"
+    },
+    {
+      "author_id": "50697116",
+      "created_at": "2026-10-14T22:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2110490834168656113"
+      ],
+      "id": "2110490834168656113",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 10,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "1/ Escritório pequeno precisa ganhar tempo com segurança. A IA pode ajudar a organizar documentos, resumir autos e preparar rascunhos. Prazos, fatos e fundamentos exigem conferência do advogado.",
+      "url": "https://x.com/odilonoliveira/status/2110490834168656113"
+    },
+    {
+      "author_id": "1918727651193479168",
+      "created_at": "2025-07-26T18:35:06.000Z",
+      "edit_history_tweet_ids": [
+        "1949176667295125859"
+      ],
+      "id": "1949176667295125859",
+      "in_reply_to_user_id": "758486013413093376",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 88,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1949096445115564070",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Will_JC__BR @mendlowicz A IA só vai substituir trabalho previsível. Todo trabalho que envolve criatividade e intelectualidade vai permanecer intacto. Um advogado vai usar ia para organizar documentos e estruturar processos, mas a construção da defesa e da acusação a IA não tem esse poder todo pra tomar",
+      "url": "https://x.com/Naldinbbmp/status/1949176667295125859"
+    },
+    {
+      "author_id": "1273776346771132417",
+      "created_at": "2026-03-16T19:31:31.000Z",
+      "edit_history_tweet_ids": [
+        "2033627237560250529"
+      ],
+      "id": "2033627237560250529",
+      "public_metrics": {
+        "bookmark_count": 152,
+        "impression_count": 23395,
+        "like_count": 304,
+        "quote_count": 6,
+        "reply_count": 15,
+        "retweet_count": 59
+      },
+      "text": "A MAIOR INVERSÃO ECONÔMICA DAS NOSSAS VIDAS ESTÁ ACONTECENDO AGORA\n\nDaniel Priestley construiu 5 empresas multimilionárias em 20 anos. É cofundador da Dent Global e da ScoreApp, autor de bestsellers internacionais como \"Oversubscribed\" e \"Key Person of Influence\", e previu o https://t.co/p495YrtNv7",
+      "url": "https://x.com/namcios/status/2033627237560250529"
+    },
+    {
+      "author_id": "1273776346771132417",
+      "created_at": "2026-02-11T13:03:00.000Z",
+      "edit_history_tweet_ids": [
+        "2021570664759431426"
+      ],
+      "id": "2021570664759431426",
+      "public_metrics": {
+        "bookmark_count": 290,
+        "impression_count": 43774,
+        "like_count": 231,
+        "quote_count": 1,
+        "reply_count": 12,
+        "retweet_count": 25
+      },
+      "referenced_tweets": [
+        {
+          "id": "2021256989876109403",
+          "type": "quoted"
+        }
+      ],
+      "text": "🚨 LEITURA OBRIGATÓRIA\n\nEsse é o artigo mais importante de 2026 até agora.\n\nUm fundador de startup de IA com 6 anos no setor decidiu contar a verdade sobre o que está acontecendo por trás dos panos.\n\nEle não está mais precisando fazer o próprio trabalho. A IA faz. Melhor que ele. https://t.co/D6TM7rdqgl",
+      "url": "https://x.com/namcios/status/2021570664759431426"
+    },
+    {
+      "author_id": "1508122509350260736",
+      "created_at": "2026-04-01T21:00:10.000Z",
+      "edit_history_tweet_ids": [
+        "2039447756805120060"
+      ],
+      "id": "2039447756805120060",
+      "public_metrics": {
+        "bookmark_count": 47,
+        "impression_count": 4036,
+        "like_count": 56,
+        "quote_count": 1,
+        "reply_count": 0,
+        "retweet_count": 6
+      },
+      "text": "Todo mundo falando de IA. Quase ninguém usando direito.\nNão é culpa sua. O mercado virou uma bagunça de hype\n\nMas existe uma distinção que poucos fazem, e ela muda tudo.\n\nHá dois perfis de profissional agora: https://t.co/Ntxy2esIcU",
+      "url": "https://x.com/obrunookamoto/status/2039447756805120060"
+    },
+    {
+      "author_id": "71273617",
+      "created_at": "2026-06-13T23:41:17.000Z",
+      "edit_history_tweet_ids": [
+        "2065942614600188154"
+      ],
+      "id": "2065942614600188154",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 22,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Advogado: quantas horas por semana seu escritório gasta em rotina repetitiva — petição, prazo, planilha, relatório?\n\nA média que vejo assusta: 8 a 12h. Quase 2 dias úteis/mês.\n\nNo Vereditum automatizamos 66 dessas rotinas (14 áreas, OAB/CRC). A IA cuida do operacional; você cuida https://t.co/oOlxlPbmYc",
+      "url": "https://x.com/paulo_eduardosp/status/2065942614600188154"
+    },
+    {
+      "article": {
+        "title": "Como automatizar sua vida com o Claude"
+      },
+      "author_id": "176490337",
+      "created_at": "2026-08-08T20:24:12.000Z",
+      "edit_history_tweet_ids": [
+        "2086186736556609878"
+      ],
+      "id": "2086186736556609878",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 616,
+        "like_count": 0,
+        "quote_count": 1,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Aposentei o segundo cérebro.\n\nExige alimentação diária: você vira funcionário da ferramenta, sem salário.\n\nA iA não é uma cópia sua. É uma inteligência alienígena: dispensa notas, pede território. Claude, arquivos, commit, 90 minutos.\n\nTutorial no artigo. https://t.co/HMufouq9oN",
+      "url": "https://x.com/FuraPauta/status/2086186736556609878"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-08-14T14:14:25.000Z",
+      "edit_history_tweet_ids": [
+        "2088268004844859396"
+      ],
+      "id": "2088268004844859396",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Se o advogado não possui um software de CRM, como ele faz para saber em que pé está o caso do cliente?\n\nAnota na agenda? Confia na memória? Lê a pasta ou processo quando o cliente pergunta? Tudo isso é muito inseguro e perigoso.\n\nDividindo meus pensamentos com o Claude, confessei",
+      "url": "https://x.com/iamleds/status/2088268004844859396"
+    },
+    {
+      "author_id": "28405901",
+      "created_at": "2026-07-24T13:23:35.000Z",
+      "edit_history_tweet_ids": [
+        "2080645067832741983"
+      ],
+      "id": "2080645067832741983",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 180,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Você sabe quanto do que já digitou num chat de IA poderia virar prova contra você?\n\nRegra prática para usar IA generativa sem se expor: não escreva num chat (ChatGPT, Gemini, Claude, Grok, Perplexity ou qualquer outro) o que não diria em público, com um microfone na mão.\n\nSenhas, https://t.co/st8KTAlRoC",
+      "url": "https://x.com/nazapl/status/2080645067832741983"
+    },
+    {
+      "author_id": "1593713747545178119",
+      "created_at": "2025-06-01T15:26:11.000Z",
+      "edit_history_tweet_ids": [
+        "1929197794797220209"
+      ],
+      "id": "1929197794797220209",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 322,
+        "like_count": 8,
+        "quote_count": 0,
+        "reply_count": 4,
+        "retweet_count": 1
+      },
+      "text": "Se você acha que tá atualizado pq usa ChatGPT…\n💥 Tá atrasado, meu amigo!\n\nA nova era é dos superagentes:\n1 comando = planilha, site, doc, vídeo, imagem, pesquisa…\n🔥 E é de graça!\n\nQuer seguir colocando seus dados em risco?\nBoa sorte com a LGPD (e com o advogado 😅)\n\n💬 https://t.co/zGdEbfyBm7",
+      "url": "https://x.com/ORobertoDuarte/status/1929197794797220209"
+    },
+    {
+      "author_id": "2750515186",
+      "created_at": "2026-05-14T20:11:23.000Z",
+      "edit_history_tweet_ids": [
+        "2055018154393243837"
+      ],
+      "id": "2055018154393243837",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 30,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Anthropic abriu três frentes na mesma semana. Terça meteu doze plugins jurídicos especializados dentro do Claude, com buscador legal de parceiro acoplado e leque cobrindo direito societário, regulatório e trabalhista. Hoje cedo alargou aliança com uma das quatro grandes",
+      "url": "https://x.com/opanteraos/status/2055018154393243837"
+    },
+    {
+      "author_id": "16742456",
+      "created_at": "2026-10-08T11:21:06.000Z",
+      "edit_history_tweet_ids": [
+        "2108155720281546991"
+      ],
+      "id": "2108155720281546991",
+      "public_metrics": {
+        "bookmark_count": 40,
+        "impression_count": 10189,
+        "like_count": 128,
+        "quote_count": 2,
+        "reply_count": 2,
+        "retweet_count": 7
+      },
+      "referenced_tweets": [
+        {
+          "id": "2107867832495321422",
+          "type": "quoted"
+        }
+      ],
+      "text": "O Pix ganhou da TED pelo mesmo motivo que o Windows ganhou do MS-DOS.\n\nPra mandar uma TED você pedia banco, agência, conta, dígito e CPF, e rezava pra não ter trocado um número. \n\nNo Pix é o telefone que já está no teu WhatsApp e ele ainda confirma antes de você enviar.\n\nO mesmo https://t.co/tJENXPzdAS",
+      "url": "https://x.com/richardrx/status/2108155720281546991"
+    },
+    {
+      "author_id": "2011459144612712448",
+      "created_at": "2026-07-27T21:38:05.000Z",
+      "edit_history_tweet_ids": [
+        "2081856679063298235"
+      ],
+      "id": "2081856679063298235",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Os 4 níveis de automação de um escritório: manual assistido, rotinas com IA, agentes por área, operação orquestrada.\n\nA régua não é usar IA — é o quanto dela roda sem você.\n\nComenta NIVEL que te mando o dossiê na DM. https://t.co/hPUJ90tk4Y",
+      "url": "https://x.com/SbroggioAdv/status/2081856679063298235"
+    },
+    {
+      "author_id": "1393353962515013641",
+      "created_at": "2026-06-24T16:31:02.000Z",
+      "edit_history_tweet_ids": [
+        "2069820605344485408"
+      ],
+      "id": "2069820605344485408",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 70,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "eu (o claude) escrevi um mega codigo complexo (eu nem vi o codigo) no phyton (que o claude rodou sozinho) e resolvemos um mega problema do escritorio (comparamos 2 mil linhas de planilha que eu tava com preguiça de fazer manualmente) https://t.co/iv8fT8Lvzt",
+      "url": "https://x.com/propatooo/status/2069820605344485408"
+    },
+    {
+      "author_id": "4222896442",
+      "created_at": "2026-07-30T13:28:59.000Z",
+      "edit_history_tweet_ids": [
+        "2082820754085740739"
+      ],
+      "id": "2082820754085740739",
+      "in_reply_to_user_id": "1536693901230321666",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2082228354175127938",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@RoundtableSpace @grok Sou advogado, uso gdrive para armazenamento das pastas dos meus clientes e uso Claude Code, Grok Build e outros para elaborar petições, contratos, controlar prazos etc. Como o Buzz pode ser útil para a minha atividade diária e workflows?",
+      "url": "https://x.com/iamleds/status/2082820754085740739"
+    },
+    {
+      "author_id": "86067582",
+      "created_at": "2026-10-01T16:00:00.000Z",
+      "edit_history_tweet_ids": [
+        "2105689194508980432"
+      ],
+      "id": "2105689194508980432",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "😂 O ChatGPT monta a proposta, acha o erro na planilha e te poupa horas de escritório. Aí o dono da indústria de embalagens pede: agora faz o vendedor ligar pro cliente. Peça ao ChatGPT a lista de orçamentos parados e a mensagem pronta para cada um, e decida quem envia.",
+      "url": "https://x.com/marcofrassonweb/status/2105689194508980432"
+    },
+    {
+      "author_id": "2043698611502919680",
+      "created_at": "2026-05-22T12:33:58.000Z",
+      "edit_history_tweet_ids": [
+        "2057802145542418700"
+      ],
+      "id": "2057802145542418700",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 5,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Comecei a anotar tudo que acontece no escritório no segundo dia. Achei que ia me ajudar a entender.  Já são 252 linhas. Continuo sem entender.  Mas a planilha existe.",
+      "url": "https://x.com/diacorporativo/status/2057802145542418700"
+    },
+    {
+      "author_id": "2069153680129953792",
+      "created_at": "2026-06-30T18:59:30.000Z",
+      "edit_history_tweet_ids": [
+        "2072032293833588925"
+      ],
+      "id": "2072032293833588925",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 21,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "Sua advocacia merece sair da planilha. 📋➡️💻\n\nLinkinPro: processos, financeiro e documentos em um só lugar + IA jurídica grátis.\n\nTeste grátis por 14 dias, sem cartão 🚀\nhttps://t.co/raTsMgNXff https://t.co/rpHKDH9Jpy",
+      "url": "https://x.com/LinkinPro_Ofici/status/2072032293833588925"
+    },
+    {
+      "author_id": "3090034883",
+      "created_at": "2026-06-18T18:13:03.000Z",
+      "edit_history_tweet_ids": [
+        "2067671950034362562"
+      ],
+      "id": "2067671950034362562",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 115,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "fizeram um lanche junino aqui no escritório, botei la na planilha que eu ia levar brigadeiro de paçoca logo no início fiquei ontem de noite fazendo essa porra pra chegar hj um estag que n viu trazendo a mesma coisa que eu só que feito pela mãe e com uma apresentação mt melhor",
+      "url": "https://x.com/inversevictor/status/2067671950034362562"
+    },
+    {
+      "author_id": "107998444",
+      "created_at": "2026-06-23T14:03:21.000Z",
+      "edit_history_tweet_ids": [
+        "2069421054091481230"
+      ],
+      "id": "2069421054091481230",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 17,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Ainda no WhatsApp e planilha? O agro investe pesado em IA, mas a inteligência morre quando o dado depende de reporte manual. Se o back-office é um buraco negro, o lucro some entre o campo e o escritório. Mapear o processo garante o controle real do seu ativo. Vamos mapear seu https://t.co/QL3eXurarp",
+      "url": "https://x.com/adekzti/status/2069421054091481230"
+    },
+    {
+      "author_id": "2038983090228301824",
+      "created_at": "2026-03-31T14:19:49.000Z",
+      "edit_history_tweet_ids": [
+        "2038984613532516484"
+      ],
+      "id": "2038984613532516484",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 2,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 1
+      },
+      "text": "Usando planilha? 📉\n\nO Processei monitora tudo 24h, prevê resultados com IA e já economizou +200h para 41 advogados em 7.997 movimentações. ⚖️🤖\n\nFoque na estratégia!\n👉 Teste grátis: https://t.co/KBN5xfGgj7\n\n#legaltech #advocacia #inovacaojuridica #gestaoprocessual #direito https://t.co/IMgtURlEdA",
+      "url": "https://x.com/Processei_ia/status/2038984613532516484"
+    },
+    {
+      "author_id": "85341288",
+      "created_at": "2026-05-21T15:58:59.000Z",
+      "edit_history_tweet_ids": [
+        "2057491354779890118"
+      ],
+      "id": "2057491354779890118",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 107,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2057463224530796997",
+          "type": "quoted"
+        }
+      ],
+      "text": "Eu como PJ tinha que: \n\n- Obrigatoriamente ir ao presencial 3x\n- Tinha que dar satisfação de horário (e estar no escritório antes das 10)\n- Registrar em uma planilha de Excel a hora eu entrava, q hora ia pro almoço e quando voltava e a hora de ir embora\n\nFora muitas coisas. https://t.co/H9WppmCtF2",
+      "url": "https://x.com/guimthegreat/status/2057491354779890118"
+    },
+    {
+      "author_id": "981618086121017344",
+      "created_at": "2026-07-27T20:33:56.000Z",
+      "edit_history_tweet_ids": [
+        "2081840533727576249"
+      ],
+      "id": "2081840533727576249",
+      "public_metrics": {
+        "bookmark_count": 10,
+        "impression_count": 6298,
+        "like_count": 125,
+        "quote_count": 0,
+        "reply_count": 10,
+        "retweet_count": 1
+      },
+      "text": "Essa foi minha primeira noite, no meu primeiro escritório (uma sala alugada dentro de uma incorporadora) fazendo meu primeiro estudo de viabilidade para um terrenista, depois que saí da CLT.\n\nEnviei para minha esposa quando ela perguntou se eu ia jantar em casa.\n\nNa Planilha, Sem https://t.co/LhxS6CP0mS",
+      "url": "https://x.com/JpPedrosa1/status/2081840533727576249"
+    },
+    {
+      "author_id": "37581404",
+      "created_at": "2026-10-10T00:59:33.000Z",
+      "edit_history_tweet_ids": [
+        "2108724080534852064"
+      ],
+      "id": "2108724080534852064",
+      "in_reply_to_user_id": "37581404",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 35,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2108724077531746678",
+          "type": "replied_to"
+        }
+      ],
+      "text": "Pois é. Esse alguém chegou, e mora dentro da planilha.\n\nHoje dá pra passar a semana na rua vendendo e resolver o escritório em minutos.\n\nA IA vai roubar emprego, isso é inegável. Mas vai abrir uma porta gigante pro empreendedorismo.\n\nQuem aprender isso agora sai anos luz na",
+      "url": "https://x.com/ronymeisler/status/2108724080534852064"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado 🇧🇷",
+        "id": "77767107",
+        "name": "Henrique",
+        "public_metrics": {
+          "followers_count": 400,
+          "following_count": 635,
+          "like_count": 74219,
+          "listed_count": 3,
+          "media_count": 54,
+          "tweet_count": 1255
+        },
+        "username": "carloshsl_"
+      },
+      {
+        "description": "Advogado criminalista em Campo Grande/MS. Defesa estratégica, processo penal, instituições e IA aplicada à advocacia.",
+        "id": "50697116",
+        "name": "Odilon Jr",
+        "public_metrics": {
+          "followers_count": 1196,
+          "following_count": 166,
+          "like_count": 304,
+          "listed_count": 15,
+          "media_count": 665,
+          "tweet_count": 8373
+        },
+        "username": "odilonoliveira"
+      },
+      {
+        "description": "ODIAR ROGÉRIO CENI NÃO É NECESSÁRIO. É INEVITÁVEL.\n\nFORA ROGÉRIO CENI",
+        "id": "1918727651193479168",
+        "name": "FICA ROGÉRIO CENI, ESSA TORCIDA MERECE(17/45)🇱🇺",
+        "public_metrics": {
+          "followers_count": 100,
+          "following_count": 351,
+          "like_count": 7154,
+          "listed_count": 1,
+          "media_count": 1219,
+          "tweet_count": 17384
+        },
+        "username": "Naldinbbmp"
+      },
+      {
+        "description": "Explico os avanços da IA e o que muda pra você. Todo dia, em português. 700+ artigos em @zerohedge e @BitcoinMagazine",
+        "id": "1273776346771132417",
+        "name": "Felipe Demartini",
+        "public_metrics": {
+          "followers_count": 41513,
+          "following_count": 903,
+          "like_count": 29021,
+          "listed_count": 499,
+          "media_count": 2069,
+          "tweet_count": 12106
+        },
+        "username": "namcios"
+      },
+      {
+        "description": "3x Founder · TEDx Speaker\nEnsino você a fazer IAs trabalharem por você.\nIA · Agentes · Negócios · SaaS\nSaiba mais ↓",
+        "id": "1508122509350260736",
+        "name": "Bruno Okamoto",
+        "public_metrics": {
+          "followers_count": 4867,
+          "following_count": 575,
+          "like_count": 945,
+          "listed_count": 48,
+          "media_count": 150,
+          "tweet_count": 740
+        },
+        "username": "obrunookamoto"
+      },
+      {
+        "description": "robôs que trabalham enquanto eu durmo — 110 na apify · SaaS: https://t.co/zCjzMeUMry + vereditum (jurídico/fiscal) · Dolarizou: ganhe dólar treinando IA",
+        "id": "71273617",
+        "name": "Paulo Eduardo | Data Products",
+        "public_metrics": {
+          "followers_count": 380,
+          "following_count": 1590,
+          "like_count": 12408,
+          "listed_count": 0,
+          "media_count": 224,
+          "tweet_count": 10232
+        },
+        "username": "paulo_eduardosp"
+      },
+      {
+        "description": "ousadia criativa. precisão estratégica.",
+        "id": "176490337",
+        "name": "kim",
+        "public_metrics": {
+          "followers_count": 1050,
+          "following_count": 300,
+          "like_count": 286486,
+          "listed_count": 22,
+          "media_count": 499,
+          "tweet_count": 5821
+        },
+        "username": "FuraPauta"
+      },
+      {
+        "description": "me interesso em advocacia, IA, tecnologia, política, curiosidades, aleatoriedades.",
+        "id": "4222896442",
+        "name": "Lucas Eduardo Dias de Souza",
+        "public_metrics": {
+          "followers_count": 49,
+          "following_count": 130,
+          "like_count": 271,
+          "listed_count": 1,
+          "media_count": 55,
+          "tweet_count": 757
+        },
+        "username": "iamleds"
+      },
+      {
+        "description": "Computer Science, https://t.co/zbQ292BU6X. Production Engineering, Data Analyst\n#avgeek #starwars",
+        "id": "28405901",
+        "name": "Naza, com Z 🇧🇷 🇺🇦",
+        "public_metrics": {
+          "followers_count": 318,
+          "following_count": 579,
+          "like_count": 61378,
+          "listed_count": 6,
+          "media_count": 986,
+          "tweet_count": 21082
+        },
+        "username": "nazapl"
+      },
+      {
+        "description": "Turning accounting into an art of creating opportunities. Author, speaker, strategic consultant.",
+        "id": "1593713747545178119",
+        "name": "Roberto Dias Duarte",
+        "public_metrics": {
+          "followers_count": 196,
+          "following_count": 611,
+          "like_count": 808,
+          "listed_count": 3,
+          "media_count": 30,
+          "tweet_count": 639
+        },
+        "username": "ORobertoDuarte"
+      },
+      {
+        "description": "Product Engineer 🛠️ | Product Thinking + Technical Execution | Shipping end-to-end software & AI that solve real user problems",
+        "id": "2750515186",
+        "name": "PanteraOS",
+        "public_metrics": {
+          "followers_count": 295,
+          "following_count": 7499,
+          "like_count": 85848,
+          "listed_count": 14,
+          "media_count": 46,
+          "tweet_count": 7038
+        },
+        "username": "opanteraos"
+      },
+      {
+        "description": "Design para Startups.\nReduzo churn e aumento conversões.\nApaixonado por ciências comportamentais.\n\nex @Volkswagen @Paypal @IBM",
+        "id": "16742456",
+        "name": "Richard - Design for startups",
+        "public_metrics": {
+          "followers_count": 14635,
+          "following_count": 367,
+          "like_count": 15450,
+          "listed_count": 105,
+          "media_count": 850,
+          "tweet_count": 14005
+        },
+        "username": "richardrx"
+      },
+      {
+        "description": "Advogado Empresarial\nCEO @sbroggioadv\nMBA em Inteligência Artificial\nTe ensino IA sem complicação\nAutomatize. Escale. Lucre mais.\nCurso IA Combativa",
+        "id": "2011459144612712448",
+        "name": "SBROGGIO ADV",
+        "public_metrics": {
+          "followers_count": 5,
+          "following_count": 44,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 35,
+          "tweet_count": 45
+        },
+        "username": "SbroggioAdv"
+      },
+      {
+        "description": "輝き",
+        "id": "1393353962515013641",
+        "name": "propato",
+        "public_metrics": {
+          "followers_count": 42,
+          "following_count": 72,
+          "like_count": 8235,
+          "listed_count": 0,
+          "media_count": 685,
+          "tweet_count": 4737
+        },
+        "username": "propatooo"
+      },
+      {
+        "description": "Venda mais e gaste menos com IA. Há 15 anos ajudando negócios com tecnologia e IA a aumentar vendas e diminuir custos.👇👇👇",
+        "id": "86067582",
+        "name": "Marco Frasson",
+        "public_metrics": {
+          "followers_count": 1151,
+          "following_count": 38,
+          "like_count": 1860,
+          "listed_count": 34,
+          "media_count": 433,
+          "tweet_count": 13928
+        },
+        "username": "marcofrassonweb"
+      },
+      {
+        "description": "Estagiário de consultoria estratégica em Alphaville. Documento o que vejo. Tudo aqui é real, menos o que não é. \nParódia / sátira corporativa.",
+        "id": "2043698611502919680",
+        "name": "Lucas Figueiredo",
+        "public_metrics": {
+          "followers_count": 2,
+          "following_count": 23,
+          "like_count": 20,
+          "listed_count": 0,
+          "media_count": 0,
+          "tweet_count": 57
+        },
+        "username": "diacorporativo"
+      },
+      {
+        "description": "",
+        "id": "2069153680129953792",
+        "name": "LinkinPro",
+        "public_metrics": {
+          "followers_count": 1,
+          "following_count": 87,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 3,
+          "tweet_count": 4
+        },
+        "username": "LinkinPro_Ofici"
+      },
+      {
+        "description": "a supernatural connection with a touch of deja vu",
+        "id": "3090034883",
+        "name": "rotciv",
+        "public_metrics": {
+          "followers_count": 358,
+          "following_count": 724,
+          "like_count": 33958,
+          "listed_count": 2,
+          "media_count": 2705,
+          "tweet_count": 30376
+        },
+        "username": "inversevictor"
+      },
+      {
+        "description": "Chega de adaptar sua operação ao software. Sistemas, portais e automações sob medida desde 2007. https://t.co/dfNoPlMk19",
+        "id": "107998444",
+        "name": "Adekz TI",
+        "public_metrics": {
+          "followers_count": 225,
+          "following_count": 405,
+          "like_count": 5,
+          "listed_count": 5,
+          "media_count": 383,
+          "tweet_count": 1671
+        },
+        "username": "adekzti"
+      },
+      {
+        "description": "",
+        "id": "2038983090228301824",
+        "name": "Processei.IA",
+        "public_metrics": {
+          "followers_count": 1,
+          "following_count": 1,
+          "like_count": 0,
+          "listed_count": 0,
+          "media_count": 3,
+          "tweet_count": 9
+        },
+        "username": "Processei_ia"
+      },
+      {
+        "description": "eu luto pelo fim dessa rede social",
+        "id": "85341288",
+        "name": "guim ˢᵖᶠᶜ",
+        "public_metrics": {
+          "followers_count": 584,
+          "following_count": 464,
+          "like_count": 113533,
+          "listed_count": 2,
+          "media_count": 628,
+          "tweet_count": 39392
+        },
+        "username": "guimthegreat"
+      },
+      {
+        "description": "Incorporador | Fundador https://t.co/1BaR1X9Nb1\n+R$ 2 bi em VGV | +18 anos\nMaior Audiência no X \nSobre Mercado Imobiliário e Loteamentos.\nEconomista",
+        "id": "981618086121017344",
+        "name": "JP Garcia",
+        "public_metrics": {
+          "followers_count": 9649,
+          "following_count": 2212,
+          "like_count": 54849,
+          "listed_count": 21,
+          "media_count": 2800,
+          "tweet_count": 30891
+        },
+        "username": "JpPedrosa1"
+      },
+      {
+        "description": "Dou ideias para o seu negócio. Falo sobre gestao, marketing e inteligência artificial. Co-fundei e empreendi as marcas da Reserva de 0 a R$1,6B de fat. anual.",
+        "id": "37581404",
+        "name": "Rony Meisler",
+        "public_metrics": {
+          "followers_count": 3437,
+          "following_count": 179,
+          "like_count": 21,
+          "listed_count": 39,
+          "media_count": 2047,
+          "tweet_count": 4185
+        },
+        "username": "ronymeisler"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2110490834168656113",
+    "oldest_id": "1929197794797220209",
+    "result_count": 25
+  }
+}

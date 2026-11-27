@@ -1,0 +1,658 @@
+{
+  "data": [
+    {
+      "author_id": "2055250851644489728",
+      "created_at": "2026-05-20T14:08:37.000Z",
+      "edit_history_tweet_ids": [
+        "2057101189028688258"
+      ],
+      "id": "2057101189028688258",
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 10880,
+        "like_count": 194,
+        "quote_count": 1,
+        "reply_count": 14,
+        "retweet_count": 7
+      },
+      "text": "Estamos construindo a fundação jurídica para a IA no Jusratio:\n\nNão somos uma legaltech tradicional. Não somos um \"ChatGPT do direito\" empacotado. Somos a camada de inteligência jurídica que conecta os LLMs que o advogado já usa (Claude, ChatGPT, Gemini) a um corpus vivo de",
+      "url": "https://x.com/jusratio/status/2057101189028688258"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-04-06T14:03:44.000Z",
+      "edit_history_tweet_ids": [
+        "2041154896896946180"
+      ],
+      "id": "2041154896896946180",
+      "public_metrics": {
+        "bookmark_count": 490,
+        "impression_count": 77551,
+        "like_count": 328,
+        "quote_count": 2,
+        "reply_count": 23,
+        "retweet_count": 22
+      },
+      "text": "Como evolução natural do https://t.co/m10nYlFFvi, fiz uma sessão de brainstorming com Claude, ChatGPT, Gemini para projetar a próxima fase: o Ratio Escritório: um escritório jurídico virtual multi-agente. (sempre faço sessão de brainstorming com modelos distintos antes de https://t.co/seDsqCEgTO",
+      "url": "https://x.com/CarlosR26271158/status/2041154896896946180"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-05-17T20:01:35.000Z",
+      "edit_history_tweet_ids": [
+        "2056102853358305302"
+      ],
+      "id": "2056102853358305302",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 65,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "✅ Antes de citar matéria de IA em peça, valide fonte primária.\n\nHalupedia (clone Wikipedia 100% alucinação) e TRT-8 Galileu (R$84,2k por prompt injection) mostram que IA jurídica pega quem confia cego.\n\nChatGPT/Claude/Gemini não substituem Diário Oficial/CNJ/jurisprudência. https://t.co/0EmzuF4lHO",
+      "url": "https://x.com/martins_piton/status/2056102853358305302"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-03-13T13:17:48.000Z",
+      "edit_history_tweet_ids": [
+        "2032446026364211202"
+      ],
+      "id": "2032446026364211202",
+      "public_metrics": {
+        "bookmark_count": 115,
+        "impression_count": 15396,
+        "like_count": 100,
+        "quote_count": 1,
+        "reply_count": 7,
+        "retweet_count": 11
+      },
+      "text": "Existe uma diferença fundamental entre uma IA que escreve bem sobre Direito e uma IA que sabe Direito. A primeira é perigosa exatamente porque parece a segunda.\n\nQuando um advogado usa o ChatGPT para pesquisar jurisprudência, o modelo não está consultando uma base de dados do",
+      "url": "https://x.com/CarlosR26271158/status/2032446026364211202"
+    },
+    {
+      "author_id": "548625382",
+      "created_at": "2025-04-16T22:40:46.000Z",
+      "edit_history_tweet_ids": [
+        "1912637318466306094"
+      ],
+      "id": "1912637318466306094",
+      "public_metrics": {
+        "bookmark_count": 84,
+        "impression_count": 8255,
+        "like_count": 80,
+        "quote_count": 0,
+        "reply_count": 10,
+        "retweet_count": 18
+      },
+      "text": "🤖⚖️ Levando em conta tudo o que aprendi utilizando diariamente inteligência artificial há pelo menos dois anos, esse é um conciso passo a passo que vejo como ideal para profissionais do direito (advogados, juízes, promotores, assessores, etc) economizarem tempo no dia a dia sem https://t.co/CaPm1TZwTz",
+      "url": "https://x.com/freitashebert_/status/1912637318466306094"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-28T11:08:29.000Z",
+      "edit_history_tweet_ids": [
+        "2082060621949124631"
+      ],
+      "id": "2082060621949124631",
+      "public_metrics": {
+        "bookmark_count": 52,
+        "impression_count": 649188,
+        "like_count": 143,
+        "quote_count": 2,
+        "reply_count": 6,
+        "retweet_count": 8
+      },
+      "text": "A pesquisa jurídica é a base de qualquer boa aplicação de inteligência artificial no Direito.\n\nFoi com essa premissa que surgiu a IAJus: uma plataforma de inteligência jurídica desenvolvida para disponibilizar uma base de conhecimento estruturada, abrangente e rastreável, capaz https://t.co/vvRvOA4zRT",
+      "url": "https://x.com/rafaelobitten/status/2082060621949124631"
+    },
+    {
+      "author_id": "1578936409104289792",
+      "created_at": "2026-05-16T01:26:39.000Z",
+      "edit_history_tweet_ids": [
+        "2055459884779425861"
+      ],
+      "id": "2055459884779425861",
+      "in_reply_to_user_id": "1544413677872418820",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 1389,
+        "like_count": 5,
+        "quote_count": 0,
+        "reply_count": 7,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "2055447687852384408",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Sampaio280864 Na área do Direito, a IA ainda está deixando muito a desejar.\nColoquei um caso da área tributária para fins de raciocínio e pesquisa de jurisprudência e o que veio foi desastroso.\nInventou a solução que estava completamente errada com o CTN e CRFB, e a jurisprudência era",
+      "url": "https://x.com/RealBernardoSC/status/2055459884779425861"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-20T11:33:35.000Z",
+      "edit_history_tweet_ids": [
+        "2079167833796219344"
+      ],
+      "id": "2079167833796219344",
+      "public_metrics": {
+        "bookmark_count": 30,
+        "impression_count": 708631,
+        "like_count": 69,
+        "quote_count": 1,
+        "reply_count": 1,
+        "retweet_count": 5
+      },
+      "text": "A IAJus é uma plataforma de inteligência jurídica desenvolvida para potencializar o uso eficiente e responsável da inteligência artificial no Direito. Para isso, disponibiliza uma base jurídica estruturada, rastreável e integrada às principais ferramentas de IA utilizadas pelos",
+      "url": "https://x.com/rafaelobitten/status/2079167833796219344"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-25T13:39:03.000Z",
+      "edit_history_tweet_ids": [
+        "2081011349182697965"
+      ],
+      "id": "2081011349182697965",
+      "public_metrics": {
+        "bookmark_count": 68,
+        "impression_count": 602188,
+        "like_count": 135,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 10
+      },
+      "text": "A IAJus é uma plataforma de inteligência jurídica desenvolvida para potencializar o uso eficiente e responsável da inteligência artificial no Direito, disponibilizando uma base jurídica estruturada, abrangente e rastreável para apoiar diferentes modelos de IA.\n\nA plataforma reúne https://t.co/73917wvyVq",
+      "url": "https://x.com/rafaelobitten/status/2081011349182697965"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-05-15T20:36:50.000Z",
+      "edit_history_tweet_ids": [
+        "2055386947309199549"
+      ],
+      "id": "2055386947309199549",
+      "public_metrics": {
+        "bookmark_count": 840,
+        "impression_count": 49740,
+        "like_count": 547,
+        "quote_count": 0,
+        "reply_count": 39,
+        "retweet_count": 45
+      },
+      "referenced_tweets": [
+        {
+          "id": "2055064921428152505",
+          "type": "quoted"
+        }
+      ],
+      "text": "Pessoal, aqui a lista completa de tribunais no banco de dados do https://t.co/pqVTMyA6TL (tjpe ta finalizando). Se essa ferramenta estiver sendo útil, manda pros colegas que não estão aqui no X. \n\nQuem já plugou o JusRatio no Claude, ChatGPT ou Gemini sabe a sensação, a primeira https://t.co/qwNKXpiqYm https://t.co/WHol0tRdMN",
+      "url": "https://x.com/CarlosR26271158/status/2055386947309199549"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-31T19:45:19.000Z",
+      "edit_history_tweet_ids": [
+        "2083277849310433615"
+      ],
+      "id": "2083277849310433615",
+      "public_metrics": {
+        "bookmark_count": 82,
+        "impression_count": 875435,
+        "like_count": 185,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 18
+      },
+      "text": "A confiabilidade da inteligência artificial aplicada ao Direito não começa no modelo. Ela começa na qualidade, na abrangência e na organização das informações que esse modelo consegue pesquisar.\n\nA IAJus foi desenvolvida para oferecer essa infraestrutura. A plataforma reúne https://t.co/JDyN0U9Ox1",
+      "url": "https://x.com/rafaelobitten/status/2083277849310433615"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-02T19:00:49.000Z",
+      "edit_history_tweet_ids": [
+        "2072757401758187647"
+      ],
+      "id": "2072757401758187647",
+      "public_metrics": {
+        "bookmark_count": 31,
+        "impression_count": 629344,
+        "like_count": 107,
+        "quote_count": 0,
+        "reply_count": 2,
+        "retweet_count": 6
+      },
+      "text": "Não basta uma resposta “bonita”, que aparente estar bem fundamentada.\n\nNo Direito, o uso eficiente e responsável de modelos de IA precisa vir acompanhado de acesso a fontes externas, bases jurídicas confiáveis e possibilidade real de conferência.\n\nÉ essa a proposta da IAJus:",
+      "url": "https://x.com/rafaelobitten/status/2072757401758187647"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-23T12:20:37.000Z",
+      "edit_history_tweet_ids": [
+        "2080266835363062224"
+      ],
+      "id": "2080266835363062224",
+      "public_metrics": {
+        "bookmark_count": 89,
+        "impression_count": 683063,
+        "like_count": 168,
+        "quote_count": 2,
+        "reply_count": 12,
+        "retweet_count": 9
+      },
+      "text": "Nenhum modelo de inteligência artificial, por melhor e mais avançado que seja, será suficientemente confiável para uso no Direito se não tiver acesso a uma base jurídica confiável, estruturada e atualizada.\n\nA qualidade da resposta depende diretamente da qualidade da pesquisa https://t.co/DZIBBzKD3C",
+      "url": "https://x.com/rafaelobitten/status/2080266835363062224"
+    },
+    {
+      "author_id": "1745889464109477888",
+      "created_at": "2026-06-05T13:15:24.000Z",
+      "edit_history_tweet_ids": [
+        "2062886003233157454"
+      ],
+      "id": "2062886003233157454",
+      "public_metrics": {
+        "bookmark_count": 34,
+        "impression_count": 5078,
+        "like_count": 67,
+        "quote_count": 1,
+        "reply_count": 8,
+        "retweet_count": 2
+      },
+      "text": "Com o objetivo de mostrar que estamos tentando construir algo sério, fiz um estudo (um whitepaper?) pra responder a seguinte pergunta: 'O Jusratio reduz a alucinação de citações na pesquisa de jurisprudência? Peguei 3 IAs: GPT-5.5, Gemini 3.1 Pro e Claude Opus 4.8.  Fiz 36",
+      "url": "https://x.com/CarlosR26271158/status/2062886003233157454"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-22T23:02:42.000Z",
+      "edit_history_tweet_ids": [
+        "2102534079115624787"
+      ],
+      "id": "2102534079115624787",
+      "public_metrics": {
+        "bookmark_count": 13,
+        "impression_count": 254847,
+        "like_count": 49,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 5
+      },
+      "text": "A @iajusbr (https://t.co/O2yMaWquPZ) já ultrapassou 1.600 usuários, e seguimos ampliando as formas de acessar pesquisa jurídica brasileira diretamente dos modelos e ferramentas de IA que as pessoas já utilizam.\n\nHoje, reunimos mais de 32 milhões de decisões judiciais e",
+      "url": "https://x.com/rafaelobitten/status/2102534079115624787"
+    },
+    {
+      "author_id": "1046055100345700352",
+      "created_at": "2026-02-18T13:08:15.000Z",
+      "edit_history_tweet_ids": [
+        "2024108702811247001"
+      ],
+      "id": "2024108702811247001",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 60,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "TRT-2 multou empresa por usar jurisprudência inventada por IA. Estagiários fizeram pesquisa com ChatGPT, não conferiram, e citaram decisões que não existem. Resultado: litigância de má-fé + ofício à OAB. IA acelera, mas não substitui a conferência. https://t.co/4Zr1ndFjZt",
+      "url": "https://x.com/martins_piton/status/2024108702811247001"
+    },
+    {
+      "author_id": "1256352543082516481",
+      "created_at": "2026-05-06T18:00:49.000Z",
+      "edit_history_tweet_ids": [
+        "2052086195015012680"
+      ],
+      "id": "2052086195015012680",
+      "in_reply_to_user_id": "2943090245",
+      "public_metrics": {
+        "bookmark_count": 21,
+        "impression_count": 5870,
+        "like_count": 87,
+        "quote_count": 0,
+        "reply_count": 15,
+        "retweet_count": 1
+      },
+      "referenced_tweets": [
+        {
+          "id": "2052083529194881469",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@Serafim_zx Eu concordo em partes.\n\nA dupla ChatGPT + Claude é MUITO boa.\n\nProgramadores dizem que o Claude é realmente muito bom, mas não tenho condições de opinar.\n\nNa questão jurídica: O Claude inventa coisa até hoje OU fala sobre Súmulas desatualizadas do STJ.\n\nNo âmbito jurídico a gente",
+      "url": "https://x.com/joaosenzi/status/2052086195015012680"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-06-23T12:21:03.000Z",
+      "edit_history_tweet_ids": [
+        "2069395307213815848"
+      ],
+      "id": "2069395307213815848",
+      "public_metrics": {
+        "bookmark_count": 48,
+        "impression_count": 880377,
+        "like_count": 95,
+        "quote_count": 1,
+        "reply_count": 6,
+        "retweet_count": 7
+      },
+      "text": "Você conhece a IAjus?\n\nA nova plataforma de inteligência jurídica brasileira, com uso eficiente e responsável de IA no Direito.\n\nJá são mais de 16 milhões de jurisprudências coletadas de órgãos judiciais e administrativos, com cobertura principal de 2013 a 2026*.\n\nTambém temos",
+      "url": "https://x.com/rafaelobitten/status/2069395307213815848"
+    },
+    {
+      "author_id": "68553457",
+      "created_at": "2025-06-24T22:06:59.000Z",
+      "edit_history_tweet_ids": [
+        "1937633577535172948"
+      ],
+      "id": "1937633577535172948",
+      "in_reply_to_user_id": "467951681",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 108,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1937624253907501473",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@caiocezarfp Caio, entendo a sua colocação. No meu exemplo, porém, eu quis demonstrar uma das vantagens mais notáveis da IA: poder variar livremente os termos e até o idioma na busca sem perder relevância nos resultados. A BUSCA SEMÂNTICA se apoia no significado, não só nas palavras, e por https://t.co/YCAJyVOtc3",
+      "url": "https://x.com/joaoli13/status/1937633577535172948"
+    },
+    {
+      "author_id": "2732951051",
+      "created_at": "2026-04-29T22:01:05.000Z",
+      "edit_history_tweet_ids": [
+        "2049609944224428400"
+      ],
+      "id": "2049609944224428400",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 198,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "1/8\nAdvogado tá sendo multado por causa de IA que inventa jurisprudência.\nE o juiz não tá mais relevando. Tá oficiando direto pra OAB.\n\n2/8\nCaso recente TJRJ: citou acórdão do STJ que simplesmente não existia.\nResultado? Ofício pra OAB \"para as providências cabíveis\". Isso é o",
+      "url": "https://x.com/vonealex/status/2049609944224428400"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-07-19T13:31:01.000Z",
+      "edit_history_tweet_ids": [
+        "2078834999466291258"
+      ],
+      "id": "2078834999466291258",
+      "public_metrics": {
+        "bookmark_count": 24,
+        "impression_count": 761916,
+        "like_count": 81,
+        "quote_count": 0,
+        "reply_count": 4,
+        "retweet_count": 5
+      },
+      "text": "Uma das partes mais interessantes de construir a IAJus tem sido poder reunir minha experiência como Cientista de Dados e Especialista em IA com minha segunda formação em Direito.\n\nProjetar uma base jurídica exige muito mais do que simplesmente coletar documentos. A forma como os",
+      "url": "https://x.com/rafaelobitten/status/2078834999466291258"
+    },
+    {
+      "author_id": "2732951051",
+      "created_at": "2026-04-28T22:00:06.000Z",
+      "edit_history_tweet_ids": [
+        "2049247309918278018"
+      ],
+      "id": "2049247309918278018",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 113,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "1/10\n2026 não vai acabar com advogado.\nVai acabar com o advogado mediano.\nDe um lado: quem ainda copia prompt do ChatGPT e torce.\nDo outro: quem domina IA e fatura pesado.\nQual time você tá, mediano ou elite? 👇\n\n2/10\n77% dos advogados já usam IA.\nSó 18% sabem usar de verdade.\nO",
+      "url": "https://x.com/vonealex/status/2049247309918278018"
+    },
+    {
+      "author_id": "127345264",
+      "created_at": "2025-05-29T20:14:02.000Z",
+      "edit_history_tweet_ids": [
+        "1928183070781235354"
+      ],
+      "id": "1928183070781235354",
+      "in_reply_to_user_id": "55875560",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 55,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1928181273870180506",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@paulobaccarat EXATO!\nEu eu já cheguei a testar o chat com coisas que eu sabia e ele dá o conceito correto mas ele cita um jurisprudência que fala de outra coisa. \nNão é uma IA para pesquisa o CHAT, vc pega o PERPLEXITY Claude e Gemini e ali sim pesquisam e te dão fontes bem melhores.",
+      "url": "https://x.com/natasc_/status/1928183070781235354"
+    },
+    {
+      "author_id": "1092201074226798592",
+      "created_at": "2026-09-03T18:34:08.000Z",
+      "edit_history_tweet_ids": [
+        "2095581123375944187"
+      ],
+      "id": "2095581123375944187",
+      "public_metrics": {
+        "bookmark_count": 81,
+        "impression_count": 234953,
+        "like_count": 124,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 4
+      },
+      "text": "A IAJUS agora faz parte do Diretório de Plugins do ChatGPT e do ChatGPT Work.\n\nÉ o primeiro plugin de pesquisa jurídica voltado ao Direito brasileiro disponibilizado no catálogo público do ChatGPT para os usuários, levando nossa inteligência jurídica diretamente para uma das https://t.co/KZ21bfupxG",
+      "url": "https://x.com/rafaelobitten/status/2095581123375944187"
+    },
+    {
+      "author_id": "2883989159",
+      "created_at": "2025-04-15T01:17:30.000Z",
+      "edit_history_tweet_ids": [
+        "1911951987156910487"
+      ],
+      "id": "1911951987156910487",
+      "in_reply_to_user_id": "1564061601933795328",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 50,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "referenced_tweets": [
+        {
+          "id": "1911929911885144279",
+          "type": "replied_to"
+        }
+      ],
+      "text": "@cabocomarajoar1 @Gayaliz_ Costumo dividir tudo em espaços, de acordo com áreas da minha vida: pessoal, profissional, concursos e programação.\n\nNos modos de pesquisa, uso o modo Pro pra buscas rápidas, e o modo de pesquisa profunda quando o tema exige mais profundidade — apesar de demorar um pouco mais.",
+      "url": "https://x.com/GatoMaconhado_/status/1911951987156910487"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Com o Jusratio, Claude e ChatGPT pesquisam jurisprudência e legislação para explorar teses, antecipar contrapontos e construir respostas jurídicas de qualidade.",
+        "id": "2055250851644489728",
+        "name": "Jusratio +Inteligência jurídica para sua IA",
+        "public_metrics": {
+          "followers_count": 1104,
+          "following_count": 32,
+          "like_count": 68,
+          "listed_count": 3,
+          "media_count": 8,
+          "tweet_count": 36
+        },
+        "username": "jusratio"
+      },
+      {
+        "description": "inteligente artificial\nTransforme qualquer LLM genérico num especialista em direito em https://t.co/rRGCCB3Rmb",
+        "id": "1745889464109477888",
+        "name": "carlos, o estressado",
+        "public_metrics": {
+          "followers_count": 3229,
+          "following_count": 251,
+          "like_count": 14427,
+          "listed_count": 7,
+          "media_count": 411,
+          "tweet_count": 5978
+        },
+        "username": "CarlosR26271158"
+      },
+      {
+        "description": "👨🏻‍💼Defensor Público, 🏫Mestre em Direito e 👨🏻‍🏫 Professor",
+        "id": "1046055100345700352",
+        "name": "Marcelo Martins Piton",
+        "public_metrics": {
+          "followers_count": 211,
+          "following_count": 575,
+          "like_count": 3582,
+          "listed_count": 0,
+          "media_count": 445,
+          "tweet_count": 1227
+        },
+        "username": "martins_piton"
+      },
+      {
+        "description": "Advogado. Criador do Síntese Criminal e do Habias. Mineiro. UFF.",
+        "id": "548625382",
+        "name": "Hebert Freitas 🔎",
+        "public_metrics": {
+          "followers_count": 9552,
+          "following_count": 709,
+          "like_count": 9746,
+          "listed_count": 26,
+          "media_count": 2244,
+          "tweet_count": 13786
+        },
+        "username": "freitashebert_"
+      },
+      {
+        "description": "Computer Scientist | Data Scientist & AI Specialist| Law Degree| \n\nCodex Ambassador 🇧🇷 \n\nBuilding IAJUS (Pesquisa Jurídica) - https://t.co/hk1Jn28DRH ⚖️",
+        "id": "1092201074226798592",
+        "name": "Rafael Bittencourt",
+        "public_metrics": {
+          "followers_count": 2141,
+          "following_count": 1785,
+          "like_count": 1240,
+          "listed_count": 24,
+          "media_count": 427,
+          "tweet_count": 3974
+        },
+        "username": "rafaelobitten"
+      },
+      {
+        "description": "Casado. Pai. Vascaíno.\nMovido à doses cavalares de ironia e indignação (não em todos os meus posts, claro)",
+        "id": "1578936409104289792",
+        "name": "Bernardo 💢⚖️📈🇻🇦🥁",
+        "public_metrics": {
+          "followers_count": 1813,
+          "following_count": 2133,
+          "like_count": 34752,
+          "listed_count": 0,
+          "media_count": 615,
+          "tweet_count": 11379
+        },
+        "username": "RealBernardoSC"
+      },
+      {
+        "description": "Advogado de Influenciadores, Streamers e Youtubers - Direito Digital e Proteção de Dados - Ex-secretário geral de comissão LGBT da OAB/CE\n\n日本語の学生です。",
+        "id": "1256352543082516481",
+        "name": "João de Senzi",
+        "public_metrics": {
+          "followers_count": 68282,
+          "following_count": 1989,
+          "like_count": 10479,
+          "listed_count": 33,
+          "media_count": 1252,
+          "tweet_count": 11312
+        },
+        "username": "joaosenzi"
+      },
+      {
+        "description": "PhD Law; PhD Info Sci; MSc SW Eng; Bridging AI, BI, Legal Theory, and (Comp) Ontology. Innovator in Legimatics and Legistics. Passionate about the Phil of Law",
+        "id": "68553457",
+        "name": "João Lima",
+        "public_metrics": {
+          "followers_count": 7345,
+          "following_count": 4787,
+          "like_count": 15018,
+          "listed_count": 44,
+          "media_count": 4759,
+          "tweet_count": 13547
+        },
+        "username": "joaoli13"
+      },
+      {
+        "description": "Advogado, Mestre,  Founder Nexo Tecnologia. Flamenguista roxo. Aqui eu falo de tecnologia, Flamengo e o que vier na minha cabeça, não se estresse rs",
+        "id": "2732951051",
+        "name": "Alexander Braz",
+        "public_metrics": {
+          "followers_count": 148,
+          "following_count": 559,
+          "like_count": 6756,
+          "listed_count": 0,
+          "media_count": 37,
+          "tweet_count": 1332
+        },
+        "username": "vonealex"
+      },
+      {
+        "description": "I was born already old and without patience, Benjamin Button style only that mental and without the bonus of actually getting old and turning into Brad Pitt.",
+        "id": "127345264",
+        "name": "Nat 🦖💉¯\\_(ツ)_/¯",
+        "public_metrics": {
+          "followers_count": 1049,
+          "following_count": 3495,
+          "like_count": 94533,
+          "listed_count": 23,
+          "media_count": 8363,
+          "tweet_count": 204428
+        },
+        "username": "natasc_"
+      },
+      {
+        "description": "𝑼𝒎 𝒊𝒅𝒊𝒐𝒕𝒂 𝒒𝒖𝒆 𝒄𝒉𝒆𝒈𝒐𝒖 𝒂𝒐 𝒄𝒐𝒏𝒉𝒆𝒄𝒊𝒎𝒆𝒏𝒕𝒐 𝒑𝒐𝒓 𝒄𝒂𝒎𝒊𝒏𝒉𝒐𝒔 𝒊𝒎𝒃𝒆𝒄𝒊𝒔",
+        "id": "2883989159",
+        "name": "SherlockRamos 🚭 #PO",
+        "public_metrics": {
+          "followers_count": 3160,
+          "following_count": 1223,
+          "like_count": 56086,
+          "listed_count": 19,
+          "media_count": 5441,
+          "tweet_count": 66009
+        },
+        "username": "GatoMaconhado_"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2102534079115624787",
+    "oldest_id": "1911951987156910487",
+    "result_count": 25
+  }
+}

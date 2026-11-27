@@ -1,0 +1,777 @@
+{
+  "data": [
+    {
+      "author_id": "1805226711945977856",
+      "created_at": "2026-06-06T01:56:12.000Z",
+      "edit_history_tweet_ids": [
+        "2063077466558648512"
+      ],
+      "id": "2063077466558648512",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 4,
+        "impression_count": 538,
+        "like_count": 6,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 1
+      },
+      "text": "Eu não deixo de ficar impressionado com o Claude e com as possibilidades que o ~vibe coding~ proporciona. Dá pra resolver muitos gargalos diários com um pouco de criatividade.  \n\nUma coisa que me torra a paciência é ter que coletar conversa de whatsapp como prova documental. O https://t.co/ccsBG7HglE",
+      "url": "https://x.com/igornicolodi1/status/2063077466558648512"
+    },
+    {
+      "author_id": "87695909",
+      "created_at": "2026-09-24T01:27:24.000Z",
+      "edit_history_tweet_ids": [
+        "2102932882079576525"
+      ],
+      "id": "2102932882079576525",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 24,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Hoje recebi um decisão positiva em um processo. Fiz a defesa sem advogado e usei o Claude Code para petição. \n\nO mundo esta mudando. E vai ser mais rapido que vocês imaginam. Advogado vai virar peça de museu.",
+      "url": "https://x.com/orafagrana/status/2102932882079576525"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-03-05T17:30:46.000Z",
+      "edit_history_tweet_ids": [
+        "2029610584573178038"
+      ],
+      "id": "2029610584573178038",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 71,
+        "impression_count": 12618,
+        "like_count": 203,
+        "quote_count": 0,
+        "reply_count": 10,
+        "retweet_count": 3
+      },
+      "text": "Hoje usei o Claude na versão gratuita para testar e gostei bem do parecer que ele forneceu. Bem caprichado e em formato Word, com tudo detalhado. Quadro com dados das partes, Comarca, número do processo e outros. Vou usar mais vezes para comparar com os outros. O único pago que",
+      "url": "https://x.com/marcusaraujobhz/status/2029610584573178038"
+    },
+    {
+      "author_id": "1665984422267453440",
+      "created_at": "2026-02-26T20:39:57.000Z",
+      "edit_history_tweet_ids": [
+        "2027121478999945259"
+      ],
+      "id": "2027121478999945259",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 260,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Depois, pedi ao Claude para puxar o documento de overview do cliente no Notion.\n\nEle fez exatamente a mesma coisa. https://t.co/fe7d4YqD7n",
+      "url": "https://x.com/MartinsJoa_/status/2027121478999945259"
+    },
+    {
+      "author_id": "29437870",
+      "created_at": "2025-06-12T23:11:07.000Z",
+      "edit_history_tweet_ids": [
+        "1933301066663088138"
+      ],
+      "id": "1933301066663088138",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 6,
+        "impression_count": 924,
+        "like_count": 16,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 2
+      },
+      "text": "Novo episódio no ar!\n\nImplementei do zero uma API de envio de e-mails com carregamento dinâmico de provedores, definidos por cliente.\n\nUsei o Claude Code, reflection e dei umas boas escorregadas também. \n\nNaquele estilo raiz, sem cortes. \n\nhttps://t.co/2XtB6ljpn0",
+      "url": "https://x.com/alberto_souza/status/1933301066663088138"
+    },
+    {
+      "author_id": "12244282",
+      "created_at": "2026-01-31T20:19:21.000Z",
+      "edit_history_tweet_ids": [
+        "2017694212641157282"
+      ],
+      "id": "2017694212641157282",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 54,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "O processo foi um experimento de eficiência: usei o Claude para o UI design e o Spec Kit para estruturar o projeto. \n\nQuase não mexi no código que a IA gerou, e no final o resultado foi bem legal https://t.co/aBwTSOmBU3",
+      "url": "https://x.com/guilhermeloyola/status/2017694212641157282"
+    },
+    {
+      "author_id": "341008569",
+      "created_at": "2026-07-17T21:09:17.000Z",
+      "edit_history_tweet_ids": [
+        "2078225549017690146"
+      ],
+      "id": "2078225549017690146",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 777,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Pedi pro Claude criar uma questão discursiva pra eu usar de simulado e ele pediu pra eu fazer uma petição inicial de um pedido de pensão pra uma criança de 6 meses cujo o pai está sumido há 3 anos 🤡🤡🤡🤡",
+      "url": "https://x.com/LukasDurant/status/2078225549017690146"
+    },
+    {
+      "author_id": "1589769432594878464",
+      "created_at": "2026-03-24T22:11:09.000Z",
+      "edit_history_tweet_ids": [
+        "2036566516460621904"
+      ],
+      "id": "2036566516460621904",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 39,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Usei o claude para criar uma Landing Page e ficou muito boa. Fiquei surpreso com a economia que as IAs podem trazer para a jovem advocacia iniciar no mundo digital!",
+      "url": "https://x.com/constifluicao/status/2036566516460621904"
+    },
+    {
+      "author_id": "1939648463152508928",
+      "created_at": "2026-06-11T14:52:45.000Z",
+      "edit_history_tweet_ids": [
+        "2065084830467907669"
+      ],
+      "id": "2065084830467907669",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 62,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Usei o Claude AI pela primeira vez pra fazer um documento orientando clientes com renda mais baixa a como entrar com processo pela Defensoria e to meio surpreso",
+      "url": "https://x.com/DearestFate/status/2065084830467907669"
+    },
+    {
+      "author_id": "1728896646589648896",
+      "created_at": "2026-04-09T17:21:15.000Z",
+      "edit_history_tweet_ids": [
+        "2042291763881107795"
+      ],
+      "id": "2042291763881107795",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 42,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Velho, só pedi pro Claude analisar uma atividade de processo penal e ele me veio com uma denúncia criminal feita em WORD, com os tópicos todos bonitinhos\n\nDiabólico",
+      "url": "https://x.com/redpadretz/status/2042291763881107795"
+    },
+    {
+      "author_id": "104970758",
+      "created_at": "2026-05-09T17:23:54.000Z",
+      "edit_history_tweet_ids": [
+        "2053164067863265535"
+      ],
+      "id": "2053164067863265535",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 473,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "eu depois q eu usei o claude!!!! ele analisou extratos de um jeito.... e fazendo minuta, o ruim desse ia q ele deveria ser mais específico nos gastos, vc nunca sabe direito o tanto q ta gastando e ate o plano pago acaba rápido https://t.co/9Mq6JQYTUT",
+      "url": "https://x.com/bratcook/status/2053164067863265535"
+    },
+    {
+      "author_id": "104970758",
+      "created_at": "2026-05-11T19:52:34.000Z",
+      "edit_history_tweet_ids": [
+        "2053926258774356424"
+      ],
+      "id": "2053926258774356424",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 1,
+        "impression_count": 297,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@CarlosR26271158 @tatianeproriadv usei o claude essa semana a parte gratuita e fiquei boba com a minuta q ele fez de resumo de extrato bancario me ajudou mto vi q ele renomeia ate seus arquivos do note, quero ver vídeo do codex como é bom usar e etc",
+      "url": "https://x.com/bratcook/status/2053926258774356424"
+    },
+    {
+      "author_id": "3384666094",
+      "created_at": "2026-08-20T23:39:17.000Z",
+      "edit_history_tweet_ids": [
+        "2090584486983377276"
+      ],
+      "id": "2090584486983377276",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 193,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Estava procurando uma fonte parecida com a que o cliente gostaria pra marca dele e pedi pro Claude me ajudar a achar. Simplesmente criou um HTML de comparação onde eu conseguia escrever a frase, aumentar, como se fossse um google fonts kkkkk",
+      "url": "https://x.com/caiaop_/status/2090584486983377276"
+    },
+    {
+      "author_id": "2025005585419436032",
+      "created_at": "2026-06-13T03:31:53.000Z",
+      "edit_history_tweet_ids": [
+        "2065638260148203579"
+      ],
+      "id": "2065638260148203579",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 34,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Eu uso o Claude todo dia pra ganhar dinheiro. E quem ainda não tá usando tá literalmente deixando dinheiro na mesa. \nCopywriting, código, atendimento ao cliente, proposta comercial, análise de contrato, roteiro de vídeo, estratégia de marketing.\n\n#ia https://t.co/JYkKDqnNhL",
+      "url": "https://x.com/NaLataaa/status/2065638260148203579"
+    },
+    {
+      "author_id": "2448192476",
+      "created_at": "2026-06-02T13:37:38.000Z",
+      "edit_history_tweet_ids": [
+        "2061804434330444089"
+      ],
+      "id": "2061804434330444089",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 85,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "Que odio q eu tenho de freela terceirizado:\n\nFiz o layout e copy do site perfeitamente alinhados com o briefing da cliente, usei o Claude pra criar a copy e ela saiu perfeitamente natural.\n\nAi o cliente em vez de mandar pra aprovação, disse que ia \"refinar\" a copy (+)",
+      "url": "https://x.com/LucasdaFro/status/2061804434330444089"
+    },
+    {
+      "author_id": "1049425363301007361",
+      "created_at": "2026-03-25T15:37:32.000Z",
+      "edit_history_tweet_ids": [
+        "2036829845389279668"
+      ],
+      "id": "2036829845389279668",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 11,
+        "impression_count": 4242,
+        "like_count": 23,
+        "quote_count": 1,
+        "reply_count": 2,
+        "retweet_count": 0
+      },
+      "text": "Oq acontece se eu conectar meu MCP do Himetrica + MCP do Resend?\n\nPedi pro claude buscar um cliente no Himetrica, escrever um email personalizado de agradecimento com cupom de 40% off e enviar via Resend.\n\nTudo em menos de 1 minuto https://t.co/j8uyP9wzX6",
+      "url": "https://x.com/wescld/status/2036829845389279668"
+    },
+    {
+      "author_id": "1070143836758908929",
+      "created_at": "2026-06-22T16:10:09.000Z",
+      "edit_history_tweet_ids": [
+        "2069090576318816407"
+      ],
+      "id": "2069090576318816407",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 89,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@farmDev79 E o pior: galera acha que se a i.a falou, é fácil fazer.\n\nEu fico p*to quando cliente manda o que ele quer em um PDF  pelo Claude. E ainda fala \"pedi pro Claude fazer pra ficar mais fácil\". Aí tu vai ver, o que o Claude criou n faz sentido algum ou o orçamento do cliente n bate.",
+      "url": "https://x.com/mappellemartim/status/2069090576318816407"
+    },
+    {
+      "author_id": "2053864546314444800",
+      "created_at": "2026-06-03T23:30:56.000Z",
+      "edit_history_tweet_ids": [
+        "2062316132141294062"
+      ],
+      "id": "2062316132141294062",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 49,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "to enfrentando um problema de gerenciamento de sessão no n8n; quando o cliente comeca uma nova conversa o bot fica todo confuso sobre pra onde ir, ora diz que não tem agendamento ali, ora recomeça tudo do zero...\n\nai pedi pro claude trazer sugestões de como remediar pq parece um",
+      "url": "https://x.com/alaisadev/status/2062316132141294062"
+    },
+    {
+      "author_id": "14283599",
+      "created_at": "2026-07-09T20:42:46.000Z",
+      "edit_history_tweet_ids": [
+        "2075319775308263566"
+      ],
+      "id": "2075319775308263566",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 27,
+        "like_count": 1,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "@appariciojunior No fim, pedi pro Claude documentar todos os padrões do processo em uma nova skill para continuidade do trabalho via agentes do próprio figma. Deu trabalho, mas tá funcionado razoavelmente bem.. nã romântico rs\nMas da pra seguir evoluindo ao meu ver! Tô curtindo o resultado.",
+      "url": "https://x.com/Leo_Manifesto/status/2075319775308263566"
+    },
+    {
+      "author_id": "1388285536285118470",
+      "created_at": "2026-02-28T14:05:16.000Z",
+      "edit_history_tweet_ids": [
+        "2027746929296236980"
+      ],
+      "id": "2027746929296236980",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 39,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@RomulodeSa26670 @Gabriel2052 Usei o Claude e o Gemini Pro. \n\nA IA precisava interpretar os termos de uma sentença que foi reformada por um acórdão e também precisava observar os termos de um contrato.\n\nColei os trechos principais destes documentos, expliquei os critérios objetivos (índice de cm, juros e etc)",
+      "url": "https://x.com/b_descalante/status/2027746929296236980"
+    },
+    {
+      "author_id": "1576731596845088770",
+      "created_at": "2026-08-08T14:41:05.000Z",
+      "edit_history_tweet_ids": [
+        "2086100389552595397"
+      ],
+      "id": "2086100389552595397",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 93,
+        "like_count": 3,
+        "quote_count": 0,
+        "reply_count": 0,
+        "retweet_count": 0
+      },
+      "text": "Montei o processo junto com o Claude agora só falta um advogato para revisar a petição",
+      "url": "https://x.com/bielmar18_/status/2086100389552595397"
+    },
+    {
+      "author_id": "2382886094",
+      "created_at": "2026-02-27T23:18:52.000Z",
+      "edit_history_tweet_ids": [
+        "2027523859683914082"
+      ],
+      "id": "2027523859683914082",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 23,
+        "like_count": 2,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@Komenios Cara, eu usei o Claude para fazer uma análise de um contrato complexo e foi muito bom. Q ferramenta incrível, discriminou todas as cláusulas e seus riscos e deixou tudo pronto em tabela, com planilhas para comparar e com minutas de cláusulas. É um caminho sem volta",
+      "url": "https://x.com/suzukjuts/status/2027523859683914082"
+    },
+    {
+      "author_id": "1255874155792216070",
+      "created_at": "2025-10-16T12:36:15.000Z",
+      "edit_history_tweet_ids": [
+        "1978802168162287874"
+      ],
+      "id": "1978802168162287874",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 0,
+        "impression_count": 121,
+        "like_count": 0,
+        "quote_count": 0,
+        "reply_count": 1,
+        "retweet_count": 0
+      },
+      "text": "@AntonioBWingert @lincolixavier @sseraphini To pensando nele também.\n\nEu uso o Claude Code no cliente e funciona muito bem, mas no pessoal queria testar outras ferramentas",
+      "url": "https://x.com/ferreiracoder/status/1978802168162287874"
+    },
+    {
+      "author_id": "56238251",
+      "created_at": "2026-09-23T22:46:54.000Z",
+      "edit_history_tweet_ids": [
+        "2102892491934413275"
+      ],
+      "id": "2102892491934413275",
+      "lang": "pt",
+      "public_metrics": {
+        "bookmark_count": 19,
+        "impression_count": 7088,
+        "like_count": 144,
+        "quote_count": 0,
+        "reply_count": 18,
+        "retweet_count": 1
+      },
+      "text": "Hoje usei o Claude Opus 5.5 no plano pro e só para incluir uns ajustes em uma petição anterior que eu conferi, foram consumidos 56% do uso. Ou bebe mais que Opala 4.100 6 cilindros, ou estou usando do modo errado. No final deu tudo certo, mas achei beberão. \\0/ https://t.co/fQpE4ru6mC",
+      "url": "https://x.com/marcusaraujobhz/status/2102892491934413275"
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "description": "Advogado formado pela UFRGS\n▪️Direito, cripto e tech\n▪️Atendimento on-line para todo o Brasil",
+        "id": "1805226711945977856",
+        "name": "igornicolodi1",
+        "public_metrics": {
+          "followers_count": 232,
+          "following_count": 161,
+          "like_count": 223,
+          "listed_count": 0,
+          "media_count": 26,
+          "tweet_count": 141
+        },
+        "username": "igornicolodi1"
+      },
+      {
+        "description": "",
+        "id": "87695909",
+        "name": "Rafa",
+        "public_metrics": {
+          "followers_count": 379,
+          "following_count": 149,
+          "like_count": 6938,
+          "listed_count": 5,
+          "media_count": 1729,
+          "tweet_count": 14726
+        },
+        "username": "orafagrana"
+      },
+      {
+        "description": "Advogado com graduação em Direito e Filosofia pela PUC MINAS. Meio contador e avô. Sempre no trecho entre Belo Horizonte e a chácara em Bom Despacho-MG com a @.",
+        "id": "56238251",
+        "name": "Marcus Vinicius de Araújo",
+        "public_metrics": {
+          "followers_count": 5573,
+          "following_count": 4090,
+          "like_count": 63010,
+          "listed_count": 10,
+          "media_count": 5060,
+          "tweet_count": 35245
+        },
+        "username": "marcusaraujobhz"
+      },
+      {
+        "description": "🤖 Apaixonado por IA e entusiasta de ganhar dinheiro online 💰.",
+        "id": "1665984422267453440",
+        "name": "IA João",
+        "public_metrics": {
+          "followers_count": 116623,
+          "following_count": 216,
+          "like_count": 14674,
+          "listed_count": 1023,
+          "media_count": 5251,
+          "tweet_count": 10729
+        },
+        "username": "MartinsJoa_"
+      },
+      {
+        "description": "Criador do ecossistema Dev + Eficiente e Especialista em Engenharia de Educação e Software no Nubank. Invisto muito tempo com minha família e adoro esportes.",
+        "id": "29437870",
+        "name": "Alberto Souza",
+        "public_metrics": {
+          "followers_count": 5876,
+          "following_count": 470,
+          "like_count": 2274,
+          "listed_count": 89,
+          "media_count": 553,
+          "tweet_count": 5635
+        },
+        "username": "alberto_souza"
+      },
+      {
+        "description": "to aqui há mais tempo q eu imaginei",
+        "id": "12244282",
+        "name": "Guilherme",
+        "public_metrics": {
+          "followers_count": 838,
+          "following_count": 768,
+          "like_count": 56629,
+          "listed_count": 10,
+          "media_count": 2784,
+          "tweet_count": 36179
+        },
+        "username": "guilhermeloyola"
+      },
+      {
+        "description": "Insta: https://t.co/KZ3jG1gbMg",
+        "id": "341008569",
+        "name": "Lucas Souto",
+        "public_metrics": {
+          "followers_count": 464,
+          "following_count": 461,
+          "like_count": 61248,
+          "listed_count": 0,
+          "media_count": 722,
+          "tweet_count": 9528
+        },
+        "username": "LukasDurant"
+      },
+      {
+        "description": "",
+        "id": "1589769432594878464",
+        "name": "Leandro De Deus",
+        "public_metrics": {
+          "followers_count": 5,
+          "following_count": 125,
+          "like_count": 326,
+          "listed_count": 0,
+          "media_count": 4,
+          "tweet_count": 332
+        },
+        "username": "constifluicao"
+      },
+      {
+        "description": "“Adevogado”\n🇧🇷",
+        "id": "1939648463152508928",
+        "name": "Méfiuus",
+        "public_metrics": {
+          "followers_count": 92,
+          "following_count": 55,
+          "like_count": 12811,
+          "listed_count": 0,
+          "media_count": 789,
+          "tweet_count": 10740
+        },
+        "username": "DearestFate"
+      },
+      {
+        "description": "Mais um arquivo digital – para a posterioridade",
+        "id": "1728896646589648896",
+        "name": "Mateus",
+        "public_metrics": {
+          "followers_count": 78,
+          "following_count": 316,
+          "like_count": 79525,
+          "listed_count": 0,
+          "media_count": 49,
+          "tweet_count": 1171
+        },
+        "username": "redpadretz"
+      },
+      {
+        "description": "• books • botafogo • liverpool • mangas • animes",
+        "id": "104970758",
+        "name": "gio 🪕 just a gnome with a banjo",
+        "public_metrics": {
+          "followers_count": 9895,
+          "following_count": 4872,
+          "like_count": 625832,
+          "listed_count": 57,
+          "media_count": 19275,
+          "tweet_count": 246149
+        },
+        "username": "bratcook"
+      },
+      {
+        "description": "Product Designer & Product Manager | UX, Product Strategy & AI",
+        "id": "3384666094",
+        "name": "Caião",
+        "public_metrics": {
+          "followers_count": 4395,
+          "following_count": 1421,
+          "like_count": 31567,
+          "listed_count": 5,
+          "media_count": 4188,
+          "tweet_count": 39737
+        },
+        "username": "caiaop_"
+      },
+      {
+        "description": "They taught you how to work.\nNo one taught you how to build wealth.\nThat’s what I do here.",
+        "id": "2025005585419436032",
+        "name": "haga",
+        "public_metrics": {
+          "followers_count": 37,
+          "following_count": 48,
+          "like_count": 3,
+          "listed_count": 0,
+          "media_count": 6,
+          "tweet_count": 51
+        },
+        "username": "NaLataaa"
+      },
+      {
+        "description": "22 anos🍇 Web Design🍇 Diretor entendido do assunto🍇 Framer🍇 Um pouco da minha vida pessoal🍇& memes de baixo nível🍇 Eu tenho um canal no YouTube",
+        "id": "2448192476",
+        "name": "Lucas 🌸",
+        "public_metrics": {
+          "followers_count": 846,
+          "following_count": 719,
+          "like_count": 202637,
+          "listed_count": 6,
+          "media_count": 8651,
+          "tweet_count": 63210
+        },
+        "username": "LucasdaFro"
+      },
+      {
+        "description": "1x exit. +7 products live.\nbuilding @himetrica and https://t.co/KBBrju1ymF\n\nplay @rushbonline",
+        "id": "1049425363301007361",
+        "name": "Wesley",
+        "public_metrics": {
+          "followers_count": 2526,
+          "following_count": 302,
+          "like_count": 14259,
+          "listed_count": 9,
+          "media_count": 593,
+          "tweet_count": 6059
+        },
+        "username": "wescld"
+      },
+      {
+        "description": "construo uns apps aí e resolvo bug que não existe",
+        "id": "1070143836758908929",
+        "name": "gabriel",
+        "public_metrics": {
+          "followers_count": 88,
+          "following_count": 202,
+          "like_count": 5694,
+          "listed_count": 0,
+          "media_count": 2016,
+          "tweet_count": 18240
+        },
+        "username": "mappellemartim"
+      },
+      {
+        "description": "software engineer 👩🏾‍💻 tech & ia",
+        "id": "2053864546314444800",
+        "name": "lala 💻",
+        "public_metrics": {
+          "followers_count": 141,
+          "following_count": 221,
+          "like_count": 1662,
+          "listed_count": 0,
+          "media_count": 29,
+          "tweet_count": 683
+        },
+        "username": "alaisadev"
+      },
+      {
+        "description": "Cristão ⚡ UX Designer\n🔸 Marido da Bel, Papai da Maitê e do Bernardo.",
+        "id": "14283599",
+        "name": "Leonardo Ribeiro",
+        "public_metrics": {
+          "followers_count": 422,
+          "following_count": 467,
+          "like_count": 765,
+          "listed_count": 2,
+          "media_count": 129,
+          "tweet_count": 10050
+        },
+        "username": "Leo_Manifesto"
+      },
+      {
+        "description": "Bebe tu mesmo do teu veneno. ⚖️",
+        "id": "1388285536285118470",
+        "name": "Atropelei o Kayky Brito, mas fiquei pra ajudar",
+        "public_metrics": {
+          "followers_count": 66,
+          "following_count": 325,
+          "like_count": 1477,
+          "listed_count": 1,
+          "media_count": 754,
+          "tweet_count": 2703
+        },
+        "username": "b_descalante"
+      },
+      {
+        "description": "Mais um gay reclamando da vida, falando de música pop, treino ou será que isso tudo é verdade?",
+        "id": "1576731596845088770",
+        "name": "Gabriel",
+        "public_metrics": {
+          "followers_count": 3668,
+          "following_count": 924,
+          "like_count": 49404,
+          "listed_count": 3,
+          "media_count": 1523,
+          "tweet_count": 15131
+        },
+        "username": "bielmar18_"
+      },
+      {
+        "description": "Extra Ecclesiam nulla salus",
+        "id": "2382886094",
+        "name": "Apenas um católico",
+        "public_metrics": {
+          "followers_count": 245,
+          "following_count": 492,
+          "like_count": 46502,
+          "listed_count": 0,
+          "media_count": 125,
+          "tweet_count": 6969
+        },
+        "username": "suzukjuts"
+      },
+      {
+        "description": "Senior Software Engineer | JS & Go | @CFerreguetti 💍 Pai da Catarina",
+        "id": "1255874155792216070",
+        "name": "Joe Ferreira",
+        "public_metrics": {
+          "followers_count": 1145,
+          "following_count": 1319,
+          "like_count": 13553,
+          "listed_count": 6,
+          "media_count": 210,
+          "tweet_count": 7308
+        },
+        "username": "ferreiracoder"
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "2102932882079576525",
+    "oldest_id": "1933301066663088138",
+    "result_count": 24
+  }
+}
